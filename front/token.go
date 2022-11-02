@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	TOKEN_UNDEFINED           = iota
+	TOKEN_IDENTIFIER           = iota
 	TOKEN_STRING_LITERAL	  = iota
 	TOKEN_INT_LITERAL	  	  = iota
 	
@@ -20,6 +20,7 @@ const (
 	TOKEN_COMMA				  = ',' 
 	TOKEN_SEMICOLON			  = ';' 
 	TOKEN_COLON		  		  = ':' 
+	TOKEN_EQUAL		  		  = '=' 
 	
 	N_TOKENS 				  = iota 
 )
@@ -36,6 +37,7 @@ var characterTokenMap = map[byte]byte {
 	',':		TOKEN_COMMA,
 	';':		TOKEN_SEMICOLON,
 	':':		TOKEN_COLON,
+	'=':		TOKEN_EQUAL,
 }
 
 type Token struct {
@@ -71,7 +73,7 @@ func GetToken(str string) (Token) {
 	if str[0] == '"' {
 		return Token{TOKEN_STRING_LITERAL, 0, 0, 0, 0, 0, str[1:len(str) - 1]}
 	}
-	if str[0] >= 49 && str[0] <= 57 {
+	if str[0] >= 48 && str[0] <= 57 {
 		i, err := strconv.ParseInt(str, 10, 64)
 		if err != nil {
 			// TODO: error: invalid integer literal
@@ -82,5 +84,5 @@ func GetToken(str string) (Token) {
 
 
 
-	return Token{TOKEN_UNDEFINED, 0, 0, 0, 0, 0, str}
+	return Token{TOKEN_IDENTIFIER, 0, 0, 0, 0, 0, str}
 }

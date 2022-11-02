@@ -26,6 +26,10 @@ func (typ PrimitiveType) BitSize() byte {
 	return 0
 }
 
+func (typ PrimitiveType) ByteSize() byte {
+	return typ.BitSize() / 8
+}
+
 func PrimitiveTypeFromName(typ string) PrimitiveType {
 	for i := 0; i < N_PRIMITIVE_TYPES; i++ {
 		if PrimitiveType(i).Name() == typ {

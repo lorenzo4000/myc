@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"mycgo/front"
 	"mycgo/back/codegen"
+	"mycgo/back/typecheck"
 );
 
 func main() {
@@ -30,9 +31,16 @@ func main() {
 	
 	parser := front.Parser{tokens, 0}
 	ast := parser.Parse()
+	
+	if typecheck.TypeCheck(ast) == nil {
+		fmt.Println("Type Errors: exiting")
+		return 
+	}
+	
 	ast.Print()
 
 
+	codegen.SymbolTableInit()
 	code := codegen.Codegen(ast)
 	code_combined := ".text\n" + code.Code.Text + "\n.data\n" + code.Code.Data
 

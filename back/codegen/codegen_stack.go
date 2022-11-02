@@ -16,7 +16,7 @@ func StackAllocate(size uint32) Stack_Region {
 		CurrentStackSize += 0x10 // C ABI stuff
 	}
 	CurrentAllocatedStack += size
-	return Stack_Region{CurrentStackSize, size}
+	return Stack_Region{CurrentAllocatedStack, size}
 }
 
 func (stack Stack_Region) Allocate() {

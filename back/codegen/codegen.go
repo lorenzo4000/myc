@@ -2,6 +2,8 @@ package codegen
 
 import (
 	"mycgo/front"
+	"fmt"
+	"mycgo/back/datatype"
 )	
 
 type Code struct {
@@ -57,6 +59,11 @@ func (code *Code) Appendln(appendee Code) {
 }
 
 func Codegen(ast *front.Ast_Node) (Codegen_Out) {
+	if ast.Type == front.AST_FUNCTION_DEFINITION_BODY || 
+	   ast.Type == front.AST_HEAD {
+		SymbolScopeStackPush()
+	}
+
 	var children_out []Codegen_Out
 
 	for _, child := range(ast.Children) {
@@ -145,6 +152,58 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				out.Code.TextAppendSln(Instruction(OP_MOV, child_out.Result.LiteralValue(), arg_alloc))
 			}
 			RegisterArgumentFreeAll()
+
+		case front.AST_VARIABLE_DEFINITION: {
+			variable_name := ast.Children[0].Data[0].String_value
+			variable_type := ast.Children[1].DataType
+			var variable_allc Stack_Region
+			
+			_, found := SymbolTableGetInCurrentScope(variable_name)
+
+			if found {
+				fmt.Println("codegen error: `" + variable_name + "` was already declared in this scope")
+				return out
+			}
+
+			switch variable_type.(type) {
+				case datatype.PrimitiveType: 
+					switch variable_type {
+						case datatype.TYPE_INT64:
+							variable_allc = StackAllocate(uint32(variable_type.ByteSize()))
+
+							init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
+							if len(ast.Children) > 2 {
+								out.Code.Appendln(children_out[2].Code)
+								init_value = children_out[2].Result
+							}
+
+							out.Code.TextAppendSln(Instruction(OP_MOV, init_value, variable_allc))
+					}
+			}
+
+			err := SymbolTableInsertInCurrentScope(variable_name, variable_type, variable_allc)
+			if err != nil {
+				fmt.Println(err)	
+				return out
+			}
+		}
+		case front.AST_VARIABLE_NAME: {
+			variable_name := ast.Data[0].String_value
+			symbol, found := SymbolTableGetFromCurrentScope(variable_name)
+
+			if !found {
+				fmt.Println("codegen error: undefined `" + variable_name + "`")
+				return out
+			}
+			var allocation Operand
+			allocation, full := RegisterScratchAllocate()
+			if full {
+				allocation = StackAllocate(uint32(symbol.DataType.ByteSize()))
+			}
+
+			out.Code.TextAppendSln(Instruction(OP_MOV, symbol.Data, allocation))
+			out.Result = allocation
+		}
 	}
 
 	return out

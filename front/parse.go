@@ -28,6 +28,14 @@ func (parser *Parser) CurrentIs(_type byte) (bool) {
 	return !end && next.Type == _type
 }
 
+func (parser *Parser) Peek(n int64) (Token, bool) {
+	if parser.Index + n >= int64(len(parser.Tokens)) {
+		return Token{}, true
+	}
+	return parser.Tokens[parser.Index + n], false
+}
+
+
 func (parser *Parser) Pop() (Token, bool) {
 	if parser.Index >= int64(len(parser.Tokens)) {
 		return Token{}, true
@@ -73,7 +81,7 @@ func (parser *Parser) ParseFunctionCall() (*Ast_Node) {
 	function_call.Type = AST_FUNCTION_CALL
 
 	{
-		next, expect := parser.PopIf(TOKEN_UNDEFINED)
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
 		if expect {
 			parseExpectErrorAt(next, "function name")
 			return nil
@@ -110,7 +118,17 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	curr, end := parser.Current()
 	if !end {
 		switch curr.Type {
-			case TOKEN_UNDEFINED: return parser.ParseFunctionCall()
+			case TOKEN_IDENTIFIER: 
+				{
+					next, end := parser.Peek(1)
+					if !end {
+						switch next.Type {
+							case TOKEN_OPENING_PARENTHESES: return parser.ParseFunctionCall()
+							default: return parser.ParseVariableName()
+						}
+					}
+				}
+				
 			case TOKEN_STRING_LITERAL: 
 				literal := new(Ast_Node)
 				literal.Type = AST_LITERAL
@@ -127,6 +145,23 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	}
 	parseExpectErrorAt(curr, "value or expression")
 	return nil
+}
+
+func (parser *Parser) ParseVariableName() (*Ast_Node) {
+	variable_name := new(Ast_Node)
+	variable_name.Type = AST_VARIABLE_NAME
+					
+	{
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
+		if expect {
+			parseExpectErrorAt(next, "variable name")
+			return nil
+		}
+		variable_name.Data = []Token{next}
+	}
+	
+
+	return variable_name
 }
 
 func (parser *Parser) ParseExpression() (*Ast_Node) {
@@ -194,7 +229,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_UNDEFINED)
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
 		if expect {
 			parseExpectErrorAt(next, "function name")
 			return nil
@@ -259,7 +294,7 @@ func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_UNDEFINED)
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
 		if expect {
 			parseExpectErrorAt(next, "variable name")
 			return nil
@@ -272,7 +307,7 @@ func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_UNDEFINED)
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
 		if expect {
 			parseExpectErrorAt(next, "variable type")
 			return nil
@@ -282,6 +317,18 @@ func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {
 		variable_type.Data = []Token{next}
 
 		variable_definition.AddChild(variable_type)
+	}
+	
+	{
+		next, expect := parser.PopIf(TOKEN_EQUAL)
+		if expect {
+			return variable_definition
+		}
+		init_exp := parser.ParseExpression()
+		if init_exp == nil {
+			parseExpectErrorAt(next, "value or expression")
+		}	
+		variable_definition.AddChild(init_exp)
 	}
 
 	return variable_definition
@@ -308,7 +355,7 @@ func (parser *Parser) Parse() (*Ast_Node) {
 				}
 			}
 			default: {
-				parseErrorAt(current, "Expected declaration")
+				parseExpectErrorAt(current, "declaration")
 				return head
 			}
 		}

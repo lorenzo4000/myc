@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	AST_UNDEFINED = iota // or IDENTIFIER
+	AST_IDENTIFIER = iota
 	AST_HEAD = iota
 	
 	AST_DATATYPE = iota
@@ -19,6 +19,8 @@ const (
 	AST_FUNCTION_DEFINITION_BODY = iota
 	AST_VARIABLE_DEFINITION = iota
 	AST_VARIABLE_DEFINITION_NAME = iota
+
+	AST_VARIABLE_NAME = iota
 
 	AST_FUNCTION_CALL = iota
 	AST_FUNCTION_CALL_NAME = iota
@@ -32,7 +34,7 @@ const (
 );
 
 var ast_type_str = [N_AST]string {
-	"AST_UNDEFINED",
+	"AST_IDENTIFIER",
 	"AST_HEAD",
 
 	"AST_DATATYPE",
@@ -42,6 +44,8 @@ var ast_type_str = [N_AST]string {
 	"AST_FUNCTION_DEFINITION_BODY",
 	"AST_VARIABLE_DEFINITION",
 	"AST_VARIABLE_DEFINITION_NAME",
+
+	"AST_VARIABLE_NAME",
 
 	"AST_FUNCTION_CALL",
 	"AST_FUNCTION_CALL_NAME",
@@ -57,7 +61,7 @@ type Ast_Node struct {
 	Data []Token;
 	Children []*Ast_Node;
 
-	DataType *datatype.DataType; // The typechecker basically just sets these references.
+	DataType datatype.DataType; // The typechecker basically just sets this.
 }
 
 func (ast *Ast_Node) AddChild(child *Ast_Node) (error){
@@ -82,7 +86,7 @@ func (ast *Ast_Node) NewChild(typ byte) (error){
 func (ast Ast_Node) ToString() (string) {
 	ast_str := ast_type_str[ast.Type] + "  :  "
 	for i, token := range ast.Data {
-		ast_str += "[ int_value = " + strconv.Itoa(int(token.Int_value)) + ", string_value = " + token.String_value + " ]"
+		ast_str += "[ int_value = " + strconv.Itoa(int(token.Int_value)) + ", string_value = " + token.String_value + ", DataType = " + ast.DataType.Name() + " ]"
 		if i + 1 < len(ast.Data) {
 			ast_str += ", "
 		}
@@ -106,4 +110,3 @@ func (ast Ast_Node) _print(lvl int) {
 func (ast Ast_Node) Print() {
 	ast._print(0)
 }
-
