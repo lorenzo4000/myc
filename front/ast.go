@@ -30,6 +30,11 @@ const (
 	AST_EXPRESSION = iota
 	AST_LITERAL = iota
 
+	AST_OP_SUM = iota
+	AST_OP_SUB = iota
+	AST_OP_MUL = iota
+	AST_OP_DIV = iota
+
 	N_AST = iota
 );
 
@@ -54,6 +59,11 @@ var ast_type_str = [N_AST]string {
 
 	"AST_EXPRESSION",
 	"AST_LITERAL",
+	
+	"AST_OP_SUM",
+	"AST_OP_SUB",
+	"AST_OP_MUL",
+	"AST_OP_DIV",
 }
 
 type Ast_Node struct {
@@ -84,9 +94,13 @@ func (ast *Ast_Node) NewChild(typ byte) (error){
 }
 
 func (ast Ast_Node) ToString() (string) {
-	ast_str := ast_type_str[ast.Type] + "  :  "
+	ast_str := ast_type_str[ast.Type]
+	if ast.DataType != nil {
+		 ast_str += "(" + ast.DataType.Name() + ")"
+	}
+	ast_str += " : "
 	for i, token := range ast.Data {
-		ast_str += "[ int_value = " + strconv.Itoa(int(token.Int_value)) + ", string_value = " + token.String_value + ", DataType = " + ast.DataType.Name() + " ]"
+		ast_str += "[ int_value = " + strconv.Itoa(int(token.Int_value)) + ", string_value = " + token.String_value + " ]"
 		if i + 1 < len(ast.Data) {
 			ast_str += ", "
 		}

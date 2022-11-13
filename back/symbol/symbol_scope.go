@@ -1,4 +1,4 @@
-package codegen
+package symbol
 
 type Symbol_Scope int32
 

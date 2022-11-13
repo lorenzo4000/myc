@@ -147,6 +147,25 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	return nil
 }
 
+func (parser *Parser) ParseOperator() (*Ast_Node) {
+	operator := new(Ast_Node)
+
+	cur, end := parser.Pop()
+	if end {
+		parseExpectErrorAt(cur, "operator")
+		return nil
+	}
+
+	switch cur.Type {
+		case TOKEN_SUM: operator.Type = AST_OP_SUM
+		case TOKEN_SUB: operator.Type = AST_OP_SUB
+		case TOKEN_MUL: operator.Type = AST_OP_MUL
+		case TOKEN_DIV: operator.Type = AST_OP_DIV
+	}
+	return operator
+}
+
+
 func (parser *Parser) ParseVariableName() (*Ast_Node) {
 	variable_name := new(Ast_Node)
 	variable_name.Type = AST_VARIABLE_NAME
@@ -173,7 +192,37 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 		return nil
 	}
 
-	expression.AddChild(parser.ParseSubExpression())
+	left := parser.ParseSubExpression()
+	if left == nil {
+		return nil
+	}
+
+	// check expression enders
+	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+		expression.AddChild(left)
+		return expression
+	}
+
+	operator := parser.ParseOperator()
+	if operator == nil {
+		return nil
+	}
+	
+	// check expression enders
+	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+		cur, _ := parser.Current()
+		parseExpectErrorAt(cur, "value or expression")
+		return expression
+	}
+	
+	right := parser.ParseExpression()
+	if right == nil {
+		return nil
+	}
+
+	operator.AddChild(left)
+	operator.AddChild(right)
+	expression.AddChild(operator)
 
 	return expression
 }

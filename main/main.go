@@ -8,6 +8,7 @@ import (
 	"mycgo/front"
 	"mycgo/back/codegen"
 	"mycgo/back/typecheck"
+	"mycgo/back/symbol"
 );
 
 func main() {
@@ -32,6 +33,10 @@ func main() {
 	parser := front.Parser{tokens, 0}
 	ast := parser.Parse()
 	
+	ast.Print()
+	
+
+	symbol.SymbolTableInit()
 	if typecheck.TypeCheck(ast) == nil {
 		fmt.Println("Type Errors: exiting")
 		return 
@@ -40,7 +45,7 @@ func main() {
 	ast.Print()
 
 
-	codegen.SymbolTableInit()
+	symbol.SymbolTableInit()
 	code := codegen.Codegen(ast)
 	code_combined := ".text\n" + code.Code.Text + "\n.data\n" + code.Code.Data
 

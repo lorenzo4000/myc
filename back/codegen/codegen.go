@@ -4,6 +4,7 @@ import (
 	"mycgo/front"
 	"fmt"
 	"mycgo/back/datatype"
+	"mycgo/back/symbol"
 )	
 
 type Code struct {
@@ -61,7 +62,7 @@ func (code *Code) Appendln(appendee Code) {
 func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 	if ast.Type == front.AST_FUNCTION_DEFINITION_BODY || 
 	   ast.Type == front.AST_HEAD {
-		SymbolScopeStackPush()
+		symbol.SymbolScopeStackPush()
 	}
 
 	var children_out []Codegen_Out
@@ -80,17 +81,17 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			
 		case front.AST_FUNCTION_DEFINITION:
 			name := Label(ast.Children[0].Data[0].String_value)
-			out.Code.TextAppendSln(Instruction(PSOP_GLOBAL, name))
+			out.Code.TextAppendSln(InstructionDereferenceAware(PSOP_GLOBAL, name))
 			out.Code.TextAppendSln(name.Text() + ":")
 			out.Code.Appendln(children_out[1].Code)
 
 		case front.AST_FUNCTION_DEFINITION_BODY:
-			out.Code.TextAppendSln(Instruction(OP_PUSH, REGISTER_RBP))
-			out.Code.TextAppendSln(Instruction(OP_MOV, REGISTER_RSP, REGISTER_RBP))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSH, REGISTER_RBP))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, REGISTER_RSP, REGISTER_RBP))
 
 			if CurrentStackSize > 0 {
 				// allocate used stack
-				out.Code.TextAppendSln(Instruction(OP_SUB, Asm_Int_Literal{int64(CurrentStackSize), 10}, REGISTER_RSP))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_SUB, Asm_Int_Literal{int64(CurrentStackSize), 10}, REGISTER_RSP))
 			}
 
 			for _, child_out := range(children_out) {
@@ -98,11 +99,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 
 			// deallocate used stack
-			out.Code.TextAppendSln(Instruction(OP_MOV, REGISTER_RBP, REGISTER_RSP))
-			out.Code.TextAppendSln(Instruction(OP_POP, REGISTER_RBP))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, REGISTER_RBP, REGISTER_RSP))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_POP, REGISTER_RBP))
 			CurrentStackSize = 0
 
-			out.Code.TextAppendSln(Instruction(OP_RET))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_RET))
 
 		case front.AST_EXPRESSION:
 			out = children_out[0]	
@@ -117,9 +118,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					var full bool
 					allocation, full = RegisterScratchAllocate()
 					if full {
-						allocation = StackAllocate(8)
+						allocation = StackAllocate(8).Reference()
 					}
-					out.Code.TextAppendSln(Instruction(OP_MOV, Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
+					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
 					
 			}
 			out.Result = allocation
@@ -127,14 +128,14 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 		case front.AST_FUNCTION_CALL:
 			out.Code.Append(children_out[1].Code)
 			name := Label(ast.Children[0].Data[0].String_value)
-			out.Code.TextAppendSln(Instruction(OP_CALL, name))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CALL, name))
 
 			var result Operand
 			result, full := RegisterScratchAllocate()
 			if full {
-				result = StackAllocate(8)
+				result = StackAllocate(8).Reference()
 			}
-			out.Code.TextAppendS(Instruction(OP_MOV, REGISTER_RAX, result))
+			out.Code.TextAppendS(InstructionDereferenceAware(OP_MOV, REGISTER_RAX, result))
 			
 			out.Result = result
 
@@ -146,10 +147,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				var arg_alloc Operand
 				arg_alloc, full := RegisterArgumentAllocate()
 				if full {
-					arg_alloc = StackAllocate(8)
+					arg_alloc = StackAllocate(8).Reference()
 				}	
 
-				out.Code.TextAppendSln(Instruction(OP_MOV, child_out.Result.LiteralValue(), arg_alloc))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, child_out.Result.LiteralValue(), arg_alloc))
 			}
 			RegisterArgumentFreeAll()
 
@@ -158,7 +159,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			variable_type := ast.Children[1].DataType
 			var variable_allc Stack_Region
 			
-			_, found := SymbolTableGetInCurrentScope(variable_name)
+			_, found := symbol.SymbolTableGetInCurrentScope(variable_name)
 
 			if found {
 				fmt.Println("codegen error: `" + variable_name + "` was already declared in this scope")
@@ -177,11 +178,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 								init_value = children_out[2].Result
 							}
 
-							out.Code.TextAppendSln(Instruction(OP_MOV, init_value, variable_allc))
+							out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, init_value, variable_allc.Reference()))
 					}
 			}
 
-			err := SymbolTableInsertInCurrentScope(variable_name, variable_type, variable_allc)
+			err := symbol.SymbolTableInsertInCurrentScope(variable_name, Codegen_Symbol{variable_type, variable_allc})
 			if err != nil {
 				fmt.Println(err)	
 				return out
@@ -189,7 +190,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 		}
 		case front.AST_VARIABLE_NAME: {
 			variable_name := ast.Data[0].String_value
-			symbol, found := SymbolTableGetFromCurrentScope(variable_name)
+			symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
 
 			if !found {
 				fmt.Println("codegen error: undefined `" + variable_name + "`")
@@ -198,11 +199,27 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			var allocation Operand
 			allocation, full := RegisterScratchAllocate()
 			if full {
-				allocation = StackAllocate(uint32(symbol.DataType.ByteSize()))
+				allocation = StackAllocate(uint32(symbol.Type().ByteSize())).Reference()
 			}
 
-			out.Code.TextAppendSln(Instruction(OP_MOV, symbol.Data, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, symbol.(Codegen_Symbol).Data.Reference(), allocation))
 			out.Result = allocation
+		}
+		case front.AST_OP_SUM: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			left_value  := children_out[0].Result
+			right_value := children_out[1].Result
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_ADD, right_value, left_value))
+
+			switch right_value.(type) {
+				case Register: right_value.(Register).Free()
+			}
+
+			out.Result = left_value
 		}
 	}
 

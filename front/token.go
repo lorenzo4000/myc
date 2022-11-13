@@ -21,6 +21,10 @@ const (
 	TOKEN_SEMICOLON			  = ';' 
 	TOKEN_COLON		  		  = ':' 
 	TOKEN_EQUAL		  		  = '=' 
+	TOKEN_SUM		  		  = '+' 
+	TOKEN_SUB		  		  = '-' 
+	TOKEN_MUL		  		  = '*' 
+	TOKEN_DIV		  		  = '/' 
 	
 	N_TOKENS 				  = iota 
 )
@@ -38,6 +42,10 @@ var characterTokenMap = map[byte]byte {
 	';':		TOKEN_SEMICOLON,
 	':':		TOKEN_COLON,
 	'=':		TOKEN_EQUAL,
+	'+':		TOKEN_SUM,
+	'-':		TOKEN_SUB,
+	'*':		TOKEN_MUL,
+	'/':		TOKEN_DIV,
 }
 
 type Token struct {

@@ -1,0 +1,73 @@
+package symbol
+
+import (
+	"mycgo/back/datatype"
+	"errors"
+)
+
+type Symbol_Declaration struct {
+	Name string 
+	Scope Symbol_Scope
+}
+	
+type Symbol interface {
+	Type() datatype.DataType
+}
+
+var symbol_table map [Symbol_Declaration] Symbol
+
+func SymbolTableInit() {
+	symbol_table = make(map [Symbol_Declaration] Symbol)
+}
+
+func SymbolTableGet(name string, scope Symbol_Scope) (Symbol, bool) {
+	if scope < 0 {
+		return nil, false
+	}
+
+	sym, found := symbol_table[Symbol_Declaration{name, scope}]
+	if !found {
+		return sym, false
+	}
+	return sym, true
+}
+
+func SymbolTableGetInCurrentScope(name string) (Symbol, bool) {
+	cur := SymbolScopeStackCurrent()
+	if cur < 0 {
+		return nil, false
+	}
+	return SymbolTableGet(name, cur)
+}
+
+// returns the matching entry in the closest scope
+func SymbolTableGetFromCurrentScope(name string) (Symbol, bool) {
+	for cur := SymbolScopeStackCurrent(); !cur.IsLast(); cur = cur.Previous() {
+		symbol, found := SymbolTableGet(name, cur)
+		if found {
+			return symbol, true
+		}
+	}
+	return nil, false
+}
+
+// inserts or modifies entry
+func SymbolTableInsert(name string, scope Symbol_Scope, sym Symbol) error {
+	if scope < 0 {
+		return errors.New("SymbolTableInsert: invalid scope")
+	}
+
+	// I'm not checking if the scope actually exists, because I don't really care at the moment.
+	symbol_table[Symbol_Declaration{name, scope}] = sym
+
+	return nil
+}
+
+// inserts or modifies entry
+func SymbolTableInsertInCurrentScope(name string, sym Symbol) error {
+	cur := SymbolScopeStackCurrent()
+	if cur < 0 {
+		return errors.New("SymbolTableInsertInCurrentScope: there is no scope in the stack")
+	}
+	return SymbolTableInsert(name, cur, sym)
+}

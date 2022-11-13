@@ -7,6 +7,7 @@ const (
 	OP_CALL = Op(iota)
 	OP_RET = Op(iota)
 	
+	OP_ADD = Op(iota)
 	OP_SUB = Op(iota)
 	
 	OP_PUSH = Op(iota)
@@ -23,6 +24,7 @@ var op_str = [N_OP]string {
 	"call",
 	"ret",
 	
+	"add",
 	"sub",
 	
 	"push",
@@ -49,4 +51,34 @@ func Instruction(op Op, oprnds ...Operand) string {
 	}
 
 	return instruction
+}
+
+func InstructionDereferenceAware(op Op, oprnds ...Operand) string {
+	cnt := 0
+	for _, oprnd := range oprnds {
+		switch oprnd.(type) {
+			case Memory_Reference: cnt++
+		}
+	}
+
+	
+	if cnt >= 2 {
+		var instruction string = ""
+		allocation, full := RegisterScratchAllocate()
+
+		if full {
+			instruction += Instruction(OP_PUSH, REGISTER_RBX) + "\n"
+			allocation  = REGISTER_RBX
+		}
+
+		instruction += Instruction(OP_MOV, oprnds[0], allocation) + "\n"
+		oprnds[0] = allocation
+	    instruction += Instruction(op, oprnds...) + "\n"
+
+		if full {
+			instruction  += Instruction(OP_POP, REGISTER_RBX) + "\n"
+		}
+		return instruction
+	}	
+	return Instruction(op, oprnds...)
 }

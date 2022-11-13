@@ -23,31 +23,10 @@ const (
 	REGISTER_RIP = Register(iota)
 	REGISTER_RFLAGS = Register(iota)
 
-
-	// lol, lmao :D
-	REGISTER_DEREF_RAX = Register(iota)
-	REGISTER_DEREF_RDI = Register(iota)  
-	REGISTER_DEREF_RSI = Register(iota)
-	REGISTER_DEREF_RDX = Register(iota)
-	REGISTER_DEREF_RCX = Register(iota)
-	REGISTER_DEREF_R8 =  Register(iota)
-	REGISTER_DEREF_R9 =  Register(iota)
-	REGISTER_DEREF_R10 = Register(iota)
-	REGISTER_DEREF_R11 = Register(iota)
-	REGISTER_DEREF_RSP = Register(iota)
-	REGISTER_DEREF_RBX = Register(iota)
-	REGISTER_DEREF_RBP = Register(iota)
-	REGISTER_DEREF_R12 = Register(iota)
-	REGISTER_DEREF_R13 = Register(iota)
-	REGISTER_DEREF_R14 = Register(iota)
-	REGISTER_DEREF_R15 = Register(iota)
-	REGISTER_DEREF_RIP = Register(iota)
-	REGISTER_DEREF_RFLAGS = Register(iota)
-	
-	N_REGISTERS = iota / 2 
+	N_REGISTERS = iota
 )
 
-var registers_str = [2 * N_REGISTERS]string {
+var registers_str = [N_REGISTERS]string {
 	"%rax",    
 	"%rdi",
 	"%rsi",
@@ -66,26 +45,6 @@ var registers_str = [2 * N_REGISTERS]string {
 	"%r15",
 	"%rip",
 	"%rflags",            
-
-	// lol, lamao exddi
-	"(%rax)",    
-	"(%rdi)",
-	"(%rsi)",
-	"(%rdx)",
-	"(%rcx)",
-	"(%r8)",
-	"(%r9)",
-	"(%r10)",
-	"(%r11)",
-	"(%rsp)",
-	"(%rbx)",
-	"(%rbp)",
-	"(%r12)",
-	"(%r13)",
-	"(%r14)",
-	"(%r15)",
-	"(%rip)",
-	"(%rflags)",            
 }
 
 var registers_alloc = [N_REGISTERS]bool{}
@@ -107,7 +66,7 @@ func (reg Register) LiteralValue() Operand {
 }
 
 func (reg Register) Dereference() Operand {
-	return reg + N_REGISTERS
+	return Memory_Reference{0, reg, nil, ASMREF_INDEXCOEFF_1}
 }
 
 var scratch_registers = [5]Register {

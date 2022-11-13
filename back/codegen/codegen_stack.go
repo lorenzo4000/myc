@@ -1,9 +1,5 @@
 package codegen
 
-import (
-	"fmt"
-)
-
 type Stack_Region struct {
 	rbp_offset uint32
 	size uint32
@@ -19,18 +15,6 @@ func StackAllocate(size uint32) Stack_Region {
 	return Stack_Region{CurrentAllocatedStack, size}
 }
 
-func (stack Stack_Region) Allocate() {
-	
-}
-func (stack Stack_Region) Free() {
-
-}
-func (stack Stack_Region) Text() string {
-	return fmt.Sprintf("-%d(%%rbp)", stack.rbp_offset)
-}
-func (stack Stack_Region) Dereference() Operand {
-	return stack
-}
-func (stack Stack_Region) LiteralValue() Operand {
-	return stack
+func (stack Stack_Region) Reference() Memory_Reference {
+	return Memory_Reference{-1 * int64(stack.rbp_offset), REGISTER_RBP, nil, ASMREF_INDEXCOEFF_1}
 }
