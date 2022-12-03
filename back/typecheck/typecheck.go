@@ -9,7 +9,7 @@ import (
 )
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
-	if ast.Type == front.AST_FUNCTION_DEFINITION_BODY || 
+	if ast.Type == front.AST_FUNCTION_DEFINITION || 
 	   ast.Type == front.AST_HEAD {
 		symbol.SymbolScopeStackPush()
 	}
@@ -46,11 +46,14 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 
-			initialization_type := ast.Children[2].DataType
+			// if there is an initialization
 			variable_type := ast.Children[1].DataType
-			if variable_type != initialization_type {
-				// TODO: error
-				return nil
+			if len(ast.Children) >= 3 {
+				initialization_type := ast.Children[2].DataType
+				if variable_type != initialization_type {
+					// TODO: error
+					return nil
+				}
 			}
 
 			err := symbol.SymbolTableInsertInCurrentScope(variable_name, TypeCheck_Symbol{variable_type})

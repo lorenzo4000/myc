@@ -11,6 +11,7 @@ const (
 	OP_SUB = Op(iota)
 	
 	OP_PUSH = Op(iota)
+	OP_PUSHQ = Op(iota)
 	OP_POP = Op(iota)
 
 	// gnu pseudo-ops
@@ -28,6 +29,7 @@ var op_str = [N_OP]string {
 	"sub",
 	
 	"push",
+	"pushq",
 	"pop",
 	
 	// gnu pseudo-ops

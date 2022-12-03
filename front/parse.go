@@ -265,6 +265,39 @@ func (parser *Parser) ParseFunctionBody() (*Ast_Node) {
 	return function_body
 }
 
+func (parser *Parser) ParseFunctionDefinitionArgs() (*Ast_Node) {
+	function_definition_args := new(Ast_Node)
+	function_definition_args.Type = AST_FUNCTION_DEFINITION_ARGS
+
+	for !parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+		def := parser.ParseVariableDefinition()
+		if def != nil {
+			// if there is initialization than error
+			// NOTE, TODO: in the future we will have default arguments, so this will change
+			if len(def.Children) >= 3 {
+				cur, end := parser.Current()
+				if end {
+					parseExpectErrorAt(cur, "`,` or `)`, got EOF")
+					return nil
+				} 
+				parseExpectErrorAt(cur, "`,` or `)`, got initialization")
+			}
+
+			function_definition_args.AddChild(def)
+		}
+
+		next, not_comma := parser.PopIf(TOKEN_COMMA)
+		if not_comma {
+			if next.Type != TOKEN_CLOSING_PARENTHESES {
+				parseExpectErrorAt(next, "`,` or `)`")
+				return nil
+			}
+		}
+	}
+
+	return function_definition_args	
+}
+
 func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	function_definition := new(Ast_Node)
 	function_definition.Type = AST_FUNCTION_DEFINITION
@@ -298,8 +331,11 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 			return nil
 		}
 	}
-	
-	// TODO: args
+
+	args := parser.ParseFunctionDefinitionArgs()
+	if args != nil {
+		function_definition.AddChild(args)
+	}
 
 	{
 		next, expect := parser.PopIf(TOKEN_CLOSING_PARENTHESES)
@@ -317,7 +353,10 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 		}
 	}
 	
-	function_definition.AddChild(parser.ParseFunctionBody())
+	body := parser.ParseFunctionBody()
+	if body != nil {
+		function_definition.AddChild(body)
+	}
 
 	{
 		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)

@@ -69,7 +69,7 @@ func (reg Register) Dereference() Operand {
 	return Memory_Reference{0, reg, nil, ASMREF_INDEXCOEFF_1}
 }
 
-var scratch_registers = [5]Register {
+var ScratchRegisters = [5]Register {
 	REGISTER_RBX,
 	REGISTER_R12,
 	REGISTER_R13,
@@ -78,7 +78,7 @@ var scratch_registers = [5]Register {
 }
 
 func RegisterScratchAllocate() (Register, bool) {
-	for _, s := range(scratch_registers) {
+	for _, s := range(ScratchRegisters) {
 		if(!registers_alloc[s]) {
 			s.Allocate()
 			return s, false
@@ -88,12 +88,12 @@ func RegisterScratchAllocate() (Register, bool) {
 }
 
 func RegisterScratchFreeAll() {
-	for _, s := range(scratch_registers) {
+	for _, s := range(ScratchRegisters) {
 		s.Free()
 	}
 }
 
-var argument_registers = [6]Register {
+var ArgumentRegisters = [6]Register {
 	REGISTER_RDI,
 	REGISTER_RSI,
 	REGISTER_RDX,
@@ -103,7 +103,7 @@ var argument_registers = [6]Register {
 }
 
 func RegisterArgumentAllocate() (Register, bool) {
-	for _, s := range(argument_registers) {
+	for _, s := range(ArgumentRegisters) {
 		if(!registers_alloc[s]) {
 			s.Allocate()
 			return s, false
@@ -113,7 +113,7 @@ func RegisterArgumentAllocate() (Register, bool) {
 }
 
 func RegisterArgumentFreeAll() {
-	for _, s := range(argument_registers) {
+	for _, s := range(ArgumentRegisters) {
 		s.Free()
 	}
 }
