@@ -63,6 +63,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 	if ast.Type == front.AST_FUNCTION_DEFINITION || 
 	   ast.Type == front.AST_HEAD {
 		symbol.SymbolScopeStackPush()
+			fmt.Println(symbol.SymbolScopeStackCurrent())
 	}
 
 	var children_out []Codegen_Out
@@ -78,6 +79,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			for _, child_out := range(children_out) {
 				out.Code.Appendln(child_out.Code)
 			}
+			symbol.SymbolScopeStackPop()
 			
 		case front.AST_FUNCTION_DEFINITION:
 			name := Label(ast.Children[0].Data[0].String_value)
@@ -102,6 +104,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			CurrentAllocatedStack = 0
 
 			out.Code.TextAppendSln(InstructionDereferenceAware(OP_RET))
+			symbol.SymbolScopeStackPop()
 
 		
 		case front.AST_FUNCTION_DEFINITION_ARGS:

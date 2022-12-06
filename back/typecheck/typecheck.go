@@ -29,6 +29,12 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = primitive
 		}
+		case front.AST_FUNCTION_DEFINITION: {
+			symbol.SymbolScopeStackPop()
+		}
+		case front.AST_HEAD: {
+			symbol.SymbolScopeStackPop()
+		}
 		case front.AST_LITERAL: {
 			switch ast.Data[0].Type {
 				case front.TOKEN_INT_LITERAL: ast.DataType = datatype.TYPE_INT64

@@ -1,8 +1,8 @@
-function foo(:n int64, :m int64, :k int64, :l int64, :x int64, :q int64, :w int64, :r int64) {
-	printf("%d -- %d\n", w, r);
-	foo(0, 0, 0, 0, 0, 0, w + r, w + r);
+function foo() {
+	:x int64  = 534;
+	printf("%d", x);
 }
 
 function main() {
-	foo(0, 0, 0, 0, 0, 0, 1, 1);
+	foo();
 }

@@ -36,6 +36,7 @@ func main() {
 	ast.Print()
 	
 
+	symbol.SymbolScopeStackInit()
 	symbol.SymbolTableInit()
 	if typecheck.TypeCheck(ast) == nil {
 		fmt.Println("Type Errors: exiting")
@@ -45,6 +46,7 @@ func main() {
 	ast.Print()
 
 
+	symbol.SymbolScopeStackInit()
 	symbol.SymbolTableInit()
 	code := codegen.Codegen(ast)
 	code_combined := ".text\n" + code.Code.Text + "\n.data\n" + code.Code.Data
