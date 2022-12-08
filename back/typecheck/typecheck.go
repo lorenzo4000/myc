@@ -38,6 +38,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_LITERAL: {
 			switch ast.Data[0].Type {
 				case front.TOKEN_INT_LITERAL: ast.DataType = datatype.TYPE_INT64
+				case front.TOKEN_BOOL_LITERAL: ast.DataType = datatype.TYPE_BOOL
 				default: ast.DataType = datatype.TYPE_UNDEFINED
 			}
 		}
@@ -57,7 +58,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			if len(ast.Children) >= 3 {
 				initialization_type := ast.Children[2].DataType
 				if variable_type != initialization_type {
-					// TODO: error
+					fmt.Println("typecheck error: expected " + variable_type.Name() + ", got " + initialization_type.Name())
 					return nil
 				}
 			}
@@ -80,7 +81,36 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		
 			ast.DataType = declaration.Type()
 		}
+		case front.AST_WHILE: {
+			if ast.Children[0].DataType != datatype.TYPE_BOOL {
+				fmt.Println("typecheck error: expected bool, got " + ast.Children[0].DataType.Name())
+				return nil
+			}
+		}
 		case front.AST_OP_SUM: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				// TODO: error
+				return nil
+			}
+			ast.DataType = left_type
+		}
+		case front.AST_OP_SUB: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				// TODO: error
+				return nil
+			}
+			ast.DataType = left_type
+		}
+		case front.AST_OP_ASN: {
+			left_ast_type := ast.Children[0].Type
+			if left_ast_type != front.AST_VARIABLE_NAME {
+				fmt.Println("typecheck error: left value in assignement must be a variable")
+				return nil
+			}
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {

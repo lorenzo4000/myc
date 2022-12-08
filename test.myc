@@ -1,8 +1,5 @@
-function foo() {
-	:x int64  = 534;
-	printf("%d", x);
-}
-
 function main() {
-	foo();
+	while true {
+		printf("sesso");
+	}
 }

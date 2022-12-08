@@ -8,9 +8,11 @@ const (
 	TOKEN_IDENTIFIER           = iota
 	TOKEN_STRING_LITERAL	  = iota
 	TOKEN_INT_LITERAL	  	  = iota
+	TOKEN_BOOL_LITERAL	  	  = iota
 	
 	// keywords
 	TOKEN_KEYWORD_FUNCTION    = iota
+	TOKEN_KEYWORD_WHILE    = iota
 
 	// characters
 	TOKEN_OPENING_PARENTHESES = '(' 
@@ -31,6 +33,7 @@ const (
 
 var keywordTokenMap = map[string]byte {
 	"function": TOKEN_KEYWORD_FUNCTION,
+	"while": TOKEN_KEYWORD_WHILE,
 }
 
 var characterTokenMap = map[byte]byte {
@@ -88,6 +91,12 @@ func GetToken(str string) (Token) {
 			return Token{}
 		}
 		return Token{TOKEN_INT_LITERAL, 0, 0, 0, 0, i, ""}
+	}
+	if str == "true" {
+		return Token{TOKEN_BOOL_LITERAL, 0, 0, 0, 0, 1, str}
+	}
+	if str == "false" {
+		return Token{TOKEN_BOOL_LITERAL, 0, 0, 0, 0, 0, str}
 	}
 
 

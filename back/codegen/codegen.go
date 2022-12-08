@@ -122,7 +122,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, parameter, child_out.Result))
 			}
 
-		case front.AST_FUNCTION_DEFINITION_BODY:
+		case front.AST_BODY:
 			for _, child_out := range(children_out) {
 				out.Code.Appendln(child_out.Code)
 			}
@@ -143,7 +143,15 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 						allocation = StackAllocate(8).Reference()
 					}
 					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
-					
+				case front.TOKEN_BOOL_LITERAL:
+					var full bool
+					allocation, full = RegisterScratchAllocate()
+					if full {
+						allocation = StackAllocate(8).Reference()
+					}
+					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
+				
+
 			}
 			out.Result = allocation
 
@@ -255,6 +263,20 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, symbol.(Codegen_Symbol).Data.Reference(), allocation))
 			out.Result = allocation
 		}
+		case front.AST_WHILE: {
+			while_label := LabelGen()
+			while_exit_label := LabelGen()
+			out.Code.TextAppendSln(while_label.Text() + ":")
+
+			out.Code.Appendln(children_out[0].Code)
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_AND, children_out[0].Result, children_out[0].Result))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_JZ, while_exit_label))
+
+			out.Code.Appendln(children_out[1].Code)
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_JMP, while_label))
+			out.Code.TextAppendSln(while_exit_label.Text() + ":")
+		}
 		case front.AST_OP_SUM: {
 			for _, child_out := range(children_out) {
 				out.Code.Appendln(child_out.Code)
@@ -269,6 +291,41 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				case Register: right_value.(Register).Free()
 			}
 
+			out.Result = left_value
+		}
+		case front.AST_OP_SUB: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			left_value  := children_out[0].Result
+			right_value := children_out[1].Result
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_SUB, right_value, left_value))
+
+			switch right_value.(type) {
+				case Register: right_value.(Register).Free()
+			}
+
+			out.Result = left_value
+		}
+		case front.AST_OP_ASN: {
+			out.Code.Appendln(children_out[1].Code)
+			
+			left_value := children_out[0].Result
+			right_value := children_out[1].Result
+			
+			variable_name := ast.Children[0].Data[0].String_value
+			symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
+			if !found {
+				fmt.Println("codegen error: undefined `" + variable_name + "`")
+				return out
+			}
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, right_value, symbol.(Codegen_Symbol).Data.Reference()))
+			out.Code.Appendln(children_out[0].Code)
+			
+			
 			out.Result = left_value
 		}
 	}

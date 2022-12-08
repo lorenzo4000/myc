@@ -17,7 +17,7 @@ const (
 	AST_FUNCTION_DEFINITION = iota
 	AST_FUNCTION_DEFINITION_NAME = iota
 	AST_FUNCTION_DEFINITION_ARGS = iota
-	AST_FUNCTION_DEFINITION_BODY = iota
+	AST_BODY = iota
 	AST_VARIABLE_DEFINITION = iota
 	AST_VARIABLE_DEFINITION_NAME = iota
 
@@ -35,6 +35,9 @@ const (
 	AST_OP_SUB = iota
 	AST_OP_MUL = iota
 	AST_OP_DIV = iota
+	AST_OP_ASN = iota // assign
+
+	AST_WHILE = iota
 
 	N_AST = iota
 );
@@ -48,7 +51,7 @@ var ast_type_str = [N_AST]string {
 	"AST_FUNCTION_DEFINITION",
 	"AST_FUNCTION_DEFINITION_NAME",
 	"AST_FUNCTION_DEFINITION_ARGS",
-	"AST_FUNCTION_DEFINITION_BODY",
+	"AST_BODY",
 	"AST_VARIABLE_DEFINITION",
 	"AST_VARIABLE_DEFINITION_NAME",
 
@@ -66,6 +69,9 @@ var ast_type_str = [N_AST]string {
 	"AST_OP_SUB",
 	"AST_OP_MUL",
 	"AST_OP_DIV",
+	"AST_OP_ASN", // assign
+
+	"AST_WHILE",
 }
 
 type Ast_Node struct {

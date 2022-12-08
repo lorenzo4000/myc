@@ -141,6 +141,12 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 				lit, _ := parser.Pop()
 				literal.Data = []Token{lit}
 				return literal
+			case TOKEN_BOOL_LITERAL: 
+				literal := new(Ast_Node)
+				literal.Type = AST_LITERAL
+				lit, _ := parser.Pop()
+				literal.Data = []Token{lit}
+				return literal
 		}
 	}
 	parseExpectErrorAt(curr, "value or expression")
@@ -157,10 +163,11 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 	}
 
 	switch cur.Type {
-		case TOKEN_SUM: operator.Type = AST_OP_SUM
-		case TOKEN_SUB: operator.Type = AST_OP_SUB
-		case TOKEN_MUL: operator.Type = AST_OP_MUL
-		case TOKEN_DIV: operator.Type = AST_OP_DIV
+		case TOKEN_SUM:   operator.Type = AST_OP_SUM
+		case TOKEN_SUB:   operator.Type = AST_OP_SUB
+		case TOKEN_MUL:   operator.Type = AST_OP_MUL
+		case TOKEN_DIV:   operator.Type = AST_OP_DIV
+		case TOKEN_EQUAL: operator.Type = AST_OP_ASN
 	}
 	return operator
 }
@@ -188,7 +195,7 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	expression.Type = AST_EXPRESSION
 
 	// check expression enders
-	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
 		return nil
 	}
 
@@ -198,7 +205,7 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	}
 
 	// check expression enders
-	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
 		expression.AddChild(left)
 		return expression
 	}
@@ -209,7 +216,7 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	}
 	
 	// check expression enders
-	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
 		cur, _ := parser.Current()
 		parseExpectErrorAt(cur, "value or expression")
 		return expression
@@ -227,9 +234,53 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	return expression
 }
 
-func (parser *Parser) ParseFunctionBody() (*Ast_Node) {
-	function_body := new(Ast_Node)
-	function_body.Type = AST_FUNCTION_DEFINITION_BODY
+func (parser *Parser) ParseWhile() (*Ast_Node) {
+	while := new(Ast_Node)
+	while.Type = AST_WHILE
+
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_WHILE)
+		if expect {
+			parseExpectErrorAt(next, "`while`")
+			return nil
+		}
+	}
+
+	{
+		exp := parser.ParseExpression()
+		if exp != nil {
+			while.AddChild(exp)
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+
+	{
+		while_body := parser.ParseBody()
+		if while_body != nil {
+			while.AddChild(while_body)
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
+	return while
+}
+
+func (parser *Parser) ParseBody() (*Ast_Node) {
+	body := new(Ast_Node)
+	body.Type = AST_BODY
 
 	for !parser.CurrentIs(TOKEN_CLOSING_BRACKET) {
 		current, end := parser.Current()
@@ -238,7 +289,7 @@ func (parser *Parser) ParseFunctionBody() (*Ast_Node) {
 		}
 		switch current.Type {
 			case TOKEN_COLON: {
-				function_body.AddChild(parser.ParseVariableDefinition())
+				body.AddChild(parser.ParseVariableDefinition())
 				
 				next, expect := parser.PopIf(TOKEN_SEMICOLON)
 				if expect {
@@ -246,10 +297,13 @@ func (parser *Parser) ParseFunctionBody() (*Ast_Node) {
 					return nil
 				}
 			}
+			case TOKEN_KEYWORD_WHILE: {
+				body.AddChild(parser.ParseWhile())
+			}
 			default: {
 				exp := parser.ParseExpression()
 				if exp != nil {
-					function_body.AddChild(exp)
+					body.AddChild(exp)
 				}
 
 				next, expect := parser.PopIf(TOKEN_SEMICOLON)
@@ -262,7 +316,7 @@ func (parser *Parser) ParseFunctionBody() (*Ast_Node) {
 	}
 	
 
-	return function_body
+	return body
 }
 
 func (parser *Parser) ParseFunctionDefinitionArgs() (*Ast_Node) {
@@ -353,7 +407,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 		}
 	}
 	
-	body := parser.ParseFunctionBody()
+	body := parser.ParseBody()
 	if body != nil {
 		function_definition.AddChild(body)
 	}

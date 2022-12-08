@@ -21,5 +21,5 @@ func (lbl Label) Dereference() Operand {
 var labels_count int = 0
 func LabelGen() Label {
 	labels_count++
-	return Label("L" + strconv.Itoa(labels_count))
+	return Label(".L" + strconv.Itoa(labels_count))
 }

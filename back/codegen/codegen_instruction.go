@@ -6,9 +6,13 @@ const (
 	OP_MOV  = Op(iota)
 	OP_CALL = Op(iota)
 	OP_RET = Op(iota)
+	OP_JMP = Op(iota)
+	OP_JZ = Op(iota)
 	
 	OP_ADD = Op(iota)
 	OP_SUB = Op(iota)
+	
+	OP_AND = Op(iota)
 	
 	OP_PUSH = Op(iota)
 	OP_PUSHQ = Op(iota)
@@ -24,9 +28,13 @@ var op_str = [N_OP]string {
 	"mov",
 	"call",
 	"ret",
+	"jmp",
+	"jz",
 	
 	"add",
 	"sub",
+
+	"and",
 	
 	"push",
 	"pushq",
