@@ -4,6 +4,8 @@ type Op byte
 
 const (
 	OP_MOV  = Op(iota)
+	OP_MOVQ  = Op(iota)
+
 	OP_CALL = Op(iota)
 	OP_RET = Op(iota)
 	OP_JMP = Op(iota)
@@ -13,7 +15,15 @@ const (
 	OP_SUB = Op(iota)
 	
 	OP_AND = Op(iota)
+	OP_XOR = Op(iota)
 	
+	OP_CMP = Op(iota)
+	
+	OP_SETG = Op(iota)
+	OP_SETL = Op(iota)
+	OP_SETGE = Op(iota)
+	OP_SETLE = Op(iota)
+
 	OP_PUSH = Op(iota)
 	OP_PUSHQ = Op(iota)
 	OP_POP = Op(iota)
@@ -26,6 +36,8 @@ const (
 
 var op_str = [N_OP]string {
 	"mov",
+	"movq",
+
 	"call",
 	"ret",
 	"jmp",
@@ -35,6 +47,14 @@ var op_str = [N_OP]string {
 	"sub",
 
 	"and",
+	"xor",
+
+	"cmp",
+
+	"setg",
+	"setl",
+	"setge",
+	"setle",
 	
 	"push",
 	"pushq",
@@ -74,11 +94,14 @@ func InstructionDereferenceAware(op Op, oprnds ...Operand) string {
 	
 	if cnt >= 2 {
 		var instruction string = ""
-		allocation, full := RegisterScratchAllocate()
+		var allocation Operand
 
+		reg, full := RegisterScratchAllocate()
 		if full {
-			instruction += Instruction(OP_PUSH, REGISTER_RBX) + "\n"
-			allocation  = REGISTER_RBX
+			allocation   = REGISTER_RBX.GetSubRegister(uint64(64))
+			instruction += Instruction(OP_PUSH, allocation) + "\n"
+		} else {
+			allocation = reg.GetSubRegister(uint64(64))
 		}
 
 		instruction += Instruction(OP_MOV, oprnds[0], allocation) + "\n"
@@ -86,7 +109,7 @@ func InstructionDereferenceAware(op Op, oprnds ...Operand) string {
 	    instruction += Instruction(op, oprnds...) + "\n"
 
 		if full {
-			instruction  += Instruction(OP_POP, REGISTER_RBX) + "\n"
+			instruction  += Instruction(OP_POP, allocation) + "\n"
 		}
 		return instruction
 	}	

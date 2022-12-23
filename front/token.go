@@ -13,6 +13,8 @@ const (
 	// keywords
 	TOKEN_KEYWORD_FUNCTION    = iota
 	TOKEN_KEYWORD_WHILE    = iota
+	TOKEN_KEYWORD_IF    = iota
+	TOKEN_KEYWORD_ELSE    = iota
 
 	// characters
 	TOKEN_OPENING_PARENTHESES = '(' 
@@ -22,18 +24,26 @@ const (
 	TOKEN_COMMA				  = ',' 
 	TOKEN_SEMICOLON			  = ';' 
 	TOKEN_COLON		  		  = ':' 
-	TOKEN_EQUAL		  		  = '=' 
+	
+	TOKEN_EQU		  		  = '=' 
 	TOKEN_SUM		  		  = '+' 
 	TOKEN_SUB		  		  = '-' 
 	TOKEN_MUL		  		  = '*' 
 	TOKEN_DIV		  		  = '/' 
-	
+
+	TOKEN_GRT 				  = '>'
+	TOKEN_LES				  = '<'
+	TOKEN_GOE				  = iota
+	TOKEN_LOE				  = iota
+
 	N_TOKENS 				  = iota 
 )
 
 var keywordTokenMap = map[string]byte {
 	"function": TOKEN_KEYWORD_FUNCTION,
 	"while": TOKEN_KEYWORD_WHILE,
+	"if": TOKEN_KEYWORD_IF,
+	"else": TOKEN_KEYWORD_ELSE,
 }
 
 var characterTokenMap = map[byte]byte {
@@ -44,11 +54,18 @@ var characterTokenMap = map[byte]byte {
 	',':		TOKEN_COMMA,
 	';':		TOKEN_SEMICOLON,
 	':':		TOKEN_COLON,
-	'=':		TOKEN_EQUAL,
+	'=':		TOKEN_EQU,
 	'+':		TOKEN_SUM,
 	'-':		TOKEN_SUB,
 	'*':		TOKEN_MUL,
 	'/':		TOKEN_DIV,
+	'>': 		TOKEN_GRT,
+	'<': 		TOKEN_LES,
+}
+
+var multiCharacterTokenMap = map[string]byte {
+	">=":       TOKEN_GOE,
+	"<=":       TOKEN_LOE,
 }
 
 type Token struct {
@@ -74,6 +91,11 @@ func GetToken(str string) (Token) {
 		if is_character_token {
 			return Token{character_token, 0, 0, 0, 0, 0, ""}
 		}
+	}
+
+	multiCharacter_token, is_multiCharacter_token := multiCharacterTokenMap[str]
+	if is_multiCharacter_token  {
+		return Token{multiCharacter_token, 0, 0, 0, 0, 0, ""}
 	}
 
 	keyword_token, is_keyword_token := keywordTokenMap[str]

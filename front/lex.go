@@ -58,6 +58,14 @@ func Lex(src string) ([]Token) {
 			}
 		}
 
+		if index < len(src) && (src[index] == '<' || src[index] == '>' || src[index] == '+' || src[index] == '-' || src[index] == '*' || src[index] == '/'){
+			if index+1 < len(src) && src[index+1] == '=' {
+				next_token_str += string(src[index+1])
+				c1++
+				index++
+			}
+		}
+
 		if len(next_token_str) > 0 {
 			next_token := GetToken(next_token_str)
 			next_token.L0 = l0

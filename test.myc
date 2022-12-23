@@ -1,5 +1,6 @@
 function main() {
-	while true {
-		printf("sesso");
-	}
+	:x int64 = 10;
+	if x > 0 {
+		printf("yeah!\n");
+	} 
 }

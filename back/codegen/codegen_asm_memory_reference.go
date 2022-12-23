@@ -31,8 +31,8 @@ func (mem Memory_Reference) Text() string {
 				strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
 	}
 	return  strconv.FormatInt(mem.Offset, 10)           + "("  +
-			mem.Start.(Register).Text()    		      		    + ", " +
-			mem.Index.(Register).Text() 				            + ", "  +
+			mem.Start.(SubRegister).Text()    		      		    + ", " +
+			mem.Index.(SubRegister).Text() 				            + ", "  +
 			strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
 }
 

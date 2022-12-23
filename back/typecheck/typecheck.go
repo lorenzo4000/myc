@@ -35,6 +35,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_HEAD: {
 			symbol.SymbolScopeStackPop()
 		}
+		case front.AST_FUNCTION_CALL: {
+			// TODO
+			ast.DataType = datatype.TYPE_INT64
+		}
 		case front.AST_LITERAL: {
 			switch ast.Data[0].Type {
 				case front.TOKEN_INT_LITERAL: ast.DataType = datatype.TYPE_INT64
@@ -87,6 +91,12 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 		}
+		case front.AST_IF: {
+			if ast.Children[0].DataType != datatype.TYPE_BOOL {
+				fmt.Println("typecheck error: expected bool, got " + ast.Children[0].DataType.Name())
+				return nil
+			}
+		}
 		case front.AST_OP_SUM: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
@@ -118,6 +128,42 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 			ast.DataType = left_type
+		}
+		case front.AST_OP_GRT: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				// TODO: error
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_LES: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				// TODO: error
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_GOE: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				// TODO: error
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_LOE: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				// TODO: error
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
 		}
 		default: ast.DataType = datatype.TYPE_UNDEFINED
 	}

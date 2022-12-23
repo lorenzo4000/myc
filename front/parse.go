@@ -167,7 +167,12 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		case TOKEN_SUB:   operator.Type = AST_OP_SUB
 		case TOKEN_MUL:   operator.Type = AST_OP_MUL
 		case TOKEN_DIV:   operator.Type = AST_OP_DIV
-		case TOKEN_EQUAL: operator.Type = AST_OP_ASN
+		case TOKEN_EQU:   operator.Type = AST_OP_ASN
+
+		case TOKEN_GRT:   operator.Type = AST_OP_GRT
+		case TOKEN_LES:   operator.Type = AST_OP_LES
+		case TOKEN_GOE:   operator.Type = AST_OP_GOE
+		case TOKEN_LOE:   operator.Type = AST_OP_LOE
 	}
 	return operator
 }
@@ -278,6 +283,73 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 	return while
 }
 
+func (parser *Parser) ParseIf() (*Ast_Node) {
+	ast_if := new(Ast_Node)
+	ast_if.Type = AST_IF
+
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_IF)
+		if expect {
+			parseExpectErrorAt(next, "`if`")
+			return nil
+		}
+	}
+
+	{
+		exp := parser.ParseExpression()
+		if exp != nil {
+			ast_if.AddChild(exp)
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+
+	{
+		ast_if_body := parser.ParseBody()
+		if ast_if_body != nil {
+			ast_if.AddChild(ast_if_body)
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
+
+	{
+		_, expect := parser.PopIf(TOKEN_KEYWORD_ELSE)
+		if expect {
+			return ast_if
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+
+	{
+		ast_else_body := parser.ParseBody()
+		if ast_else_body != nil {
+			ast_if.AddChild(ast_else_body)
+		}
+	}
+
+	return ast_if
+}
+
 func (parser *Parser) ParseBody() (*Ast_Node) {
 	body := new(Ast_Node)
 	body.Type = AST_BODY
@@ -299,6 +371,9 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 			}
 			case TOKEN_KEYWORD_WHILE: {
 				body.AddChild(parser.ParseWhile())
+			}
+			case TOKEN_KEYWORD_IF: {
+				body.AddChild(parser.ParseIf())
 			}
 			default: {
 				exp := parser.ParseExpression()
@@ -462,7 +537,7 @@ func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_EQUAL)
+		next, expect := parser.PopIf(TOKEN_EQU)
 		if expect {
 			return variable_definition
 		}

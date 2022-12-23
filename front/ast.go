@@ -37,7 +37,14 @@ const (
 	AST_OP_DIV = iota
 	AST_OP_ASN = iota // assign
 
+
+	AST_OP_GRT = iota
+	AST_OP_LES = iota
+	AST_OP_GOE = iota
+	AST_OP_LOE = iota
+
 	AST_WHILE = iota
+	AST_IF = iota
 
 	N_AST = iota
 );
@@ -71,7 +78,13 @@ var ast_type_str = [N_AST]string {
 	"AST_OP_DIV",
 	"AST_OP_ASN", // assign
 
+	"AST_OP_GRT",
+	"AST_OP_LES",
+	"AST_OP_GOE",
+	"AST_OP_LOE",
+
 	"AST_WHILE",
+	"AST_IF",
 }
 
 type Ast_Node struct {

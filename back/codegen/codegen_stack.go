@@ -36,5 +36,5 @@ func StackAllocate(size uint32) Stack_Region {
 }
 
 func (stack Stack_Region) Reference() Memory_Reference {
-	return Memory_Reference{-1 * int64(stack.rbp_offset), REGISTER_RBP, nil, ASMREF_INDEXCOEFF_1}
+	return Memory_Reference{-1 * int64(stack.rbp_offset), REGISTER_RBP.GetSubRegister(uint64(64)), nil, ASMREF_INDEXCOEFF_1}
 }
