@@ -83,27 +83,27 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			
 		case front.AST_FUNCTION_DEFINITION:
 			name := Label(ast.Children[0].Data[0].String_value)
-			out.Code.TextAppendSln(InstructionDereferenceAware(PSOP_GLOBAL, name))
+			out.Code.TextAppendSln(Instruction(PSOP_GLOBAL, name))
 			out.Code.TextAppendSln(name.Text() + ":")
 			
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSH, REGISTER_RBP.GetSubRegister(uint64(64))))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, REGISTER_RSP.GetSubRegister(uint64(64)), REGISTER_RBP.GetSubRegister(uint64(64))))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSH, 64, REGISTER_RBP.GetSubRegister(uint64(64))))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, 64, REGISTER_RSP.GetSubRegister(uint64(64)), REGISTER_RBP.GetSubRegister(uint64(64))))
 
 			if CurrentReservedStack > 0 {
 				// allocate used stack
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_SUB, Asm_Int_Literal{int64(CurrentReservedStack), 10}, REGISTER_RSP.GetSubRegister(uint64(64))))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_SUB, 64, Asm_Int_Literal{int64(CurrentReservedStack), 10}, REGISTER_RSP.GetSubRegister(uint64(64))))
 			}
 
 			out.Code.Appendln(children_out[1].Code)
 			out.Code.Appendln(children_out[2].Code)
 			
 			// deallocate used stack
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, REGISTER_RBP.GetSubRegister(uint64(64)), REGISTER_RSP.GetSubRegister(uint64(64))))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_POP, REGISTER_RBP.GetSubRegister(uint64(64))))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, 64, REGISTER_RBP.GetSubRegister(uint64(64)), REGISTER_RSP.GetSubRegister(uint64(64))))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_POP, 64, REGISTER_RBP.GetSubRegister(uint64(64))))
 			CurrentReservedStack = 0
 			CurrentAllocatedStack = 0
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_RET))
+			out.Code.TextAppendSln(Instruction(OP_RET))
 			symbol.SymbolScopeStackPop()
 
 		
@@ -113,14 +113,16 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 			for arg, child_out := range(children_out) {
 				var parameter Operand
+				size := ast.Children[arg].DataType.BitSize()
+
 				if arg >= 6 {
 					parameter = Memory_Reference{int64(16 + ((arg - 6) * 8)), REGISTER_RBP.GetSubRegister(uint64(64)), nil, ASMREF_INDEXCOEFF_1}	
 				} else {
 					reg := ArgumentRegisters[arg]
-					parameter = reg.GetSubRegister(uint64(ast.Children[arg].DataType.BitSize()))
+					parameter = reg.GetSubRegister(uint64(size))
 				}
 				
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, parameter, child_out.Result))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, size, parameter, child_out.Result))
 			}
 
 		case front.AST_BODY:
@@ -145,7 +147,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					} else {
 						allocation = reg.GetSubRegister(uint64(ast.DataType.BitSize()))
 					}
-					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOVQ, Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
+					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
 				case front.TOKEN_BOOL_LITERAL:
 					var full bool
 					reg, full := RegisterScratchAllocate()
@@ -154,7 +156,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					} else {
 						allocation = reg.GetSubRegister(uint64(ast.DataType.BitSize()))
 					}
-					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
+					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
 				
 
 			}
@@ -163,7 +165,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 		case front.AST_FUNCTION_CALL:
 			out.Code.Append(children_out[1].Code)
 			name := Label(ast.Children[0].Data[0].String_value)
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CALL, name))
+			out.Code.TextAppendSln(Instruction(OP_CALL, name))
 
 			var result Operand
 			reg, full := RegisterScratchAllocate()
@@ -172,7 +174,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			} else {
 				result = reg.GetSubRegister(uint64(ast.DataType.BitSize()))
 			}
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, REGISTER_RAX.GetSubRegister(uint64(64)), result))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, 64, REGISTER_RAX.GetSubRegister(uint64(64)), result))
 			
 			nargs := len(ast.Children[1].Children)
 			nargs_in_stack := nargs - len(ArgumentRegisters)
@@ -182,7 +184,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					reserved_stack += 16 - (reserved_stack & 0xF)
 				}
 				
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_ADD, Asm_Int_Literal{int64(reserved_stack), 10}, REGISTER_RSP.GetSubRegister(uint64(64))))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_ADD, 64, Asm_Int_Literal{int64(reserved_stack), 10}, REGISTER_RSP.GetSubRegister(uint64(64))))
 				for i := 0; i < nargs_in_stack; i+=2 {
 					StackUnreserve16Bytes()
 				}
@@ -203,18 +205,18 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			nargs_in_regs :=  nargs - nargs_in_stack
 
 			if nargs_in_stack % 2 != 0 {
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSHQ, Asm_Int_Literal{0, 10}))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSH, 64, Asm_Int_Literal{0, 10}))
 			}
 			for i := nargs_in_stack - 1; i >= 0; i-=2 {
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSHQ, children_out[nargs_in_regs + i].Result.LiteralValue()))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSH, 64, children_out[nargs_in_regs + i].Result.LiteralValue()))
 				if i > 0 {
-					out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSHQ, children_out[nargs_in_regs + i - 1].Result.LiteralValue()))
+					out.Code.TextAppendSln(InstructionDereferenceAware(OP_PUSH, 64, children_out[nargs_in_regs + i - 1].Result.LiteralValue()))
 				}
 			}
 
 			for i := nargs_in_regs - 1; i >= 0; i-- {
 				reg := ArgumentRegisters[i].GetSubRegister(uint64(64))
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, children_out[i].Result.LiteralValue(), reg))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, 64, children_out[i].Result.LiteralValue(), reg))
 			}
 			StackReserveBytes(uint32(nargs_in_stack * 8))
 
@@ -233,16 +235,23 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			switch variable_type.(type) {
 				case datatype.PrimitiveType: 
 					switch variable_type {
-						case datatype.TYPE_INT64:
-							variable_allc = StackAllocate(uint32(variable_type.ByteSize()))
+						default:
+							bit_size := variable_type.BitSize()
+							byte_size := variable_type.ByteSize()
+
+							variable_allc = StackAllocate(uint32(byte_size))
 
 							init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
+							if init_value == nil {
+								fmt.Println("codegen error: no init value found for type `" + variable_type.Name() + "`")
+								return out
+							}
 							if len(ast.Children) > 2 {
 								out.Code.Appendln(children_out[2].Code)
 								init_value = children_out[2].Result
 							}
 
-							out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, init_value, variable_allc.Reference()))
+							out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, bit_size, init_value, variable_allc.Reference()))
 					}
 			}
 
@@ -269,7 +278,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			} else {
 				allocation = reg.GetSubRegister(uint64(ast.DataType.BitSize()))
 			}
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, symbol.(Codegen_Symbol).Data.Reference(), allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), symbol.(Codegen_Symbol).Data.Reference(), allocation))
 			out.Result = allocation
 		}
 		case front.AST_WHILE: {
@@ -278,12 +287,12 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.TextAppendSln(while_label.Text() + ":")
 
 			out.Code.Appendln(children_out[0].Code)
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_AND, children_out[0].Result, children_out[0].Result))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_JZ, while_exit_label))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_AND, ast.Children[0].DataType.BitSize(), children_out[0].Result, children_out[0].Result))
+			out.Code.TextAppendSln(Instruction(OP_JZ, while_exit_label))
 
 			out.Code.Appendln(children_out[1].Code)
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_JMP, while_label))
+			out.Code.TextAppendSln(Instruction(OP_JMP, while_label))
 			out.Code.TextAppendSln(while_exit_label.Text() + ":")
 		}
 		case front.AST_IF: {
@@ -291,17 +300,17 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			if_exit_label := LabelGen()
 
 			out.Code.Appendln(children_out[0].Code)
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_AND, children_out[0].Result, children_out[0].Result))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_AND, ast.Children[0].DataType.BitSize(), children_out[0].Result, children_out[0].Result))
 			if len(ast.Children) > 2 {
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_JZ, if_false_label))
+				out.Code.TextAppendSln(Instruction(OP_JZ, if_false_label))
 			} else {
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_JZ, if_exit_label))
+				out.Code.TextAppendSln(Instruction(OP_JZ, if_exit_label))
 			}
 
 			out.Code.Appendln(children_out[1].Code)
 
 			if len(ast.Children) > 2 {
-				out.Code.TextAppendSln(InstructionDereferenceAware(OP_JMP, if_exit_label))
+				out.Code.TextAppendSln(Instruction(OP_JMP, if_exit_label))
 				out.Code.TextAppendSln(if_false_label.Text() + ":")
 
 				out.Code.Appendln(children_out[2].Code)
@@ -317,7 +326,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_ADD, right_value, left_value))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_ADD, ast.DataType.BitSize(), right_value, left_value))
 
 			switch right_value.(type) {
 				case SubRegister: right_value.(SubRegister).Free()
@@ -333,7 +342,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_SUB, right_value, left_value))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_SUB, ast.DataType.BitSize(), right_value, left_value))
 
 			switch right_value.(type) {
 				case SubRegister: right_value.(SubRegister).Free()
@@ -354,7 +363,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				return out
 			}
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, right_value, symbol.(Codegen_Symbol).Data.Reference()))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), right_value, symbol.(Codegen_Symbol).Data.Reference()))
 			out.Code.Appendln(children_out[0].Code)
 			
 			
@@ -367,6 +376,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
+			
+			size  := ast.Children[0].DataType.BitSize()
 		
 			var allocation Operand
 			var full bool
@@ -377,9 +388,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				allocation = reg.GetSubRegister(uint64(datatype.TYPE_BOOL.BitSize()))
 			}
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, allocation, allocation))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, right_value, left_value))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_SETG, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, datatype.TYPE_BOOL.BitSize(), allocation, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, size, right_value, left_value))
+			out.Code.TextAppendSln(Instruction(OP_SETG, allocation))
 
 			out.Result = allocation
 		}
@@ -390,6 +401,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
+			
+			size  := ast.Children[0].DataType.BitSize()
 		
 			var allocation Operand
 			var full bool
@@ -400,9 +413,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				allocation = reg.GetSubRegister(uint64(datatype.TYPE_BOOL.BitSize()))
 			}
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, allocation, allocation))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, right_value, left_value))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_SETL, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, datatype.TYPE_BOOL.BitSize(), allocation, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, size, right_value, left_value))
+			out.Code.TextAppendSln(Instruction(OP_SETL, allocation))
 
 			out.Result = allocation
 		}
@@ -413,6 +426,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
+			
+			size  := ast.Children[0].DataType.BitSize()
 		
 			var allocation Operand
 			var full bool
@@ -423,9 +438,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				allocation = reg.GetSubRegister(uint64(datatype.TYPE_BOOL.BitSize()))
 			}
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, allocation, allocation))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, right_value, left_value))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_SETGE, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, datatype.TYPE_BOOL.BitSize(), allocation, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, size, right_value, left_value))
+			out.Code.TextAppendSln(Instruction(OP_SETGE, allocation))
 
 			out.Result = allocation
 		}
@@ -436,6 +451,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
+			
+			size  := ast.Children[0].DataType.BitSize()
 		
 			var allocation Operand
 			var full bool
@@ -446,9 +463,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				allocation = reg.GetSubRegister(uint64(datatype.TYPE_BOOL.BitSize()))
 			}
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, allocation, allocation))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, right_value, left_value))
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_SETLE, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, datatype.TYPE_BOOL.BitSize(), allocation, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, size, right_value, left_value))
+			out.Code.TextAppendSln(Instruction(OP_SETLE, allocation))
 
 			out.Result = allocation
 		}

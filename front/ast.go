@@ -145,3 +145,13 @@ func (ast Ast_Node) _print(lvl int) {
 func (ast Ast_Node) Print() {
 	ast._print(0)
 }
+
+func (ast Ast_Node) FindFirstToken() (*Token) {
+	if len(ast.Data) > 0 {
+		return &ast.Data[0]
+	}
+	if len(ast.Children) <= 0 {
+		return nil
+	}
+	return ast.Children[0].FindFirstToken()
+}

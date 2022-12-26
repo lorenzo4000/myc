@@ -8,14 +8,36 @@ import (
 	"mycgo/back/symbol";
 )
 
+func typeErrorAt (ast *front.Ast_Node, err string, a ...any) {
+	formatted_error := fmt.Sprintf(err, a...)
+
+	first_token := ast.FindFirstToken()
+
+	if first_token != nil {
+		line := first_token.L0
+		char := first_token.C0
+
+		fmt.Printf("%d:%d: typecheck error: %s\n", line, char, formatted_error)
+	} else {
+		fmt.Printf("typecheck error: %s\n", formatted_error)
+	}
+}
+
+func typeExpectErrorAt (ast *front.Ast_Node, expected datatype.DataType, got datatype.DataType) {
+	typeErrorAt(ast, "Expected %s, got %s", expected.Name(), got.Name())
+}
+
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if ast.Type == front.AST_FUNCTION_DEFINITION || 
 	   ast.Type == front.AST_HEAD {
 		symbol.SymbolScopeStackPush()
 	}
 	for _, child := range(ast.Children) {
+		// FIXME: 
+		//  	We should find as many errors as possible before stopping
+		//  	(same thing in parsing btw), but for now this is fine.
+
 		if TypeCheck(child) == nil {
-			// TODO: error
 			return nil
 		}
 	}	
@@ -24,7 +46,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_DATATYPE: {
 			primitive := datatype.PrimitiveTypeFromName(ast.Data[0].String_value)
 			if primitive == datatype.TYPE_UNDEFINED {
-				// TODO: error
+				typeErrorAt(ast, "undefined type `%s`", ast.Data[0].String_value)
 				return nil
 			}
 			ast.DataType = primitive
@@ -53,7 +75,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			variable_name := ast.Children[0].Data[0].String_value
 			_, found := symbol.SymbolTableGetInCurrentScope(variable_name)
 			if found {
-				fmt.Println("typecheck error: `" + variable_name + "` was already declared in this scope")
+				typeErrorAt(ast, "`%s` was already declared in this scope", variable_name)
 				return nil
 			}
 
@@ -62,7 +84,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			if len(ast.Children) >= 3 {
 				initialization_type := ast.Children[2].DataType
 				if variable_type != initialization_type {
-					fmt.Println("typecheck error: expected " + variable_type.Name() + ", got " + initialization_type.Name())
+					typeExpectErrorAt(ast, variable_type, initialization_type)
 					return nil
 				}
 			}
@@ -79,7 +101,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			declaration, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
 
 			if !found {
-				fmt.Println("typecheck error: undefined `" + variable_name + "`")
+				typeErrorAt(ast, "undefined `%s`", variable_name)
 				return nil
 			}
 		
@@ -87,13 +109,13 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		case front.AST_WHILE: {
 			if ast.Children[0].DataType != datatype.TYPE_BOOL {
-				fmt.Println("typecheck error: expected bool, got " + ast.Children[0].DataType.Name())
+				typeExpectErrorAt(ast, datatype.TYPE_BOOL, ast.Children[0].DataType)
 				return nil
 			}
 		}
 		case front.AST_IF: {
 			if ast.Children[0].DataType != datatype.TYPE_BOOL {
-				fmt.Println("typecheck error: expected bool, got " + ast.Children[0].DataType.Name())
+				typeExpectErrorAt(ast, datatype.TYPE_BOOL, ast.Children[0].DataType)
 				return nil
 			}
 		}
@@ -101,7 +123,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
-				// TODO: error
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
 			ast.DataType = left_type
@@ -110,7 +132,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
-				// TODO: error
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
 			ast.DataType = left_type
@@ -118,13 +140,13 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_ASN: {
 			left_ast_type := ast.Children[0].Type
 			if left_ast_type != front.AST_VARIABLE_NAME {
-				fmt.Println("typecheck error: left value in assignement must be a variable")
+				typeErrorAt(ast, "left value in assignment must be a variable")
 				return nil
 			}
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
-				// TODO: error
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
 			ast.DataType = left_type
@@ -133,7 +155,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
-				// TODO: error
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
 			ast.DataType = datatype.TYPE_BOOL
@@ -142,7 +164,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
-				// TODO: error
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
 			ast.DataType = datatype.TYPE_BOOL
@@ -151,7 +173,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
-				// TODO: error
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
 			ast.DataType = datatype.TYPE_BOOL
@@ -160,7 +182,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
-				// TODO: error
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
 			ast.DataType = datatype.TYPE_BOOL

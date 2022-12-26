@@ -346,6 +346,14 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 			ast_if.AddChild(ast_else_body)
 		}
 	}
+	
+	{
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
 
 	return ast_if
 }
