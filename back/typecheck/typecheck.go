@@ -27,11 +27,21 @@ func typeExpectErrorAt (ast *front.Ast_Node, expected datatype.DataType, got dat
 	typeErrorAt(ast, "Expected %s, got %s", expected.Name(), got.Name())
 }
 
+var current_body_ast *front.Ast_Node
+var current_function_body_ast *front.Ast_Node
+
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
-	if ast.Type == front.AST_FUNCTION_DEFINITION || 
+	if ast.Type == front.AST_BODY || 
 	   ast.Type == front.AST_HEAD {
+		if ast.Type == front.AST_BODY {
+			current_body_ast = ast
+		}
+		if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
+			current_function_body_ast = ast
+		}
 		symbol.SymbolScopeStackPush()
 	}
+
 	for _, child := range(ast.Children) {
 		// FIXME: 
 		//  	We should find as many errors as possible before stopping
@@ -52,14 +62,94 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = primitive
 		}
 		case front.AST_FUNCTION_DEFINITION: {
-			symbol.SymbolScopeStackPop()
+			function_name := ast.Children[0].Data[0].String_value
+			_, found := symbol.SymbolTableGetInCurrentScope(function_name)
+			if found {
+				typeErrorAt(ast, "`%s` was already declared", function_name)
+				return nil
+			}
+
+			return_type := ast.Children[2].DataType
+			body_type := ast.Children[3].DataType
+
+			if return_type != body_type {
+				ret_typ := return_type.Name()
+				bod_typ := body_type.Name()
+				typeErrorAt(ast, "function should return `%s`, but returns `%s`", ret_typ, bod_typ)
+				return nil
+			}
+
+			err := symbol.SymbolTableInsertInCurrentScope(function_name, TypeCheck_Symbol{return_type})
+			if err != nil {
+				fmt.Println(err)	
+				return nil
+			}
+
+			ast.DataType = return_type
+		}
+		case front.AST_RETURN: {
+			return_type := ast.Children[0].DataType
+
+			if current_function_body_ast.DataType == nil || 
+			   current_function_body_ast.DataType == datatype.TYPE_UNDEFINED {
+				current_function_body_ast.DataType = return_type
+			} else {
+				if current_function_body_ast.DataType != return_type {
+					typeErrorAt(
+						ast,
+						"function can't return two incompatible types `%s` and `%s`",  
+						current_function_body_ast.DataType.Name(),
+						return_type.Name(),
+					)
+					return nil
+				}
+			}
+
+			current_body_ast.Flags |= front.ASTO_ALWAYS_RETURNS
+			ast.DataType = return_type
 		}
 		case front.AST_HEAD: {
 			symbol.SymbolScopeStackPop()
 		}
+		case front.AST_BODY: {
+			children := len(ast.Children)
+			if children > 0 {
+				last_child := ast.Children[children-1]
+				if last_child.Type == front.AST_BODY_RESULT {
+					if ast.DataType != nil && ast.DataType != datatype.TYPE_UNDEFINED {
+						if ast.DataType != last_child.DataType {
+							typeErrorAt(
+								ast,
+								"function can't return two incompatible types `%s` and `%s`",  
+								last_child.DataType.Name(),
+								ast.DataType.Name(),
+							)
+							return nil
+						}
+					} else {
+						ast.DataType = last_child.DataType
+					}
+				}
+			}
+
+			if ast.DataType == nil {
+				ast.DataType = datatype.TYPE_UNDEFINED
+			}
+
+			symbol.SymbolScopeStackPop()
+		}
+		case front.AST_BODY_RESULT: {
+			ast.DataType = ast.Children[0].DataType
+		}
 		case front.AST_FUNCTION_CALL: {
-			// TODO
-			ast.DataType = datatype.TYPE_INT64
+			function_name := ast.Children[0].Data[0].String_value
+			declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
+
+			if !found {
+				ast.DataType = datatype.TYPE_INT64
+			} else {
+				ast.DataType = declaration.Type()
+			}
 		}
 		case front.AST_LITERAL: {
 			switch ast.Data[0].Type {
@@ -118,6 +208,35 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				typeExpectErrorAt(ast, datatype.TYPE_BOOL, ast.Children[0].DataType)
 				return nil
 			}
+			
+			var if_type	datatype.DataType   = ast.Children[1].DataType
+			var else_type datatype.DataType = datatype.TYPE_UNDEFINED 
+
+			if len(ast.Children) > 2 {
+				else_type = ast.Children[2].DataType
+
+				if ((ast.Children[1].Flags & ast.Children[2].Flags) & front.ASTO_ALWAYS_RETURNS) != 0 {
+					ast.Flags |= front.ASTO_ALWAYS_RETURNS
+					ast.DataType = datatype.TYPE_UNDEFINED
+				} else {
+					if ast.Children[1].Flags & front.ASTO_ALWAYS_RETURNS != 0 {
+						ast.DataType = else_type
+					} else
+					if ast.Children[2].Flags & front.ASTO_ALWAYS_RETURNS != 0 {
+						ast.DataType = if_type
+					} else
+					if if_type != else_type {
+						typeErrorAt(ast, "incompatible types `%s` (if body) and `%s` (else body)", if_type.Name(), else_type.Name())
+						return nil
+					} else {
+						ast.DataType = if_type
+					}
+				}
+			} else {
+				ast.DataType = datatype.TYPE_UNDEFINED
+			}
+
+			typeErrorAt(ast, "IF TYPEEE: %s", ast.DataType.Name())
 		}
 		case front.AST_OP_SUM: {
 			left_type := ast.Children[0].DataType

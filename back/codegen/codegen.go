@@ -59,11 +59,16 @@ func (code *Code) Appendln(appendee Code) {
 	code.DataAppendln(appendee)
 }
 
+var current_function_ast *front.Ast_Node
+
 func Codegen(ast *front.Ast_Node) (Codegen_Out) {
-	if ast.Type == front.AST_FUNCTION_DEFINITION || 
+	if ast.Type == front.AST_FUNCTION_DEFINITION {
+		current_function_ast = ast
+	}
+
+	if ast.Type == front.AST_BODY || 
 	   ast.Type == front.AST_HEAD {
 		symbol.SymbolScopeStackPush()
-			fmt.Println(symbol.SymbolScopeStackCurrent())
 	}
 
 	var children_out []Codegen_Out
@@ -82,7 +87,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			symbol.SymbolScopeStackPop()
 			
 		case front.AST_FUNCTION_DEFINITION:
-			name := Label(ast.Children[0].Data[0].String_value)
+			function_name := ast.Children[0].Data[0].String_value
+			name := Label(function_name)
 			out.Code.TextAppendSln(Instruction(PSOP_GLOBAL, name))
 			out.Code.TextAppendSln(name.Text() + ":")
 			
@@ -95,8 +101,18 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 
 			out.Code.Appendln(children_out[1].Code)
-			out.Code.Appendln(children_out[2].Code)
-			
+			out.Code.Appendln(children_out[3].Code)
+
+
+			body_result := children_out[3].Result
+			body_type := ast.Children[3].DataType
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, body_type.BitSize(), body_result, REGISTER_RAX.GetSubRegister(uint64(body_type.BitSize()))))
+
+
+			function_epilogue := "._" + function_name
+			out.Code.TextAppendSln(function_epilogue + ":")
+
 			// deallocate used stack
 			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, 64, REGISTER_RBP.GetSubRegister(uint64(64)), REGISTER_RSP.GetSubRegister(uint64(64))))
 			out.Code.TextAppendSln(InstructionDereferenceAware(OP_POP, 64, REGISTER_RBP.GetSubRegister(uint64(64))))
@@ -104,9 +120,21 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			CurrentAllocatedStack = 0
 
 			out.Code.TextAppendSln(Instruction(OP_RET))
-			symbol.SymbolScopeStackPop()
 
+		case front.AST_RETURN:
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			function_name := current_function_ast.Children[0].Data[0].String_value
+			return_value := children_out[0].Result
+			return_type := ast.Children[0].DataType
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, return_type.BitSize(), return_value, REGISTER_RAX.GetSubRegister(uint64(return_type.BitSize()))))
 		
+			function_epilogue := Label("._" + function_name)
+			out.Code.TextAppendSln(Instruction(OP_JMP, function_epilogue))
+
 		case front.AST_FUNCTION_DEFINITION_ARGS:
 			for _, child_out := range(children_out) {
 				out.Code.Appendln(child_out.Code)
@@ -122,6 +150,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					parameter = reg.GetSubRegister(uint64(size))
 				}
 				
+				println(child_out.Result.Text())
 				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, size, parameter, child_out.Result))
 			}
 
@@ -129,6 +158,19 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			for _, child_out := range(children_out) {
 				out.Code.Appendln(child_out.Code)
 			}
+
+			children := len(ast.Children)
+			if children > 0 {
+				last_child := ast.Children[children-1]
+				if last_child.Type == front.AST_BODY_RESULT {
+					out.Result = children_out[children-1].Result
+				}
+			}
+			
+			symbol.SymbolScopeStackPop()
+		
+		case front.AST_BODY_RESULT:
+			out = children_out[0]
 
 		case front.AST_EXPRESSION:
 			out = children_out[0]	
@@ -239,13 +281,12 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 							bit_size := variable_type.BitSize()
 							byte_size := variable_type.ByteSize()
 
+							fmt.Printf("bit_size: %d\n", bit_size)
+							fmt.Printf("byte_size: %d\n", byte_size)
+
 							variable_allc = StackAllocate(uint32(byte_size))
 
 							init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
-							if init_value == nil {
-								fmt.Println("codegen error: no init value found for type `" + variable_type.Name() + "`")
-								return out
-							}
 							if len(ast.Children) > 2 {
 								out.Code.Appendln(children_out[2].Code)
 								init_value = children_out[2].Result
@@ -298,6 +339,16 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 		case front.AST_IF: {
 			if_false_label := LabelGen()
 			if_exit_label := LabelGen()
+		
+			var allocation Operand
+			if ast.DataType != datatype.TYPE_UNDEFINED {
+				reg, full := RegisterScratchAllocate()
+				if full {
+					allocation = StackAllocate(uint32(ast.DataType.BitSize())).Reference()
+				} else {
+					allocation = reg.GetSubRegister(uint64(ast.DataType.BitSize()))
+				}
+			}
 
 			out.Code.Appendln(children_out[0].Code)
 			out.Code.TextAppendSln(InstructionDereferenceAware(OP_AND, ast.Children[0].DataType.BitSize(), children_out[0].Result, children_out[0].Result))
@@ -308,15 +359,22 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 
 			out.Code.Appendln(children_out[1].Code)
+			if ast.DataType != datatype.TYPE_UNDEFINED && children_out[1].Result != nil {
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), children_out[1].Result, allocation))
+			}
 
 			if len(ast.Children) > 2 {
 				out.Code.TextAppendSln(Instruction(OP_JMP, if_exit_label))
 				out.Code.TextAppendSln(if_false_label.Text() + ":")
 
 				out.Code.Appendln(children_out[2].Code)
+			if ast.DataType != datatype.TYPE_UNDEFINED && children_out[2].Result != nil {
+					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), children_out[2].Result, allocation))
+				}
 			}
 
 			out.Code.TextAppendSln(if_exit_label.Text() + ":")
+			out.Result = allocation
 		}
 		case front.AST_OP_SUM: {
 			for _, child_out := range(children_out) {

@@ -8,45 +8,59 @@ import (
 	"mycgo/back/datatype"
 )
 
+//
+//			     ---=== NOTE ===---
+//  This is crap, and it doesn't make any sense.
+//  I should have made Ast_* types implementions of 
+//  an interface Ast. OOP for the win.
+//
+
+type Ast_Type byte
+
 const (
-	AST_IDENTIFIER = iota
-	AST_HEAD = iota
+	AST_IDENTIFIER = Ast_Type(iota)
+	AST_HEAD = Ast_Type(iota)
 	
-	AST_DATATYPE = iota
+	AST_DATATYPE = Ast_Type(iota)
 
-	AST_FUNCTION_DEFINITION = iota
-	AST_FUNCTION_DEFINITION_NAME = iota
-	AST_FUNCTION_DEFINITION_ARGS = iota
-	AST_BODY = iota
-	AST_VARIABLE_DEFINITION = iota
-	AST_VARIABLE_DEFINITION_NAME = iota
+	AST_FUNCTION_DEFINITION = Ast_Type(iota)
+	AST_FUNCTION_DEFINITION_NAME = Ast_Type(iota)
+	AST_FUNCTION_DEFINITION_ARGS = Ast_Type(iota)
+	
+	AST_RETURN = Ast_Type(iota)
 
-	AST_VARIABLE_NAME = iota
+	AST_BODY = Ast_Type(iota)
+	AST_BODY_RESULT = Ast_Type(iota)
 
-	AST_FUNCTION_CALL = iota
-	AST_FUNCTION_CALL_NAME = iota
-	AST_FUNCTION_CALL_ARGS = iota
-	AST_FUNCTION_CALL_ARGU = iota
+	AST_VARIABLE_DEFINITION = Ast_Type(iota)
+	AST_VARIABLE_DEFINITION_NAME = Ast_Type(iota)
 
-	AST_EXPRESSION = iota
-	AST_LITERAL = iota
+	AST_VARIABLE_NAME = Ast_Type(iota)
 
-	AST_OP_SUM = iota
-	AST_OP_SUB = iota
-	AST_OP_MUL = iota
-	AST_OP_DIV = iota
-	AST_OP_ASN = iota // assign
+	AST_FUNCTION_CALL = Ast_Type(iota)
+	AST_FUNCTION_CALL_NAME = Ast_Type(iota)
+	AST_FUNCTION_CALL_ARGS = Ast_Type(iota)
+	AST_FUNCTION_CALL_ARGU = Ast_Type(iota)
+
+	AST_EXPRESSION = Ast_Type(iota)
+	AST_LITERAL = Ast_Type(iota)
+
+	AST_OP_SUM = Ast_Type(iota)
+	AST_OP_SUB = Ast_Type(iota)
+	AST_OP_MUL = Ast_Type(iota)
+	AST_OP_DIV = Ast_Type(iota)
+	AST_OP_ASN = Ast_Type(iota) // assign
 
 
-	AST_OP_GRT = iota
-	AST_OP_LES = iota
-	AST_OP_GOE = iota
-	AST_OP_LOE = iota
+	AST_OP_GRT = Ast_Type(iota)
+	AST_OP_LES = Ast_Type(iota)
+	AST_OP_GOE = Ast_Type(iota)
+	AST_OP_LOE = Ast_Type(iota)
 
-	AST_WHILE = iota
-	AST_IF = iota
+	AST_WHILE = Ast_Type(iota)
+	AST_IF = Ast_Type(iota)
 
-	N_AST = iota
+	N_AST = Ast_Type(iota)
 );
 
 var ast_type_str = [N_AST]string {
@@ -58,7 +72,12 @@ var ast_type_str = [N_AST]string {
 	"AST_FUNCTION_DEFINITION",
 	"AST_FUNCTION_DEFINITION_NAME",
 	"AST_FUNCTION_DEFINITION_ARGS",
+	
+	"AST_RETURN",
+
 	"AST_BODY",
+	"AST_BODY_RESULT",
+
 	"AST_VARIABLE_DEFINITION",
 	"AST_VARIABLE_DEFINITION_NAME",
 
@@ -87,8 +106,19 @@ var ast_type_str = [N_AST]string {
 	"AST_IF",
 }
 
+type Ast_Node_Flags uint64
+const (
+	ASTO_BODY_FUNCTION = Ast_Node_Flags(1 << iota)
+	ASTO_BODY_IF = Ast_Node_Flags(1 << iota)
+	ASTO_BODY_ELSE = Ast_Node_Flags(1 << iota)
+	ASTO_BODY_WHILE = Ast_Node_Flags(1 << iota) // OOF... (I don't know what i'm doing)
+
+	ASTO_ALWAYS_RETURNS = Ast_Node_Flags(1 << iota)
+)
+
 type Ast_Node struct {
-	Type byte;
+	Type Ast_Type;
+	Flags Ast_Node_Flags;
 	Data []Token;
 	Children []*Ast_Node;
 
@@ -105,7 +135,7 @@ func (ast *Ast_Node) AddChild(child *Ast_Node) (error){
 	return nil
 }
 
-func (ast *Ast_Node) NewChild(typ byte) (error){
+func (ast *Ast_Node) NewChild(typ Ast_Type) (error){
 	child := new(Ast_Node)
 	child.Type = typ
 	

@@ -147,6 +147,24 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 				lit, _ := parser.Pop()
 				literal.Data = []Token{lit}
 				return literal
+			case TOKEN_OPENING_BRACKET:
+				parser.Pop()
+
+				body := parser.ParseBody()
+				if body == nil {
+					return nil
+				}
+
+				{
+					next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+					if expect {
+						parseExpectErrorAt(next, "`}`")
+						return nil
+					}
+				}
+				return body
+			case TOKEN_KEYWORD_IF:
+				return parser.ParseIf()
 		}
 	}
 	parseExpectErrorAt(curr, "value or expression")
@@ -199,18 +217,13 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	expression := new(Ast_Node)
 	expression.Type = AST_EXPRESSION
 
-	// check expression enders
-	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
-		return nil
-	}
-
 	left := parser.ParseSubExpression()
 	if left == nil {
 		return nil
 	}
 
 	// check expression enders
-	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
+	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_CLOSING_BRACKET) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
 		expression.AddChild(left)
 		return expression
 	}
@@ -219,14 +232,7 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	if operator == nil {
 		return nil
 	}
-	
-	// check expression enders
-	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
-		cur, _ := parser.Current()
-		parseExpectErrorAt(cur, "value or expression")
-		return expression
-	}
-	
+
 	right := parser.ParseExpression()
 	if right == nil {
 		return nil
@@ -269,6 +275,7 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 	{
 		while_body := parser.ParseBody()
 		if while_body != nil {
+			while_body.Flags |= ASTO_BODY_WHILE
 			while.AddChild(while_body)
 		}
 	}
@@ -313,6 +320,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 	{
 		ast_if_body := parser.ParseBody()
 		if ast_if_body != nil {
+			ast_if_body.Flags |= ASTO_BODY_IF
 			ast_if.AddChild(ast_if_body)
 		}
 	}
@@ -343,6 +351,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 	{
 		ast_else_body := parser.ParseBody()
 		if ast_else_body != nil {
+			ast_else_body.Flags |= ASTO_BODY_ELSE
 			ast_if.AddChild(ast_else_body)
 		}
 	}
@@ -368,6 +377,9 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 			return nil
 		}
 		switch current.Type {
+			case TOKEN_SEMICOLON: {
+				parser.Pop()
+			}
 			case TOKEN_COLON: {
 				body.AddChild(parser.ParseVariableDefinition())
 				
@@ -383,21 +395,40 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 			case TOKEN_KEYWORD_IF: {
 				body.AddChild(parser.ParseIf())
 			}
+			case TOKEN_KEYWORD_RETURN: {
+				ret := parser.ParseReturn()
+				if ret != nil {
+					next, expect := parser.PopIf(TOKEN_SEMICOLON)
+					if expect {
+						parseExpectErrorAt(next, "`;`")
+						return nil
+					}
+					body.AddChild(ret)
+				}
+			}
 			default: {
 				exp := parser.ParseExpression()
 				if exp != nil {
-					body.AddChild(exp)
-				}
-
-				next, expect := parser.PopIf(TOKEN_SEMICOLON)
-				if expect {
-					parseExpectErrorAt(next, "`;`")
-					return nil
+					if 	parser.CurrentIs(TOKEN_SEMICOLON) {
+						body.AddChild(exp)
+						parser.Pop()
+					} else if parser.CurrentIs(TOKEN_CLOSING_BRACKET) {
+						body_result := new(Ast_Node)
+						body_result.Type = AST_BODY_RESULT
+						body_result.AddChild(exp)
+						body.AddChild(body_result)
+					} else {
+						cur, end := parser.Current()
+						if !end {
+							parseExpectErrorAt(cur, "`;` or `}`")
+							parser.Pop()
+						}
+						return nil
+					}
 				}
 			}
 		}
 	}
-	
 
 	return body
 }
@@ -483,6 +514,20 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	}
 	
 	{
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
+		if expect {
+			parseExpectErrorAt(next, "`return type`")
+			return nil
+		}
+
+		return_type := new(Ast_Node)
+		return_type.Type = AST_DATATYPE
+		return_type.Data = []Token{next}
+
+		function_definition.AddChild(return_type)
+	}
+	
+	{
 		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
 		if expect {
 			parseExpectErrorAt(next, "`{`")
@@ -492,6 +537,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	
 	body := parser.ParseBody()
 	if body != nil {
+		body.Flags |= ASTO_BODY_FUNCTION
 		function_definition.AddChild(body)
 	}
 
@@ -504,6 +550,33 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	}
 
 	return function_definition
+}
+
+func (parser *Parser) ParseReturn() (*Ast_Node) {
+	ast_return := new(Ast_Node)
+	ast_return.Type = AST_RETURN
+
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_RETURN)
+		if expect {
+			parseExpectErrorAt(next, "`return`")
+			return nil
+		}
+	}
+	
+	cur, end := parser.Current()
+	if end {
+		return nil
+	}
+
+	return_exp := parser.ParseExpression()
+	if return_exp == nil {
+		parseExpectErrorAt(cur, "value or expression")
+		return nil
+	}	
+	ast_return.AddChild(return_exp)
+	
+	return ast_return
 }
 
 func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {

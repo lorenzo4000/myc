@@ -12,6 +12,7 @@ const (
 	
 	// keywords
 	TOKEN_KEYWORD_FUNCTION    = iota
+	TOKEN_KEYWORD_RETURN    = iota
 	TOKEN_KEYWORD_WHILE    = iota
 	TOKEN_KEYWORD_IF    = iota
 	TOKEN_KEYWORD_ELSE    = iota
@@ -41,6 +42,7 @@ const (
 
 var keywordTokenMap = map[string]byte {
 	"function": TOKEN_KEYWORD_FUNCTION,
+	"return": TOKEN_KEYWORD_RETURN,
 	"while": TOKEN_KEYWORD_WHILE,
 	"if": TOKEN_KEYWORD_IF,
 	"else": TOKEN_KEYWORD_ELSE,
