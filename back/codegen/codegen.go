@@ -105,9 +105,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 
 			body_result := children_out[3].Result
-			body_type := ast.Children[3].DataType
+			if body_result != nil {
+				body_type := ast.Children[3].DataType
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, body_type.BitSize(), body_result, REGISTER_RAX.GetSubRegister(uint64(body_type.BitSize()))))
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, body_type.BitSize(), body_result, REGISTER_RAX.GetSubRegister(uint64(body_type.BitSize()))))
+			}
 
 
 			function_epilogue := "._" + function_name

@@ -50,7 +50,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		if TypeCheck(child) == nil {
 			return nil
 		}
+		if ast.Type == front.AST_BODY {
+			current_body_ast = ast
+		}
 	}	
+		
 
 	switch ast.Type {
 		case front.AST_DATATYPE: {
@@ -69,8 +73,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 
+			body := ast.Children[3]
+			body_type := body.DataType
+
 			return_type := ast.Children[2].DataType
-			body_type := ast.Children[3].DataType
 
 			if return_type != body_type {
 				ret_typ := return_type.Name()
@@ -105,17 +111,33 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				}
 			}
 
+
+			ast.Flags |= front.ASTO_ALWAYS_RETURNS
 			current_body_ast.Flags |= front.ASTO_ALWAYS_RETURNS
+
 			ast.DataType = return_type
 		}
 		case front.AST_HEAD: {
 			symbol.SymbolScopeStackPop()
 		}
+
+		// NOTE:
+		// If the body already has a type, it's either because a `return` 
+		// exists somewhere inside the body (only if it's a function body),
+		// or because the body has a tail result.
+		//
+		// In the case of a function body:
+		// 1. We'll give type priority to the tail result;
+		// 2. If a tail exists, the body will always return.
 		case front.AST_BODY: {
 			children := len(ast.Children)
 			if children > 0 {
 				last_child := ast.Children[children-1]
 				if last_child.Type == front.AST_BODY_RESULT {
+					if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
+						ast.Flags |= front.ASTO_ALWAYS_RETURNS
+					}
+
 					if ast.DataType != nil && ast.DataType != datatype.TYPE_UNDEFINED {
 						if ast.DataType != last_child.DataType {
 							typeErrorAt(
@@ -131,9 +153,20 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					}
 				}
 			}
+			
+			for _, child := range ast.Children {
+				if child.Flags & front.ASTO_ALWAYS_RETURNS != 0 {
+					ast.Flags |= front.ASTO_ALWAYS_RETURNS
+					break
+				}		
+			}
 
 			if ast.DataType == nil {
 				ast.DataType = datatype.TYPE_UNDEFINED
+			} else {
+				if ast.Flags & front.ASTO_ALWAYS_RETURNS == 0 {
+					ast.DataType = datatype.TYPE_UNDEFINED
+				}
 			}
 
 			symbol.SymbolScopeStackPop()
@@ -216,6 +249,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				else_type = ast.Children[2].DataType
 
 				if ((ast.Children[1].Flags & ast.Children[2].Flags) & front.ASTO_ALWAYS_RETURNS) != 0 {
+					println("IF ALWAYS RETURNS")
 					ast.Flags |= front.ASTO_ALWAYS_RETURNS
 					ast.DataType = datatype.TYPE_UNDEFINED
 				} else {
@@ -235,8 +269,6 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			} else {
 				ast.DataType = datatype.TYPE_UNDEFINED
 			}
-
-			typeErrorAt(ast, "IF TYPEEE: %s", ast.DataType.Name())
 		}
 		case front.AST_OP_SUM: {
 			left_type := ast.Children[0].DataType

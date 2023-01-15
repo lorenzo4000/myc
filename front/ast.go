@@ -111,7 +111,7 @@ const (
 	ASTO_BODY_FUNCTION = Ast_Node_Flags(1 << iota)
 	ASTO_BODY_IF = Ast_Node_Flags(1 << iota)
 	ASTO_BODY_ELSE = Ast_Node_Flags(1 << iota)
-	ASTO_BODY_WHILE = Ast_Node_Flags(1 << iota) // OOF... (I don't know what i'm doing)
+	ASTO_BODY_WHILE = Ast_Node_Flags(1 << iota) 
 
 	ASTO_ALWAYS_RETURNS = Ast_Node_Flags(1 << iota)
 )
