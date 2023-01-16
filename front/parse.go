@@ -29,7 +29,8 @@ func (parser *Parser) CurrentIs(_type byte) (bool) {
 }
 
 func (parser *Parser) Peek(n int64) (Token, bool) {
-	if parser.Index + n >= int64(len(parser.Tokens)) {
+	if parser.Index + n >= int64(len(parser.Tokens)) ||
+	   parser.Index + n < 0 {
 		return Token{}, true
 	}
 	return parser.Tokens[parser.Index + n], false
@@ -174,9 +175,8 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 func (parser *Parser) ParseOperator() (*Ast_Node) {
 	operator := new(Ast_Node)
 
-	cur, end := parser.Pop()
+	cur, end := parser.Current()
 	if end {
-		parseExpectErrorAt(cur, "operator")
 		return nil
 	}
 
@@ -191,7 +191,9 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		case TOKEN_LES:   operator.Type = AST_OP_LES
 		case TOKEN_GOE:   operator.Type = AST_OP_GOE
 		case TOKEN_LOE:   operator.Type = AST_OP_LOE
+		default:          return nil
 	}
+	parser.Pop()
 	return operator
 }
 
@@ -222,15 +224,10 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 		return nil
 	}
 
-	// check expression enders
-	if parser.CurrentIs(TOKEN_SEMICOLON) || parser.CurrentIs(TOKEN_COMMA) || parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) || parser.CurrentIs(TOKEN_CLOSING_BRACKET) || parser.CurrentIs(TOKEN_OPENING_BRACKET) {
-		expression.AddChild(left)
-		return expression
-	}
-
 	operator := parser.ParseOperator()
 	if operator == nil {
-		return nil
+		expression.AddChild(left)
+		return expression
 	}
 
 	right := parser.ParseExpression()
@@ -392,9 +389,9 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 			case TOKEN_KEYWORD_WHILE: {
 				body.AddChild(parser.ParseWhile())
 			}
-			case TOKEN_KEYWORD_IF: {
-				body.AddChild(parser.ParseIf())
-			}
+			//case TOKEN_KEYWORD_IF: {
+			//	body.AddChild(parser.ParseIf())
+			//}
 			case TOKEN_KEYWORD_RETURN: {
 				ret := parser.ParseReturn()
 				if ret != nil {
@@ -418,12 +415,16 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 						body_result.AddChild(exp)
 						body.AddChild(body_result)
 					} else {
-						cur, end := parser.Current()
-						if !end {
-							parseExpectErrorAt(cur, "`;` or `}`")
-							parser.Pop()
-						}
-						return nil
+						prev, _ := parser.Peek(-1)
+						if prev.Type != TOKEN_CLOSING_BRACKET {
+							cur, end := parser.Current()
+							if !end {
+								parseExpectErrorAt(cur, "`;` or `}`")
+								parser.Pop()
+							}
+							return nil
+						} 
+						body.AddChild(exp)
 					}
 				}
 			}

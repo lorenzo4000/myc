@@ -3,9 +3,9 @@ package typecheck
 import (
 	"fmt"
 
-	"mycgo/front";
-	"mycgo/back/datatype";
-	"mycgo/back/symbol";
+	"mycgo/front"
+	"mycgo/back/datatype"
+	"mycgo/back/symbol"
 )
 
 func typeErrorAt (ast *front.Ast_Node, err string, a ...any) {
@@ -164,8 +164,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			if ast.DataType == nil {
 				ast.DataType = datatype.TYPE_UNDEFINED
 			} else {
-				if ast.Flags & front.ASTO_ALWAYS_RETURNS == 0 {
-					ast.DataType = datatype.TYPE_UNDEFINED
+				if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
+					if ast.Flags & front.ASTO_ALWAYS_RETURNS == 0 {
+						ast.DataType = datatype.TYPE_UNDEFINED
+					}
 				}
 			}
 
@@ -249,7 +251,6 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				else_type = ast.Children[2].DataType
 
 				if ((ast.Children[1].Flags & ast.Children[2].Flags) & front.ASTO_ALWAYS_RETURNS) != 0 {
-					println("IF ALWAYS RETURNS")
 					ast.Flags |= front.ASTO_ALWAYS_RETURNS
 					ast.DataType = datatype.TYPE_UNDEFINED
 				} else {
