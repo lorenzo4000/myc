@@ -4,9 +4,9 @@ type PrimitiveType int8
 
 const (
 	TYPE_UNDEFINED = PrimitiveType(-1)
+	TYPE_NONE = PrimitiveType(iota)
 
 	TYPE_INT64  = PrimitiveType(iota)
-	
 	TYPE_BOOL  = PrimitiveType(iota)
 
 	N_PRIMITIVE_TYPES = int(iota)

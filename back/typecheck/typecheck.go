@@ -28,6 +28,7 @@ func typeExpectErrorAt (ast *front.Ast_Node, expected datatype.DataType, got dat
 }
 
 var current_body_ast *front.Ast_Node
+var current_function_ast *front.Ast_Node
 var current_function_body_ast *front.Ast_Node
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
@@ -35,12 +36,16 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	   ast.Type == front.AST_HEAD {
 		if ast.Type == front.AST_BODY {
 			current_body_ast = ast
-		}
-		if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
-			current_function_body_ast = ast
+			if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
+				current_function_body_ast = ast
+			}
 		}
 		symbol.SymbolScopeStackPush()
 	}
+	if ast.Type == front.AST_FUNCTION_DEFINITION {
+		current_function_ast = ast	
+	}
+
 
 	for _, child := range(ast.Children) {
 		// FIXME: 
@@ -54,16 +59,19 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			current_body_ast = ast
 		}
 	}	
-		
 
 	switch ast.Type {
 		case front.AST_DATATYPE: {
-			primitive := datatype.PrimitiveTypeFromName(ast.Data[0].String_value)
-			if primitive == datatype.TYPE_UNDEFINED {
-				typeErrorAt(ast, "undefined type `%s`", ast.Data[0].String_value)
-				return nil
+			if ast.Data != nil && len(ast.Data) > 0 {
+				primitive := datatype.PrimitiveTypeFromName(ast.Data[0].String_value)
+				if primitive == datatype.TYPE_UNDEFINED {
+					typeErrorAt(ast, "undefined type `%s`", ast.Data[0].String_value)
+					return nil
+				}
+				ast.DataType = primitive
+			} else {
+				ast.DataType = datatype.TYPE_NONE
 			}
-			ast.DataType = primitive
 		}
 		case front.AST_FUNCTION_DEFINITION: {
 			function_name := ast.Children[0].Data[0].String_value
@@ -95,9 +103,20 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		case front.AST_RETURN: {
 			return_type := ast.Children[0].DataType
+			function_return_type := current_function_ast.Children[2].DataType
+			
+			if function_return_type != return_type {
+					typeErrorAt(
+						ast,
+						"incompatible return type and declared function type: `%s` and `%s`",  
+						return_type.Name(),
+						function_return_type.Name(),
+					)
+					return nil
+			}
 
 			if current_function_body_ast.DataType == nil || 
-			   current_function_body_ast.DataType == datatype.TYPE_UNDEFINED {
+			   current_function_body_ast.DataType == datatype.TYPE_NONE {
 				current_function_body_ast.DataType = return_type
 			} else {
 				if current_function_body_ast.DataType != return_type {
@@ -138,7 +157,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 						ast.Flags |= front.ASTO_ALWAYS_RETURNS
 					}
 
-					if ast.DataType != nil && ast.DataType != datatype.TYPE_UNDEFINED {
+					if ast.DataType != nil && ast.DataType != datatype.TYPE_NONE {
 						if ast.DataType != last_child.DataType {
 							typeErrorAt(
 								ast,
@@ -162,11 +181,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 
 			if ast.DataType == nil {
-				ast.DataType = datatype.TYPE_UNDEFINED
+				ast.DataType = datatype.TYPE_NONE
 			} else {
 				if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
 					if ast.Flags & front.ASTO_ALWAYS_RETURNS == 0 {
-						ast.DataType = datatype.TYPE_UNDEFINED
+						ast.DataType = datatype.TYPE_NONE
 					}
 				}
 			}
@@ -245,14 +264,14 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			
 			var if_type	datatype.DataType   = ast.Children[1].DataType
-			var else_type datatype.DataType = datatype.TYPE_UNDEFINED 
+			var else_type datatype.DataType = datatype.TYPE_NONE
 
 			if len(ast.Children) > 2 {
 				else_type = ast.Children[2].DataType
 
 				if ((ast.Children[1].Flags & ast.Children[2].Flags) & front.ASTO_ALWAYS_RETURNS) != 0 {
 					ast.Flags |= front.ASTO_ALWAYS_RETURNS
-					ast.DataType = datatype.TYPE_UNDEFINED
+					ast.DataType = datatype.TYPE_NONE
 				} else {
 					if ast.Children[1].Flags & front.ASTO_ALWAYS_RETURNS != 0 {
 						ast.DataType = else_type
@@ -268,7 +287,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					}
 				}
 			} else {
-				ast.DataType = datatype.TYPE_UNDEFINED
+				ast.DataType = datatype.TYPE_NONE
 			}
 		}
 		case front.AST_OP_SUM: {

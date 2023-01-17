@@ -515,16 +515,28 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
-		if expect {
-			parseExpectErrorAt(next, "`return type`")
+		type_token, end := parser.Current()
+		if end { 
+			parseExpectErrorAt(type_token, "return type or `{`")
 			return nil
 		}
-
+		
 		return_type := new(Ast_Node)
 		return_type.Type = AST_DATATYPE
-		return_type.Data = []Token{next}
 
+		switch type_token.Type {
+			case TOKEN_IDENTIFIER: {
+				return_type.Data = []Token{type_token}
+				parser.Pop()
+			}
+			case TOKEN_OPENING_BRACKET: {
+				return_type.Data = nil
+			}
+			default: {
+				parseExpectErrorAt(type_token, "return type or `{`")
+				return nil
+			}
+		}
 		function_definition.AddChild(return_type)
 	}
 	

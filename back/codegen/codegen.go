@@ -343,7 +343,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			if_exit_label := LabelGen()
 		
 			var allocation Operand
-			if ast.DataType != datatype.TYPE_UNDEFINED {
+			if ast.DataType != datatype.TYPE_NONE {
 				reg, full := RegisterScratchAllocate()
 				if full {
 					allocation = StackAllocate(uint32(ast.DataType.BitSize())).Reference()
@@ -361,7 +361,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 
 			out.Code.Appendln(children_out[1].Code)
-			if ast.DataType != datatype.TYPE_UNDEFINED && children_out[1].Result != nil {
+			if ast.DataType != datatype.TYPE_NONE && children_out[1].Result != nil {
 				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), children_out[1].Result, allocation))
 			}
 
@@ -370,7 +370,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				out.Code.TextAppendSln(if_false_label.Text() + ":")
 
 				out.Code.Appendln(children_out[2].Code)
-			if ast.DataType != datatype.TYPE_UNDEFINED && children_out[2].Result != nil {
+			if ast.DataType != datatype.TYPE_NONE && children_out[2].Result != nil {
 					out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, ast.DataType.BitSize(), children_out[2].Result, allocation))
 				}
 			}
