@@ -129,10 +129,13 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 
 			function_name := current_function_ast.Children[0].Data[0].String_value
-			return_value := children_out[0].Result
-			return_type := ast.Children[0].DataType
 
-			out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, return_type.BitSize(), return_value, REGISTER_RAX.GetSubRegister(uint64(return_type.BitSize()))))
+			if len(ast.Children) > 0 {
+				return_value := children_out[0].Result
+				return_type := ast.Children[0].DataType
+
+				out.Code.TextAppendSln(InstructionDereferenceAware(OP_MOV, return_type.BitSize(), return_value, REGISTER_RAX.GetSubRegister(uint64(return_type.BitSize()))))
+			}
 		
 			function_epilogue := Label("._" + function_name)
 			out.Code.TextAppendSln(Instruction(OP_JMP, function_epilogue))
@@ -526,6 +529,56 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, datatype.TYPE_BOOL.BitSize(), allocation, allocation))
 			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, size, right_value, left_value))
 			out.Code.TextAppendSln(Instruction(OP_SETLE, allocation))
+
+			out.Result = allocation
+		}
+		case front.AST_OP_EQU: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			left_value  := children_out[0].Result
+			right_value := children_out[1].Result
+			
+			size  := ast.Children[0].DataType.BitSize()
+		
+			var allocation Operand
+			var full bool
+			reg, full := RegisterScratchAllocate()
+			if full {
+				allocation = StackAllocate(uint32(datatype.TYPE_BOOL.BitSize())).Reference()
+			} else {
+				allocation = reg.GetSubRegister(uint64(datatype.TYPE_BOOL.BitSize()))
+			}
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, datatype.TYPE_BOOL.BitSize(), allocation, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, size, right_value, left_value))
+			out.Code.TextAppendSln(Instruction(OP_SETE, allocation))
+
+			out.Result = allocation
+		}
+		case front.AST_OP_NEQ: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			left_value  := children_out[0].Result
+			right_value := children_out[1].Result
+			
+			size  := ast.Children[0].DataType.BitSize()
+		
+			var allocation Operand
+			var full bool
+			reg, full := RegisterScratchAllocate()
+			if full {
+				allocation = StackAllocate(uint32(datatype.TYPE_BOOL.BitSize())).Reference()
+			} else {
+				allocation = reg.GetSubRegister(uint64(datatype.TYPE_BOOL.BitSize()))
+			}
+
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_XOR, datatype.TYPE_BOOL.BitSize(), allocation, allocation))
+			out.Code.TextAppendSln(InstructionDereferenceAware(OP_CMP, size, right_value, left_value))
+			out.Code.TextAppendSln(Instruction(OP_SETNE, allocation))
 
 			out.Result = allocation
 		}

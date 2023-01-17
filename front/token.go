@@ -26,7 +26,7 @@ const (
 	TOKEN_SEMICOLON			  = ';' 
 	TOKEN_COLON		  		  = ':' 
 	
-	TOKEN_EQU		  		  = '=' 
+	TOKEN_ASN		  		  = '=' 
 	TOKEN_SUM		  		  = '+' 
 	TOKEN_SUB		  		  = '-' 
 	TOKEN_MUL		  		  = '*' 
@@ -36,6 +36,11 @@ const (
 	TOKEN_LES				  = '<'
 	TOKEN_GOE				  = iota
 	TOKEN_LOE				  = iota
+
+	TOKEN_EQU				  = iota
+	TOKEN_NEQ				  = iota
+	
+	TOKEN_NOT				  = '!'
 
 	N_TOKENS 				  = iota 
 )
@@ -56,18 +61,21 @@ var characterTokenMap = map[byte]byte {
 	',':		TOKEN_COMMA,
 	';':		TOKEN_SEMICOLON,
 	':':		TOKEN_COLON,
-	'=':		TOKEN_EQU,
+	'=':		TOKEN_ASN,
 	'+':		TOKEN_SUM,
 	'-':		TOKEN_SUB,
 	'*':		TOKEN_MUL,
 	'/':		TOKEN_DIV,
 	'>': 		TOKEN_GRT,
 	'<': 		TOKEN_LES,
+	'!':		TOKEN_NOT,
 }
 
 var multiCharacterTokenMap = map[string]byte {
 	">=":       TOKEN_GOE,
 	"<=":       TOKEN_LOE,
+	"==":       TOKEN_EQU,
+	"!=":       TOKEN_NEQ,
 }
 
 type Token struct {

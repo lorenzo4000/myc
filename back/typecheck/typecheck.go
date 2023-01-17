@@ -102,39 +102,43 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = return_type
 		}
 		case front.AST_RETURN: {
-			return_type := ast.Children[0].DataType
-			function_return_type := current_function_ast.Children[2].DataType
-			
-			if function_return_type != return_type {
-					typeErrorAt(
-						ast,
-						"incompatible return type and declared function type: `%s` and `%s`",  
-						return_type.Name(),
-						function_return_type.Name(),
-					)
-					return nil
-			}
-
-			if current_function_body_ast.DataType == nil || 
-			   current_function_body_ast.DataType == datatype.TYPE_NONE {
-				current_function_body_ast.DataType = return_type
+			if len(ast.Children) <= 0 {
+				ast.DataType = datatype.TYPE_NONE
 			} else {
-				if current_function_body_ast.DataType != return_type {
-					typeErrorAt(
-						ast,
-						"function can't return two incompatible types `%s` and `%s`",  
-						current_function_body_ast.DataType.Name(),
-						return_type.Name(),
-					)
-					return nil
+				return_type := ast.Children[0].DataType
+				function_return_type := current_function_ast.Children[2].DataType
+				
+				if function_return_type != return_type {
+						typeErrorAt(
+							ast,
+							"incompatible return type and declared function type: `%s` and `%s`",  
+							return_type.Name(),
+							function_return_type.Name(),
+						)
+						return nil
 				}
+
+				if current_function_body_ast.DataType == nil || 
+				   current_function_body_ast.DataType == datatype.TYPE_NONE {
+					current_function_body_ast.DataType = return_type
+				} else {
+					if current_function_body_ast.DataType != return_type {
+						typeErrorAt(
+							ast,
+							"function can't return two incompatible types `%s` and `%s`",  
+							current_function_body_ast.DataType.Name(),
+							return_type.Name(),
+						)
+						return nil
+					}
+				}
+
+
+				ast.Flags |= front.ASTO_ALWAYS_RETURNS
+				current_body_ast.Flags |= front.ASTO_ALWAYS_RETURNS
+
+				ast.DataType = return_type
 			}
-
-
-			ast.Flags |= front.ASTO_ALWAYS_RETURNS
-			current_body_ast.Flags |= front.ASTO_ALWAYS_RETURNS
-
-			ast.DataType = return_type
 		}
 		case front.AST_HEAD: {
 			symbol.SymbolScopeStackPop()
@@ -350,6 +354,24 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = datatype.TYPE_BOOL
 		}
 		case front.AST_OP_LOE: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_EQU: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_NEQ: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {

@@ -28,6 +28,8 @@ const (
 	OP_SETL = Op(iota)
 	OP_SETGE = Op(iota)
 	OP_SETLE = Op(iota)
+	OP_SETE = Op(iota)
+	OP_SETNE = Op(iota)
 
 	OP_PUSH = Op(iota) | O_SUFFIXABLE
 	OP_PUSHQ = Op(iota)
@@ -62,6 +64,8 @@ func (op Op) Str() string {
 		case OP_SETL : return "setl"
 		case OP_SETGE: return "setge"
 		case OP_SETLE: return "setle"
+		case OP_SETE: return "sete"
+		case OP_SETNE: return "setne"
 		
 		case OP_PUSH : return "push"
 		case OP_PUSHQ: return "pushq"

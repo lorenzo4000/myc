@@ -57,6 +57,12 @@ const (
 	AST_OP_GOE = Ast_Type(iota)
 	AST_OP_LOE = Ast_Type(iota)
 
+	AST_OP_EQU = Ast_Type(iota)
+    AST_OP_NEQ = Ast_Type(iota)
+
+    AST_OP_NOT = Ast_Type(iota)
+
+
 	AST_WHILE = Ast_Type(iota)
 	AST_IF = Ast_Type(iota)
 
@@ -101,6 +107,12 @@ var ast_type_str = [N_AST]string {
 	"AST_OP_LES",
 	"AST_OP_GOE",
 	"AST_OP_LOE",
+	
+	"AST_OP_EQU",
+    "AST_OP_NEQ",
+              
+    "AST_OP_NOT",
+
 
 	"AST_WHILE",
 	"AST_IF",

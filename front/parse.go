@@ -185,12 +185,17 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		case TOKEN_SUB:   operator.Type = AST_OP_SUB
 		case TOKEN_MUL:   operator.Type = AST_OP_MUL
 		case TOKEN_DIV:   operator.Type = AST_OP_DIV
-		case TOKEN_EQU:   operator.Type = AST_OP_ASN
+		case TOKEN_ASN:   operator.Type = AST_OP_ASN
 
 		case TOKEN_GRT:   operator.Type = AST_OP_GRT
 		case TOKEN_LES:   operator.Type = AST_OP_LES
 		case TOKEN_GOE:   operator.Type = AST_OP_GOE
 		case TOKEN_LOE:   operator.Type = AST_OP_LOE
+
+		case TOKEN_EQU:   operator.Type = AST_OP_EQU
+		case TOKEN_NEQ:   operator.Type = AST_OP_NEQ
+
+		case TOKEN_NOT:   operator.Type = AST_OP_NOT
 		default:          return nil
 	}
 	parser.Pop()
@@ -577,17 +582,25 @@ func (parser *Parser) ParseReturn() (*Ast_Node) {
 		}
 	}
 	
-	cur, end := parser.Current()
-	if end {
-		return nil
-	}
+	{
+		next, end := parser.Current()
+		if end { 
+			parseExpectErrorAt(next, "value or expression or `;`")
+			return nil
+		}
 
-	return_exp := parser.ParseExpression()
-	if return_exp == nil {
-		parseExpectErrorAt(cur, "value or expression")
-		return nil
-	}	
-	ast_return.AddChild(return_exp)
+		if next.Type == TOKEN_SEMICOLON {
+			return ast_return
+		}
+		
+		return_exp := parser.ParseExpression()
+		if return_exp == nil {
+			parseExpectErrorAt(next, "value or expression")
+			return nil
+		}
+
+		ast_return.AddChild(return_exp)
+	}
 	
 	return ast_return
 }
@@ -631,7 +644,7 @@ func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_EQU)
+		next, expect := parser.PopIf(TOKEN_ASN)
 		if expect {
 			return variable_definition
 		}

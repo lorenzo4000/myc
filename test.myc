@@ -30,8 +30,9 @@ function main() {
 		if x <= 0 {
 			sing = 1;
 		}
-		if print_line(x, true) {
+		if print_line(x, true) != false {
 			printf("error: negative length for the line is illegal\n");
+			return;
 		}
 	}
 }
