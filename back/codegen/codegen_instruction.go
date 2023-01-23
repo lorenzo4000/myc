@@ -1,5 +1,9 @@
 package codegen
 
+import (
+	"mycgo/back/datatype"
+)
+
 type Op uint32
 
 const (
@@ -105,6 +109,7 @@ func (op Op) StrWithSuffix(suffix Op_Suffix) string {
 
 
 type Operand interface {
+	Type() datatype.DataType
 	Text() string
 	LiteralValue() Operand // ex. '58'.LiteralValue() = '$58'
 	Dereference() Operand  // ex. 'label_x'.Dereference() = '(label_x)'
@@ -151,10 +156,10 @@ func InstructionDereferenceAware(op Op, size byte, oprnds ...Operand) string {
 
 		reg, full := RegisterScratchAllocate()
 		if full {
-			allocation   = REGISTER_RBX.GetSubRegister(uint64(size))
-			instruction += InstructionSized(OP_PUSH, 64, REGISTER_RBX.GetSubRegister(uint64(64))) + "\n"
+			allocation   = REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
+			instruction += InstructionSized(OP_PUSH, 64, REGISTER_RBX.GetRegister(datatype.TYPE_INT64)) + "\n"
 		} else {
-			allocation = reg.GetSubRegister(uint64(size))
+			allocation = reg.GetRegister(uint64(size))
 		}
 
 		instruction += InstructionSized(OP_MOV, size, oprnds[0], allocation) + "\n"
@@ -162,7 +167,7 @@ func InstructionDereferenceAware(op Op, size byte, oprnds ...Operand) string {
 	    instruction += InstructionSized(op, size, oprnds...) + "\n"
 
 		if full {
-			instruction  += InstructionSized(OP_POP, 64, REGISTER_RBX.GetSubRegister(uint64(64))) + "\n"
+			instruction  += InstructionSized(OP_POP, 64, REGISTER_RBX.GetRegister(uint64(64))) + "\n"
 		}
 		return instruction
 	}	

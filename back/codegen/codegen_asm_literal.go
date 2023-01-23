@@ -2,9 +2,11 @@ package codegen
 
 import (
 	"strconv"
+	"mycgo/back/datatype"
 )
 
 type Asm_Literal interface {
+	Type() datatype.DataType
 	Text() string
 }
 
@@ -37,4 +39,12 @@ func (i Asm_Int_Literal) LiteralValue() Operand {
 
 func (s Asm_String_Literal) LiteralValue() Operand {
 	return s
+}
+
+func (i Asm_Int_Literal) Type() datatype.DataType {
+	return datatype.TYPE_INT64
+}
+
+func (i Asm_String_Literal) Type() datatype.DataType {
+	return datatype.TYPE_NONE
 }

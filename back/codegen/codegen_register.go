@@ -1,131 +1,67 @@
 package codegen
 
-
-type Register byte
-
-const (
-	REGISTER_RAX = Register(iota) 
-	REGISTER_RDI = Register(iota)  
-	REGISTER_RSI = Register(iota)  
-	REGISTER_RDX = Register(iota)
-	REGISTER_RCX = Register(iota)
-	REGISTER_R8 =  Register(iota)
-	REGISTER_R9 =  Register(iota)
-	REGISTER_R10 =  Register(iota)
-	REGISTER_R11 =  Register(iota)
-	REGISTER_RSP = Register(iota)  
-	REGISTER_RBX = Register(iota)
-	REGISTER_RBP = Register(iota)  
-	REGISTER_R12 =  Register(iota)
-	REGISTER_R13 =  Register(iota)
-	REGISTER_R14 =  Register(iota)
-	REGISTER_R15 =  Register(iota)
-	REGISTER_RIP = Register(iota)
-	REGISTER_RFLAGS = Register(iota)
-
-	N_REGISTERS = iota
+import (
+	"mycgo/back/datatype"
 )
 
-type SubRegister struct {
-	parent Register
-	index  byte
+type RegisterClass byte
+
+type Register struct {
+	datatype datatype.DataType
+	class RegisterClass
 }
 
-const MAX_SUB_REGISTERS byte = 5
-
-var registers_str = [N_REGISTERS][MAX_SUB_REGISTERS]string {
-	{"%rax", "%eax", "%ax", "%al", "%ah"},
-	{"%rdi", "%edi", "%di", "%dil"},
-	{"%rsi", "%esi", "%si", "%sil"},
-	{"%rdx", "%edx", "%dx", "%dl", "%dh"},
-	{"%rcx", "%ecx", "%cx", "%cl", "%ch"},
-	{"%r8", "%r8d", "%r8w", "%r8b"},
-	{"%r9", "%r9d", "%r9w", "%r9b"},
-	{"%r10", "%r10d", "%r10w", "%r10b"},
-	{"%r11", "%r11d", "%r11w", "%r11b"},
-	{"%rsp", "%esp", "%sp", "%spl"},
-	{"%rbx", "%ebx", "%bx", "%bl", "%bh"},
-	{"%rbp", "%ebp", "%bp", "%bpl"},
-	{"%r12", "%r12d", "%r12w", "%r12b"},
-	{"%r13", "%r13d", "%r13w", "%r13b"},
-	{"%r14", "%r14d", "%r14w", "%r14b"},
-	{"%r15", "%r15d", "%r15w", "%r15b"},
-	{"%rip", "%eip", "%ip"},
-	{"%rflags", "%eflags", "%flags"},
-}
-var registers_size = [N_REGISTERS][MAX_SUB_REGISTERS]uint64 {
-	{64, 32, 16, 8, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8, 8},
-	{64, 32, 16, 8, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16, 8},
-	{64, 32, 16}, 
-	{64, 32, 16},
-}
-
-func (reg SubRegister) Size() uint64 {
-	return registers_size[reg.parent][reg.index]
-}
-
-func (reg Register) GetSubRegister(size uint64) SubRegister {
-	for i, sub_size := range registers_size[reg] {
-		if size == sub_size {
-			return SubRegister{reg, byte(i)}
-		}
-	}
-	return SubRegister{0, 0}
-}
-
+// N_REGISTERS is defined by target
 var registers_alloc = [N_REGISTERS]bool{}
 
-func (reg Register) Allocate() {
+func (reg RegisterClass) GetRegister(typ datatype.DataType) Register {
+	for _, sub_size := range RegistersSize[reg] {
+		if typ.BitSize() == sub_size {
+			return Register{typ, class}
+		}
+	}
+	return Register{}
+}
+
+
+func (reg RegisterClass) Allocate() {
 	registers_alloc[reg] = true
 }
 
-func (reg Register) Free() {
+func (reg RegisterClass) Free() {
 	registers_alloc[reg] = false
 }
 
-func (reg SubRegister) Allocate() {
-	reg.parent.Allocate()
+func (reg Register) Allocate() {
+	reg.class.Allocate()
 }
 
-func (reg SubRegister) Free() {
-	reg.parent.Free()
+func (reg Register) Free() {
+	reg.class.Free()
 }
 
-func (reg SubRegister) Text() string {
-	return registers_str[reg.parent][reg.index]
+func (reg Register) Text() string {
+	for i, sub_size := range RegistersSize[reg.class] {
+		if reg.datatype.BitSize() <= sub_size {
+			return RegistersStr[reg.class][i]
+		}
+	}
+	return ""
 }
 
-func (reg SubRegister) LiteralValue() Operand {
-	return reg
+func (reg Register) LiteralValue() Operand {
+	return nil
 }
 
-func (reg SubRegister) Dereference() Operand {
+func (reg Register) Dereference() Operand {
 	return Memory_Reference{0, reg, nil, ASMREF_INDEXCOEFF_1}
 }
 
-var ScratchRegisters = [5]Register {
-	REGISTER_RBX,
-	REGISTER_R12,
-	REGISTER_R13,
-	REGISTER_R14,
-	REGISTER_R15,
+func (reg Register) Type() datatype.DataType {
+	return reg.datatype
 }
 
-func RegisterScratchAllocate() (Register, bool) {
+func RegisterScratchAllocate() (RegisterClass, bool) {
 	for _, s := range(ScratchRegisters) {
 		if(!registers_alloc[s]) {
 			s.Allocate()
@@ -139,15 +75,6 @@ func RegisterScratchFreeAll() {
 	for _, s := range(ScratchRegisters) {
 		s.Free()
 	}
-}
-
-var ArgumentRegisters = [6]Register {
-	REGISTER_RDI,
-	REGISTER_RSI,
-	REGISTER_RDX,
-	REGISTER_RCX,
-	REGISTER_R8 ,
-    REGISTER_R9 ,
 }
 
 func RegisterArgumentAllocate() (Register, bool) {

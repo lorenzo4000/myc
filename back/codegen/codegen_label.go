@@ -2,9 +2,18 @@ package codegen
 
 import (
 	"strconv"
+	"mycgo/back/datatype"
 )
 
 type Label string
+
+func (lbl Label) Type() datatype.DataType {
+	symbol, found := symbol.SymbolTableGetInCurrentScope(string(lbl))
+	if found {
+		return symbol.Type()
+	}
+	return nil
+}
 
 func (lbl Label) Text() string {
 	return string(lbl)	
