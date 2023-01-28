@@ -16,8 +16,8 @@ var registers_alloc = [N_REGISTERS]bool{}
 
 func (reg RegisterClass) GetRegister(typ datatype.DataType) Register {
 	for _, sub_size := range RegistersSize[reg] {
-		if typ.BitSize() == sub_size {
-			return Register{typ, class}
+		if typ.BitSize() == byte(sub_size) {
+			return Register{typ, reg}
 		}
 	}
 	return Register{}
@@ -42,7 +42,7 @@ func (reg Register) Free() {
 
 func (reg Register) Text() string {
 	for i, sub_size := range RegistersSize[reg.class] {
-		if reg.datatype.BitSize() <= sub_size {
+		if reg.datatype.BitSize() <= byte(sub_size) {
 			return RegistersStr[reg.class][i]
 		}
 	}
@@ -54,7 +54,7 @@ func (reg Register) LiteralValue() Operand {
 }
 
 func (reg Register) Dereference() Operand {
-	return Memory_Reference{0, reg, nil, ASMREF_INDEXCOEFF_1}
+	return Memory_Reference{reg.Type(), 0, reg, nil, ASMREF_INDEXCOEFF_1}
 }
 
 func (reg Register) Type() datatype.DataType {
@@ -77,7 +77,7 @@ func RegisterScratchFreeAll() {
 	}
 }
 
-func RegisterArgumentAllocate() (Register, bool) {
+func RegisterArgumentAllocate() (RegisterClass, bool) {
 	for _, s := range(ArgumentRegisters) {
 		if(!registers_alloc[s]) {
 			s.Allocate()

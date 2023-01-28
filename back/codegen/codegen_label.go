@@ -3,6 +3,7 @@ package codegen
 import (
 	"strconv"
 	"mycgo/back/datatype"
+	"mycgo/back/symbol"
 )
 
 type Label string
