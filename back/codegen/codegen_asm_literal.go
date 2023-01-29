@@ -11,6 +11,7 @@ type Asm_Literal interface {
 }
 
 type Asm_Int_Literal struct {
+	DataType datatype.DataType
 	Value int64
 	Base int
 }
@@ -42,7 +43,7 @@ func (s Asm_String_Literal) LiteralValue() Operand {
 }
 
 func (i Asm_Int_Literal) Type() datatype.DataType {
-	return datatype.TYPE_INT64
+	return i.DataType
 }
 
 func (i Asm_String_Literal) Type() datatype.DataType {

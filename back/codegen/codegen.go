@@ -174,7 +174,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					} else {
 						allocation = reg.GetRegister(ast.DataType)
 					}
-					out.Code.TextAppendSln(GEN_load(Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
+					out.Code.TextAppendSln(GEN_load(Asm_Int_Literal{datatype.TYPE_INT64, ast.Data[0].Int_value, 10}, allocation))
 				case front.TOKEN_BOOL_LITERAL:
 					var full bool
 					reg, full := RegisterScratchAllocate()
@@ -183,7 +183,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					} else {
 						allocation = reg.GetRegister(ast.DataType)
 					}
-					out.Code.TextAppendSln(GEN_load(Asm_Int_Literal{ast.Data[0].Int_value, 10}, allocation))
+					out.Code.TextAppendSln(GEN_load(Asm_Int_Literal{datatype.TYPE_BOOL, ast.Data[0].Int_value, 10}, allocation))
 			}
 			out.Result = allocation
 
@@ -296,11 +296,15 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			if len(ast.Children) > 2 {
 				body_false := children_out[2]
 				t, result = GEN_ifelse(condition, body_true, body_false)
+				out.Code.DataAppendln(body_false.Code)
 			} else {
 				t, result = GEN_if(condition, body_true)
 			}
 
 			out.Code.TextAppendSln(t)
+			
+			out.Code.DataAppendln(condition.Code)
+			out.Code.DataAppendln(body_true.Code)
 			out.Result = result
 		}
 		case front.AST_OP_SUM: {

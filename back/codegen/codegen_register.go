@@ -42,7 +42,7 @@ func (reg Register) Free() {
 
 func (reg Register) Text() string {
 	for i, sub_size := range RegistersSize[reg.class] {
-		if reg.datatype.BitSize() <= byte(sub_size) {
+		if reg.datatype.BitSize() == byte(sub_size) {
 			return RegistersStr[reg.class][i]
 		}
 	}

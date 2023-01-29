@@ -182,17 +182,51 @@ func (stack Stack_Region) Reference() Memory_Reference {
 	return Memory_Reference{stack.datatype, -1 * int64(stack.rbp_offset), REGISTER_RBP.GetRegister(datatype.TYPE_INT64), nil, ASMREF_INDEXCOEFF_1}
 }
 
+// === Instruction ===
+
+func ii(op string, oprnds ...Operand) string {
+	cnt := 0
+	for _, oprnd := range oprnds {
+		switch oprnd.(type) {
+			case Memory_Reference: cnt++
+		}
+	}
+
+	if cnt >= 2 {
+		var instruction string = ""
+		var allocation Operand
+
+		reg, full := RegisterScratchAllocate()
+		if full {
+			allocation   = REGISTER_RBX.GetRegister(oprnds[0].Type())
+			instruction += Instruction("pushq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)) + "\n"
+		} else {
+			allocation   = reg.GetRegister(oprnds[0].Type())
+		}
+
+		instruction += GEN_load(oprnds[0], allocation) + "\n"
+		oprnds[0] = allocation
+	    instruction += Instruction(op, oprnds...) + "\n"
+
+		if full {
+			instruction  += Instruction("popq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)) + "\n"
+		}
+		return instruction
+	}	
+
+	return Instruction(op, oprnds...)
+}
 
 // === GEN_* ===
 
 func GEN_function_prologue() string {
 	res := ""
-	res += (Instruction("pushq", REGISTER_RBP.GetRegister(datatype.TYPE_INT64))) + "\n"
-	res += (Instruction("movq", REGISTER_RSP.GetRegister(datatype.TYPE_INT64), REGISTER_RBP.GetRegister(datatype.TYPE_INT64))) + "\n"
+	res += (ii("pushq", REGISTER_RBP.GetRegister(datatype.TYPE_INT64))) + "\n"
+	res += (ii("movq", REGISTER_RSP.GetRegister(datatype.TYPE_INT64), REGISTER_RBP.GetRegister(datatype.TYPE_INT64))) + "\n"
 
 	if CurrentReservedStack > 0 {
 		// allocate used stack
-		res += (Instruction("subq", Asm_Int_Literal{int64(CurrentReservedStack), 10}, REGISTER_RSP.GetRegister(datatype.TYPE_INT64))) + "\n"
+		res += (ii("subq", Asm_Int_Literal{datatype.TYPE_INT64, int64(CurrentReservedStack), 10}, REGISTER_RSP.GetRegister(datatype.TYPE_INT64))) + "\n"
 	}
 
 	return res
@@ -202,12 +236,12 @@ func GEN_function_epilogue() string {
 	res := ""
 
 	// deallocate used stack
-	res += Instruction("movq", REGISTER_RBP.GetRegister(datatype.TYPE_INT64), REGISTER_RSP.GetRegister(datatype.TYPE_INT64)) + "\n"
-	res += Instruction("popq", REGISTER_RBP.GetRegister(datatype.TYPE_INT64)) + "\n"
+	res += ii("movq", REGISTER_RBP.GetRegister(datatype.TYPE_INT64), REGISTER_RSP.GetRegister(datatype.TYPE_INT64)) + "\n"
+	res += ii("popq", REGISTER_RBP.GetRegister(datatype.TYPE_INT64)) + "\n"
 	CurrentReservedStack = 0
 	CurrentAllocatedStack = 0
 
-	res += Instruction("ret") + "\n"
+	res += ii("ret") + "\n"
 
 	return res
 }
@@ -217,10 +251,10 @@ func GEN_load(v Operand, r Operand) string {
 	res := ""
 
 	switch v.Type().BitSize() {
-		case 64:  res += Instruction("movq", v, r)
-		case 32:  res += Instruction("movl", v, r)
-		case 16:  res += Instruction("movw", v, r)
-		case 8:   res += Instruction("movb", v, r)
+		case 64:  res += ii("movq", v, r)
+		case 32:  res += ii("movl", v, r)
+		case 16:  res += ii("movw", v, r)
+		case 8:   res += ii("movb", v, r)
 		default: return ""
 	}
 
@@ -232,7 +266,7 @@ func GEN_load(v Operand, r Operand) string {
 func GEN_jump(a Operand) string {
 	res := ""
 
-	res += Instruction("jmp", a) + "\n"
+	res += ii("jmp", a) + "\n"
 
 	return res
 }
@@ -243,6 +277,7 @@ func GEN_function_params(args []Operand) string {
 	for arg, arg_v := range(args) {
 		var parameter Operand
 		typ := arg_v.Type()
+		println(typ.Name())
 
 		if arg >= 6 {
 			parameter = Memory_Reference{
@@ -255,6 +290,7 @@ func GEN_function_params(args []Operand) string {
 		} else {
 			reg := ArgumentRegisters[arg]
 			parameter = reg.GetRegister(typ)
+			println(parameter.Text())
 		}
 		
 		res += GEN_load(parameter, arg_v) + "\n"
@@ -273,18 +309,18 @@ func GEN_callargs(args []Operand) string {
 	nargs_in_regs :=  nargs - nargs_in_stack
 
 	if nargs_in_stack % 2 != 0 {
-		res += Instruction("pushq", Asm_Int_Literal{0, 10}) + "\n"
+		res += ii("pushq", Asm_Int_Literal{datatype.TYPE_INT64, 0, 10}) + "\n"
 	}
 	for i := nargs_in_stack - 1; i >= 0; i-=2 {
-		res += Instruction("pushq", args[nargs_in_regs + i].LiteralValue()) + "\n"
+		res += ii("pushq", args[nargs_in_regs + i].LiteralValue()) + "\n"
 		if i > 0 {
-			res += Instruction("pushq", args[nargs_in_regs + i - 1].LiteralValue()) + "\n"
+			res += ii("pushq", args[nargs_in_regs + i - 1].LiteralValue()) + "\n"
 		}
 	}
 
 	for i := nargs_in_regs - 1; i >= 0; i-- {
 		reg := ArgumentRegisters[i].GetRegister(datatype.TYPE_INT64)
-		res += Instruction("movq", args[i].LiteralValue(), reg) + "\n"
+		res += ii("movq", args[i].LiteralValue(), reg) + "\n"
 	}
 	StackReserveBytes(uint32(nargs_in_stack * 8))
 
@@ -295,7 +331,7 @@ func GEN_call(f *front.Ast_Node) string {
 	res := ""
 	name := Label(f.Children[0].Data[0].String_value)
 
-	res += Instruction("call", name) + "\n"
+	res += ii("call", name) + "\n"
 
 	nargs := len(f.Children[1].Children)
 	nargs_in_stack := nargs - len(ArgumentRegisters)
@@ -305,7 +341,7 @@ func GEN_call(f *front.Ast_Node) string {
 			reserved_stack += 16 - (reserved_stack & 0xF)
 		}
 		
-		res += Instruction("addq", Asm_Int_Literal{int64(reserved_stack), 10}, REGISTER_RSP.GetRegister(datatype.TYPE_INT64)) + "\n"
+		res += ii("addq", Asm_Int_Literal{datatype.TYPE_INT64, int64(reserved_stack), 10}, REGISTER_RSP.GetRegister(datatype.TYPE_INT64)) + "\n"
 		for i := 0; i < nargs_in_stack; i+=2 {
 			StackUnreserve16Bytes()
 		}
@@ -323,12 +359,12 @@ func GEN_while(c Codegen_Out, b Codegen_Out) string {
 
 	res += c.Code.Text + "\n"
 
-	res += Instruction("and", c.Result, c.Result) + "\n"
-	res += Instruction("jz", while_exit_label) + "\n"
+	res += ii("and", c.Result, c.Result) + "\n"
+	res += ii("jz", while_exit_label) + "\n"
 
 	res += b.Code.Text + "\n"
 
-	res += Instruction("jmp", while_label)
+	res += ii("jmp", while_label) + "\n"
 	res += while_exit_label.Text() + ":\n"
 
 	return res
@@ -356,8 +392,8 @@ func GEN_if(c Codegen_Out, t Codegen_Out) (string, Operand) {
 	}
 
 	res += c.Code.Text + "\n"
-	res += Instruction("and", c.Result, c.Result) + "\n"
-	res += Instruction("jz", if_exit_label) + "\n"
+	res += ii("and", c.Result, c.Result) + "\n"
+	res += ii("jz", if_exit_label) + "\n"
 
 	res += t.Code.Text + "\n"
 
@@ -393,8 +429,8 @@ func GEN_ifelse(c Codegen_Out, t Codegen_Out, f Codegen_Out) (string, Operand) {
 	}
 
 	res += c.Code.Text + "\n"
-	res += Instruction("and", c.Result, c.Result) + "\n"
-	res += Instruction("jz", if_false_label) + "\n"
+	res += ii("and", c.Result, c.Result) + "\n"
+	res += ii("jz", if_false_label) + "\n"
 
 	res += t.Code.Text + "\n"
 
@@ -424,19 +460,19 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) (string, Operand) {
 	switch t {
 		case front.AST_OP_SUM: 
 			switch data_size {
-				case 64:  res += Instruction("addq", l, r)
-				case 32:  res += Instruction("addl", l, r)
-				case 16:  res += Instruction("addw", l, r)
-				case 8:   res += Instruction("addb", l, r)
+				case 64:  res += ii("addq", l, r)
+				case 32:  res += ii("addl", l, r)
+				case 16:  res += ii("addw", l, r)
+				case 8:   res += ii("addb", l, r)
 			}
 			res += "\n"
 			allocation = l
 		case front.AST_OP_SUB: 
 			switch data_size {
-				case 64:  res += Instruction("subq", l, r)
-				case 32:  res += Instruction("subl", l, r)
-				case 16:  res += Instruction("subw", l, r)
-				case 8:   res += Instruction("subb", l, r)
+				case 64:  res += ii("subq", l, r)
+				case 32:  res += ii("subl", l, r)
+				case 16:  res += ii("subw", l, r)
+				case 8:   res += ii("subb", l, r)
 			}
 			res += "\n"
 			allocation = l
@@ -450,16 +486,16 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) (string, Operand) {
 			}
 			
 			switch data_size {
-				case 64:  res += Instruction("cmpq", l, r)
-				case 32:  res += Instruction("cmpl", l, r)
-				case 16:  res += Instruction("cmpw", l, r)
-				case 8:   res += Instruction("cmpb", l, r)
+				case 64:  res += ii("cmpq", l, r)
+				case 32:  res += ii("cmpl", l, r)
+				case 16:  res += ii("cmpw", l, r)
+				case 8:   res += ii("cmpb", l, r)
 			}
 
 			res += "\n"
 
-			res += Instruction("xorb", allocation, allocation) + "\n"
-			res += Instruction("setg", allocation) + "\n"
+			res += ii("xorb", allocation, allocation) + "\n"
+			res += ii("setg", allocation) + "\n"
 		case front.AST_OP_LES: 
 			var full bool
 			reg, full := RegisterScratchAllocate()
@@ -470,16 +506,16 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) (string, Operand) {
 			}
 			
 			switch data_size {
-				case 64:  res += Instruction("cmpq", l, r)
-				case 32:  res += Instruction("cmpl", l, r)
-				case 16:  res += Instruction("cmpw", l, r)
-				case 8:   res += Instruction("cmpb", l, r)
+				case 64:  res += ii("cmpq", l, r)
+				case 32:  res += ii("cmpl", l, r)
+				case 16:  res += ii("cmpw", l, r)
+				case 8:   res += ii("cmpb", l, r)
 			}
 
 			res += "\n"
 
-			res += Instruction("xorb", allocation, allocation) + "\n"
-			res += Instruction("setl", allocation) + "\n"
+			res += ii("xorb", allocation, allocation) + "\n"
+			res += ii("setl", allocation) + "\n"
 		case front.AST_OP_GOE:
 			var full bool
 			reg, full := RegisterScratchAllocate()
@@ -490,16 +526,16 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) (string, Operand) {
 			}
 			
 			switch data_size {
-				case 64:  res += Instruction("cmpq", l, r)
-				case 32:  res += Instruction("cmpl", l, r)
-				case 16:  res += Instruction("cmpw", l, r)
-				case 8:   res += Instruction("cmpb", l, r)
+				case 64:  res += ii("cmpq", l, r)
+				case 32:  res += ii("cmpl", l, r)
+				case 16:  res += ii("cmpw", l, r)
+				case 8:   res += ii("cmpb", l, r)
 			}
 
 			res += "\n"
 
-			res += Instruction("xorb", allocation, allocation) + "\n"
-			res += Instruction("setge", allocation) + "\n"
+			res += ii("xorb", allocation, allocation) + "\n"
+			res += ii("setge", allocation) + "\n"
 		case front.AST_OP_LOE:
 			var full bool
 			reg, full := RegisterScratchAllocate()
@@ -510,16 +546,16 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) (string, Operand) {
 			}
 			
 			switch data_size {
-				case 64:  res += Instruction("cmpq", l, r)
-				case 32:  res += Instruction("cmpl", l, r)
-				case 16:  res += Instruction("cmpw", l, r)
-				case 8:   res += Instruction("cmpb", l, r)
+				case 64:  res += ii("cmpq", l, r)
+				case 32:  res += ii("cmpl", l, r)
+				case 16:  res += ii("cmpw", l, r)
+				case 8:   res += ii("cmpb", l, r)
 			}
 
 			res += "\n"
 
-			res += Instruction("xorb", allocation, allocation) + "\n"
-			res += Instruction("setle", allocation) + "\n"
+			res += ii("xorb", allocation, allocation) + "\n"
+			res += ii("setle", allocation) + "\n"
 		case front.AST_OP_EQU:
 			var full bool
 			reg, full := RegisterScratchAllocate()
@@ -530,16 +566,16 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) (string, Operand) {
 			}
 			
 			switch data_size {
-				case 64:  res += Instruction("cmpq", l, r)
-				case 32:  res += Instruction("cmpl", l, r)
-				case 16:  res += Instruction("cmpw", l, r)
-				case 8:   res += Instruction("cmpb", l, r)
+				case 64:  res += ii("cmpq", l, r)
+				case 32:  res += ii("cmpl", l, r)
+				case 16:  res += ii("cmpw", l, r)
+				case 8:   res += ii("cmpb", l, r)
 			}
 
 			res += "\n"
 
-			res += Instruction("xorb", allocation, allocation) + "\n"
-			res += Instruction("sete", allocation) + "\n"
+			res += ii("xorb", allocation, allocation) + "\n"
+			res += ii("sete", allocation) + "\n"
 		case front.AST_OP_NEQ:
 			var full bool
 			reg, full := RegisterScratchAllocate()
@@ -550,16 +586,16 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) (string, Operand) {
 			}
 			
 			switch data_size {
-				case 64:  res += Instruction("cmpq", l, r)
-				case 32:  res += Instruction("cmpl", l, r)
-				case 16:  res += Instruction("cmpw", l, r)
-				case 8:   res += Instruction("cmpb", l, r)
+				case 64:  res += ii("cmpq", l, r)
+				case 32:  res += ii("cmpl", l, r)
+				case 16:  res += ii("cmpw", l, r)
+				case 8:   res += ii("cmpb", l, r)
 			}
 
 			res += "\n"
 
-			res += Instruction("xorb", allocation, allocation) + "\n"
-			res += Instruction("setne", allocation) + "\n"
+			res += ii("xorb", allocation, allocation) + "\n"
+			res += ii("setne", allocation) + "\n"
 	}
 
 	switch r.(type) {
