@@ -6,10 +6,17 @@ import (
 	"mycgo/back/symbol"
 )
 
-type Label string
+type Label struct {
+	datatype datatype.DataType
+	text string
+}
 
 func (lbl Label) Type() datatype.DataType {
-	symbol, found := symbol.SymbolTableGetInCurrentScope(string(lbl))
+	if lbl.datatype != nil {
+		return lbl.datatype
+	}
+
+	symbol, found := symbol.SymbolTableGetInCurrentScope(lbl.text)
 	if found {
 		return symbol.Type()
 	}
@@ -17,19 +24,26 @@ func (lbl Label) Type() datatype.DataType {
 }
 
 func (lbl Label) Text() string {
-	return string(lbl)	
+	return lbl.text
 }
 
 func (lbl Label) LiteralValue() Operand {
-	return Label("$" + string(lbl))	
+	label := LabelGet("$" + lbl.text)	
+	label.datatype = datatype.TYPE_INT64 // TODO: fix and clean all of this mess
+
+	return label
 }
 
 func (lbl Label) Dereference() Operand {
-	return Label("(" + string(lbl) + ")")	
+	return LabelGet("(" + lbl.text + ")")	
 }
 
 var labels_count int = 0
 func LabelGen() Label {
 	labels_count++
-	return Label(".L" + strconv.Itoa(labels_count))
+	return Label{nil, ".L" + strconv.Itoa(labels_count)}
+}
+
+func LabelGet(text string) Label {
+	return Label{nil, text}
 }

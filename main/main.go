@@ -27,11 +27,19 @@ func main() {
 
 	src := string(src_byte)
 	tokens := front.Lex(src)
+	if tokens == nil {
+		fmt.Println("Lexical Errors: aborting...")
+		return 
+	}
 
 	fmt.Println(tokens)
 	
 	parser := front.Parser{tokens, 0}
 	ast := parser.Parse()
+	if ast == nil {
+		fmt.Println("Parse Errors: aborting...")
+		return 
+	}
 	
 	ast.Print()
 	
@@ -39,7 +47,7 @@ func main() {
 	symbol.SymbolScopeStackInit()
 	symbol.SymbolTableInit()
 	if typecheck.TypeCheck(ast) == nil {
-		fmt.Println("Type Errors: exiting")
+		fmt.Println("Type Errors: aborting...")
 		return 
 	}
 	

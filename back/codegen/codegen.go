@@ -88,11 +88,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			
 		case front.AST_FUNCTION_DEFINITION:
 			function_name := ast.Children[0].Data[0].String_value
-			name := Label(function_name)
+			name := LabelGet(function_name)
 			out.Code.TextAppendSln(Instruction(".global", name))
 			out.Code.TextAppendSln(name.Text() + ":")
 			
-			out.Code.TextAppendSln(GEN_function_prologue())
+			out.Code.Appendln(GEN_function_prologue().Code)
 			
 			out.Code.Appendln(children_out[1].Code)
 			out.Code.Appendln(children_out[3].Code)
@@ -101,13 +101,15 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			if body_result != nil {
 				body_type := ast.Children[3].DataType
-				out.Code.TextAppendSln(Instruction(GEN_load(body_result, RETURN_REGISTER.GetRegister(body_type))))
+				out.Code.Appendln(GEN_move(body_result, RETURN_REGISTER.GetRegister(body_type)).Code)
 			}
 	
 			function_epilogue := "._" + function_name
 			out.Code.TextAppendSln(function_epilogue + ":")
 
-			out.Code.TextAppendSln(GEN_function_epilogue())
+			out.Code.Appendln(GEN_function_epilogue().Code)
+			
+			RegisterScratchFreeAll()
 
 		case front.AST_RETURN:
 			for _, child_out := range(children_out) {
@@ -120,11 +122,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				return_value := children_out[0].Result
 				return_type := ast.Children[0].DataType
 
-				out.Code.TextAppendSln(GEN_load(return_value, RETURN_REGISTER.GetRegister(return_type)))
+				out.Code.Appendln(GEN_move(return_value, RETURN_REGISTER.GetRegister(return_type)).Code)
 			}
 
-			function_epilogue := Label("._" + function_name)
-			out.Code.TextAppendSln(GEN_jump(function_epilogue))
+			function_epilogue := LabelGet("._" + function_name)
+			out.Code.Appendln(GEN_jump(function_epilogue).Code)
 
 		case front.AST_FUNCTION_DEFINITION_ARGS:
 			for _, child_out := range(children_out) {
@@ -137,7 +139,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				results[i] = children_out[i].Result
 			}
 
-			out.Code.TextAppendSln(GEN_function_params(results))
+			out.Code.Appendln(GEN_function_params(results).Code)
 
 		case front.AST_BODY:
 			for _, child_out := range(children_out) {
@@ -164,7 +166,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			var allocation Operand
 			switch ast.Data[0].Type {
 				case front.TOKEN_STRING_LITERAL:
-					allocation = LabelGen()
+					label := LabelGen()
+					label.datatype = datatype.TYPE_NONE // TODO: TYPE_STRING
+
+					allocation = label
+
 					out.Code.DataAppendSln(allocation.Text() + ": .string \"" + ast.Data[0].String_value + "\"")
 				case front.TOKEN_INT_LITERAL:
 					var full bool
@@ -174,7 +180,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					} else {
 						allocation = reg.GetRegister(ast.DataType)
 					}
-					out.Code.TextAppendSln(GEN_load(Asm_Int_Literal{datatype.TYPE_INT64, ast.Data[0].Int_value, 10}, allocation))
+					load := GEN_move(Asm_Int_Literal{datatype.TYPE_INT64, ast.Data[0].Int_value, 10}, allocation)
+					out.Code.Appendln(load.Code)
 				case front.TOKEN_BOOL_LITERAL:
 					var full bool
 					reg, full := RegisterScratchAllocate()
@@ -183,14 +190,15 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					} else {
 						allocation = reg.GetRegister(ast.DataType)
 					}
-					out.Code.TextAppendSln(GEN_load(Asm_Int_Literal{datatype.TYPE_BOOL, ast.Data[0].Int_value, 10}, allocation))
+					load := GEN_move(Asm_Int_Literal{datatype.TYPE_BOOL, ast.Data[0].Int_value, 10}, allocation)
+					out.Code.Appendln(load.Code)
 			}
 			out.Result = allocation
 
 		case front.AST_FUNCTION_CALL:
 			out.Code.Append(children_out[1].Code)
 
-			out.Code.TextAppendSln(GEN_call(ast))
+			out.Code.Appendln(GEN_call(ast).Code)
 			
 			var result Operand
 			reg, full := RegisterScratchAllocate()
@@ -200,7 +208,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				result = reg.GetRegister(ast.DataType)
 			}
 			// TODO: get function type and size the result accordingly.
-			out.Code.TextAppendSln(GEN_load(RETURN_REGISTER.GetRegister(datatype.TYPE_INT64), result))
+			out.Code.Appendln(GEN_move(RETURN_REGISTER.GetRegister(ast.DataType), result).Code)
 	
 			out.Result = result
 
@@ -214,7 +222,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				results[i] = children_out[i].Result
 			}
 
-			out.Code.TextAppendSln(GEN_callargs(results))
+			out.Code.Appendln(GEN_callargs(results).Code)
 
 		case front.AST_VARIABLE_DEFINITION: {
 			variable_name := ast.Children[0].Data[0].String_value
@@ -232,12 +240,6 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				case datatype.PrimitiveType: 
 					switch variable_type {
 						default:
-							bit_size := variable_type.BitSize()
-							byte_size := variable_type.ByteSize()
-
-							fmt.Printf("bit_size: %d\n", bit_size)
-							fmt.Printf("byte_size: %d\n", byte_size)
-
 							variable_allc = StackAllocate(variable_type)
 
 							init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
@@ -246,7 +248,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 								init_value = children_out[2].Result
 							}
 
-							out.Code.TextAppendSln(GEN_load(init_value, variable_allc.Reference()))
+							out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
 					}
 			}
 
@@ -275,37 +277,31 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				allocation = reg.GetRegister(ast.DataType)
 			}
 
-			out.Code.TextAppendSln(GEN_load(symbol.(Codegen_Symbol).Data.Reference(), allocation))
+			out.Code.Appendln(GEN_move(symbol.(Codegen_Symbol).Data.Reference(), allocation).Code)
 			out.Result = allocation
 		}
 		case front.AST_WHILE: {
 			condition := children_out[0]
 			body	  := children_out[1]
 
-			out.Code.TextAppendSln(GEN_while(condition, body))
-
-			out.Code.DataAppendln(condition.Code)
-			out.Code.DataAppendln(body.Code)
+			out.Code.Appendln(GEN_while(condition, body).Code)
 		}
 		case front.AST_IF: {
 			condition := children_out[0]
 			body_true := children_out[1]
 
-			var t string
-			var result Operand
+			var _if Codegen_Out
 			if len(ast.Children) > 2 {
 				body_false := children_out[2]
-				t, result = GEN_ifelse(condition, body_true, body_false)
-				out.Code.DataAppendln(body_false.Code)
+				_if = GEN_ifelse(condition, body_true, body_false)
+
 			} else {
-				t, result = GEN_if(condition, body_true)
+				_if = GEN_if(condition, body_true)
 			}
 
-			out.Code.TextAppendSln(t)
+			out.Code.Appendln(_if.Code)
 			
-			out.Code.DataAppendln(condition.Code)
-			out.Code.DataAppendln(body_true.Code)
-			out.Result = result
+			out.Result = _if.Result
 		}
 		case front.AST_OP_SUM: {
 			for _, child_out := range(children_out) {
@@ -315,10 +311,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 		case front.AST_OP_SUB: {
 			for _, child_out := range(children_out) {
@@ -328,10 +324,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 		case front.AST_OP_ASN: {
 			out.Code.Appendln(children_out[1].Code)
@@ -346,7 +342,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				return out
 			}
 
-			out.Code.TextAppendSln(GEN_load(right_value, symbol.(Codegen_Symbol).Data.Reference()))
+			out.Code.Appendln(GEN_move(right_value, symbol.(Codegen_Symbol).Data.Reference()).Code)
 			out.Code.Appendln(children_out[0].Code)
 			
 			out.Result = left_value
@@ -359,10 +355,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 		case front.AST_OP_LES: {
 			for _, child_out := range(children_out) {
@@ -372,10 +368,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 		case front.AST_OP_GOE: {
 			for _, child_out := range(children_out) {
@@ -385,10 +381,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 		case front.AST_OP_LOE: {
 			for _, child_out := range(children_out) {
@@ -398,10 +394,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 		case front.AST_OP_EQU: {
 			for _, child_out := range(children_out) {
@@ -411,10 +407,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 		case front.AST_OP_NEQ: {
 			for _, child_out := range(children_out) {
@@ -424,10 +420,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value  := children_out[0].Result
 			right_value := children_out[1].Result
 
-			t, result := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_binop(ast.Type, left_value, right_value)
 
-			out.Code.TextAppendSln(t)
-			out.Result = result
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 	}
 

@@ -2,6 +2,8 @@ package front
 
 import (
 	"strconv"
+	"fmt"
+	"errors"
 )
 
 const (
@@ -95,43 +97,48 @@ func IsCharacterToken(c byte) (bool) {
 	return is_character_token
 }
 
-func GetToken(str string) (Token) {
+func GetToken(str string, l0 int32, l1 int32, c0 int32, c1 int32) (Token, error) {
 	if len(str) == 1 {
 		character_token, is_character_token := characterTokenMap[str[0]]
 		if is_character_token {
-			return Token{character_token, 0, 0, 0, 0, 0, ""}
+			return Token{character_token, l0, c0, l1, c1, 0, ""}, nil
 		}
 	}
 
 	multiCharacter_token, is_multiCharacter_token := multiCharacterTokenMap[str]
 	if is_multiCharacter_token  {
-		return Token{multiCharacter_token, 0, 0, 0, 0, 0, ""}
+		return Token{multiCharacter_token, l0, c0, l1, c1, 0, ""}, nil
 	}
 
 	keyword_token, is_keyword_token := keywordTokenMap[str]
 	if is_keyword_token  {
-		return Token{keyword_token, 0, 0, 0, 0, 0, ""}
+		return Token{keyword_token, l0, c0, l1, c1, 0, ""}, nil
 	}
 
 	if str[0] == '"' {
-		return Token{TOKEN_STRING_LITERAL, 0, 0, 0, 0, 0, str[1:len(str) - 1]}
+		return Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, str[1:len(str) - 1]}, nil
 	}
 	if str[0] >= 48 && str[0] <= 57 {
-		i, err := strconv.ParseInt(str, 10, 64)
+		i, err := strconv.ParseInt(str, 0, 64)
 		if err != nil {
-			// TODO: error: invalid integer literal
-			return Token{}
+			if err == strconv.ErrSyntax || i == 0 {
+				fmt.Printf("%d:%d: lexical error: int literal is empty or contains invalid digits\n", l0, c0)
+			} 
+			if err == strconv.ErrRange || i > 0 {
+				fmt.Printf("%d:%d: lexical error: int literal is too big\n", l0, c0)
+			}
+			return Token{}, errors.New("int literal parse error")
 		}
-		return Token{TOKEN_INT_LITERAL, 0, 0, 0, 0, i, ""}
+		return Token{TOKEN_INT_LITERAL, l0, c0, l1, c1, i, ""}, nil
 	}
 	if str == "true" {
-		return Token{TOKEN_BOOL_LITERAL, 0, 0, 0, 0, 1, str}
+		return Token{TOKEN_BOOL_LITERAL, l0, c0, l1, c1, 1, str}, nil
 	}
 	if str == "false" {
-		return Token{TOKEN_BOOL_LITERAL, 0, 0, 0, 0, 0, str}
+		return Token{TOKEN_BOOL_LITERAL, l0, c0, l1, c1, 0, str}, nil
 	}
 
 
 
-	return Token{TOKEN_IDENTIFIER, 0, 0, 0, 0, 0, str}
+	return Token{TOKEN_IDENTIFIER, l0, c0, l1, c1, 0, str}, nil
 }

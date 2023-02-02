@@ -67,11 +67,11 @@ func Lex(src string) ([]Token) {
 		}
 
 		if len(next_token_str) > 0 {
-			next_token := GetToken(next_token_str)
-			next_token.L0 = l0
-			next_token.C0 = c0
-			next_token.L1 = l1
-			next_token.C1 = c1
+			next_token, err := GetToken(next_token_str, l0, l1, c0, c1)
+			if err != nil {
+				fmt.Printf("%d:%d: lexical error: %s\n", l1, c1, err)	
+				return nil
+			}
 			res = append(res, next_token)
 		}
 		c1++
