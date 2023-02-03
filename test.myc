@@ -13,10 +13,8 @@ function print_line(:length int64, :x bool) bool {
 }
 
 function main() {
-	:CAP int64 = 22;
-	printf("%lld", CAP);
+	:CAP int64 = 100 / 2;
 
-	return;
 	:INCR int64 = 2;
 	
 	:x int64 = 0;

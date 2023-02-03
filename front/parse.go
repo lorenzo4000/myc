@@ -166,6 +166,49 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 				return body
 			case TOKEN_KEYWORD_IF:
 				return parser.ParseIf()
+			case TOKEN_SUB:
+				parser.Pop()
+				
+				next, end := parser.Current()
+				if !end {
+					switch next.Type {
+						case TOKEN_INT_LITERAL: 
+							next.Int_value *= int64(-1)
+							parser.Tokens[parser.Index] = next
+
+							return parser.ParseSubExpression()
+						default:
+							neg := new(Ast_Node)
+							neg.Type = AST_OP_NEG
+
+							exp := parser.ParseExpression()
+
+							neg.AddChild(exp)
+							
+							return neg
+					}
+				}
+			case TOKEN_SUM:
+				parser.Pop()
+				
+				next, end := parser.Current()
+				if !end {
+					switch next.Type {
+						default:
+							return parser.ParseExpression()
+					}
+				}
+			case TOKEN_NOT:
+				parser.Pop()
+				
+				not := new(Ast_Node)
+				not.Type = AST_OP_NOT
+
+				exp := parser.ParseExpression()
+
+				not.AddChild(exp)
+				
+				return not
 		}
 	}
 	parseExpectErrorAt(curr, "value or expression")
@@ -195,7 +238,8 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		case TOKEN_EQU:   operator.Type = AST_OP_EQU
 		case TOKEN_NEQ:   operator.Type = AST_OP_NEQ
 
-		case TOKEN_NOT:   operator.Type = AST_OP_NOT
+		case TOKEN_AND:   operator.Type = AST_OP_AND
+		case TOKEN_OR:   operator.Type = AST_OP_OR
 		default:          return nil
 	}
 	parser.Pop()

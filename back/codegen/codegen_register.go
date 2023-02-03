@@ -11,6 +11,11 @@ type Register struct {
 	class RegisterClass
 }
 
+type RegisterPair struct {
+	r1 Register
+	r2 Register
+}
+
 // N_REGISTERS is defined by target
 var registers_alloc = [N_REGISTERS]bool{}
 

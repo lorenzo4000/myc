@@ -312,6 +312,24 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = left_type
 		}
+		case front.AST_OP_MUL: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			ast.DataType = left_type
+		}
+		case front.AST_OP_DIV: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			ast.DataType = left_type
+		}
 		case front.AST_OP_ASN: {
 			left_ast_type := ast.Children[0].Type
 			if left_ast_type != front.AST_VARIABLE_NAME {
@@ -325,6 +343,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 			ast.DataType = left_type
+		}
+		case front.AST_OP_NEG: {
+			// TODO: check if operand is integer signed? maybe...
+			ast.DataType = ast.Children[0].DataType
 		}
 		case front.AST_OP_GRT: {
 			left_type := ast.Children[0].DataType
@@ -376,6 +398,40 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			right_type := ast.Children[1].DataType
 			if left_type != right_type {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_NOT: {
+			t := ast.Children[0].DataType
+			if t != datatype.TYPE_BOOL {
+				typeErrorAt(ast, "expected `bool`, got `%s`", t.Name())
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_AND: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			if left_type != datatype.TYPE_BOOL {
+				typeErrorAt(ast, "expected `bool`, got `%s`", left_type.Name())
+				return nil
+			}
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_OR: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			if left_type != datatype.TYPE_BOOL {
+				typeErrorAt(ast, "expected `bool`, got `%s`", left_type.Name())
 				return nil
 			}
 			ast.DataType = datatype.TYPE_BOOL

@@ -51,6 +51,7 @@ const (
 	AST_OP_DIV = Ast_Type(iota)
 	AST_OP_ASN = Ast_Type(iota) // assign
 
+	AST_OP_NEG = Ast_Type(iota) // two's complement negation
 
 	AST_OP_GRT = Ast_Type(iota)
 	AST_OP_LES = Ast_Type(iota)
@@ -61,6 +62,8 @@ const (
     AST_OP_NEQ = Ast_Type(iota)
 
     AST_OP_NOT = Ast_Type(iota)
+    AST_OP_AND = Ast_Type(iota)
+    AST_OP_OR  = Ast_Type(iota)
 
 
 	AST_WHILE = Ast_Type(iota)
@@ -103,6 +106,8 @@ var ast_type_str = [N_AST]string {
 	"AST_OP_DIV",
 	"AST_OP_ASN", // assign
 
+	"AST_OP_NEG", // two's complement negation
+
 	"AST_OP_GRT",
 	"AST_OP_LES",
 	"AST_OP_GOE",
@@ -112,6 +117,8 @@ var ast_type_str = [N_AST]string {
     "AST_OP_NEQ",
               
     "AST_OP_NOT",
+    "AST_OP_AND",
+    "AST_OP_OR",
 
 
 	"AST_WHILE",

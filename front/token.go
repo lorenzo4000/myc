@@ -43,6 +43,8 @@ const (
 	TOKEN_NEQ				  = iota
 	
 	TOKEN_NOT				  = '!'
+	TOKEN_AND				  = iota
+	TOKEN_OR				  = iota
 
 	N_TOKENS 				  = iota 
 )
@@ -78,6 +80,8 @@ var multiCharacterTokenMap = map[string]byte {
 	"<=":       TOKEN_LOE,
 	"==":       TOKEN_EQU,
 	"!=":       TOKEN_NEQ,
+	"&&":		TOKEN_AND,
+	"||":		TOKEN_OR,
 }
 
 type Token struct {

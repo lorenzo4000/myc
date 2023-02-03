@@ -501,6 +501,37 @@ func GEN_ifelse(c Codegen_Out, t Codegen_Out, f Codegen_Out) Codegen_Out {
 	return res
 }
 
+func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
+	res := Codegen_Out{}
+	var allocation Operand
+	
+	data_size := v.Type().BitSize()
+
+	switch t {
+		case front.AST_OP_NEG:
+			switch data_size {
+				case 64:  res.Code.TextAppendSln(ii("negq", v))
+				case 32:  res.Code.TextAppendSln(ii("negl", v))
+				case 16:  res.Code.TextAppendSln(ii("negw", v))
+				case 8:   res.Code.TextAppendSln(ii("negb", v))
+			}
+			res.Code.TextAppendSln("\n")
+			allocation = v
+		case front.AST_OP_NOT:
+			res.Code.TextAppendSln(
+				ii(
+					"xorb",
+					Asm_Int_Literal{datatype.TYPE_BOOL, 1, 10},
+					v,
+				),
+			)
+			allocation = v
+	}
+	
+	res.Result = allocation
+	return res
+}
+
 func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	res := Codegen_Out{}
 	var allocation Operand
@@ -525,6 +556,25 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("subb", r, l))
 			}
 			res.Code.TextAppendSln("\n")
+			allocation = l
+		case front.AST_OP_MUL:
+			rax := REGISTER_RAX.GetRegister(l.Type())
+
+			res.Code.Appendln(GEN_load(l, rax).Code)
+			res.Code.TextAppendSln(ii("imul", r))
+			res.Code.Appendln(GEN_move(rax, l).Code)
+
+			allocation = l
+		case front.AST_OP_DIV:
+			rax := REGISTER_RAX.GetRegister(l.Type())
+			rdx := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
+
+			res.Code.TextAppendSln(ii("xorq", rdx, rdx))
+
+			res.Code.Appendln(GEN_load(l, rax).Code)
+			res.Code.TextAppendSln(ii("idiv", r))
+			res.Code.Appendln(GEN_move(rax, l).Code)
+
 			allocation = l
 		case front.AST_OP_GRT: 
 			var full bool
@@ -665,6 +715,14 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			switch l.(type) {
 				case Register: l.(Register).Free()
 			}
+		case front.AST_OP_AND:
+			res.Code.TextAppendSln(ii("andb", r, l))
+
+			allocation = l
+		case front.AST_OP_OR:
+			res.Code.TextAppendSln(ii("orb", r, l))
+
+			allocation = l
 	}
 
 	switch r.(type) {
