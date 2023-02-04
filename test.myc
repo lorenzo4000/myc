@@ -3,9 +3,8 @@ function print_line(:length int64, :x bool) bool {
 		return true;
 	}
 
-	while length > 0 {
+	for (:i int64 = 1; i < length; i = i + 1) {
 		printf("@");
-		length = length - 1;
 	}
 	printf("\n");
 	

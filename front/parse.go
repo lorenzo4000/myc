@@ -337,6 +337,151 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 	return while
 }
 
+func (parser *Parser) ParseForInit() (*Ast_Node) {
+	_for_init := new(Ast_Node)
+	_for_init.Type = AST_FOR_INIT
+	for !parser.CurrentIs(TOKEN_SEMICOLON) {
+		def := parser.ParseVariableDefinition()
+		if def != nil {
+			_for_init.AddChild(def)
+		} else {
+			exp := parser.ParseExpression()
+			if exp != nil {
+				_for_init.AddChild(exp)
+			}
+		}
+
+		next, not_comma := parser.PopIf(TOKEN_COMMA)
+		if not_comma {
+			if next.Type != TOKEN_SEMICOLON {
+				parseExpectErrorAt(next, "`,` or `;`")
+				return nil
+			}
+		}
+	}
+	
+	return _for_init
+}
+
+func (parser *Parser) ParseForUpdate() (*Ast_Node) {
+	_for_update := new(Ast_Node)
+	_for_update.Type = AST_FOR_UPDATE
+	for !parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+		exp := parser.ParseExpression()
+		if exp != nil {
+			_for_update.AddChild(exp)
+		}
+
+		next, not_comma := parser.PopIf(TOKEN_COMMA)
+		if not_comma {
+			if next.Type != TOKEN_CLOSING_PARENTHESES {
+				parseExpectErrorAt(next, "`,` or `)`")
+				return nil
+			}
+		}
+	}
+	
+	return _for_update
+}
+
+func (parser *Parser) ParseFor() (*Ast_Node) {
+	_for := new(Ast_Node)
+	_for.Type = AST_FOR
+
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_FOR)
+		if expect {
+			parseExpectErrorAt(next, "`for`")
+			return nil
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_OPENING_PARENTHESES)
+		if expect {
+			parseExpectErrorAt(next, "`(`")
+			return nil
+		}
+	}
+
+	{
+		// initialization
+		_for.NewChild(AST_FOR_INIT)
+		_init := parser.ParseForInit()
+		if _init != nil {
+			_for.Children[0] = _init
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_SEMICOLON)
+		if expect {
+			parseExpectErrorAt(next, "`;`")
+			return nil
+		}
+	}
+
+	{
+		// condition
+		_for.NewChild(AST_EXPRESSION)
+		exp := parser.ParseExpression()
+		if exp != nil {
+			_for.Children[1] = exp
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_SEMICOLON)
+		if expect {
+			parseExpectErrorAt(next, "`;`")
+			return nil
+		}
+	}
+
+	{
+		// update
+		_for.NewChild(AST_FOR_UPDATE)
+		_update := parser.ParseForUpdate()
+		if _update != nil {
+			_for.Children[2] = _update
+		}
+	}
+	
+	{
+		next, expect := parser.PopIf(TOKEN_CLOSING_PARENTHESES)
+		if expect {
+			parseExpectErrorAt(next, "`)`")
+			return nil
+		}
+	}
+	
+	{
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+	
+	{
+		_body := parser.ParseBody()
+		if _body != nil {
+			_body.Flags |= ASTO_BODY_FOR
+			_for.AddChild(_body)
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
+
+	return _for
+}
+
 func (parser *Parser) ParseIf() (*Ast_Node) {
 	ast_if := new(Ast_Node)
 	ast_if.Type = AST_IF
@@ -438,6 +583,9 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 			}
 			case TOKEN_KEYWORD_WHILE: {
 				body.AddChild(parser.ParseWhile())
+			}
+			case TOKEN_KEYWORD_FOR: {
+				body.AddChild(parser.ParseFor())
 			}
 			//case TOKEN_KEYWORD_IF: {
 			//	body.AddChild(parser.ParseIf())

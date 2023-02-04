@@ -197,7 +197,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			symbol.SymbolScopeStackPop()
 		}
 		case front.AST_BODY_RESULT: {
-			ast.DataType = ast.Children[0].DataType
+			if len(ast.Children) > 0 {
+				ast.DataType = ast.Children[0].DataType
+			} else {
+				ast.DataType = datatype.TYPE_NONE
+			}
 		}
 		case front.AST_FUNCTION_CALL: {
 			function_name := ast.Children[0].Data[0].String_value
@@ -217,7 +221,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 		}
 		case front.AST_EXPRESSION: {
-			ast.DataType = ast.Children[0].DataType
+			if len(ast.Children) > 0 {
+				ast.DataType = ast.Children[0].DataType
+			} else {
+				ast.DataType = datatype.TYPE_NONE
+			}
 		}
 		case front.AST_VARIABLE_DEFINITION: {
 			variable_name := ast.Children[0].Data[0].String_value
@@ -257,6 +265,13 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		case front.AST_WHILE: {
 			if ast.Children[0].DataType != datatype.TYPE_BOOL {
+				typeExpectErrorAt(ast, datatype.TYPE_BOOL, ast.Children[0].DataType)
+				return nil
+			}
+		}
+		case front.AST_FOR: {
+			c := ast.Children[1]
+			if c.DataType != datatype.TYPE_BOOL && c.DataType != datatype.TYPE_NONE {
 				typeExpectErrorAt(ast, datatype.TYPE_BOOL, ast.Children[0].DataType)
 				return nil
 			}

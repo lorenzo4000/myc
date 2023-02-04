@@ -286,6 +286,24 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			out.Code.Appendln(GEN_while(condition, body).Code)
 		}
+		case front.AST_FOR: {
+			init := children_out[0]
+			cond := children_out[1]
+			expr := children_out[2]
+			body := children_out[3]
+
+			out.Code.Appendln(GEN_for(init, cond, expr, body).Code)
+		}
+		case front.AST_FOR_INIT: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+		}
+		case front.AST_FOR_UPDATE: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+		}
 		case front.AST_IF: {
 			condition := children_out[0]
 			body_true := children_out[1]

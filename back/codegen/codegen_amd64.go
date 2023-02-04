@@ -395,12 +395,36 @@ func GEN_call(f *front.Ast_Node) Codegen_Out {
 	return res
 }
 
+func GEN_for(i Codegen_Out, c Codegen_Out, e Codegen_Out, b Codegen_Out) Codegen_Out {
+	res := Codegen_Out{}
+	
+	res.Code.Appendln(i.Code)
+
+	for_label := LabelGen()
+	for_exit_label := LabelGen()
+	res.Code.TextAppendSln(for_label.Text() + ":")
+
+	res.Code.Appendln(c.Code)
+	
+	res.Code.TextAppendSln(ii("andb", c.Result, c.Result) )
+	res.Code.TextAppendSln(ii("jz", for_exit_label) )
+
+	res.Code.Appendln(b.Code)
+
+	res.Code.Appendln(e.Code)
+	
+	res.Code.TextAppendSln(ii("jmp", for_label) )
+
+	res.Code.TextAppendSln(for_exit_label.Text() + ":")
+	return res
+}
+
 func GEN_while(c Codegen_Out, b Codegen_Out) Codegen_Out {
 	res := Codegen_Out{}
 
 	while_label := LabelGen()
 	while_exit_label := LabelGen()
-	res.Code.TextAppendSln(while_label.Text() + ":\n")
+	res.Code.TextAppendSln(while_label.Text() + ":")
 
 	res.Code.Appendln(c.Code)
 
@@ -410,7 +434,7 @@ func GEN_while(c Codegen_Out, b Codegen_Out) Codegen_Out {
 	res.Code.Appendln(b.Code)
 
 	res.Code.TextAppendSln(ii("jmp", while_label) )
-	res.Code.TextAppendSln(while_exit_label.Text() + ":\n")
+	res.Code.TextAppendSln(while_exit_label.Text() + ":")
 	
 	return res
 }
@@ -447,7 +471,7 @@ func GEN_if(c Codegen_Out, t Codegen_Out) Codegen_Out {
 		res.Code.Appendln(GEN_move(t.Result, allocation).Code)
 	}
 
-	res.Code.TextAppendSln(if_exit_label.Text() + ":\n")
+	res.Code.TextAppendSln(if_exit_label.Text() + ":")
 	res.Result = allocation
 	return res
 }
@@ -487,7 +511,7 @@ func GEN_ifelse(c Codegen_Out, t Codegen_Out, f Codegen_Out) Codegen_Out {
 	}
 
 	res.Code.Appendln(GEN_jump(if_exit_label).Code)
-	res.Code.TextAppendSln(if_false_label.Text() + ":\n")
+	res.Code.TextAppendSln(if_false_label.Text() + ":")
 
 	res.Code.Appendln(f.Code)
 
@@ -495,7 +519,7 @@ func GEN_ifelse(c Codegen_Out, t Codegen_Out, f Codegen_Out) Codegen_Out {
 		res.Code.Appendln(GEN_move(f.Result, allocation).Code)
 	}
 
-	res.Code.TextAppendSln(if_exit_label.Text() + ":\n")
+	res.Code.TextAppendSln(if_exit_label.Text() + ":")
 
 	res.Result = allocation
 	return res
@@ -561,7 +585,12 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			rax := REGISTER_RAX.GetRegister(l.Type())
 
 			res.Code.Appendln(GEN_load(l, rax).Code)
-			res.Code.TextAppendSln(ii("imul", r))
+			switch r.Type().BitSize() {
+				case 64:  res.Code.TextAppendSln(ii("imulq", r))
+				case 32:  res.Code.TextAppendSln(ii("imull", r))
+				case 16:  res.Code.TextAppendSln(ii("imulw", r))
+				case 8:   res.Code.TextAppendSln(ii("imulb", r))
+			}
 			res.Code.Appendln(GEN_move(rax, l).Code)
 
 			allocation = l
@@ -572,7 +601,12 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("xorq", rdx, rdx))
 
 			res.Code.Appendln(GEN_load(l, rax).Code)
-			res.Code.TextAppendSln(ii("idiv", r))
+			switch r.Type().BitSize() {
+				case 64:  res.Code.TextAppendSln(ii("idivq", r))
+				case 32:  res.Code.TextAppendSln(ii("idivl", r))
+				case 16:  res.Code.TextAppendSln(ii("idivw", r))
+				case 8:   res.Code.TextAppendSln(ii("idivb", r))
+			}
 			res.Code.Appendln(GEN_move(rax, l).Code)
 
 			allocation = l
@@ -583,7 +617,12 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("xorq", rdx, rdx))
 
 			res.Code.Appendln(GEN_load(l, rax).Code)
-			res.Code.TextAppendSln(ii("idiv", r))
+			switch r.Type().BitSize() {
+				case 64:  res.Code.TextAppendSln(ii("idivq", r))
+				case 32:  res.Code.TextAppendSln(ii("idivl", r))
+				case 16:  res.Code.TextAppendSln(ii("idivw", r))
+				case 8:   res.Code.TextAppendSln(ii("idivb", r))
+			}
 			res.Code.Appendln(GEN_move(rdx, l).Code)
 
 			allocation = l

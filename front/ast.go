@@ -68,6 +68,9 @@ const (
 
 
 	AST_WHILE = Ast_Type(iota)
+	AST_FOR = Ast_Type(iota)
+	AST_FOR_INIT = Ast_Type(iota)
+	AST_FOR_UPDATE = Ast_Type(iota)
 	AST_IF = Ast_Type(iota)
 
 	N_AST = Ast_Type(iota)
@@ -124,6 +127,9 @@ var ast_type_str = [N_AST]string {
 
 
 	"AST_WHILE",
+	"AST_FOR",
+	"AST_FOR_INIT",
+	"AST_FOR_UPDATE",
 	"AST_IF",
 }
 
@@ -133,6 +139,7 @@ const (
 	ASTO_BODY_IF = Ast_Node_Flags(1 << iota)
 	ASTO_BODY_ELSE = Ast_Node_Flags(1 << iota)
 	ASTO_BODY_WHILE = Ast_Node_Flags(1 << iota) 
+	ASTO_BODY_FOR = Ast_Node_Flags(1 << iota) 
 
 	ASTO_ALWAYS_RETURNS = Ast_Node_Flags(1 << iota)
 )
