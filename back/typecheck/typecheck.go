@@ -330,6 +330,15 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = left_type
 		}
+		case front.AST_OP_MOD: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if left_type != right_type {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			ast.DataType = left_type
+		}
 		case front.AST_OP_ASN: {
 			left_ast_type := ast.Children[0].Type
 			if left_ast_type != front.AST_VARIABLE_NAME {

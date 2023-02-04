@@ -33,6 +33,7 @@ const (
 	TOKEN_SUB		  		  = '-' 
 	TOKEN_MUL		  		  = '*' 
 	TOKEN_DIV		  		  = '/' 
+	TOKEN_MOD		  		  = '%' 
 
 	TOKEN_GRT 				  = '>'
 	TOKEN_LES				  = '<'
@@ -70,6 +71,7 @@ var characterTokenMap = map[byte]byte {
 	'-':		TOKEN_SUB,
 	'*':		TOKEN_MUL,
 	'/':		TOKEN_DIV,
+	'%':		TOKEN_MOD,
 	'>': 		TOKEN_GRT,
 	'<': 		TOKEN_LES,
 	'!':		TOKEN_NOT,

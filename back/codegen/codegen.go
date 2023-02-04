@@ -355,6 +355,19 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.Appendln(op.Code)
 			out.Result = op.Result
 		}
+		case front.AST_OP_MOD: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			left_value  := children_out[0].Result
+			right_value := children_out[1].Result
+
+			op := GEN_binop(ast.Type, left_value, right_value)
+
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
+		}
 
 		case front.AST_OP_ASN: {
 			out.Code.Appendln(children_out[1].Code)

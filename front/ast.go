@@ -49,6 +49,7 @@ const (
 	AST_OP_SUB = Ast_Type(iota)
 	AST_OP_MUL = Ast_Type(iota)
 	AST_OP_DIV = Ast_Type(iota)
+	AST_OP_MOD = Ast_Type(iota)
 	AST_OP_ASN = Ast_Type(iota) // assign
 
 	AST_OP_NEG = Ast_Type(iota) // two's complement negation
@@ -104,6 +105,7 @@ var ast_type_str = [N_AST]string {
 	"AST_OP_SUB",
 	"AST_OP_MUL",
 	"AST_OP_DIV",
+	"AST_OP_MOD",
 	"AST_OP_ASN", // assign
 
 	"AST_OP_NEG", // two's complement negation

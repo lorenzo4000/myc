@@ -576,6 +576,17 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.Appendln(GEN_move(rax, l).Code)
 
 			allocation = l
+		case front.AST_OP_MOD:
+			rax := REGISTER_RAX.GetRegister(l.Type())
+			rdx := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
+
+			res.Code.TextAppendSln(ii("xorq", rdx, rdx))
+
+			res.Code.Appendln(GEN_load(l, rax).Code)
+			res.Code.TextAppendSln(ii("idiv", r))
+			res.Code.Appendln(GEN_move(rdx, l).Code)
+
+			allocation = l
 		case front.AST_OP_GRT: 
 			var full bool
 			reg, full := RegisterScratchAllocate()
