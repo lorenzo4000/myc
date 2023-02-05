@@ -31,6 +31,15 @@ var current_body_ast *front.Ast_Node
 var current_function_ast *front.Ast_Node
 var current_function_body_ast *front.Ast_Node
 
+func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
+	if len(exp.Children) <= 0 {
+		return false
+	}
+
+	value := exp.Children[0]
+	return value.Type == front.AST_VARIABLE_NAME
+}
+
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if ast.Type == front.AST_BODY || 
 	   ast.Type == front.AST_HEAD {
@@ -62,16 +71,26 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 	switch ast.Type {
 		case front.AST_DATATYPE: {
+			var type_name string
 			if ast.Data != nil && len(ast.Data) > 0 {
-				primitive := datatype.PrimitiveTypeFromName(ast.Data[0].String_value)
-				if primitive == datatype.TYPE_UNDEFINED {
-					typeErrorAt(ast, "undefined type `%s`", ast.Data[0].String_value)
-					return nil
-				}
-				ast.DataType = primitive
+				type_name = ast.Data[0].String_value
 			} else {
 				ast.DataType = datatype.TYPE_NONE
+				break
 			}
+
+			_type := datatype.TypeFromName(type_name)
+
+			if _type == nil { 
+				typeErrorAt(ast, "expected type")
+				return nil
+			}
+			if _type == datatype.TYPE_UNDEFINED || _type == datatype.TYPE_NONE {
+				typeErrorAt(ast, "type `%s` is undefined", type_name)
+				return nil
+			}
+
+			ast.DataType = _type
 		}
 		case front.AST_FUNCTION_DEFINITION: {
 			function_name := ast.Children[0].Data[0].String_value
@@ -460,6 +479,18 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = datatype.TYPE_BOOL
 		}
+		case front.AST_OP_REFERENCE: {
+			referenced_expression := ast.Children[0]
+			
+			if !ExpressionIsLeftValue(referenced_expression) {
+				typeErrorAt(ast, "cannot dereference non-left value")
+				return nil
+			}
+
+			_type := referenced_expression.DataType
+			ast.DataType = datatype.PointerType{_type}
+		}
+
 		default: ast.DataType = datatype.TYPE_UNDEFINED
 	}
 

@@ -209,6 +209,29 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 				not.AddChild(exp)
 				
 				return not
+			case TOKEN_BAND:
+				parser.Pop()
+				
+				band := new(Ast_Node)
+				band.Type = AST_OP_REFERENCE
+
+				exp := parser.ParseExpression()
+
+				band.AddChild(exp)
+				
+				return band
+			case TOKEN_BNOT:
+				parser.Pop()
+				
+				bnot := new(Ast_Node)
+				bnot.Type = AST_OP_BNOT
+
+				exp := parser.ParseExpression()
+
+				bnot.AddChild(exp)
+				
+				return bnot
+				
 		}
 	}
 	parseExpectErrorAt(curr, "value or expression")
@@ -713,29 +736,18 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	}
 	
 	{
-		type_token, end := parser.Current()
-		if end { 
-			parseExpectErrorAt(type_token, "return type or `{`")
-			return nil
-		}
-		
-		return_type := new(Ast_Node)
-		return_type.Type = AST_DATATYPE
+		function_definition.NewChild(AST_DATATYPE)
 
-		switch type_token.Type {
-			case TOKEN_IDENTIFIER: {
-				return_type.Data = []Token{type_token}
-				parser.Pop()
-			}
-			case TOKEN_OPENING_BRACKET: {
-				return_type.Data = nil
-			}
-			default: {
-				parseExpectErrorAt(type_token, "return type or `{`")
+		return_type := parser.ParseDataType()
+		next, _ := parser.Current()
+		if return_type != nil {
+			function_definition.Children[2] = return_type
+		} else {
+			if next.Type != TOKEN_OPENING_BRACKET {
+				parseExpectErrorAt(next, "return type or `{`")
 				return nil
 			}
 		}
-		function_definition.AddChild(return_type)
 	}
 	
 	{
@@ -798,6 +810,43 @@ func (parser *Parser) ParseReturn() (*Ast_Node) {
 	return ast_return
 }
 
+func (parser *Parser) GetDataType() string {
+	cur, end := parser.Current()
+	if end {
+		return ""
+	}
+	
+	switch cur.Type {
+		case TOKEN_IDENTIFIER: 
+			parser.Pop()
+			return cur.String_value
+		case TOKEN_MUL:
+			parser.Pop()
+			data_type := string(byte(cur.Type))
+			data_type += parser.GetDataType()
+
+			return data_type
+		default:
+			return ""
+	}
+}
+
+ 
+func (parser *Parser) ParseDataType() (*Ast_Node) {
+	datatype := new(Ast_Node)
+	datatype.Type = AST_DATATYPE
+
+	datatype.Data    = make([]Token, 1)
+
+	t := parser.GetDataType()
+	if len(t) <= 0 {
+		return nil
+	}
+
+	datatype.Data[0].String_value = t
+	return datatype
+}
+
 func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {
 	variable_definition := new(Ast_Node)
 	variable_definition.Type = AST_VARIABLE_DEFINITION
@@ -824,15 +873,14 @@ func (parser *Parser) ParseVariableDefinition() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
-		if expect {
+
+		variable_type := parser.ParseDataType()
+		next, _ := parser.Current()
+		if variable_type == nil {
 			parseExpectErrorAt(next, "variable type")
 			return nil
 		}
-		variable_type := new(Ast_Node)
-		variable_type.Type = AST_DATATYPE
-		variable_type.Data = []Token{next}
-
+		
 		variable_definition.AddChild(variable_type)
 	}
 	

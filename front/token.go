@@ -48,6 +48,11 @@ const (
 	TOKEN_AND				  = iota
 	TOKEN_OR				  = iota
 
+	TOKEN_BAND				  = '&'
+    TOKEN_BORI				  = '|'
+    TOKEN_BORE				  = '^'
+    TOKEN_BNOT			      = '~'
+
 	N_TOKENS 				  = iota 
 )
 
@@ -77,6 +82,11 @@ var characterTokenMap = map[byte]byte {
 	'>': 		TOKEN_GRT,
 	'<': 		TOKEN_LES,
 	'!':		TOKEN_NOT,
+	
+	'&':		TOKEN_BAND,
+	'|':		TOKEN_BORI,
+	'^':		TOKEN_BORE,
+	'~':		TOKEN_BNOT,
 }
 
 var multiCharacterTokenMap = map[string]byte {

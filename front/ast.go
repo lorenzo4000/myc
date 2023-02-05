@@ -66,6 +66,12 @@ const (
     AST_OP_AND = Ast_Type(iota)
     AST_OP_OR  = Ast_Type(iota)
 
+    AST_OP_BAND = Ast_Type(iota)
+    AST_OP_BORI = Ast_Type(iota)
+    AST_OP_BORE = Ast_Type(iota)
+    AST_OP_BNOT = Ast_Type(iota)
+
+	AST_OP_REFERENCE = Ast_Type(iota)
 
 	AST_WHILE = Ast_Type(iota)
 	AST_FOR = Ast_Type(iota)
@@ -125,6 +131,12 @@ var ast_type_str = [N_AST]string {
     "AST_OP_AND",
     "AST_OP_OR",
 
+	"AST_OP_BAND",
+    "AST_OP_BORI",
+    "AST_OP_BORE",
+    "AST_OP_BNOT",
+
+	"AST_OP_REFERENCE",
 
 	"AST_WHILE",
 	"AST_FOR",

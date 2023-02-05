@@ -238,18 +238,26 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			switch variable_type.(type) {
 				case datatype.PrimitiveType: 
-					switch variable_type {
-						default:
-							variable_allc = StackAllocate(variable_type)
+					variable_allc = StackAllocate(variable_type)
 
-							init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
-							if len(ast.Children) > 2 {
-								out.Code.Appendln(children_out[2].Code)
-								init_value = children_out[2].Result
-							}
-
-							out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
+					init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						init_value = children_out[2].Result
 					}
+					
+					out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
+				case datatype.PointerType:
+					variable_allc = StackAllocate(variable_type)
+
+					var init_value Operand 
+					init_value = Asm_Int_Literal{variable_type, 0, 10}
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						init_value = children_out[2].Result
+					}
+					
+					out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
 			}
 
 			err := symbol.SymbolTableInsertInCurrentScope(variable_name, Codegen_Symbol{variable_type, variable_allc})
@@ -531,6 +539,29 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			op := GEN_binop(ast.Type, left_value, right_value)
 
 			out.Code.Appendln(op.Code)
+			out.Result = op.Result
+		}
+		case front.AST_OP_REFERENCE: {
+			//for _, child_out := range(children_out) {
+			//	out.Code.Appendln(child_out.Code)
+			//}
+
+			referenced_expression := ast.Children[0]
+			value := referenced_expression.Children[0]
+			symbol_name := value.Data[0].String_value
+
+			symbol, found := symbol.SymbolTableGetFromCurrentScope(symbol_name)
+
+			if !found {
+				fmt.Println("codegen error: undefined `" + symbol_name + "`")
+				return out
+			}
+
+			op := GEN_reference(symbol.(Codegen_Symbol))
+
+			out.Code.Appendln(op.Code)
+
+			println("asfasfas: ", op.Result)
 			out.Result = op.Result
 		}
 	}

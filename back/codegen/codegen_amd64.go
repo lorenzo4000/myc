@@ -275,12 +275,12 @@ func GEN_store(v Operand, m Memory_Reference) Codegen_Out {
 		case 64:  
 			switch v.(type) {
 				case Asm_Int_Literal: 
-					res.Code.TextAppendSln(Instruction("pushq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)) + "\n")
+					res.Code.TextAppendSln(Instruction("pushq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)))
 
 					res.Code.Appendln(GEN_load(v, REGISTER_RBX.GetRegister(datatype.TYPE_INT64)).Code)
 					res.Code.TextAppendSln(ii("movq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64), m))
 
-					res.Code.TextAppendSln(Instruction("popq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)) + "\n")
+					res.Code.TextAppendSln(Instruction("popq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)))
 				default: 
 					res.Code.TextAppendSln(ii("movq", v, m))
 			}
@@ -525,6 +525,41 @@ func GEN_ifelse(c Codegen_Out, t Codegen_Out, f Codegen_Out) Codegen_Out {
 	return res
 }
 
+func GEN_reference(s Codegen_Symbol) Codegen_Out {
+	res := Codegen_Out{}
+
+	pointer_type := datatype.PointerType{s.Type()}
+
+	ref := s.Data.Reference()
+
+	var allocation Operand
+
+	var full bool
+	reg, full := RegisterScratchAllocate()
+	if full {
+		allocation = StackAllocate(pointer_type).Reference()
+	} else {
+		allocation = reg.GetRegister(pointer_type)
+	}
+
+	res.Code.Appendln(GEN_move(ref.Start, allocation).Code)
+
+	if ref.Index != nil {
+		res.Code.TextAppendSln(ii("movq", ref.Index, REGISTER_RAX.GetRegister(pointer_type)))
+		coeff := Asm_Int_Literal{pointer_type, int64(ref.IndexCoefficient), 10}
+		res.Code.TextAppendSln(ii("mulq", coeff))
+
+		res.Code.TextAppendSln(ii("addq", REGISTER_RAX.GetRegister(pointer_type), allocation))
+	}
+
+	offset := Asm_Int_Literal{pointer_type, ref.Offset, 10}
+
+	res.Code.TextAppendSln(ii("addq", offset, allocation))
+
+	res.Result = allocation
+	return res
+}
+
 func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
 	res := Codegen_Out{}
 	var allocation Operand
@@ -539,7 +574,6 @@ func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
 				case 16:  res.Code.TextAppendSln(ii("negw", v))
 				case 8:   res.Code.TextAppendSln(ii("negb", v))
 			}
-			res.Code.TextAppendSln("\n")
 			allocation = v
 		case front.AST_OP_NOT:
 			res.Code.TextAppendSln(
@@ -550,6 +584,10 @@ func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
 				),
 			)
 			allocation = v
+		case front.AST_OP_REFERENCE:
+			
+
+			
 	}
 	
 	res.Result = allocation
@@ -570,7 +608,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 16:  res.Code.TextAppendSln(ii("addw", r, l))
 				case 8:   res.Code.TextAppendSln(ii("addb", r, l))
 			}
-			res.Code.TextAppendSln("\n")
 			allocation = l
 		case front.AST_OP_SUB: 
 			switch data_size {
@@ -579,7 +616,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 16:  res.Code.TextAppendSln(ii("subw", r, l))
 				case 8:   res.Code.TextAppendSln(ii("subb", r, l))
 			}
-			res.Code.TextAppendSln("\n")
 			allocation = l
 		case front.AST_OP_MUL:
 			rax := REGISTER_RAX.GetRegister(l.Type())
@@ -643,7 +679,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
 			}
 
-			res.Code.TextAppendSln("\n")
 
 			res.Code.TextAppendSln(ii("setg", allocation) )
 			switch l.(type) {
@@ -666,7 +701,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
 			}
 
-			res.Code.TextAppendSln("\n")
 
 			res.Code.TextAppendSln(ii("setl", allocation) )
 			switch l.(type) {
@@ -689,7 +723,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
 			}
 
-			res.Code.TextAppendSln("\n")
 
 			res.Code.TextAppendSln(ii("setge", allocation) )
 			switch l.(type) {
@@ -712,7 +745,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
 			}
 
-			res.Code.TextAppendSln("\n")
 
 			res.Code.TextAppendSln(ii("setle", allocation) )
 			switch l.(type) {
@@ -735,7 +767,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
 			}
 
-			res.Code.TextAppendSln("\n")
 
 			res.Code.TextAppendSln(ii("sete", allocation) )
 			switch l.(type) {
@@ -758,7 +789,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
 			}
 
-			res.Code.TextAppendSln("\n")
 
 			res.Code.TextAppendSln(ii("setne", allocation) )
 			
