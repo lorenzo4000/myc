@@ -542,19 +542,7 @@ func GEN_reference(s Codegen_Symbol) Codegen_Out {
 		allocation = reg.GetRegister(pointer_type)
 	}
 
-	res.Code.Appendln(GEN_move(ref.Start, allocation).Code)
-
-	if ref.Index != nil {
-		res.Code.TextAppendSln(ii("movq", ref.Index, REGISTER_RAX.GetRegister(pointer_type)))
-		coeff := Asm_Int_Literal{pointer_type, int64(ref.IndexCoefficient), 10}
-		res.Code.TextAppendSln(ii("mulq", coeff))
-
-		res.Code.TextAppendSln(ii("addq", REGISTER_RAX.GetRegister(pointer_type), allocation))
-	}
-
-	offset := Asm_Int_Literal{pointer_type, ref.Offset, 10}
-
-	res.Code.TextAppendSln(ii("addq", offset, allocation))
+	res.Code.TextAppendSln(ii("leaq", ref, allocation))
 
 	res.Result = allocation
 	return res
