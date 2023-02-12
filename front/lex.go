@@ -58,6 +58,22 @@ func Lex(src string) ([]Token) {
 			}
 		}
 
+		// comments
+		if src[index] == '/' {
+			if src[index+1] == '/' {
+				for src[index] != '\n' {
+					index++
+				}
+				continue
+			} 
+			if src[index+1] == '*' {
+				for src[index] != '*' || src[index+1] != '/' {
+					index++
+				}
+				continue
+			}
+		}
+
 		if index < len(src) && (src[index] == '<' || src[index] == '>' || src[index] == '+' || src[index] == '-' || src[index] == '*' || src[index] == '/' || src[index] == '=' || src[index] == '!'){
 			if index+1 < len(src) && src[index+1] == '=' {
 				next_token_str += string(src[index+1])

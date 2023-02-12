@@ -12,26 +12,6 @@ function print_line(:length int64, :x bool) bool {
 }
 
 function main() {
-	:a int64 = 69;
-	:pointer_to_a *int64 = &a;
-
-	printf("pointer_to_a:   %lld\n", pointer_to_a);
-	printf("*pointer_to_a:  %lld\n", *pointer_to_a);
-	printf("&pointer_to_a:  %lld\n", &pointer_to_a);
-	printf("&*pointer_to_a: %lld\n", &*pointer_to_a);
-
-	:pointer_to_pointer_to_a **int64 = &pointer_to_a;
-
-	printf("pointer_to_pointer_to_a:    %lld\n", pointer_to_pointer_to_a);
-	printf("*pointer_to_pointer_to_a:   %lld\n", *pointer_to_pointer_to_a);
-	printf("**pointer_to_pointer_to_a:  %lld\n", **pointer_to_pointer_to_a);
-	printf("&pointer_to_pointer_to_a:   %lld\n", &pointer_to_pointer_to_a);
-	printf("&*pointer_to_pointer_to_a:  %lld\n", &*pointer_to_pointer_to_a);
-	printf("&**pointer_to_pointer_to_a: %lld\n", &**pointer_to_pointer_to_a);
-	
-
-	return;
-
 	:CAP int64 = 100 / 2;
 
 	:INCR int64 = 2;
