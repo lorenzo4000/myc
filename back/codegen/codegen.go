@@ -4,6 +4,7 @@ import (
 	"mycgo/front"
 	"fmt"
 	"mycgo/back/datatype"
+	"mycgo/back/typecheck"
 	"mycgo/back/symbol"
 )	
 
@@ -88,6 +89,21 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			
 		case front.AST_FUNCTION_DEFINITION:
 			function_name := ast.Children[0].Data[0].String_value
+			
+			//_, found := symbol.SymbolTableGetInCurrentScope(function_name)
+			//if found {
+			//	fmt.Println("codegen error: `" + function_name + "` was already declared in this scope")
+			//	return out
+			//}
+			//
+			//var function_symbol Codegen_Symbol
+			//function_symbol.DataType = ast.DataType
+			//err := symbol.SymbolTableInsertInCurrentScope(function_name, function_symbol)
+			//if err != nil {
+			//	fmt.Println(err)	
+			//	return out
+			//}
+
 			name := LabelGet(function_name)
 			out.Code.TextAppendSln(Instruction(".global", name))
 			out.Code.TextAppendSln(name.Text() + ":")
@@ -197,17 +213,16 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 		case front.AST_FUNCTION_CALL:
 			out.Code.Append(children_out[1].Code)
-
 			out.Code.Appendln(GEN_call(ast).Code)
 			
 			var result Operand
 			reg, full := RegisterScratchAllocate()
 			if full {
-				result = StackAllocate(datatype.TYPE_BOOL).Reference() // TODO: (TYPE_BYTE)
+				result = StackAllocate(ast.DataType).Reference()
 			} else {
 				result = reg.GetRegister(ast.DataType)
 			}
-			// TODO: get function type and size the result accordingly.
+
 			out.Code.Appendln(GEN_move(RETURN_REGISTER.GetRegister(ast.DataType), result).Code)
 	
 			out.Result = result
@@ -411,6 +426,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.Appendln(GEN_move(right_value, symbol.(Codegen_Symbol).Data.Reference()).Code)
 			out.Code.Appendln(children_out[0].Code)
 			
+			switch right_value.(type) {
+				case Register: right_value.(Register).Free()
+			}
 			out.Result = left_value
 		}
 		case front.AST_OP_NEG: {
@@ -546,23 +564,103 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			//	out.Code.Appendln(child_out.Code)
 			//}
 
-			referenced_expression := ast.Children[0]
-			value := referenced_expression.Children[0]
-			symbol_name := value.Data[0].String_value
-
-			symbol, found := symbol.SymbolTableGetFromCurrentScope(symbol_name)
-
-			if !found {
-				fmt.Println("codegen error: undefined `" + symbol_name + "`")
-				return out
+			value := ast.Children[0]
+			
+			if value.Type != front.AST_EXPRESSION || !typecheck.ExpressionIsLeftValue(value) {
+				goto reference_error
 			}
 
-			op := GEN_reference(symbol.(Codegen_Symbol))
+			value = value.Children[0]
 
-			out.Code.Appendln(op.Code)
+			switch value.Type {
+				case front.AST_VARIABLE_NAME:
+					symbol_name := value.Data[0].String_value
 
-			println("asfasfas: ", op.Result)
-			out.Result = op.Result
+					symbol, found := symbol.SymbolTableGetFromCurrentScope(symbol_name)
+
+					if !found {
+						fmt.Println("codegen error: undefined variable `", symbol_name, "`")
+						goto reference_error
+					}
+
+					op := GEN_reference(symbol.(Codegen_Symbol))
+					
+					out.Code.Appendln(op.Code)
+					out.Result = op.Result
+				case front.AST_OP_DEREFERENCE:
+					// TODO: fix this crap. I should NEVER do this, I just 
+					// don't know how to get the result of that stuff back,
+					// since it's two nodes below the current one...
+					reference_gen := Codegen(value.Children[0])
+					reference := reference_gen.Result
+					out.Code.Appendln(reference_gen.Code)
+	
+					var allocation Operand
+					reg, full := RegisterScratchAllocate()
+					if full {
+						allocation = StackAllocate(reference.Type()).Reference()
+					} else {
+						allocation = reg.GetRegister(reference.Type())
+					}
+
+					op := GEN_move(reference, allocation)
+
+					out.Code.Appendln(op.Code)
+					out.Result = allocation
+				default:
+					goto reference_error
+			}
+
+			break
+
+			reference_error:
+				fmt.Println("codegen error: cannot reference invalid left-value")
+				return out
+		}
+		case front.AST_OP_DEREFERENCE: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			value := children_out[0].Result
+
+			var allocation Operand
+			var full bool
+			reg, full := RegisterScratchAllocate()
+			if full {
+				allocation = StackAllocate(ast.DataType).Reference()
+			} else {
+				allocation = reg.GetRegister(ast.DataType)
+			}
+	
+			switch value.(type) {
+				case Memory_Reference:
+					var v Register
+
+					r, full := RegisterScratchAllocate()
+					if full {
+						v = REGISTER_RBX.GetRegister(value.Type())
+						out.Code.TextAppendSln(ii("pushq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)))
+					} else {
+						v = r.GetRegister(value.Type())
+					}
+
+					out.Code.Appendln(GEN_move(value, v).Code)
+					load := GEN_move(v.Dereference(), allocation)
+					out.Code.Appendln(load.Code)
+					
+					if full {
+						out.Code.TextAppendSln(ii("popq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)))
+					} else {
+						reg.Free()
+					}
+					
+				default: 
+					load := GEN_move(value.Dereference(), allocation)
+					out.Code.Appendln(load.Code)
+			}
+			
+			out.Result = allocation
 		}
 	}
 

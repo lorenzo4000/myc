@@ -537,12 +537,20 @@ func GEN_reference(s Codegen_Symbol) Codegen_Out {
 	var full bool
 	reg, full := RegisterScratchAllocate()
 	if full {
-		allocation = StackAllocate(pointer_type).Reference()
+		allocation = REGISTER_RBX.GetRegister(pointer_type) 
+		res.Code.TextAppendSln(ii("pushq", allocation))
 	} else {
 		allocation = reg.GetRegister(pointer_type)
 	}
 
 	res.Code.TextAppendSln(ii("leaq", ref, allocation))
+
+	if full {
+		old := allocation
+		allocation = StackAllocate(pointer_type).Reference()
+		res.Code.Appendln(GEN_move(old, allocation).Code)
+		res.Code.TextAppendSln(ii("popq", old))
+	}
 
 	res.Result = allocation
 	return res

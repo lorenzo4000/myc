@@ -72,6 +72,7 @@ const (
     AST_OP_BNOT = Ast_Type(iota)
 
 	AST_OP_REFERENCE = Ast_Type(iota)
+	AST_OP_DEREFERENCE = Ast_Type(iota)
 
 	AST_WHILE = Ast_Type(iota)
 	AST_FOR = Ast_Type(iota)
@@ -137,6 +138,7 @@ var ast_type_str = [N_AST]string {
     "AST_OP_BNOT",
 
 	"AST_OP_REFERENCE",
+	"AST_OP_DEREFERENCE",
 
 	"AST_WHILE",
 	"AST_FOR",

@@ -37,7 +37,8 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 	}
 
 	value := exp.Children[0]
-	return value.Type == front.AST_VARIABLE_NAME
+	return value.Type == front.AST_VARIABLE_NAME ||
+		   value.Type == front.AST_OP_DEREFERENCE
 }
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
@@ -374,9 +375,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = left_type
 		}
 		case front.AST_OP_ASN: {
-			left_ast_type := ast.Children[0].Type
-			if left_ast_type != front.AST_VARIABLE_NAME {
-				typeErrorAt(ast, "left value in assignment must be a variable")
+			if !ExpressionIsLeftValue(ast) {
+				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
 			}
 			left_type := ast.Children[0].DataType
@@ -483,12 +483,26 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			referenced_expression := ast.Children[0]
 			
 			if !ExpressionIsLeftValue(referenced_expression) {
-				typeErrorAt(ast, "cannot dereference non-left value")
+				typeErrorAt(ast, "cannot reference non-left value")
 				return nil
 			}
 
 			_type := referenced_expression.DataType
 			ast.DataType = datatype.PointerType{_type}
+		}
+		case front.AST_OP_DEREFERENCE: {
+			exp := ast.Children[0]
+
+			var pointer_type datatype.PointerType
+			switch exp.DataType.(type) {
+				case datatype.PointerType:
+					pointer_type = exp.DataType.(datatype.PointerType)
+				default:
+					typeErrorAt(ast, "cannot dereference non-pointer type")
+					return nil
+			}
+
+			ast.DataType = pointer_type.Pointed_type
 		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED

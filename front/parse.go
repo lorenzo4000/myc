@@ -198,6 +198,18 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 							return parser.ParseExpression()
 					}
 				}
+			case TOKEN_MUL:
+				parser.Pop()
+				
+				mul := new(Ast_Node)
+				mul.Type = AST_OP_DEREFERENCE
+
+				exp := parser.ParseExpression()
+
+				mul.AddChild(exp)
+				
+				return mul
+				
 			case TOKEN_NOT:
 				parser.Pop()
 				
