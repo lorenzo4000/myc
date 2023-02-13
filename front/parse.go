@@ -148,7 +148,7 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 				lit, _ := parser.Pop()
 				literal.Data = []Token{lit}
 				return literal
-			case TOKEN_OPENING_BRACKET:
+			case TOKEN_OPENING_BRACE:
 				parser.Pop()
 
 				body := parser.ParseBody()
@@ -157,13 +157,41 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 				}
 
 				{
-					next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+					next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
 					if expect {
 						parseExpectErrorAt(next, "`}`")
 						return nil
 					}
 				}
 				return body
+			case TOKEN_OPENING_BRACKET:
+				parser.Pop()
+
+				casting_type := parser.ParseDataType()
+				if casting_type == nil {
+					return nil
+				}
+
+				casting := new(Ast_Node)
+				casting.Type = AST_CASTING
+				casting.AddChild(casting_type)
+				
+				{
+					next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+					if expect {
+						parseExpectErrorAt(next, "`]`")
+						return nil
+					}
+				}
+				
+				expression := parser.ParseExpression()
+				if expression == nil {
+					return nil
+				}
+
+				casting.AddChild(expression)
+
+				return casting
 			case TOKEN_KEYWORD_IF:
 				return parser.ParseIf()
 			case TOKEN_SUB:
@@ -347,7 +375,7 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`{`")
 			return nil
@@ -363,7 +391,7 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`}`")
 			return nil
@@ -491,7 +519,7 @@ func (parser *Parser) ParseFor() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`{`")
 			return nil
@@ -507,7 +535,7 @@ func (parser *Parser) ParseFor() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`}`")
 			return nil
@@ -537,7 +565,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`{`")
 			return nil
@@ -553,7 +581,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`}`")
 			return nil
@@ -568,7 +596,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`{`")
 			return nil
@@ -584,7 +612,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`}`")
 			return nil
@@ -598,7 +626,7 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 	body := new(Ast_Node)
 	body.Type = AST_BODY
 
-	for !parser.CurrentIs(TOKEN_CLOSING_BRACKET) {
+	for !parser.CurrentIs(TOKEN_CLOSING_BRACE) {
 		current, end := parser.Current()
 		if end {
 			return nil
@@ -642,14 +670,14 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 					if 	parser.CurrentIs(TOKEN_SEMICOLON) {
 						body.AddChild(exp)
 						parser.Pop()
-					} else if parser.CurrentIs(TOKEN_CLOSING_BRACKET) {
+					} else if parser.CurrentIs(TOKEN_CLOSING_BRACE) {
 						body_result := new(Ast_Node)
 						body_result.Type = AST_BODY_RESULT
 						body_result.AddChild(exp)
 						body.AddChild(body_result)
 					} else {
 						prev, _ := parser.Peek(-1)
-						if prev.Type != TOKEN_CLOSING_BRACKET {
+						if prev.Type != TOKEN_CLOSING_BRACE {
 							cur, end := parser.Current()
 							if !end {
 								parseExpectErrorAt(cur, "`;` or `}`")
@@ -755,7 +783,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 		if return_type != nil {
 			function_definition.Children[2] = return_type
 		} else {
-			if next.Type != TOKEN_OPENING_BRACKET {
+			if next.Type != TOKEN_OPENING_BRACE {
 				parseExpectErrorAt(next, "return type or `{`")
 				return nil
 			}
@@ -763,7 +791,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	}
 	
 	{
-		next, expect := parser.PopIf(TOKEN_OPENING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`{`")
 			return nil
@@ -777,7 +805,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	}
 
 	{
-		next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
 		if expect {
 			parseExpectErrorAt(next, "`}`")
 			return nil

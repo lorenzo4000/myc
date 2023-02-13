@@ -12,6 +12,11 @@ function print_line(:length int64, :x bool) bool {
 }
 
 function main() {	
+	:byte  int8 = [int8]10;
+	
+	return;        
+
+
 	:CAP int64 = 100 / 2;
 
 	:INCR int64 = 2;

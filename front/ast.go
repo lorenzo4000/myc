@@ -80,6 +80,8 @@ const (
 	AST_FOR_UPDATE = Ast_Type(iota)
 	AST_IF = Ast_Type(iota)
 
+	AST_CASTING = Ast_Type(iota)
+
 	N_AST = Ast_Type(iota)
 );
 
@@ -145,6 +147,8 @@ var ast_type_str = [N_AST]string {
 	"AST_FOR_INIT",
 	"AST_FOR_UPDATE",
 	"AST_IF",
+
+	"AST_CASTING",
 }
 
 type Ast_Node_Flags uint64

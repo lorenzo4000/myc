@@ -7,8 +7,8 @@ import (
 type RegisterClass byte
 
 type Register struct {
-	datatype datatype.DataType
-	class RegisterClass
+	Datatype datatype.DataType
+	Class RegisterClass
 }
 
 type RegisterPair struct {
@@ -38,17 +38,17 @@ func (reg RegisterClass) Free() {
 }
 
 func (reg Register) Allocate() {
-	reg.class.Allocate()
+	reg.Class.Allocate()
 }
 
 func (reg Register) Free() {
-	reg.class.Free()
+	reg.Class.Free()
 }
 
 func (reg Register) Text() string {
-	for i, sub_size := range RegistersSize[reg.class] {
-		if reg.datatype.BitSize() == byte(sub_size) {
-			return RegistersStr[reg.class][i]
+	for i, sub_size := range RegistersSize[reg.Class] {
+		if reg.Datatype.BitSize() == byte(sub_size) {
+			return RegistersStr[reg.Class][i]
 		}
 	}
 	return ""
@@ -63,7 +63,7 @@ func (reg Register) Dereference() Operand {
 }
 
 func (reg Register) Type() datatype.DataType {
-	return reg.datatype
+	return reg.Datatype
 }
 
 func RegisterScratchAllocate() (RegisterClass, bool) {

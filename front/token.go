@@ -23,8 +23,10 @@ const (
 	// characters
 	TOKEN_OPENING_PARENTHESES = '(' 
 	TOKEN_CLOSING_PARENTHESES = ')' 
-	TOKEN_OPENING_BRACKET 	  = '{' 
-	TOKEN_CLOSING_BRACKET     = '}' 
+	TOKEN_OPENING_BRACE 	  = '{' 
+	TOKEN_CLOSING_BRACE       = '}' 
+	TOKEN_OPENING_BRACKET 	  = '[' 
+	TOKEN_CLOSING_BRACKET     = ']' 
 	TOKEN_COMMA				  = ',' 
 	TOKEN_SEMICOLON			  = ';' 
 	TOKEN_COLON		  		  = ':' 
@@ -68,8 +70,10 @@ var keywordTokenMap = map[string]byte {
 var characterTokenMap = map[byte]byte {
 	'(':		TOKEN_OPENING_PARENTHESES,
 	')':		TOKEN_CLOSING_PARENTHESES,
-	'{':		TOKEN_OPENING_BRACKET,
-	'}':		TOKEN_CLOSING_BRACKET,
+	'{':		TOKEN_OPENING_BRACE,
+	'}':		TOKEN_CLOSING_BRACE,
+	'[':		TOKEN_OPENING_BRACKET,
+	']':		TOKEN_CLOSING_BRACKET,
 	',':		TOKEN_COMMA,
 	';':		TOKEN_SEMICOLON,
 	':':		TOKEN_COLON,

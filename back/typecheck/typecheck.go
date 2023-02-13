@@ -504,6 +504,31 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 			ast.DataType = pointer_type.Pointed_type
 		}
+		case front.AST_CASTING: {
+			casting_type := ast.Children[0].DataType
+			expression_type := ast.Children[1].DataType
+			
+			// NOTE: For now it's only valid if they are both integer types.
+			switch casting_type.(type) {
+				case datatype.PrimitiveType: 
+					switch expression_type.(type) {
+						case datatype.PrimitiveType:
+							if !(casting_type.(datatype.PrimitiveType).IsIntegerType() && 
+								 expression_type.(datatype.PrimitiveType).IsIntegerType()) {
+								typeErrorAt(ast, "cannot cast `%s` to `%s`", expression_type.Name(), casting_type.Name())
+								return nil
+							}
+						default:
+							typeErrorAt(ast, "cannot cast `%s` to `%s`", expression_type.Name(), casting_type.Name())
+							return nil
+					}
+				case datatype.PointerType:
+					typeErrorAt(ast, "cannot cast `%s` to `%s` (pointer casting is not allowed)", expression_type.Name(), casting_type.Name())
+					return nil
+			}
+
+			ast.DataType = casting_type
+		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED
 	}

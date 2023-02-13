@@ -662,6 +662,47 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			
 			out.Result = allocation
 		}
+		case front.AST_CASTING: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			expression := children_out[1].Result
+
+			var result Operand
+			var result_expression_type_view Operand
+			reg, full := RegisterScratchAllocate()
+			if full {
+				result = StackAllocate(ast.DataType).Reference()
+
+				view := result.(Memory_Reference)
+				view.DataType = datatype.TYPE_INT64
+
+				result_expression_type_view = view
+			} else {
+				result = reg.GetRegister(ast.DataType)
+				result_expression_type_view = reg.GetRegister(datatype.TYPE_INT64)
+			}
+
+			var expression_view Operand
+			switch expression.(type) {
+				case Register: 
+					expression_view = expression.(Register).Class.GetRegister(ast.DataType)
+				case Memory_Reference:
+					view := expression.(Memory_Reference)
+					view.DataType = ast.DataType
+					expression_view = view
+			}
+
+			move := GEN_move(expression_view, result)
+			out.Code.Appendln(move.Code)
+
+			mask := uint64(1 << expression.Type().BitSize()) - uint64(1)
+			mask_code := ii("andq", Asm_Int_Literal{ast.DataType, int64(mask), 10}, result_expression_type_view)
+			out.Code.TextAppendSln(mask_code)
+
+			out.Result = result
+		}
 	}
 
 	return out
