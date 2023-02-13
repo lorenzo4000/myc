@@ -59,15 +59,22 @@ func Lex(src string) ([]Token) {
 		}
 
 		// comments
-		if src[index] == '/' {
+		if index < len(src) && src[index] == '/' {
+			if index+1 >= len(src) {
+				fmt.Printf("%d:%d: lexical error: Unexpected end of input\n", l1, c1)	
+			} else
 			if src[index+1] == '/' {
-				for src[index] != '\n' {
+				for index < len(src) && src[index] != '\n' {
 					index++
 				}
 				continue
 			} 
 			if src[index+1] == '*' {
 				for src[index] != '*' || src[index+1] != '/' {
+					if index+1 >= len(src) {
+						fmt.Printf("%d:%d: lexical error: Expected `*/` before end of input\n", l1, c1)	
+						break;
+					}
 					index++
 				}
 				continue
