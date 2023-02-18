@@ -12,10 +12,12 @@ function print_line(:length int64, :x bool) bool {
 }
 
 function main() {	
-	:byte  int8 = [int8]10;
-	
-	return;        
+	:a uint8 = [uint8]133;
+	:reminder uint8 = a % [uint8]2;
 
+	printf("%hhd", reminder);
+
+	return;
 
 	:CAP int64 = 100 / 2;
 

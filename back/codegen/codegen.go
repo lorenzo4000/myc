@@ -117,7 +117,13 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			if body_result != nil {
 				body_type := ast.Children[3].DataType
-				out.Code.Appendln(GEN_move(body_result, RETURN_REGISTER.GetRegister(body_type)).Code)
+
+				return_reg, err := RETURN_REGISTER.GetRegister(body_type)
+				if err {
+					fmt.Println("codegen error: could not find return register for type `" + body_type.Name() + "`")
+				}
+
+				out.Code.Appendln(GEN_move(body_result, return_reg).Code)
 			}
 	
 			function_epilogue := "._" + function_name
@@ -137,8 +143,13 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			if len(ast.Children) > 0 {
 				return_value := children_out[0].Result
 				return_type := ast.Children[0].DataType
+				
+				return_reg, err := RETURN_REGISTER.GetRegister(return_type)
+				if err {
+					fmt.Println("codegen error: could not find return register for type `" + return_type.Name() + "`")
+				}
 
-				out.Code.Appendln(GEN_move(return_value, RETURN_REGISTER.GetRegister(return_type)).Code)
+				out.Code.Appendln(GEN_move(return_value, return_reg).Code)
 			}
 
 			function_epilogue := LabelGet("._" + function_name)
@@ -190,21 +201,21 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					out.Code.DataAppendSln(allocation.Text() + ": .string \"" + ast.Data[0].String_value + "\"")
 				case front.TOKEN_INT_LITERAL:
 					var full bool
-					reg, full := RegisterScratchAllocate()
+					reg, full := RegisterScratchAllocate(ast.DataType)
 					if full {
 						allocation = StackAllocate(ast.DataType).Reference()
 					} else {
-						allocation = reg.GetRegister(ast.DataType)
+						allocation = reg
 					}
 					load := GEN_move(Asm_Int_Literal{datatype.TYPE_INT64, ast.Data[0].Int_value, 10}, allocation)
 					out.Code.Appendln(load.Code)
 				case front.TOKEN_BOOL_LITERAL:
 					var full bool
-					reg, full := RegisterScratchAllocate()
+					reg, full := RegisterScratchAllocate(ast.DataType)
 					if full {
 						allocation = StackAllocate(ast.DataType).Reference()
 					} else {
-						allocation = reg.GetRegister(ast.DataType)
+						allocation = reg
 					}
 					load := GEN_move(Asm_Int_Literal{datatype.TYPE_BOOL, ast.Data[0].Int_value, 10}, allocation)
 					out.Code.Appendln(load.Code)
@@ -216,14 +227,19 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.Appendln(GEN_call(ast).Code)
 			
 			var result Operand
-			reg, full := RegisterScratchAllocate()
+			reg, full := RegisterScratchAllocate(ast.DataType)
 			if full {
 				result = StackAllocate(ast.DataType).Reference()
 			} else {
-				result = reg.GetRegister(ast.DataType)
+				result = reg
+			}
+				
+			return_reg, err := RETURN_REGISTER.GetRegister(ast.DataType)
+			if err {
+				fmt.Println("codegen error: could not find return register for type `" + ast.DataType.Name() + "`")
 			}
 
-			out.Code.Appendln(GEN_move(RETURN_REGISTER.GetRegister(ast.DataType), result).Code)
+			out.Code.Appendln(GEN_move(return_reg, result).Code)
 	
 			out.Result = result
 
@@ -293,11 +309,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 
 			var allocation Operand
-			reg, full := RegisterScratchAllocate()
+			reg, full := RegisterScratchAllocate(ast.DataType)
 			if full {
 				allocation = StackAllocate(symbol.Type()).Reference()
 			} else {
-				allocation = reg.GetRegister(ast.DataType)
+				allocation = reg
 			}
 
 			out.Code.Appendln(GEN_move(symbol.(Codegen_Symbol).Data.Reference(), allocation).Code)
@@ -596,11 +612,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					out.Code.Appendln(reference_gen.Code)
 	
 					var allocation Operand
-					reg, full := RegisterScratchAllocate()
+					reg, full := RegisterScratchAllocate(reference.Type())
 					if full {
 						allocation = StackAllocate(reference.Type()).Reference()
 					} else {
-						allocation = reg.GetRegister(reference.Type())
+						allocation = reg
 					}
 
 					op := GEN_move(reference, allocation)
@@ -626,23 +642,25 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			var allocation Operand
 			var full bool
-			reg, full := RegisterScratchAllocate()
+			reg, full := RegisterScratchAllocate(ast.DataType)
 			if full {
 				allocation = StackAllocate(ast.DataType).Reference()
 			} else {
-				allocation = reg.GetRegister(ast.DataType)
+				allocation = reg
 			}
 	
 			switch value.(type) {
 				case Memory_Reference:
 					var v Register
+					
+					rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
 
-					r, full := RegisterScratchAllocate()
+					r, full := RegisterScratchAllocate(value.Type())
 					if full {
-						v = REGISTER_RBX.GetRegister(value.Type())
-						out.Code.TextAppendSln(ii("pushq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)))
+						v, _ = REGISTER_RBX.GetRegister(value.Type())
+						out.Code.TextAppendSln(ii("pushq", rbx))
 					} else {
-						v = r.GetRegister(value.Type())
+						v = r
 					}
 
 					out.Code.Appendln(GEN_move(value, v).Code)
@@ -650,7 +668,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					out.Code.Appendln(load.Code)
 					
 					if full {
-						out.Code.TextAppendSln(ii("popq", REGISTER_RBX.GetRegister(datatype.TYPE_INT64)))
+						out.Code.TextAppendSln(ii("popq", rbx))
 					} else {
 						reg.Free()
 					}
@@ -671,7 +689,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			var result Operand
 			var result_expression_type_view Operand
-			reg, full := RegisterScratchAllocate()
+			reg, full := RegisterScratchAllocate(ast.DataType)
 			if full {
 				result = StackAllocate(ast.DataType).Reference()
 
@@ -680,14 +698,22 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 				result_expression_type_view = view
 			} else {
-				result = reg.GetRegister(ast.DataType)
-				result_expression_type_view = reg.GetRegister(datatype.TYPE_INT64)
+				result = reg
+				err := false
+				result_expression_type_view, err = reg.Class.GetRegister(datatype.TYPE_INT64)
+				if err {
+					fmt.Println("codegen error: could not find sub 64-bit for type casting")
+				}
 			}
 
 			var expression_view Operand
 			switch expression.(type) {
 				case Register: 
-					expression_view = expression.(Register).Class.GetRegister(ast.DataType)
+					err := false
+					expression_view, err = expression.(Register).Class.GetRegister(ast.DataType)
+					if err {
+						fmt.Println("codegen error: could not find sub 64-bit for type casting")
+					}
 				case Memory_Reference:
 					view := expression.(Memory_Reference)
 					view.DataType = ast.DataType
