@@ -1,6 +1,5 @@
 -> Signed/Unsigned integers
-.  amd64: Make low/high byte registers independant
 .  String type (with literals and stuff)
-.  User defined types (structs...)
+-> User defined types (structs...)
 .  External functions (call C functions from myc)
 .  Misecellaneus types and other stuff

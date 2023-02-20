@@ -971,7 +971,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
 			}
 
-
 			if r.Type().(datatype.PrimitiveType).Sign() {
 				res.Code.TextAppendSln(ii("setl", allocation) )
 			} else {

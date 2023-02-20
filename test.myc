@@ -1,3 +1,10 @@
+/*
+struct Line {
+	:length uint64;
+	:pixel  uint8;
+}
+*/
+
 function print_line(:length int64, :x bool) bool {
 	if length < 0 {
 		return true;

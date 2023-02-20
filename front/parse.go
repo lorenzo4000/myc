@@ -815,6 +815,86 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 	return function_definition
 }
 
+func (parser *Parser) ParseStructDefinitionBody() (*Ast_Node) {
+	struct_body := new(Ast_Node)
+	struct_body.Type = AST_STRUCT_DEFINITION_BODY
+
+	for !parser.CurrentIs(TOKEN_CLOSING_BRACE) {
+		def := parser.ParseVariableDefinition()
+		if def != nil {
+			// if there is initialization than error
+			// NOTE, TODO: in the future we will have initialization? maybe?
+			if len(def.Children) >= 3 {
+				cur, end := parser.Current()
+				if end {
+					parseExpectErrorAt(cur, "`;` or `}`, got EOF")
+					return nil
+				} 
+				parseExpectErrorAt(cur, "`;` or `}`, got initialization")
+			}
+
+			struct_body.AddChild(def)
+		}
+
+		next, not_semi := parser.PopIf(TOKEN_SEMICOLON)
+		if not_semi {
+			parseExpectErrorAt(next, "`;`")
+			return nil
+		}
+	}
+
+	return struct_body
+}
+
+func (parser *Parser) ParseStructDefinition() (*Ast_Node) {
+	struct_definition := new(Ast_Node)
+	struct_definition.Type = AST_STRUCT_DEFINITION
+	
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_STRUCT)
+		if expect {
+			parseExpectErrorAt(next, "`struct`")
+			return nil
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
+		if expect {
+			parseExpectErrorAt(next, "struct name")
+			return nil
+		}
+		struct_name := new(Ast_Node)
+		struct_name.Type = AST_STRUCT_DEFINITION_NAME
+		struct_name.Data = []Token{next}
+
+		struct_definition.AddChild(struct_name)
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+
+	body := parser.ParseStructDefinitionBody()
+	if body != nil {
+		struct_definition.AddChild(body)
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
+
+	return struct_definition
+}
+
 func (parser *Parser) ParseReturn() (*Ast_Node) {
 	ast_return := new(Ast_Node)
 	ast_return.Type = AST_RETURN
@@ -950,6 +1030,7 @@ func (parser *Parser) Parse() (*Ast_Node) {
 		}
 		switch current.Type {
 			case TOKEN_KEYWORD_FUNCTION: head.AddChild(parser.ParseFunctionDefinition())
+			case TOKEN_KEYWORD_STRUCT:   head.AddChild(parser.ParseStructDefinition())
 			case TOKEN_COLON: {
 				head.AddChild(parser.ParseVariableDefinition())
 				

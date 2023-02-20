@@ -77,6 +77,7 @@ func Lex(src string) ([]Token) {
 					}
 					index++
 				}
+				index += len("*/")
 				continue
 			}
 		}

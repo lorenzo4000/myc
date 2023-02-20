@@ -42,8 +42,9 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 }
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
-	if ast.Type == front.AST_BODY || 
-	   ast.Type == front.AST_HEAD {
+	if ast.Type == front.AST_BODY 				    || 
+	   ast.Type == front.AST_HEAD 				    ||
+	   ast.Type == front.AST_STRUCT_DEFINITION_BODY {
 		if ast.Type == front.AST_BODY {
 			current_body_ast = ast
 			if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
@@ -528,6 +529,12 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 
 			ast.DataType = casting_type
+		}
+		case front.AST_STRUCT_DEFINITION: {
+			
+		}
+		case front.AST_STRUCT_DEFINITION_BODY: {
+			
 		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED

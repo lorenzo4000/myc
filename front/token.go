@@ -14,6 +14,8 @@ const (
 	
 	// keywords
 	TOKEN_KEYWORD_FUNCTION    = iota
+	TOKEN_KEYWORD_STRUCT    = iota
+
 	TOKEN_KEYWORD_RETURN    = iota
 	TOKEN_KEYWORD_WHILE    = iota
 	TOKEN_KEYWORD_FOR    = iota
@@ -60,6 +62,7 @@ const (
 
 var keywordTokenMap = map[string]byte {
 	"function": TOKEN_KEYWORD_FUNCTION,
+	"struct": TOKEN_KEYWORD_STRUCT,
 	"return": TOKEN_KEYWORD_RETURN,
 	"while": TOKEN_KEYWORD_WHILE,
 	"for": TOKEN_KEYWORD_FOR,
