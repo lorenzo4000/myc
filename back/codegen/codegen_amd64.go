@@ -488,12 +488,6 @@ func GEN_function_epilogue() Codegen_Out {
 func GEN_load(v Operand, r Register) Codegen_Out {
 	res := Codegen_Out{}
 	
-	println(r.Type().Name())
-	println(r.Type().BitSize())
-
-	println(v.Type().Name())
-	println(v.Type().BitSize())
-
 	switch v.Type().BitSize() {
 		case 64:  
 			switch v.(type) {

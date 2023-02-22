@@ -41,6 +41,39 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 		   value.Type == front.AST_OP_DEREFERENCE
 }
 
+func TypeFromName(type_name string) datatype.DataType {
+	if len(type_name) <= 0 {
+		return nil
+	}
+
+	if type_name[0] == '*' {
+		pointed_type := TypeFromName(type_name[1:])
+		return datatype.PointerType{pointed_type}
+	}
+
+	primitive_type := datatype.PrimitiveTypeFromName(type_name)
+	if primitive_type != datatype.TYPE_UNDEFINED {
+		return primitive_type
+	}
+
+	//
+	//	 User defined
+	//
+
+	sym, found := symbol.SymbolTableGetFromCurrentScope(type_name)
+	if !found {
+		return nil
+	}
+
+	sym_typ := sym.Type()
+	if sym_typ == nil {
+		return nil
+	}
+
+	return sym_typ
+}
+
+
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if ast.Type == front.AST_BODY 				    || 
 	   ast.Type == front.AST_HEAD 				    ||
@@ -81,7 +114,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				break
 			}
 
-			_type := datatype.TypeFromName(type_name)
+			_type := TypeFromName(type_name)
 
 			if _type == nil { 
 				typeErrorAt(ast, "expected type")
@@ -531,10 +564,33 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = casting_type
 		}
 		case front.AST_STRUCT_DEFINITION: {
+			anon_struct_type := ast.Children[1].DataType.(datatype.StructType)
+			struct_name := ast.Children[0].Data[0].String_value
+
+			anon_struct_type.Name_ = struct_name
 			
+			struct_type_symbol := TypeCheck_Symbol{anon_struct_type}
+			symbol.SymbolTableInsertInCurrentScope(struct_name, struct_type_symbol)
+
+			ast.DataType = anon_struct_type
 		}
 		case front.AST_STRUCT_DEFINITION_BODY: {
-			
+			var _struct datatype.StructType
+
+			for _, field := range(ast.Children) {
+				field_name := field.Children[0].Data[0].String_value
+				field_type := field.DataType
+
+				field_size := uint32(field_type.ByteSize())
+
+				struct_field := datatype.StructField{field_name, field_type}
+				_struct.AddField(struct_field)
+
+				_struct.Size_ += field_size
+			}
+
+			ast.DataType = _struct
+			symbol.SymbolScopeStackPop()
 		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED

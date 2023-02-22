@@ -67,8 +67,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 		current_function_ast = ast
 	}
 
-	if ast.Type == front.AST_BODY || 
-	   ast.Type == front.AST_HEAD {
+	if ast.Type == front.AST_BODY 				    || 
+	   ast.Type == front.AST_HEAD 				    ||
+	   ast.Type == front.AST_STRUCT_DEFINITION_BODY {
 		symbol.SymbolScopeStackPush()
 	}
 
@@ -728,6 +729,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.TextAppendSln(mask_code)
 
 			out.Result = result
+		}
+		case front.AST_STRUCT_DEFINITION_BODY: {
+			symbol.SymbolScopeStackPop()
 		}
 	}
 

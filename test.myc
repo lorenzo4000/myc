@@ -1,9 +1,7 @@
-/*
 struct Line {
 	:length uint64;
 	:pixel  uint8;
 }
-*/
 
 function print_line(:length int64, :x bool) bool {
 	if length < 0 {
@@ -18,13 +16,19 @@ function print_line(:length int64, :x bool) bool {
 	false
 }
 
+function struct_test() {
+	:line Line;
+}
+
 function main() {	
+	/*
 	:a uint8 = [uint8]133;
 	:reminder uint8 = a % [uint8]2;
 
 	printf("%hhd", reminder);
 
 	return;
+	*/
 
 	:CAP int64 = 100 / 2;
 

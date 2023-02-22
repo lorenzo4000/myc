@@ -1,3 +1,3 @@
 package datatype
 
-const PTR_SIZE byte = 8
+const PTR_SIZE uint32 = 8
