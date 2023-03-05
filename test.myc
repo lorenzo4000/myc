@@ -35,12 +35,6 @@ function struct_test()  bool {
 }
 
 function main() {	
-	:a int64 = 5;
-
-	printf("%d\n", -a + 5);
-	printf("%d\n", 3 * 3 + 5);
-
-	return;
 	/*
 	:a uint8 = [uint8]133;
 	:reminder uint8 = a % [uint8]2;

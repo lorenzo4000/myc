@@ -40,8 +40,9 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 	}
 
 	value := exp.Children[0]
-	return value.Type == front.AST_VARIABLE_NAME ||
-		   value.Type == front.AST_OP_DEREFERENCE
+	return value.Type == front.AST_VARIABLE_NAME  ||
+		   value.Type == front.AST_OP_DEREFERENCE ||
+		   value.Type == front.AST_OP_DOT
 }
 
 func TypeFromName(type_name string) datatype.DataType {
@@ -618,9 +619,6 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 			ast.DataType = _struct
 			symbol.SymbolScopeStackPop()
-		}
-		case front.AST_FIELD: {
-			ast.DataType = ast.Children[0].DataType
 		}
 		case front.AST_OP_DOT: {
 			/*

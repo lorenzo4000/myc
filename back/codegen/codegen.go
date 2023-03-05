@@ -754,7 +754,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			struct_type := left.DataType.(datatype_struct.StructType)
 
 			field_type := right.DataType
-			field_name := right.Data[0].String_value
+			field_name := /*right*/ast.Data[0].String_value
 
 			field := struct_type.FindField(field_name)
 			if field == nil {

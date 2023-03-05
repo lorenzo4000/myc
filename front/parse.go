@@ -397,8 +397,7 @@ func fix_precedence(ast *Ast_Node) *Ast_Node {
 			ast.Children[0] = blw.Children[0]
 			blw.Children[0] = ast
 			return blw
-		} else {
-		}
+		} 
 	} else 
 
 	if len(ast.Children) == 2 {
@@ -407,8 +406,7 @@ func fix_precedence(ast *Ast_Node) *Ast_Node {
 			ast.Children[1] = rhs.Children[0]
 			rhs.Children[0] = ast
 			return rhs
-		} else {
-		}
+		} 
 	}
 	return nil
 }
@@ -444,14 +442,11 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 			return nil
 		}
 
-		field := new(Ast_Node)
-		field.Type = AST_FIELD
-		field.Data = []Token{
+		operator.Data = []Token{
 			Token{String_value: field_name},
 		}
 		
-		field.AddChild(right)
-		operator.AddChild(field)
+		operator.AddChild(right)
 	} else {
 		operator.AddChild(right)
 	}
