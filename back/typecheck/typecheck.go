@@ -5,6 +5,7 @@ import (
 
 	"mycgo/front"
 	"mycgo/back/datatype"
+	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/symbol"
 )
 
@@ -30,6 +31,8 @@ func typeExpectErrorAt (ast *front.Ast_Node, expected datatype.DataType, got dat
 var current_body_ast *front.Ast_Node
 var current_function_ast *front.Ast_Node
 var current_function_body_ast *front.Ast_Node
+
+var current_dot_scope symbol.Symbol_Scope_Id = -1
 
 func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 	if len(exp.Children) <= 0 {
@@ -62,7 +65,7 @@ func TypeFromName(type_name string) datatype.DataType {
 
 	sym, found := symbol.SymbolTableGetFromCurrentScope(type_name)
 	if !found {
-		return nil
+		return datatype.TYPE_UNDEFINED
 	}
 
 	sym_typ := sym.Type()
@@ -90,6 +93,15 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		current_function_ast = ast	
 	}
 
+	/*
+	// aah ugly code
+	if ast.Type == front.AST_OP_DOT {
+		if ast.Children[1].Children[0].Type == front.AST_VARIABLE_NAME {
+			ast.Children[1].Children[0].Type = front.AST_FIELD_NAME
+		}
+	}
+	*/
+
 
 	for _, child := range(ast.Children) {
 		// FIXME: 
@@ -101,6 +113,12 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		if ast.Type == front.AST_BODY {
 			current_body_ast = ast
+		}
+
+		if ast.Type == front.AST_OP_DOT {
+			current_dot_scope = ast.Children[0].DataType.(datatype_struct.StructType).Scope
+		} else {
+			current_dot_scope = -1
 		}
 	}	
 
@@ -308,7 +326,14 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		case front.AST_VARIABLE_NAME: {
 			variable_name := ast.Data[0].String_value
-			declaration, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
+			
+			var declaration symbol.Symbol
+			found := false
+			if current_dot_scope >= 0 {
+				declaration, found = symbol.SymbolTableGet(variable_name, current_dot_scope)
+			} else {
+				declaration, found = symbol.SymbolTableGetFromCurrentScope(variable_name)
+			}
 
 			if !found {
 				typeErrorAt(ast, "undefined `%s`", variable_name)
@@ -564,7 +589,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = casting_type
 		}
 		case front.AST_STRUCT_DEFINITION: {
-			anon_struct_type := ast.Children[1].DataType.(datatype.StructType)
+			anon_struct_type := ast.Children[1].DataType.(datatype_struct.StructType)
 			struct_name := ast.Children[0].Data[0].String_value
 
 			anon_struct_type.Name_ = struct_name
@@ -575,7 +600,9 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = anon_struct_type
 		}
 		case front.AST_STRUCT_DEFINITION_BODY: {
-			var _struct datatype.StructType
+			var _struct datatype_struct.StructType
+			
+			_struct.Scope = symbol.SymbolScopeStackCurrent()
 
 			for _, field := range(ast.Children) {
 				field_name := field.Children[0].Data[0].String_value
@@ -583,7 +610,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 				field_size := uint32(field_type.ByteSize())
 
-				struct_field := datatype.StructField{field_name, field_type}
+				struct_field := datatype_struct.StructField{field_name, field_type, _struct.Size_}
 				_struct.AddField(struct_field)
 
 				_struct.Size_ += field_size
@@ -591,6 +618,31 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 			ast.DataType = _struct
 			symbol.SymbolScopeStackPop()
+		}
+		case front.AST_FIELD: {
+			ast.DataType = ast.Children[0].DataType
+		}
+		case front.AST_OP_DOT: {
+			/*
+			left := ast.Children[0]
+			field_name := &ast.Children[1].Children[0]
+			field_name_str := (*field_name).Data[0].String_value
+
+			switch left.DataType.(type) {
+				default: 
+					typeErrorAt(ast, "left value in dot-op is not a struct")
+					return nil
+				case datatype_struct.StructType:
+					f := left.DataType.(datatype_struct.StructType).FindField(field_name_str)
+					if f == nil {
+						typeErrorAt(ast, "undefined `%s`", field_name_str)
+						return nil
+					}
+					(*field_name).DataType = f.Type
+			}
+			*/
+
+			ast.DataType = ast.Children[1].DataType
 		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED

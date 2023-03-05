@@ -1,6 +1,12 @@
+struct Sesso {
+	:ahahah int64;
+}
+
 struct Line {
 	:length uint64;
 	:pixel  uint8;
+
+	:pisello Sesso;
 }
 
 function print_line(:length int64, :x bool) bool {
@@ -16,11 +22,25 @@ function print_line(:length int64, :x bool) bool {
 	false
 }
 
-function struct_test() {
+function struct_test()  bool {
 	:line Line;
+
+	line.length = [uint64]54;
+
+	:x uint64 = line.length; 
+
+	printf("%d", x);
+
+	return false;
 }
 
 function main() {	
+	:a int64 = 5;
+
+	printf("%d\n", -a + 5);
+	printf("%d\n", 3 * 3 + 5);
+
+	return;
 	/*
 	:a uint8 = [uint8]133;
 	:reminder uint8 = a % [uint8]2;
@@ -29,6 +49,8 @@ function main() {
 
 	return;
 	*/
+
+	struct_test();
 
 	:CAP int64 = 100 / 2;
 

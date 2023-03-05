@@ -303,7 +303,9 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		case TOKEN_NEQ:   operator.Type = AST_OP_NEQ
 
 		case TOKEN_AND:   operator.Type = AST_OP_AND
-		case TOKEN_OR:   operator.Type = AST_OP_OR
+		case TOKEN_OR:    operator.Type = AST_OP_OR
+
+		case TOKEN_DOT:   operator.Type = AST_OP_DOT
 		default:          return nil
 	}
 	parser.Pop()
@@ -328,10 +330,90 @@ func (parser *Parser) ParseVariableName() (*Ast_Node) {
 	return variable_name
 }
 
-func (parser *Parser) ParseExpression() (*Ast_Node) {
-	expression := new(Ast_Node)
-	expression.Type = AST_EXPRESSION
+func first_name(exp *Ast_Node) string {
+	if exp.Type == AST_VARIABLE_NAME {
+		return exp.Data[0].String_value
+	}
+	if len(exp.Children) <= 0 {
+		return ""
+	}
 
+	return first_name(exp.Children[0]) 
+}
+
+func precedence(ast *Ast_Node) uint8 {
+	switch ast.Type {
+		case AST_EXPRESSION: return precedence(ast.Children[0])
+		case AST_LITERAL:    return 0xFF
+		
+		case AST_OP_DOT:     return 6
+
+		case AST_OP_REFERENCE:   return 5
+		case AST_OP_DEREFERENCE: return 5
+	
+		// mul
+		case AST_OP_MUL:     return 4
+		case AST_OP_DIV:     return 4
+		case AST_OP_MOD:     return 4
+		case AST_OP_BAND:    return 4
+		case AST_OP_NEG:     return 4
+		case AST_OP_BORE:	 return 4
+		case AST_OP_BNOT:    return 4
+
+		// sum
+		case AST_OP_SUM:     return 3
+		case AST_OP_SUB:     return 3
+		case AST_OP_BORI:	 return 3
+
+
+		case AST_OP_ASN:     return 2
+
+
+		// conditions
+		case AST_OP_GRT:     return 1
+		case AST_OP_LES:	 return 1
+		case AST_OP_GOE:	 return 1
+		case AST_OP_LOE:	 return 1
+
+		case AST_OP_EQU:     return 1
+		case AST_OP_NEQ:	 return 1
+
+		// bool ops
+		case AST_OP_NOT:	 return 0
+		case AST_OP_AND:	 return 0
+		case AST_OP_OR :	 return 0
+	}
+	return 0xFF
+}
+
+func fix_precedence(ast *Ast_Node) *Ast_Node {
+	if ast.Type == AST_EXPRESSION {
+		return fix_precedence(ast.Children[0])
+	} else
+
+	if len(ast.Children) == 1 {
+		blw := ast.Children[0]
+		if precedence(blw) < precedence(ast) {
+			ast.Children[0] = blw.Children[0]
+			blw.Children[0] = ast
+			return blw
+		} else {
+		}
+	} else 
+
+	if len(ast.Children) == 2 {
+		rhs := ast.Children[1]
+		if precedence(rhs) < precedence(ast) {
+			ast.Children[1] = rhs.Children[0]
+			rhs.Children[0] = ast
+			return rhs
+		} else {
+		}
+	}
+	return nil
+}
+
+func (parser *Parser) ParseExpression() (*Ast_Node) {
 	left := parser.ParseSubExpression()
 	if left == nil {
 		return nil
@@ -339,20 +421,46 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 
 	operator := parser.ParseOperator()
 	if operator == nil {
-		expression.AddChild(left)
-		return expression
+		fixed_expression := fix_precedence(left)
+		if fixed_expression ==  nil {
+			return left
+		}
+		return fixed_expression
 	}
 
 	right := parser.ParseExpression()
 	if right == nil {
 		return nil
 	}
-
+	
 	operator.AddChild(left)
-	operator.AddChild(right)
-	expression.AddChild(operator)
 
-	return expression
+	if operator.Type == AST_OP_DOT {
+		field_name := first_name(right)
+		
+		if len(field_name) <= 0 {
+			cur, _ := parser.Current()
+			parseErrorAt(cur, "invalid field expression after `.`")
+			return nil
+		}
+
+		field := new(Ast_Node)
+		field.Type = AST_FIELD
+		field.Data = []Token{
+			Token{String_value: field_name},
+		}
+		
+		field.AddChild(right)
+		operator.AddChild(field)
+	} else {
+		operator.AddChild(right)
+	}
+
+	fixed_expression := fix_precedence(operator)
+	if fixed_expression ==  nil {
+		return operator
+	}
+	return fixed_expression
 }
 
 func (parser *Parser) ParseWhile() (*Ast_Node) {

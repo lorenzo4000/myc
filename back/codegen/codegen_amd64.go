@@ -450,6 +450,25 @@ func ii(op string, oprnds ...Operand) string {
 	return Instruction(op, oprnds...)
 }
 
+// === general data allocation === 
+
+func Allocate_For_Scratchy(_type datatype.DataType) Operand {
+	size := _type.ByteSize()
+
+	if size <= 8 {
+		reg, full := RegisterScratchAllocate(_type)
+		if full {
+			return StackAllocate(_type).Reference()
+		} 
+		return reg
+	}
+	if size <= 16 {
+		// TODO: allocate register pair (SystemV C ABI)
+	} 
+	return StackAllocate(_type).Reference()
+}
+
+
 // === GEN_* ===
 
 func GEN_function_prologue() Codegen_Out {

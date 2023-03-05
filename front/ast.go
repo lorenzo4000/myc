@@ -75,6 +75,9 @@ const (
     AST_OP_BORE = Ast_Type(iota)
     AST_OP_BNOT = Ast_Type(iota)
 
+	AST_OP_DOT = Ast_Type(iota)
+	AST_FIELD = Ast_Type(iota)
+
 	AST_OP_REFERENCE = Ast_Type(iota)
 	AST_OP_DEREFERENCE = Ast_Type(iota)
 
@@ -85,6 +88,7 @@ const (
 	AST_IF = Ast_Type(iota)
 
 	AST_CASTING = Ast_Type(iota)
+
 
 	N_AST = Ast_Type(iota)
 );
@@ -102,7 +106,7 @@ var ast_type_str = [N_AST]string {
 	"AST_STRUCT_DEFINITION",
 	"AST_STRUCT_DEFINITION_NAME",
 	"AST_STRUCT_DEFINITION_BODY",
-	
+
 	"AST_RETURN",
 
 	"AST_BODY",
@@ -146,6 +150,9 @@ var ast_type_str = [N_AST]string {
     "AST_OP_BORI",
     "AST_OP_BORE",
     "AST_OP_BNOT",
+
+	"AST_OP_DOT",
+	"AST_FIELD",
 
 	"AST_OP_REFERENCE",
 	"AST_OP_DEREFERENCE",

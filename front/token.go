@@ -57,6 +57,8 @@ const (
     TOKEN_BORE				  = '^'
     TOKEN_BNOT			      = '~'
 
+	TOKEN_DOT				  = '.'
+
 	N_TOKENS 				  = iota 
 )
 
@@ -94,6 +96,8 @@ var characterTokenMap = map[byte]byte {
 	'|':		TOKEN_BORI,
 	'^':		TOKEN_BORE,
 	'~':		TOKEN_BNOT,
+
+	'.':		TOKEN_DOT,
 }
 
 var multiCharacterTokenMap = map[string]byte {

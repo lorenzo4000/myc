@@ -4,6 +4,7 @@ import (
 	"mycgo/front"
 	"fmt"
 	"mycgo/back/datatype"
+	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/typecheck"
 	"mycgo/back/symbol"
 )	
@@ -62,6 +63,8 @@ func (code *Code) Appendln(appendee Code) {
 
 var current_function_ast *front.Ast_Node
 
+var current_dot_scope symbol.Symbol_Scope_Id = -1
+
 func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 	if ast.Type == front.AST_FUNCTION_DEFINITION {
 		current_function_ast = ast
@@ -77,6 +80,12 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 	for _, child := range(ast.Children) {
 		children_out = append(children_out, Codegen(child))
+		
+		if ast.Type == front.AST_OP_DOT {
+			current_dot_scope = ast.Children[0].DataType.(datatype_struct.StructType).Scope
+		} else {
+			current_dot_scope = -1
+		}
 	}
 
 	out := Codegen_Out{}
@@ -235,6 +244,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				result = reg
 			}
 				
+			println(ast.DataType.BitSize())
+			println(ast.DataType.Name())
 			return_reg, err := RETURN_REGISTER.GetRegister(ast.DataType)
 			if err {
 				fmt.Println("codegen error: could not find return register for type `" + ast.DataType.Name() + "`")
@@ -290,6 +301,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					}
 					
 					out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
+				case datatype_struct.StructType:
+					variable_allc = StackAllocate(variable_type)
 			}
 
 			err := symbol.SymbolTableInsertInCurrentScope(variable_name, Codegen_Symbol{variable_type, variable_allc})
@@ -302,22 +315,23 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 		}
 		case front.AST_VARIABLE_NAME: {
 			variable_name := ast.Data[0].String_value
-			symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
+			
+			var sym symbol.Symbol
+			found := false
+			if current_dot_scope >= 0 {
+				sym, found = symbol.SymbolTableGet(variable_name, current_dot_scope)
+			} else {
+				sym, found = symbol.SymbolTableGetFromCurrentScope(variable_name)
+			}
 
 			if !found {
 				fmt.Println("codegen error: undefined `" + variable_name + "`")
 				return out
 			}
 
-			var allocation Operand
-			reg, full := RegisterScratchAllocate(ast.DataType)
-			if full {
-				allocation = StackAllocate(symbol.Type()).Reference()
-			} else {
-				allocation = reg
-			}
-
-			out.Code.Appendln(GEN_move(symbol.(Codegen_Symbol).Data.Reference(), allocation).Code)
+			allocation := Allocate_For_Scratchy(sym.Type())
+				
+			out.Code.Appendln(GEN_move(sym.(Codegen_Symbol).Data.Reference(), allocation).Code)
 			out.Result = allocation
 		}
 		case front.AST_WHILE: {
@@ -732,6 +746,39 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 		}
 		case front.AST_STRUCT_DEFINITION_BODY: {
 			symbol.SymbolScopeStackPop()
+		}
+		case front.AST_OP_DOT: {
+			left := ast.Children[0]
+			right := ast.Children[1]
+
+			struct_type := left.DataType.(datatype_struct.StructType)
+
+			field_type := right.DataType
+			field_name := right.Data[0].String_value
+
+			field := struct_type.FindField(field_name)
+			if field == nil {
+				fmt.Println("codegen error: undefined `" + field_name + "`")
+				return out
+			}
+			
+			field_offset := field.Offset
+
+			struct_allocation := children_out[0].Result
+
+			field_allocation := Memory_Reference{
+				field_type,
+				int64(field_offset),
+				struct_allocation,
+				nil,
+				1,
+			}
+
+			result := Allocate_For_Scratchy(field_type)
+			
+			GEN_move(field_allocation, result)
+
+			out.Result = result
 		}
 	}
 

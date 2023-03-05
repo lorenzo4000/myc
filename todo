@@ -1,5 +1,9 @@
 -> Signed/Unsigned integers
 .  String type (with literals and stuff)
--> User defined types (structs...)
+.  Operator precedence 
+-> User defined types (structs...) {
+      .  Struct allocation for scratch and arguments
+	  .  AST_OP_DOT `.` notation and field typechecking
+   }
 .  External functions (call C functions from myc)
 .  Misecellaneus types and other stuff
