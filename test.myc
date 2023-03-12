@@ -1,51 +1,53 @@
-struct Sesso {
-	:ahahah int64;
-}
-
 struct Line {
-	:length uint64;
+	:length uint8;
 	:pixel  uint8;
-
-	:pisello Sesso;
 }
 
-function print_line(:length int64, :x bool) bool {
-	if length < 0 {
+function print_line(:line Line) bool {
+	if line.length < [uint8]0 {
 		return true;
 	}
 
-	for (:i int64 = 1; i < length; i = i + 1) {
-		printf("@");
+	for (:i uint8 = [uint8]1; i < line.length; i = i + [uint8]1) {
+		printf("%c", line.pixel);
 	}
 	printf("\n");
 	
 	false
 }
 
-function struct_test()  bool {
-	:line Line;
 
-	line.length = [uint64]54;
 
-	:x uint64 = line.length; 
+struct Bytes16 {
+	:x int64;
+	:y int64;
+}
 
-	printf("%d", x);
+struct Bytes24 {
+	:x int64;
+	:y int64;
+	:z int64;
+}
+
+function test_big_things() bool {
+	:a Bytes16;
+	:b Bytes24;
+
+	a.x = 49;
+	a.y = 420;
+	
+	b.x = 69;
+	b.y = 42;
+	b.z = 118;
+
+	undefined_function_a(a);
+	undefined_function_b(b);
 
 	return false;
 }
 
 function main() {	
 	/*
-	:a uint8 = [uint8]133;
-	:reminder uint8 = a % [uint8]2;
-
-	printf("%hhd", reminder);
-
-	return;
-	*/
-
-	struct_test();
-
 	:CAP int64 = 100 / 2;
 
 	:INCR int64 = 2;
@@ -65,9 +67,16 @@ function main() {
 		if x <= 0 {
 			sing = 1;
 		}
-		if print_line(x, true) != false {
+
+		:line Line;
+		line.length = [uint8]x;
+		line.pixel  = [uint8]65;
+		if print_line(line) != false {
 			printf("error: negative length for the line is illegal\n");
 			return;
 		}
 	}
+	*/
+
+	test_big_things();
 }

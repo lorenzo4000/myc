@@ -328,11 +328,13 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				fmt.Println("codegen error: undefined `" + variable_name + "`")
 				return out
 			}
-
+			
+			/*
 			allocation := Allocate_For_Scratchy(sym.Type())
 				
 			out.Code.Appendln(GEN_move(sym.(Codegen_Symbol).Data.Reference(), allocation).Code)
-			out.Result = allocation
+			*/
+			out.Result = sym.(Codegen_Symbol).Data.Reference()
 		}
 		case front.AST_WHILE: {
 			condition := children_out[0]
@@ -447,18 +449,28 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value := children_out[0].Result
 			right_value := children_out[1].Result
 			
-			variable_name := ast.Children[0].Data[0].String_value
-			symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
-			if !found {
-				fmt.Println("codegen error: undefined `" + variable_name + "`")
-				return out
-			}
+			if ast.Children[0].Type == front.AST_OP_DOT {
+				//_ = left_value.Type().(datatype_struct.StructType)
 
-			out.Code.Appendln(GEN_move(right_value, symbol.(Codegen_Symbol).Data.Reference()).Code)
-			out.Code.Appendln(children_out[0].Code)
-			
-			switch right_value.(type) {
-				case Register: right_value.(Register).Free()
+				// if we don't crash, we can just move the thing into the thing
+				out.Code.Appendln(GEN_move(right_value, left_value).Code)
+
+
+
+			} else {
+				variable_name := ast.Children[0].Data[0].String_value
+				symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
+				if !found {
+					fmt.Println("codegen error: undefined `" + variable_name + "`")
+					return out
+				}
+
+				out.Code.Appendln(GEN_move(right_value, symbol.(Codegen_Symbol).Data.Reference()).Code)
+				out.Code.Appendln(children_out[0].Code)
+				
+				switch right_value.(type) {
+					case Register: right_value.(Register).Free()
+				}
 			}
 			out.Result = left_value
 		}
@@ -755,6 +767,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			field_type := right.DataType
 			field_name := /*right*/ast.Data[0].String_value
+			fmt.Println("left: ", left.Data[0].String_value)
 
 			field := struct_type.FindField(field_name)
 			if field == nil {
@@ -762,23 +775,28 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				return out
 			}
 			
-			field_offset := field.Offset
 
 			struct_allocation := children_out[0].Result
+			struct_start  := struct_allocation.(Memory_Reference).Start
+			struct_offset := struct_allocation.(Memory_Reference).Offset
+			
+			field_offset := struct_offset + int64(field.Offset)
+
+			fmt.Println("offissetto :", field_offset, " : ", struct_offset, " + ", field.Offset)
 
 			field_allocation := Memory_Reference{
 				field_type,
-				int64(field_offset),
-				struct_allocation,
+				field_offset,
+				struct_start,
 				nil,
 				1,
 			}
 
-			result := Allocate_For_Scratchy(field_type)
+			//result := Allocate_For_Scratchy(field_type)
 			
-			GEN_move(field_allocation, result)
+			//out.Code.Appendln(GEN_move(field_allocation, result).Code)
 
-			out.Result = result
+			out.Result = field_allocation
 		}
 	}
 

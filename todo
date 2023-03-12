@@ -3,6 +3,7 @@
 -> User defined types (structs...) {
       .  Struct allocation for scratch and arguments
 	  -> AST_OP_DOT `.` notation and field typechecking
+	  -> Pass structs to functions
    }
 .  External functions (call C functions from myc)
 .  Misecellaneus types and other stuff

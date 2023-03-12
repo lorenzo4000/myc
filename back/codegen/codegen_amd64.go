@@ -5,6 +5,7 @@ import (
 	"log"
 	"fmt"
 	"mycgo/back/datatype"
+	"mycgo/back/datatype/datatype_struct"
 	"mycgo/front"
 )
 
@@ -550,13 +551,128 @@ func GEN_store(v Operand, m Memory_Reference) Codegen_Out {
 	return res
 }
 
-// generic move
 // value -> reg/mem
 func GEN_move(s Operand, d Operand) Codegen_Out {
 	switch d.(type) {
 		case Register: 		   return GEN_load(s, d.(Register))
 		case Memory_Reference: return GEN_store(s, d.(Memory_Reference))
 	}
+	return Codegen_Out{}
+}
+
+func GEN_loadstruct(s Memory_Reference, d []Register) Codegen_Out {
+	var res Codegen_Out
+
+	struct_type := s.Type().(datatype_struct.StructType)
+	nfields := len(struct_type.Fields)
+
+	if nfields > len(d) {
+		fmt.Println("codegen error: not enough registers to load struct of type `", struct_type.Name, "`")
+		return res
+	}
+	
+	struct_allocation := s
+	struct_start  := struct_allocation.Start
+	struct_offset := struct_allocation.Offset
+
+	for field := nfields - 1; field >= 0; field-- {
+		field_type := struct_type.Fields[field].Type
+		field_name := struct_type.Fields[field].Name
+		field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+		field_destination := d[(nfields - field) - 1]
+		
+		if field_type.ByteSize() > field_destination.Datatype.ByteSize() {
+			fmt.Println(
+				"codegen error: struct field `", 
+				field_name,
+				"` (of type `", field_type.Name(),
+				"`) is too big for register of type `",
+				field_destination.Datatype.Name(), "`",
+			)
+			return res
+		}
+
+		field_allocation := Memory_Reference{
+			field_type,
+			field_offset,
+			struct_start,
+			nil,
+			1,
+		}
+
+
+		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), field_destination).Code)
+	}
+
+	return res
+}
+
+func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
+	var res Codegen_Out
+
+	struct_type := s.Type().(datatype_struct.StructType)
+	nfields := len(struct_type.Fields)
+	
+	if s.DataType.ByteSize() > d.DataType.ByteSize() {
+		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
+		return res
+	}
+	
+	struct_allocation := s
+	struct_start  := struct_allocation.Start
+	struct_offset := struct_allocation.Offset
+
+	for field := nfields - 1; field >= 0; field-- {
+		field_type := struct_type.Fields[field].Type
+		field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+		field_allocation := Memory_Reference{
+			field_type,
+			field_offset,
+			struct_start,
+			nil,
+			1,
+		}
+
+		destination := Memory_Reference{
+			field_type,
+			field_offset - struct_offset,
+			d.Start,
+			nil,
+			1,
+		}
+
+		//   struct {struct {struct {int64}}}
+		//	 need to find the most primitive in a rescursive way
+		//
+		//	 so this doesnt work.
+		//   how do i solve?
+		
+
+		// intermidiate_register := REGISTER_RBX.GetRegister(field_type)
+		
+
+		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), destination).Code)
+		//res.Code.Appendln(GEN_store())
+	}
+
+	return res
+}
+
+func GEN_very_generic_move(s Operand, d any) Codegen_Out {
+	switch s.Type().(type) {
+		case datatype_struct.StructType: 
+			struct_allocation := s.(Memory_Reference)
+			switch d.(type) {
+				case Register: return GEN_loadstruct(struct_allocation, []Register{d.(Register)})
+				case Memory_Reference: return GEN_storestruct(struct_allocation, d.(Memory_Reference))
+				case []Register: return GEN_loadstruct(struct_allocation, d.([]Register))
+			}
+		default:
+			return GEN_move(s, d.(Operand))
+	}
+
 	return Codegen_Out{}
 }
 
@@ -603,39 +719,126 @@ func GEN_callargs(args []Operand) Codegen_Out {
 	res := Codegen_Out{}
 
 	nargs := len(args)
-	nargs_in_stack := nargs - len(ArgumentRegisters)
-	if nargs_in_stack < 0 {
-		nargs_in_stack = 0
-	}
-	nargs_in_regs :=  nargs - nargs_in_stack
+	
+	args_in_stack := make([]Operand, 0, nargs)
+	args_in_regs  := make([]Operand, 0, nargs)
 
-	if nargs_in_stack % 2 != 0 {
-		res.Code.TextAppendSln(ii("pushq", Asm_Int_Literal{datatype.TYPE_INT64, 0, 10}) )
+	for k, a := range args {
+		i := len(args_in_stack)
+		j := len(args_in_regs)
+
+		if a.Type().ByteSize() > 16 || k >= len(ArgumentRegisters) {
+			args_in_stack = args_in_stack[:i+1]
+			args_in_stack[i] = a
+		} else
+		if a.Type().ByteSize() > 8 {
+			// TODO: don't just assume it's a struct
+			struct_allocation := a
+			struct_type := a.Type().(datatype_struct.StructType)
+			struct_start  := struct_allocation.(Memory_Reference).Start
+			struct_offset := struct_allocation.(Memory_Reference).Offset
+
+			if cap(args_in_regs) < j + 2 {
+				new_ := make([]Operand, (j + 2) * 2)
+				copy(args_in_regs, new_)
+				args_in_regs = new_
+			}
+			args_in_regs = args_in_regs[:j+2]
+
+			// could expand
+			for field := 0; field < 2; field++ {
+				field_type := struct_type.Fields[field].Type
+				field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+				
+				field_allocation := Memory_Reference {
+					field_type,
+					field_offset,
+					struct_start,
+					nil,
+					1,
+				}
+
+				args_in_regs[j+field] = field_allocation
+			}
+		} else {
+			args_in_regs = args_in_regs[:j+1]
+			args_in_regs[j] = a
+		}
 	}
-	for i := nargs_in_stack - 1; i >= 0; i-=2 {
-		res.Code.TextAppendSln(ii("pushq", args[nargs_in_regs + i].LiteralValue()) )
-		if i > 0 {
-			res.Code.TextAppendSln(ii("pushq", args[nargs_in_regs + i - 1].LiteralValue()) )
+	
+	nargs_in_stack := len(args_in_stack)
+	nargs_in_regs :=  len(args_in_regs)
+		
+	size_in_stack := uint32(0)
+	for _, a := range args_in_stack {
+		size_in_stack += a.Type().ByteSize()
+	}
+	StackReserveBytes(uint32(size_in_stack * 8))
+
+	if size_in_stack % 16 != 0 {
+		res.Code.TextAppendSln(ii("pushq", Asm_Int_Literal{datatype.TYPE_INT64, 0, 10}))
+	}
+
+	for i := nargs_in_stack - 1; i >= 0; i-- {
+		arg := args_in_stack[i]
+
+		if arg.Type().ByteSize() > 16 {
+			// TODO: don't assert it's a struct
+			struct_type := arg.Type().(datatype_struct.StructType)
+			nfields := len(struct_type.Fields)
+			
+			struct_allocation := arg
+			struct_start  := struct_allocation.(Memory_Reference).Start
+			struct_offset := struct_allocation.(Memory_Reference).Offset
+
+			for field := nfields - 1; field >= 0; field-- {
+				field_type := struct_type.Fields[field].Type
+				field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+				field_allocation := Memory_Reference{
+					field_type,
+					field_offset,
+					struct_start,
+					nil,
+					1,
+				}
+
+				res.Code.TextAppendSln(ii("pushq", field_allocation.LiteralValue()) )
+			}
+		} else {
+			res.Code.TextAppendSln(ii("pushq", arg.LiteralValue()))
 		}
 	}
 
 	for i := nargs_in_regs - 1; i >= 0; i-- {
-		var arg Operand
-		switch args[i].(type) {
+		arg := args_in_regs[i]
+	
+		/*
+		switch args_in_regs[i].(type) {
 			case Label: 
-				arg = args[i].LiteralValue()
+				arg = args_in_regs[i].LiteralValue()
 			default:
-				arg = args[i]
+				arg = args_in_regs[i]
 		}
-		reg, err := ArgumentRegisters[i].GetRegister(arg.Type())
-		if err {
-			fmt.Println("codegen error: could not find an argument register for type `" + arg.Type().Name() + "`")
-		}
+		*/
 
-		res.Code.Appendln(GEN_move(arg, reg).Code)
+		//arg_type := arg.Type()
+		//arg_size := arg_type.ByteSize()
+		/*
+		if arg_size > 8 {
+			reg_a := ArgumentRegisters[i].register_from_sub(REG_SUB_Q)
+			reg_b := ArgumentRegisters[i - 1].register_from_sub(REG_SUB_Q)
+
+			res.Code.Appendln(GEN_very_generic_move(arg, []Register{reg_a, reg_b}).Code)
+		} else {
+		*/
+			reg, err := ArgumentRegisters[i].GetRegister(arg.Type())
+			if err {
+				fmt.Println("codegen error: could not find an argument register for type `" + arg.Type().Name() + "`")
+			}
+			res.Code.Appendln(GEN_move(arg, reg).Code)
+		//}
 	}
-	StackReserveBytes(uint32(nargs_in_stack * 8))
-
 	return res
 }
 
