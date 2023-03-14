@@ -408,7 +408,61 @@ func fix_precedence(ast *Ast_Node) *Ast_Node {
 			return rhs
 		} 
 	}
-	return nil
+	return ast
+}
+
+func fix_dot_field_name(ast *Ast_Node) *Ast_Node {
+	if ast.Type != AST_OP_DOT {
+		return nil
+	}
+
+	field_name := ast.Children[1].Data[0].String_value
+	if len(field_name) <= 0 {
+		return nil
+	}
+
+	fix_dot_field_name(ast.Children[0])
+	fix_dot_field_name(ast.Children[1])
+
+	ast.Print()
+	fmt.Println(field_name)
+	ast.Data = []Token{
+		Token{String_value: field_name},
+	}
+	return ast
+}
+
+func fix_dot(ast *Ast_Node) *Ast_Node {
+	if ast.Type != AST_OP_DOT {
+		return nil
+	}
+
+	next_dot := ast.Children[1]
+	if next_dot.Type != AST_OP_DOT {
+		return fix_dot_field_name(ast)
+	}
+
+	ast.Children[1] = fix_dot(next_dot)
+
+	//
+	// 	rearrange ast
+	//
+	//  	.
+	//     d .
+	//  	x y
+
+	//  	.
+	//     . y
+	//    d x
+
+	//
+	rhs := ast.Children[1]
+	ast.Children[1] = rhs.Children[1]
+	rhs.Children[1] = rhs.Children[0]
+	rhs.Children[0] = ast.Children[0]
+	ast.Children[0] = rhs
+		
+	return fix_dot_field_name(ast)
 }
 
 func (parser *Parser) ParseExpression() (*Ast_Node) {
@@ -432,29 +486,19 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	}
 	
 	operator.AddChild(left)
-
-	if operator.Type == AST_OP_DOT {
-		field_name := first_name(right)
-		
-		if len(field_name) <= 0 {
-			cur, _ := parser.Current()
-			parseErrorAt(cur, "invalid field expression after `.`")
-			return nil
-		}
-
-		operator.Data = []Token{
-			Token{String_value: field_name},
-		}
-		
-		operator.AddChild(right)
-	} else {
-		operator.AddChild(right)
-	}
+	operator.AddChild(right)
 
 	fixed_expression := fix_precedence(operator)
-	if fixed_expression ==  nil {
-		return operator
+	
+	dot := fixed_expression.Find(AST_OP_DOT)
+	if dot != nil {
+		dot = fix_dot(dot)
+		if dot == nil {
+			cur, _ := parser.Current()
+			parseErrorAt(cur, "invalid field expression after `.`")
+		}
 	}
+
 	return fixed_expression
 }
 

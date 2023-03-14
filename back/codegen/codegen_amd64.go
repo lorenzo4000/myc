@@ -374,11 +374,12 @@ type Stack_Region struct {
 }
 
 var CurrentReservedStack uint32 = 0
-func StackReserveBytes(bytes uint32) {
+func StackReserveBytes(bytes uint32) uint32 {
 	if bytes % 16 != 0 {
 		bytes += 16 - (bytes & 0xF)
 	}
 	CurrentReservedStack += bytes
+	return bytes
 }
 func StackReserve16Bytes() {
 	CurrentReservedStack += 0x10
@@ -403,7 +404,30 @@ func StackAllocate(_type datatype.DataType) Stack_Region {
 	}
 	CurrentAllocatedStack += size
 
-	return Stack_Region{CurrentAllocatedStack, _type}
+	region := Stack_Region{CurrentAllocatedStack, _type}
+
+	return region
+}
+
+var StackRegions []Stack_Region
+func StackAllocateAndRemember(_type datatype.DataType) Stack_Region {
+	allocated := StackAllocate(_type)
+	StackRegions = append(StackRegions, allocated)
+
+	return allocated
+}
+
+func StackDeallocateCurrentRegion() *Stack_Region {
+	i := len(StackRegions)
+	if i <= 0 {
+		return nil
+	}
+	
+	current_region := &StackRegions[i-1]
+	CurrentAllocatedStack -= current_region.datatype.ByteSize()
+	StackRegions = StackRegions[:i-1]
+
+	return current_region
 }
 
 func (stack Stack_Region) Reference() Memory_Reference {
@@ -637,24 +661,25 @@ func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
 
 		destination := Memory_Reference{
 			field_type,
-			field_offset - struct_offset,
+			(field_offset - struct_offset) + d.Offset,
 			d.Start,
 			nil,
 			1,
 		}
 
-		//   struct {struct {struct {int64}}}
-		//	 need to find the most primitive in a rescursive way
 		//
-		//	 so this doesnt work.
-		//   how do i solve?
-		
-
-		// intermidiate_register := REGISTER_RBX.GetRegister(field_type)
-		
+		//   in a case like this: 
+		//	 	struct {
+		//			struct {
+		//				struct {
+		//					int64
+		//				}
+		//			}
+		//		}
+		// 
+		//	 ... we need to find the most primitive value in a rescursive way.
 
 		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), destination).Code)
-		//res.Code.Appendln(GEN_store())
 	}
 
 	return res
@@ -686,42 +711,11 @@ func GEN_jump(a Operand) Codegen_Out {
 
 func GEN_function_params(args []Operand) Codegen_Out {
 	res := Codegen_Out{}
-
-	rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_INT64)
-
-	for arg, arg_v := range(args) {
-		var parameter Operand
-		typ := arg_v.Type()
-
-		if arg >= 6 {
-			parameter = Memory_Reference{
-				datatype.TYPE_INT64,
-				int64(16 + ((arg - 6) * 8)),
-				rbp,
-				nil,
-				ASMREF_INDEXCOEFF_1,
-			}	
-		} else {
-			reg := ArgumentRegisters[arg]
-			err := false
-			parameter, err = reg.GetRegister(typ)
-			if err {
-				fmt.Println("codegen error: could not find an argument register for type `" + typ.Name() + "`")
-			}
-		}
-		
-		res.Code.Appendln(GEN_move(parameter, arg_v).Code)
-	}
-
-	return res
-}
-func GEN_callargs(args []Operand) Codegen_Out {
-	res := Codegen_Out{}
-
+	
 	nargs := len(args)
 	
 	args_in_stack := make([]Operand, 0, nargs)
-	args_in_regs  := make([]Operand, 0, nargs)
+	args_in_regs  := make([]Operand, 0, nargs * 2)
 
 	for k, a := range args {
 		i := len(args_in_stack)
@@ -766,79 +760,105 @@ func GEN_callargs(args []Operand) Codegen_Out {
 		}
 	}
 	
-	nargs_in_stack := len(args_in_stack)
-	nargs_in_regs :=  len(args_in_regs)
+	//nargs_in_stack := len(args_in_stack)
+	//nargs_in_regs :=  len(args_in_regs)
 		
-	size_in_stack := uint32(0)
-	for _, a := range args_in_stack {
-		size_in_stack += a.Type().ByteSize()
+
+	rbp := REGISTER_RBP.register_from_sub(REG_SUB_Q)
+
+	for arg, arg_v := range(args_in_stack) {
+		//typ := arg_v.Type()
+
+		parameter := Memory_Reference{
+			datatype.TYPE_INT64,
+			int64(16 + ((arg) * 8)),
+			rbp,
+			nil,
+			ASMREF_INDEXCOEFF_1,
+		}
+
+		res.Code.Appendln(GEN_move(parameter, arg_v).Code)
 	}
-	StackReserveBytes(uint32(size_in_stack * 8))
 
-	if size_in_stack % 16 != 0 {
-		res.Code.TextAppendSln(ii("pushq", Asm_Int_Literal{datatype.TYPE_INT64, 0, 10}))
+	for arg, arg_v := range(args_in_regs) {
+		reg := ArgumentRegisters[arg]
+		err := false
+
+		parameter, err := reg.GetRegister(arg_v.Type())
+		if err {
+			fmt.Println("codegen error: could not find an argument register for type `" + arg_v.Type().Name() + "`")
+		}
+		
+		res.Code.Appendln(GEN_move(parameter, arg_v).Code)
 	}
+		
 
-	for i := nargs_in_stack - 1; i >= 0; i-- {
-		arg := args_in_stack[i]
+	return res
+}
+func GEN_callargs(args []Operand) Codegen_Out {
+	res := Codegen_Out{}
 
-		if arg.Type().ByteSize() > 16 {
-			// TODO: don't assert it's a struct
-			struct_type := arg.Type().(datatype_struct.StructType)
-			nfields := len(struct_type.Fields)
-			
-			struct_allocation := arg
-			struct_start  := struct_allocation.(Memory_Reference).Start
-			struct_offset := struct_allocation.(Memory_Reference).Offset
+	allocated_regs := 0
+	for _, a := range args {
+		if a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters) - 1) {
+			rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
+			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 
-			for field := nfields - 1; field >= 0; field-- {
-				field_type := struct_type.Fields[field].Type
-				field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+			// We unreserve this in GEN_call. I know this is confusing.
+			reserved := StackAllocateAndRemember(a.Type())
+			reserved_bytes := reserved.datatype.ByteSize()
+			res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(reserved_bytes), 10}, rsp))
 
-				field_allocation := Memory_Reference{
-					field_type,
-					field_offset,
-					struct_start,
-					nil,
-					1,
-				}
+			res.Code.Appendln(GEN_move(rsp, rax).Code)
 
-				res.Code.TextAppendSln(ii("pushq", field_allocation.LiteralValue()) )
+			stack_region := Memory_Reference{
+				a.Type(),
+				0,
+				rax,
+				nil,
+				1,
 			}
+
+			res.Code.Appendln(GEN_storestruct(a.(Memory_Reference), stack_region).Code)
+		} else
+		if a.Type().ByteSize() > 8 {
+			// TODO: don't just assume it's a struct
+			reg_a, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
+			if full {
+				fmt.Println("codegen error: could not find an argument register for type `" + a.Type().Name() + "`")
+				return res
+			}
+			reg_b, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
+			if full {
+				fmt.Println("codegen error: could not find an argument register for type `" + a.Type().Name() + "`")
+				return res
+			}
+
+			allocated_regs += 2
+			res.Code.Appendln(GEN_loadstruct(a.(Memory_Reference), []Register{reg_b, reg_a}).Code)
 		} else {
-			res.Code.TextAppendSln(ii("pushq", arg.LiteralValue()))
-		}
-	}
+			var arg Operand
+			switch a.(type) {
+				case Label: 
+					arg = a.LiteralValue()
+				default:
+					arg = a 
+			}
 
-	for i := nargs_in_regs - 1; i >= 0; i-- {
-		arg := args_in_regs[i]
-	
-		/*
-		switch args_in_regs[i].(type) {
-			case Label: 
-				arg = args_in_regs[i].LiteralValue()
-			default:
-				arg = args_in_regs[i]
-		}
-		*/
-
-		//arg_type := arg.Type()
-		//arg_size := arg_type.ByteSize()
-		/*
-		if arg_size > 8 {
-			reg_a := ArgumentRegisters[i].register_from_sub(REG_SUB_Q)
-			reg_b := ArgumentRegisters[i - 1].register_from_sub(REG_SUB_Q)
-
-			res.Code.Appendln(GEN_very_generic_move(arg, []Register{reg_a, reg_b}).Code)
-		} else {
-		*/
-			reg, err := ArgumentRegisters[i].GetRegister(arg.Type())
-			if err {
+			arg_reg, full := RegisterArgumentAllocate(arg.Type())
+			if full {
 				fmt.Println("codegen error: could not find an argument register for type `" + arg.Type().Name() + "`")
+				return res
 			}
-			res.Code.Appendln(GEN_move(arg, reg).Code)
-		//}
+
+			allocated_regs++
+
+			res.Code.Appendln(GEN_load(arg, arg_reg).Code)
+		}
 	}
+
+	RegisterArgumentFreeAll()
+
 	return res
 }
 
@@ -864,6 +884,15 @@ func GEN_call(f *front.Ast_Node) Codegen_Out {
 			StackUnreserve16Bytes()
 		}
 	}
+			
+	// unreserve the stack space where we passed the arguments
+	arguments_in_stack := StackDeallocateCurrentRegion()
+	if arguments_in_stack != nil {
+		deallocated := arguments_in_stack.datatype.ByteSize()
+
+		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(deallocated), 10}, rsp))
+	}
+
 
 	return res
 }

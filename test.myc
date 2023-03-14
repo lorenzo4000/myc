@@ -29,19 +29,54 @@ struct Bytes24 {
 	:z int64;
 }
 
+struct Bytes40 {
+	:x Bytes24;
+	:y Bytes16;
+}
+
+/*
+function undefined_function_a(:bytes Bytes16) bool {
+	printf("x: %lld, y: %lld\n", bytes.x, bytes.y);
+
+	false	
+}
+
+function undefined_function_b(:bytes_b Bytes24) bool {
+	printf("x: %lld, y: %lld, z: %lld\n", bytes_b.x, bytes_b.y, bytes_b.z);
+
+	false
+}
+*/
+
 function test_big_things() bool {
 	:a Bytes16;
+	:c Bytes16;
 	:b Bytes24;
 
 	a.x = 49;
 	a.y = 420;
 	
+	c.x = 58;
+	c.y = 1248;
+	
 	b.x = 69;
 	b.y = 42;
 	b.z = 118;
 
-	undefined_function_a(a);
+	undefined_function_a(a, c);
+	printf("\n\n");
 	undefined_function_b(b);
+
+	
+	:d Bytes40;
+
+	d.x.x = 1;
+	d.x.y = 2;
+	d.x.z = 3;
+	d.y.x = 4;
+	d.y.y = 5;
+
+	undefined_function_c(d);
 
 	return false;
 }

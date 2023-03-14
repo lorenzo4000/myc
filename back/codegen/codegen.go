@@ -769,6 +769,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			field_name := /*right*/ast.Data[0].String_value
 			fmt.Println("left: ", left.Data[0].String_value)
 
+			fmt.Println("codegen INFO: searching `" + field_name + "` inside struct of type `" + struct_type.Name() + "`")
 			field := struct_type.FindField(field_name)
 			if field == nil {
 				fmt.Println("codegen error: undefined `" + field_name + "`")

@@ -77,8 +77,9 @@ popq %rbx
 jz .L4
 
 
-movb -3(%rbp, 1), %sil
+movq $.L2, %rdi
 
+movb -3(%rbp, 1), %sil
 
 
 call printf
@@ -128,6 +129,7 @@ jmp .L3
 
 
 
+movq $.L5, %rdi
 
 
 call printf
@@ -149,11 +151,13 @@ ret
 
 
 
+
 .global test_big_things
 test_big_things:
 pushq %rbp
 movq %rsp, %rbp
-subq $288, %rsp
+subq $304, %rsp
+
 
 
 
@@ -162,59 +166,252 @@ subq $288, %rsp
 movabsq $49, %rbx
 
 
-movq %rbx, -56(%rbp, 1)
+movq %rbx, -96(%rbp, 1)
 
 
 movabsq $420, %r12
 
 
-movq %r12, -48(%rbp, 1)
+movq %r12, -88(%rbp, 1)
 
 
-movabsq $69, %r13
+movabsq $58, %r13
 
 
-movq %r13, -80(%rbp, 1)
+movq %r13, -112(%rbp, 1)
 
 
-movabsq $42, %r14
+movabsq $1248, %r14
 
 
-movq %r14, -72(%rbp, 1)
+movq %r14, -104(%rbp, 1)
 
 
-movabsq $118, %r15
+movabsq $69, %r15
 
 
-movq %r15, -64(%rbp, 1)
+movq %r15, -136(%rbp, 1)
+
+
+pushq %rbx
+movabsq $42, %rbx
+
+movq %rbx, -144(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -144(%rbp, 1), %rbx
+
+movq %rbx, -128(%rbp, 1)
+popq %rbx
 
 
 
-movq -48(%rbp, 1), %rsi
+pushq %rbx
+movabsq $118, %rbx
 
-movq -56(%rbp, 1), %rdi
+movq %rbx, -152(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -152(%rbp, 1), %rbx
+
+movq %rbx, -120(%rbp, 1)
+popq %rbx
+
+
+
+
+
+movq -88(%rbp, 1), %rsi
+
+movq -96(%rbp, 1), %rdi
+
+
+movq -104(%rbp, 1), %rcx
+
+movq -112(%rbp, 1), %rdx
+
 
 
 call undefined_function_a
 
-movq %rax, -88(%rbp, 1)
+movq %rax, -160(%rbp, 1)
 
 
 
-pushq $0
-pushq -64(%rbp, 1)
-pushq -72(%rbp, 1)
-pushq -80(%rbp, 1)
+movq $.L6, %rdi
+
+
+call printf
+
+movq %rax, -168(%rbp, 1)
+
+
+
+subq $24, %rsp
+movq %rsp, %rax
+
+pushq %rbx
+movq -120(%rbp, 1), %rbx
+
+movq %rbx, 16(%rax, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -128(%rbp, 1), %rbx
+
+movq %rbx, 8(%rax, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -136(%rbp, 1), %rbx
+
+movq %rbx, 0(%rax, 1)
+popq %rbx
+
+
+
 
 call undefined_function_b
+addq $24, %rsp
 
-movq %rax, -96(%rbp, 1)
-
-
-movb $0, -97(%rbp, 1)
+movq %rax, -176(%rbp, 1)
 
 
-movb -97(%rbp, 1), %al
+
+pushq %rbx
+movabsq $1, %rbx
+
+movq %rbx, -224(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -224(%rbp, 1), %rbx
+
+movq %rbx, -216(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+movabsq $2, %rbx
+
+movq %rbx, -232(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -232(%rbp, 1), %rbx
+
+movq %rbx, -208(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+movabsq $3, %rbx
+
+movq %rbx, -240(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -240(%rbp, 1), %rbx
+
+movq %rbx, -200(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+movabsq $4, %rbx
+
+movq %rbx, -248(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -248(%rbp, 1), %rbx
+
+movq %rbx, -192(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+movabsq $5, %rbx
+
+movq %rbx, -256(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -256(%rbp, 1), %rbx
+
+movq %rbx, -184(%rbp, 1)
+popq %rbx
+
+
+
+
+subq $40, %rsp
+movq %rsp, %rax
+
+pushq %rbx
+movq -184(%rbp, 1), %rbx
+
+movq %rbx, 32(%rax, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -192(%rbp, 1), %rbx
+
+movq %rbx, 24(%rax, 1)
+popq %rbx
+
+
+
+pushq %rbx
+movq -200(%rbp, 1), %rbx
+
+movq %rbx, 16(%rax, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -208(%rbp, 1), %rbx
+
+movq %rbx, 8(%rax, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -216(%rbp, 1), %rbx
+
+movq %rbx, 0(%rax, 1)
+popq %rbx
+
+
+
+
+
+call undefined_function_c
+addq $40, %rsp
+
+movq %rax, -264(%rbp, 1)
+
+
+movb $0, -265(%rbp, 1)
+
+
+movb -265(%rbp, 1), %al
 
 jmp ._test_big_things
 
@@ -371,8 +568,4 @@ ret
 
 
 
-
-
-
-
-
+.L6: .string "\n\n"

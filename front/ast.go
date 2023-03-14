@@ -235,6 +235,21 @@ func (ast Ast_Node) Print() {
 	ast._print(0)
 }
 
+func (ast *Ast_Node) Find(_type Ast_Type) *Ast_Node {
+	if ast.Type == _type {
+		return ast
+	}
+
+	for _, child := range(ast.Children) {
+		f := child.Find(_type)
+		if f != nil {
+			return f
+		}
+	}
+
+	return nil
+}
+
 func (ast Ast_Node) FindFirstToken() (*Token) {
 	if len(ast.Data) > 0 {
 		return &ast.Data[0]
