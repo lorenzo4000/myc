@@ -1,4 +1,769 @@
+[{5 1 1 1 7 0 } {0 1 8 1 12 0 Line} {123 1 13 1 13 0 } {58 2 3 2 3 0 } {0 2 4 2 10 0 length} {0 2 11 2 15 0 uint8} {59 2 16 2 16 0 } {58 3 3 3 3 0 } {0 3 4 3 9 0 pixel} {0 3 11 3 15 0 uint8} {59 3 16 3 16 0 } {125 4 2 4 2 0 } {4 6 2 6 10 0 } {0 6 11 6 20 0 print_line} {40 6 21 6 21 0 } {58 6 22 6 22 0 } {0 6 23 6 27 0 line} {0 6 28 6 31 0 Line} {41 6 32 6 32 0 } {0 6 34 6 38 0 bool} {123 6 39 6 39 0 } {9 7 3 7 5 0 } {0 7 6 7 9 0 line} {46 7 10 7 10 0 } {0 7 11 7 17 0 length} {60 7 18 7 18 0 } {91 7 20 7 20 0 } {0 7 21 7 25 0 uint8} {93 7 26 7 26 0 } {2 7 27 7 28 0 } {123 7 29 7 29 0 } {6 8 4 8 10 0 } {3 8 11 8 14 1 true} {59 8 15 8 15 0 } {125 9 3 9 3 0 } {8 11 3 11 6 0 } {40 11 7 11 7 0 } {58 11 8 11 8 0 } {0 11 9 11 10 0 i} {0 11 11 11 16 0 uint8} {61 11 17 11 17 0 } {91 11 19 11 19 0 } {0 11 20 11 24 0 uint8} {93 11 25 11 25 0 } {2 11 26 11 26 1 } {59 11 27 11 27 0 } {0 11 29 11 30 0 i} {60 11 31 11 31 0 } {0 11 33 11 36 0 line} {46 11 37 11 37 0 } {0 11 38 11 43 0 length} {59 11 44 11 44 0 } {0 11 46 11 47 0 i} {61 11 48 11 48 0 } {0 11 50 11 51 0 i} {43 11 52 11 52 0 } {91 11 54 11 54 0 } {0 11 55 11 59 0 uint8} {93 11 60 11 60 0 } {2 11 61 11 61 1 } {41 11 62 11 62 0 } {123 11 64 11 64 0 } {0 12 4 12 9 0 printf} {40 12 10 12 10 0 } {1 12 11 12 14 0 %c} {44 12 15 12 15 0 } {0 12 17 12 20 0 line} {46 12 21 12 21 0 } {0 12 22 12 26 0 pixel} {41 12 27 12 27 0 } {59 12 28 12 28 0 } {125 13 3 13 3 0 } {0 14 3 14 8 0 printf} {40 14 9 14 9 0 } {1 14 10 14 13 0 \n} {41 14 14 14 14 0 } {59 14 15 14 15 0 } {3 16 3 17 1 0 false} {125 17 2 17 2 0 } {5 21 2 21 8 0 } {0 21 9 21 16 0 Bytes16} {123 21 17 21 17 0 } {58 22 3 22 3 0 } {0 22 4 22 5 0 x} {0 22 6 22 10 0 int64} {59 22 11 22 11 0 } {58 23 3 23 3 0 } {0 23 4 23 5 0 y} {0 23 6 23 10 0 int64} {59 23 11 23 11 0 } {125 24 2 24 2 0 } {5 26 2 26 8 0 } {0 26 9 26 16 0 Bytes24} {123 26 17 26 17 0 } {58 27 3 27 3 0 } {0 27 4 27 5 0 x} {0 27 6 27 10 0 int64} {59 27 11 27 11 0 } {58 28 3 28 3 0 } {0 28 4 28 5 0 y} {0 28 6 28 10 0 int64} {59 28 11 28 11 0 } {58 29 3 29 3 0 } {0 29 4 29 5 0 z} {0 29 6 29 10 0 int64} {59 29 11 29 11 0 } {125 30 2 30 2 0 } {5 32 2 32 8 0 } {0 32 9 32 16 0 Bytes40} {123 32 17 32 17 0 } {58 33 3 33 3 0 } {0 33 4 33 5 0 x} {0 33 6 33 12 0 Bytes24} {59 33 13 33 13 0 } {58 34 3 34 3 0 } {0 34 4 34 5 0 y} {0 34 6 34 12 0 Bytes16} {59 34 13 34 13 0 } {125 35 2 35 2 0 } {4 37 2 37 10 0 } {0 37 11 37 30 0 undefined_function_a} {40 37 31 37 31 0 } {58 37 32 37 32 0 } {0 37 33 37 40 0 bytes_a} {0 37 41 37 47 0 Bytes16} {44 37 48 37 48 0 } {58 37 50 37 50 0 } {0 37 51 37 58 0 bytes_b} {0 37 59 37 65 0 Bytes16} {41 37 66 37 66 0 } {0 37 68 37 72 0 bool} {123 37 73 37 73 0 } {0 38 3 38 8 0 printf} {40 38 9 38 9 0 } {1 38 10 38 29 0 x: %lld, y: %lld\n} {44 38 30 38 30 0 } {0 38 32 38 38 0 bytes_a} {46 38 39 38 39 0 } {0 38 40 38 40 0 x} {44 38 41 38 41 0 } {0 38 43 38 49 0 bytes_a} {46 38 50 38 50 0 } {0 38 51 38 51 0 y} {41 38 52 38 52 0 } {59 38 53 38 53 0 } {0 39 3 39 8 0 printf} {40 39 9 39 9 0 } {1 39 10 39 29 0 x: %lld, y: %lld\n} {44 39 30 39 30 0 } {0 39 32 39 38 0 bytes_b} {46 39 39 39 39 0 } {0 39 40 39 40 0 x} {44 39 41 39 41 0 } {0 39 43 39 49 0 bytes_b} {46 39 50 39 50 0 } {0 39 51 39 51 0 y} {41 39 52 39 52 0 } {59 39 53 39 53 0 } {3 41 3 41 8 0 false} {125 42 2 42 2 0 } {4 44 2 44 10 0 } {0 44 11 44 30 0 undefined_function_b} {40 44 31 44 31 0 } {58 44 32 44 32 0 } {0 44 33 44 40 0 bytes_c} {0 44 41 44 47 0 Bytes24} {41 44 48 44 48 0 } {0 44 50 44 54 0 bool} {123 44 55 44 55 0 } {0 45 3 45 8 0 printf} {40 45 9 45 9 0 } {1 45 10 45 38 0 x: %lld, y: %lld, z: %lld\n} {44 45 39 45 39 0 } {0 45 41 45 47 0 bytes_c} {46 45 48 45 48 0 } {0 45 49 45 49 0 x} {44 45 50 45 50 0 } {0 45 52 45 58 0 bytes_c} {46 45 59 45 59 0 } {0 45 60 45 60 0 y} {44 45 61 45 61 0 } {0 45 63 45 69 0 bytes_c} {46 45 70 45 70 0 } {0 45 71 45 71 0 z} {41 45 72 45 72 0 } {59 45 73 45 73 0 } {3 47 3 48 1 0 false} {125 48 2 48 2 0 } {4 50 2 50 10 0 } {0 50 11 50 25 0 test_big_things} {40 50 26 50 26 0 } {41 50 27 50 27 0 } {0 50 29 50 33 0 bool} {123 50 34 50 34 0 } {58 51 3 51 3 0 } {0 51 4 51 5 0 a} {0 51 6 51 12 0 Bytes16} {59 51 13 51 13 0 } {58 52 3 52 3 0 } {0 52 4 52 5 0 c} {0 52 6 52 12 0 Bytes16} {59 52 13 52 13 0 } {58 53 3 53 3 0 } {0 53 4 53 5 0 b} {0 53 6 53 12 0 Bytes24} {59 53 13 53 13 0 } {0 55 3 55 3 0 a} {46 55 4 55 4 0 } {0 55 5 55 6 0 x} {61 55 7 55 7 0 } {2 55 9 55 10 49 } {59 55 11 55 11 0 } {0 56 3 56 3 0 a} {46 56 4 56 4 0 } {0 56 5 56 6 0 y} {61 56 7 56 7 0 } {2 56 9 56 11 420 } {59 56 12 56 12 0 } {0 58 3 58 3 0 c} {46 58 4 58 4 0 } {0 58 5 58 6 0 x} {61 58 7 58 7 0 } {2 58 9 58 10 58 } {59 58 11 58 11 0 } {0 59 3 59 3 0 c} {46 59 4 59 4 0 } {0 59 5 59 6 0 y} {61 59 7 59 7 0 } {2 59 9 59 12 1248 } {59 59 13 59 13 0 } {0 61 3 61 3 0 b} {46 61 4 61 4 0 } {0 61 5 61 6 0 x} {61 61 7 61 7 0 } {2 61 9 61 10 69 } {59 61 11 61 11 0 } {0 62 3 62 3 0 b} {46 62 4 62 4 0 } {0 62 5 62 6 0 y} {61 62 7 62 7 0 } {2 62 9 62 10 42 } {59 62 11 62 11 0 } {0 63 3 63 3 0 b} {46 63 4 63 4 0 } {0 63 5 63 6 0 z} {61 63 7 63 7 0 } {2 63 9 63 11 118 } {59 63 12 63 12 0 } {0 65 3 65 22 0 undefined_function_a} {40 65 23 65 23 0 } {0 65 24 65 24 0 a} {44 65 25 65 25 0 } {0 65 27 65 27 0 c} {41 65 28 65 28 0 } {59 65 29 65 29 0 } {0 66 3 66 8 0 printf} {40 66 9 66 9 0 } {1 66 10 66 15 0 \n\n} {41 66 16 66 16 0 } {59 66 17 66 17 0 } {0 67 3 67 22 0 undefined_function_b} {40 67 23 67 23 0 } {0 67 24 67 24 0 b} {41 67 25 67 25 0 } {59 67 26 67 26 0 } {58 70 3 70 3 0 } {0 70 4 70 5 0 d} {0 70 6 70 12 0 Bytes40} {59 70 13 70 13 0 } {0 72 3 72 3 0 d} {46 72 4 72 4 0 } {0 72 5 72 5 0 x} {46 72 6 72 6 0 } {0 72 7 72 8 0 x} {61 72 9 72 9 0 } {2 72 11 72 11 1 } {59 72 12 72 12 0 } {0 73 3 73 3 0 d} {46 73 4 73 4 0 } {0 73 5 73 5 0 x} {46 73 6 73 6 0 } {0 73 7 73 8 0 y} {61 73 9 73 9 0 } {2 73 11 73 11 2 } {59 73 12 73 12 0 } {0 74 3 74 3 0 d} {46 74 4 74 4 0 } {0 74 5 74 5 0 x} {46 74 6 74 6 0 } {0 74 7 74 8 0 z} {61 74 9 74 9 0 } {2 74 11 74 11 3 } {59 74 12 74 12 0 } {0 75 3 75 3 0 d} {46 75 4 75 4 0 } {0 75 5 75 5 0 y} {46 75 6 75 6 0 } {0 75 7 75 8 0 x} {61 75 9 75 9 0 } {2 75 11 75 11 4 } {59 75 12 75 12 0 } {0 76 3 76 3 0 d} {46 76 4 76 4 0 } {0 76 5 76 5 0 y} {46 76 6 76 6 0 } {0 76 7 76 8 0 y} {61 76 9 76 9 0 } {2 76 11 76 11 5 } {59 76 12 76 12 0 } {6 80 3 80 9 0 } {3 80 10 80 14 0 false} {59 80 15 80 15 0 } {125 81 2 81 2 0 } {4 83 2 83 10 0 } {0 83 11 83 14 0 main} {40 83 15 83 15 0 } {41 83 16 83 16 0 } {123 83 18 83 18 0 } {0 86 3 86 17 0 test_big_things} {40 86 18 86 18 0 } {41 86 19 86 19 0 } {59 86 20 86 20 0 } {125 87 2 87 2 0 }]
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = length ]
+length
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = length ]
+length
+AST_OP_DOT : [ int_value = 0, string_value = length ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = length ]
+length
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = pixel ]
+pixel
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_a ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_a ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_b ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_b ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = a ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = a ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = b ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = b ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = b ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = x ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = x ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : [ int_value = 0, string_value = z ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : [ int_value = 0, string_value = z ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = x ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_HEAD : 
+	AST_STRUCT_DEFINITION : 
+		AST_STRUCT_DEFINITION_NAME : [ int_value = 0, string_value = Line ]
+		AST_STRUCT_DEFINITION_BODY : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = length ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = pixel ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = print_line ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = line ]
+				AST_DATATYPE : [ int_value = 0, string_value = Line ]
+		AST_DATATYPE : [ int_value = 0, string_value = bool ]
+		AST_BODY : 
+			AST_IF : 
+				AST_OP_LES : 
+					AST_OP_DOT : [ int_value = 0, string_value = length ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = length ]
+					AST_CASTING : 
+						AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+						AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_BODY : 
+					AST_RETURN : 
+						AST_LITERAL : [ int_value = 1, string_value = true ]
+			AST_FOR : 
+				AST_FOR_INIT : 
+					AST_VARIABLE_DEFINITION : 
+						AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+						AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+						AST_CASTING : 
+							AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+							AST_LITERAL : [ int_value = 1, string_value =  ]
+				AST_OP_LES : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+					AST_OP_DOT : [ int_value = 0, string_value = length ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = length ]
+				AST_FOR_UPDATE : 
+					AST_OP_ASN : 
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+						AST_OP_SUM : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+								AST_LITERAL : [ int_value = 1, string_value =  ]
+				AST_BODY : 
+					AST_FUNCTION_CALL : 
+						AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = printf ]
+						AST_FUNCTION_CALL_ARGS : 
+							AST_LITERAL : [ int_value = 0, string_value = %c ]
+							AST_OP_DOT : [ int_value = 0, string_value = pixel ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = pixel ]
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_LITERAL : [ int_value = 0, string_value = \n ]
+			AST_BODY_RESULT : 
+				AST_LITERAL : [ int_value = 0, string_value = false ]
+	AST_STRUCT_DEFINITION : 
+		AST_STRUCT_DEFINITION_NAME : [ int_value = 0, string_value = Bytes16 ]
+		AST_STRUCT_DEFINITION_BODY : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = x ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = y ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+	AST_STRUCT_DEFINITION : 
+		AST_STRUCT_DEFINITION_NAME : [ int_value = 0, string_value = Bytes24 ]
+		AST_STRUCT_DEFINITION_BODY : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = x ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = y ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = z ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+	AST_STRUCT_DEFINITION : 
+		AST_STRUCT_DEFINITION_NAME : [ int_value = 0, string_value = Bytes40 ]
+		AST_STRUCT_DEFINITION_BODY : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = x ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes24 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = y ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes16 ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = undefined_function_a ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = bytes_a ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes16 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = bytes_b ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes16 ]
+		AST_DATATYPE : [ int_value = 0, string_value = bool ]
+		AST_BODY : 
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_LITERAL : [ int_value = 0, string_value = x: %lld, y: %lld\n ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_a ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_OP_DOT : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_a ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_LITERAL : [ int_value = 0, string_value = x: %lld, y: %lld\n ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_b ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_OP_DOT : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_b ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+			AST_BODY_RESULT : 
+				AST_LITERAL : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = undefined_function_b ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = bytes_c ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes24 ]
+		AST_DATATYPE : [ int_value = 0, string_value = bool ]
+		AST_BODY : 
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_LITERAL : [ int_value = 0, string_value = x: %lld, y: %lld, z: %lld\n ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_OP_DOT : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+					AST_OP_DOT : [ int_value = 0, string_value = z ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+			AST_BODY_RESULT : 
+				AST_LITERAL : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = test_big_things ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = bool ]
+		AST_BODY : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = a ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes16 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes16 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = b ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes24 ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = a ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+				AST_LITERAL : [ int_value = 49, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = a ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+				AST_LITERAL : [ int_value = 420, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+				AST_LITERAL : [ int_value = 58, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+				AST_LITERAL : [ int_value = 1248, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = b ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+				AST_LITERAL : [ int_value = 69, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = b ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+				AST_LITERAL : [ int_value = 42, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = z ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = b ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+				AST_LITERAL : [ int_value = 118, string_value =  ]
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = undefined_function_a ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = a ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_LITERAL : [ int_value = 0, string_value = \n\n ]
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = undefined_function_b ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = b ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = d ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes40 ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = x ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+				AST_LITERAL : [ int_value = 1, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = y ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+				AST_LITERAL : [ int_value = 2, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = z ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+				AST_LITERAL : [ int_value = 3, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = x ]
+					AST_OP_DOT : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+				AST_LITERAL : [ int_value = 4, string_value =  ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = y ]
+					AST_OP_DOT : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+				AST_LITERAL : [ int_value = 5, string_value =  ]
+			AST_RETURN : 
+				AST_LITERAL : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = main ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+		AST_BODY : 
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = test_big_things ]
+				AST_FUNCTION_CALL_ARGS : 
+AST_HEAD : 
+	AST_STRUCT_DEFINITION(Line) : 
+		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = Line ]
+		AST_STRUCT_DEFINITION_BODY() : 
+			AST_VARIABLE_DEFINITION(uint8) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = length ]
+				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
+			AST_VARIABLE_DEFINITION(uint8) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = pixel ]
+				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
+	AST_FUNCTION_DEFINITION(bool) : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = print_line ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+			AST_VARIABLE_DEFINITION(Line) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = line ]
+				AST_DATATYPE(Line) : [ int_value = 0, string_value = Line ]
+		AST_DATATYPE(bool) : [ int_value = 0, string_value = bool ]
+		AST_BODY(bool) : 
+			AST_IF() : 
+				AST_OP_LES(bool) : 
+					AST_OP_DOT(uint8) : [ int_value = 0, string_value = length ]
+						AST_VARIABLE_NAME(Line) : [ int_value = 0, string_value = line ]
+						AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = length ]
+					AST_CASTING(uint8) : 
+						AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
+						AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
+				AST_BODY() : 
+					AST_RETURN(bool) : 
+						AST_LITERAL(bool) : [ int_value = 1, string_value = true ]
+			AST_FOR : 
+				AST_FOR_INIT() : 
+					AST_VARIABLE_DEFINITION(uint8) : 
+						AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = i ]
+						AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
+						AST_CASTING(uint8) : 
+							AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
+							AST_LITERAL(int64) : [ int_value = 1, string_value =  ]
+				AST_OP_LES(bool) : 
+					AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = i ]
+					AST_OP_DOT(uint8) : [ int_value = 0, string_value = length ]
+						AST_VARIABLE_NAME(Line) : [ int_value = 0, string_value = line ]
+						AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = length ]
+				AST_FOR_UPDATE() : 
+					AST_OP_ASN(uint8) : 
+						AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = i ]
+						AST_OP_SUM(uint8) : 
+							AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = i ]
+							AST_CASTING(uint8) : 
+								AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
+								AST_LITERAL(int64) : [ int_value = 1, string_value =  ]
+				AST_BODY() : 
+					AST_FUNCTION_CALL(int64) : 
+						AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = printf ]
+						AST_FUNCTION_CALL_ARGS() : 
+							AST_LITERAL() : [ int_value = 0, string_value = %c ]
+							AST_OP_DOT(uint8) : [ int_value = 0, string_value = pixel ]
+								AST_VARIABLE_NAME(Line) : [ int_value = 0, string_value = line ]
+								AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = pixel ]
+			AST_FUNCTION_CALL(int64) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_LITERAL() : [ int_value = 0, string_value = \n ]
+			AST_BODY_RESULT(bool) : 
+				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
+	AST_STRUCT_DEFINITION(Bytes16) : 
+		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = Bytes16 ]
+		AST_STRUCT_DEFINITION_BODY() : 
+			AST_VARIABLE_DEFINITION(int64) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = x ]
+				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
+			AST_VARIABLE_DEFINITION(int64) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = y ]
+				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
+	AST_STRUCT_DEFINITION(Bytes24) : 
+		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = Bytes24 ]
+		AST_STRUCT_DEFINITION_BODY() : 
+			AST_VARIABLE_DEFINITION(int64) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = x ]
+				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
+			AST_VARIABLE_DEFINITION(int64) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = y ]
+				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
+			AST_VARIABLE_DEFINITION(int64) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = z ]
+				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
+	AST_STRUCT_DEFINITION(Bytes40) : 
+		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = Bytes40 ]
+		AST_STRUCT_DEFINITION_BODY() : 
+			AST_VARIABLE_DEFINITION(Bytes24) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = x ]
+				AST_DATATYPE(Bytes24) : [ int_value = 0, string_value = Bytes24 ]
+			AST_VARIABLE_DEFINITION(Bytes16) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = y ]
+				AST_DATATYPE(Bytes16) : [ int_value = 0, string_value = Bytes16 ]
+	AST_FUNCTION_DEFINITION(bool) : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = undefined_function_a ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+			AST_VARIABLE_DEFINITION(Bytes16) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = bytes_a ]
+				AST_DATATYPE(Bytes16) : [ int_value = 0, string_value = Bytes16 ]
+			AST_VARIABLE_DEFINITION(Bytes16) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = bytes_b ]
+				AST_DATATYPE(Bytes16) : [ int_value = 0, string_value = Bytes16 ]
+		AST_DATATYPE(bool) : [ int_value = 0, string_value = bool ]
+		AST_BODY(bool) : 
+			AST_FUNCTION_CALL(int64) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_LITERAL() : [ int_value = 0, string_value = x: %lld, y: %lld\n ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = bytes_a ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = bytes_a ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+			AST_FUNCTION_CALL(int64) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_LITERAL() : [ int_value = 0, string_value = x: %lld, y: %lld\n ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = bytes_b ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = bytes_b ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+			AST_BODY_RESULT(bool) : 
+				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION(bool) : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = undefined_function_b ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+			AST_VARIABLE_DEFINITION(Bytes24) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = bytes_c ]
+				AST_DATATYPE(Bytes24) : [ int_value = 0, string_value = Bytes24 ]
+		AST_DATATYPE(bool) : [ int_value = 0, string_value = bool ]
+		AST_BODY(bool) : 
+			AST_FUNCTION_CALL(int64) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_LITERAL() : [ int_value = 0, string_value = x: %lld, y: %lld, z: %lld\n ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = bytes_c ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = bytes_c ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = z ]
+						AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = bytes_c ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = z ]
+			AST_BODY_RESULT(bool) : 
+				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION(bool) : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = test_big_things ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+		AST_DATATYPE(bool) : [ int_value = 0, string_value = bool ]
+		AST_BODY(bool) : 
+			AST_VARIABLE_DEFINITION(Bytes16) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = a ]
+				AST_DATATYPE(Bytes16) : [ int_value = 0, string_value = Bytes16 ]
+			AST_VARIABLE_DEFINITION(Bytes16) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c ]
+				AST_DATATYPE(Bytes16) : [ int_value = 0, string_value = Bytes16 ]
+			AST_VARIABLE_DEFINITION(Bytes24) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = b ]
+				AST_DATATYPE(Bytes24) : [ int_value = 0, string_value = Bytes24 ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = a ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 49, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = a ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+				AST_LITERAL(int64) : [ int_value = 420, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = c ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 58, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = c ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+				AST_LITERAL(int64) : [ int_value = 1248, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = b ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 69, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = b ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+				AST_LITERAL(int64) : [ int_value = 42, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = z ]
+					AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = b ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = z ]
+				AST_LITERAL(int64) : [ int_value = 118, string_value =  ]
+			AST_FUNCTION_CALL(bool) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = undefined_function_a ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = a ]
+					AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = c ]
+			AST_FUNCTION_CALL(int64) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_LITERAL() : [ int_value = 0, string_value = \n\n ]
+			AST_FUNCTION_CALL(bool) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = undefined_function_b ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = b ]
+			AST_VARIABLE_DEFINITION(Bytes40) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = d ]
+				AST_DATATYPE(Bytes40) : [ int_value = 0, string_value = Bytes40 ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+					AST_OP_DOT(Bytes24) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 1, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+					AST_OP_DOT(Bytes24) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+				AST_LITERAL(int64) : [ int_value = 2, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = z ]
+					AST_OP_DOT(Bytes24) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = x ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = z ]
+				AST_LITERAL(int64) : [ int_value = 3, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+					AST_OP_DOT(Bytes16) : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 4, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+					AST_OP_DOT(Bytes16) : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = d ]
+						AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = y ]
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+				AST_LITERAL(int64) : [ int_value = 5, string_value =  ]
+			AST_RETURN(bool) : 
+				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION() : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = main ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+		AST_DATATYPE() : 
+		AST_BODY() : 
+			AST_FUNCTION_CALL(bool) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = test_big_things ]
+				AST_FUNCTION_CALL_ARGS() : 
+left:  line
+codegen INFO: searching `length` inside struct of type `Line`
+offissetto : -4  :  -4  +  0
+left:  line
+codegen INFO: searching `length` inside struct of type `Line`
+offissetto : -4  :  -4  +  0
+left:  line
+codegen INFO: searching `pixel` inside struct of type `Line`
+offissetto : -3  :  -4  +  1
+left:  bytes_a
+codegen INFO: searching `x` inside struct of type `Bytes16`
+offissetto : -96  :  -96  +  0
+left:  bytes_a
+codegen INFO: searching `y` inside struct of type `Bytes16`
+offissetto : -88  :  -96  +  8
+left:  bytes_b
+codegen INFO: searching `x` inside struct of type `Bytes16`
+offissetto : -112  :  -112  +  0
+left:  bytes_b
+codegen INFO: searching `y` inside struct of type `Bytes16`
+offissetto : -104  :  -112  +  8
+left:  bytes_c
+codegen INFO: searching `x` inside struct of type `Bytes24`
+offissetto : -24  :  -24  +  0
+left:  bytes_c
+codegen INFO: searching `y` inside struct of type `Bytes24`
+offissetto : -16  :  -24  +  8
+left:  bytes_c
+codegen INFO: searching `z` inside struct of type `Bytes24`
+offissetto : -8  :  -24  +  16
+left:  a
+codegen INFO: searching `x` inside struct of type `Bytes16`
+offissetto : -16  :  -16  +  0
+left:  a
+codegen INFO: searching `y` inside struct of type `Bytes16`
+offissetto : -8  :  -16  +  8
+left:  c
+codegen INFO: searching `x` inside struct of type `Bytes16`
+offissetto : -32  :  -32  +  0
+left:  c
+codegen INFO: searching `y` inside struct of type `Bytes16`
+offissetto : -24  :  -32  +  8
+left:  b
+codegen INFO: searching `x` inside struct of type `Bytes24`
+offissetto : -56  :  -56  +  0
+left:  b
+codegen INFO: searching `y` inside struct of type `Bytes24`
+offissetto : -48  :  -56  +  8
+left:  b
+codegen INFO: searching `z` inside struct of type `Bytes24`
+offissetto : -40  :  -56  +  16
+left:  d
+codegen INFO: searching `x` inside struct of type `Bytes40`
+offissetto : -122  :  -122  +  0
+left:  x
+codegen INFO: searching `x` inside struct of type `Bytes24`
+offissetto : -122  :  -122  +  0
+left:  d
+codegen INFO: searching `x` inside struct of type `Bytes40`
+offissetto : -122  :  -122  +  0
+left:  x
+codegen INFO: searching `y` inside struct of type `Bytes24`
+offissetto : -114  :  -122  +  8
+left:  d
+codegen INFO: searching `x` inside struct of type `Bytes40`
+offissetto : -122  :  -122  +  0
+left:  x
+codegen INFO: searching `z` inside struct of type `Bytes24`
+offissetto : -106  :  -122  +  16
+left:  d
+codegen INFO: searching `y` inside struct of type `Bytes40`
+offissetto : -98  :  -122  +  24
+left:  y
+codegen INFO: searching `x` inside struct of type `Bytes16`
+offissetto : -98  :  -98  +  0
+left:  d
+codegen INFO: searching `y` inside struct of type `Bytes40`
+offissetto : -98  :  -122  +  24
+left:  y
+codegen INFO: searching `y` inside struct of type `Bytes16`
+offissetto : -90  :  -98  +  8
 .text
+
 .global print_line
 print_line:
 pushq %rbp
@@ -152,11 +917,128 @@ ret
 
 
 
+.global undefined_function_a
+undefined_function_a:
+pushq %rbp
+movq %rsp, %rbp
+subq $112, %rsp
+
+
+
+movq %rsi, -88(%rbp, 1)
+
+movq %rdi, -96(%rbp, 1)
+
+
+movq %rcx, -104(%rbp, 1)
+
+movq %rdx, -112(%rbp, 1)
+
+
+
+
+
+
+
+movq $.L6, %rdi
+
+movq -96(%rbp, 1), %rsi
+
+movq -88(%rbp, 1), %rdx
+
+
+call printf
+
+movq %rax, %rbx
+
+
+
+
+
+movq $.L7, %rdi
+
+movq -112(%rbp, 1), %rsi
+
+movq -104(%rbp, 1), %rdx
+
+
+call printf
+
+movq %rax, %r12
+
+
+movb $0, %r13b
+
+
+
+movb %r13b, %al
+
+._undefined_function_a:
+movq %rbp, %rsp
+popq %rbp
+ret
+
+
+.global undefined_function_b
+undefined_function_b:
+pushq %rbp
+movq %rsp, %rbp
+subq $32, %rsp
+
+
+movq 32(%rbp, 1), %rbx
+
+movq %rbx, -8(%rbp, 1)
+
+
+movq 24(%rbp, 1), %rbx
+
+movq %rbx, -16(%rbp, 1)
+
+
+movq 16(%rbp, 1), %rbx
+
+movq %rbx, -24(%rbp, 1)
+
+
+
+
+
+
+
+
+
+movq $.L8, %rdi
+
+movq -24(%rbp, 1), %rsi
+
+movq -16(%rbp, 1), %rdx
+
+movq -8(%rbp, 1), %rcx
+
+
+call printf
+
+movq %rax, %rbx
+
+
+movb $0, %r12b
+
+
+
+movb %r12b, %al
+
+._undefined_function_b:
+movq %rbp, %rsp
+popq %rbp
+ret
+
+
 .global test_big_things
 test_big_things:
 pushq %rbp
 movq %rsp, %rbp
-subq $304, %rsp
+subq $176, %rsp
 
 
 
@@ -166,44 +1048,44 @@ subq $304, %rsp
 movabsq $49, %rbx
 
 
-movq %rbx, -96(%rbp, 1)
+movq %rbx, -16(%rbp, 1)
 
 
 movabsq $420, %r12
 
 
-movq %r12, -88(%rbp, 1)
+movq %r12, -8(%rbp, 1)
 
 
 movabsq $58, %r13
 
 
-movq %r13, -112(%rbp, 1)
+movq %r13, -32(%rbp, 1)
 
 
 movabsq $1248, %r14
 
 
-movq %r14, -104(%rbp, 1)
+movq %r14, -24(%rbp, 1)
 
 
 movabsq $69, %r15
 
 
-movq %r15, -136(%rbp, 1)
+movq %r15, -56(%rbp, 1)
 
 
 pushq %rbx
 movabsq $42, %rbx
 
-movq %rbx, -144(%rbp, 1)
+movq %rbx, -64(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -144(%rbp, 1), %rbx
+movq -64(%rbp, 1), %rbx
 
-movq %rbx, -128(%rbp, 1)
+movq %rbx, -48(%rbp, 1)
 popq %rbx
 
 
@@ -211,65 +1093,65 @@ popq %rbx
 pushq %rbx
 movabsq $118, %rbx
 
-movq %rbx, -152(%rbp, 1)
+movq %rbx, -72(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -152(%rbp, 1), %rbx
+movq -72(%rbp, 1), %rbx
 
-movq %rbx, -120(%rbp, 1)
+movq %rbx, -40(%rbp, 1)
 popq %rbx
 
 
 
 
 
-movq -88(%rbp, 1), %rsi
+movq -8(%rbp, 1), %rsi
 
-movq -96(%rbp, 1), %rdi
+movq -16(%rbp, 1), %rdi
 
 
-movq -104(%rbp, 1), %rcx
+movq -24(%rbp, 1), %rcx
 
-movq -112(%rbp, 1), %rdx
+movq -32(%rbp, 1), %rdx
 
 
 
 call undefined_function_a
 
-movq %rax, -160(%rbp, 1)
+movb %al, -73(%rbp, 1)
 
 
 
-movq $.L6, %rdi
+movq $.L9, %rdi
 
 
 call printf
 
-movq %rax, -168(%rbp, 1)
+movq %rax, -81(%rbp, 1)
 
 
 
-subq $24, %rsp
+subq $16, %rsp
 movq %rsp, %rax
 
 pushq %rbx
-movq -120(%rbp, 1), %rbx
+movq -40(%rbp, 1), %rbx
 
 movq %rbx, 16(%rax, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -128(%rbp, 1), %rbx
+movq -48(%rbp, 1), %rbx
 
 movq %rbx, 8(%rax, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -136(%rbp, 1), %rbx
+movq -56(%rbp, 1), %rbx
 
 movq %rbx, 0(%rax, 1)
 popq %rbx
@@ -278,23 +1160,23 @@ popq %rbx
 
 
 call undefined_function_b
-addq $24, %rsp
+addq $16, %rsp
 
-movq %rax, -176(%rbp, 1)
+movb %al, -82(%rbp, 1)
 
 
 
 pushq %rbx
 movabsq $1, %rbx
 
-movq %rbx, -224(%rbp, 1)
+movq %rbx, -130(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -224(%rbp, 1), %rbx
+movq -130(%rbp, 1), %rbx
 
-movq %rbx, -216(%rbp, 1)
+movq %rbx, -122(%rbp, 1)
 popq %rbx
 
 
@@ -302,14 +1184,14 @@ popq %rbx
 pushq %rbx
 movabsq $2, %rbx
 
-movq %rbx, -232(%rbp, 1)
+movq %rbx, -138(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -232(%rbp, 1), %rbx
+movq -138(%rbp, 1), %rbx
 
-movq %rbx, -208(%rbp, 1)
+movq %rbx, -114(%rbp, 1)
 popq %rbx
 
 
@@ -317,14 +1199,14 @@ popq %rbx
 pushq %rbx
 movabsq $3, %rbx
 
-movq %rbx, -240(%rbp, 1)
+movq %rbx, -146(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -240(%rbp, 1), %rbx
+movq -146(%rbp, 1), %rbx
 
-movq %rbx, -200(%rbp, 1)
+movq %rbx, -106(%rbp, 1)
 popq %rbx
 
 
@@ -332,14 +1214,14 @@ popq %rbx
 pushq %rbx
 movabsq $4, %rbx
 
-movq %rbx, -248(%rbp, 1)
+movq %rbx, -154(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -248(%rbp, 1), %rbx
+movq -154(%rbp, 1), %rbx
 
-movq %rbx, -192(%rbp, 1)
+movq %rbx, -98(%rbp, 1)
 popq %rbx
 
 
@@ -347,71 +1229,22 @@ popq %rbx
 pushq %rbx
 movabsq $5, %rbx
 
-movq %rbx, -256(%rbp, 1)
+movq %rbx, -162(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq -256(%rbp, 1), %rbx
+movq -162(%rbp, 1), %rbx
 
-movq %rbx, -184(%rbp, 1)
+movq %rbx, -90(%rbp, 1)
 popq %rbx
 
 
 
-
-subq $40, %rsp
-movq %rsp, %rax
-
-pushq %rbx
-movq -184(%rbp, 1), %rbx
-
-movq %rbx, 32(%rax, 1)
-popq %rbx
+movb $0, -163(%rbp, 1)
 
 
-pushq %rbx
-movq -192(%rbp, 1), %rbx
-
-movq %rbx, 24(%rax, 1)
-popq %rbx
-
-
-
-pushq %rbx
-movq -200(%rbp, 1), %rbx
-
-movq %rbx, 16(%rax, 1)
-popq %rbx
-
-
-pushq %rbx
-movq -208(%rbp, 1), %rbx
-
-movq %rbx, 8(%rax, 1)
-popq %rbx
-
-
-pushq %rbx
-movq -216(%rbp, 1), %rbx
-
-movq %rbx, 0(%rax, 1)
-popq %rbx
-
-
-
-
-
-call undefined_function_c
-addq $40, %rsp
-
-movq %rax, -264(%rbp, 1)
-
-
-movb $0, -265(%rbp, 1)
-
-
-movb -265(%rbp, 1), %al
+movb -163(%rbp, 1), %al
 
 jmp ._test_big_things
 
@@ -531,6 +1364,43 @@ ret
 
 
 
+.L6: .string "x: %lld, y: %lld\n"
+
+
+
+
+
+
+
+
+
+
+.L7: .string "x: %lld, y: %lld\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L8: .string "x: %lld, y: %lld, z: %lld\n"
 
 
 
@@ -568,4 +1438,95 @@ ret
 
 
 
-.L6: .string "\n\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L9: .string "\n\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

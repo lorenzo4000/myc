@@ -34,19 +34,25 @@ struct Bytes40 {
 	:y Bytes16;
 }
 
-/*
-function undefined_function_a(:bytes Bytes16) bool {
-	printf("x: %lld, y: %lld\n", bytes.x, bytes.y);
+function undefined_function_a(:bytes_a Bytes16, :bytes_b Bytes16) bool {
+	printf("x: %lld, y: %lld\n", bytes_a.x, bytes_a.y);
+	printf("x: %lld, y: %lld\n", bytes_b.x, bytes_b.y);
 
 	false	
 }
 
-function undefined_function_b(:bytes_b Bytes24) bool {
-	printf("x: %lld, y: %lld, z: %lld\n", bytes_b.x, bytes_b.y, bytes_b.z);
+function undefined_function_b(:bytes_c Bytes24) bool {
+	printf("x: %lld, y: %lld, z: %lld\n", bytes_c.x, bytes_c.y, bytes_c.z);
 
 	false
 }
-*/
+
+function undefined_function_c(:bytes_d Bytes40) bool {
+	printf("x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n",
+      bytes_d.x.x, bytes_d.x.y, bytes_d.x.z, bytes_d.y.x, bytes_d.y.y);
+
+	false
+}
 
 function test_big_things() bool {
 	:a Bytes16;

@@ -371,6 +371,8 @@ func (mem Memory_Reference) Dereference() Operand {
 type Stack_Region struct {
 	rbp_offset uint32
 	datatype datatype.DataType
+
+	reserved uint32
 }
 
 var CurrentReservedStack uint32 = 0
@@ -398,13 +400,15 @@ func StackUnreserveAll() {
 var CurrentAllocatedStack uint32 = 0
 func StackAllocate(_type datatype.DataType) Stack_Region {
 	size := uint32(_type.ByteSize())
+	reserved := uint32(0)
 
 	for CurrentAllocatedStack + size > CurrentReservedStack {
 		StackReserve16Bytes()
+		reserved += 0x10
 	}
 	CurrentAllocatedStack += size
 
-	region := Stack_Region{CurrentAllocatedStack, _type}
+	region := Stack_Region{CurrentAllocatedStack, _type, reserved}
 
 	return region
 }
@@ -424,7 +428,10 @@ func StackDeallocateCurrentRegion() *Stack_Region {
 	}
 	
 	current_region := &StackRegions[i-1]
+
 	CurrentAllocatedStack -= current_region.datatype.ByteSize()
+	CurrentReservedStack -= current_region.reserved
+
 	StackRegions = StackRegions[:i-1]
 
 	return current_region
@@ -685,6 +692,67 @@ func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
 	return res
 }
 
+func GEN_storestruct_from_registers(s []Register, d Memory_Reference) Codegen_Out {
+	var res Codegen_Out
+
+	struct_type := d.Type().(datatype_struct.StructType)
+	nfields := len(s)
+
+	fields_size := uint32(0)
+	for _, f := range s {
+		fields_size += f.Type().ByteSize()
+	}
+	
+	if fields_size > struct_type.ByteSize() {
+		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
+		return res
+	}
+	
+	//struct_allocation := s
+	//struct_start  := struct_allocation.Start
+	//struct_offset := struct_allocation.Offset
+
+	for field := nfields - 1; field >= 0; field-- {
+		field_type := struct_type.Fields[field].Type
+		field_offset := int64(struct_type.Fields[field].Offset)
+
+		//field_allocation := Memory_Reference{
+		//	field_type,
+		//	field_offset,
+		//	struct_start,
+		//	nil,
+		//	1,
+		//}
+
+		field_allocation := s[field]
+
+		destination := Memory_Reference{
+			field_type,
+			field_offset + d.Offset,
+			d.Start,
+			nil,
+			1,
+		}
+
+		//
+		//   in a case like this: 
+		//	 	struct {
+		//			struct {
+		//				struct {
+		//					int64
+		//				}
+		//			}
+		//		}
+		// 
+		//	 ... we need to find the most primitive value in a rescursive way.
+
+		res.Code.Appendln(GEN_very_generic_move(field_allocation, destination).Code)
+	}
+
+	return res
+	
+}
+
 func GEN_very_generic_move(s Operand, d any) Codegen_Out {
 	switch s.Type().(type) {
 		case datatype_struct.StructType: 
@@ -711,87 +779,63 @@ func GEN_jump(a Operand) Codegen_Out {
 
 func GEN_function_params(args []Operand) Codegen_Out {
 	res := Codegen_Out{}
-	
-	nargs := len(args)
-	
-	args_in_stack := make([]Operand, 0, nargs)
-	args_in_regs  := make([]Operand, 0, nargs * 2)
+		
+	allocated_regs := 0
+	allocated_stack := int64(16) // return address (8B) + pushed rbp (8B)
+	for _, a := range args {
+		if a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters) - 1) {
+			rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_UINT64)
 
-	for k, a := range args {
-		i := len(args_in_stack)
-		j := len(args_in_regs)
+			stack_region := Memory_Reference{
+				a.Type(),
+				allocated_stack,
+				rbp,
+				nil,
+				1,
+			}
 
-		if a.Type().ByteSize() > 16 || k >= len(ArgumentRegisters) {
-			args_in_stack = args_in_stack[:i+1]
-			args_in_stack[i] = a
+			res.Code.Appendln(GEN_storestruct(stack_region, a.(Memory_Reference)).Code)
+
+			allocated_stack += int64(a.Type().ByteSize())
 		} else
 		if a.Type().ByteSize() > 8 {
-			// TODO: don't just assume it's a struct
-			struct_allocation := a
-			struct_type := a.Type().(datatype_struct.StructType)
-			struct_start  := struct_allocation.(Memory_Reference).Start
-			struct_offset := struct_allocation.(Memory_Reference).Offset
-
-			if cap(args_in_regs) < j + 2 {
-				new_ := make([]Operand, (j + 2) * 2)
-				copy(args_in_regs, new_)
-				args_in_regs = new_
+			// TODO: don't just assume it's a struct with two fields 
+			reg_a, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
+			if full {
+				fmt.Println("codegen error: could not find an argument register for type `" + a.Type().Name() + "`")
+				return res
 			}
-			args_in_regs = args_in_regs[:j+2]
-
-			// could expand
-			for field := 0; field < 2; field++ {
-				field_type := struct_type.Fields[field].Type
-				field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
-				
-				field_allocation := Memory_Reference {
-					field_type,
-					field_offset,
-					struct_start,
-					nil,
-					1,
-				}
-
-				args_in_regs[j+field] = field_allocation
+			reg_b, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
+			if full {
+				fmt.Println("codegen error: could not find an argument register for type `" + a.Type().Name() + "`")
+				return res
 			}
+
+			res.Code.Appendln(GEN_storestruct_from_registers([]Register{reg_a, reg_b}, a.(Memory_Reference)).Code)
+
+			allocated_regs += 2
 		} else {
-			args_in_regs = args_in_regs[:j+1]
-			args_in_regs[j] = a
+			var arg Operand
+			switch a.(type) {
+				case Label: 
+					arg = a.LiteralValue()
+				default:
+					arg = a 
+			}
+
+			arg_reg, full := RegisterArgumentAllocate(arg.Type())
+			if full {
+				fmt.Println("codegen error: could not find an argument register for type `" + arg.Type().Name() + "`")
+				return res
+			}
+
+			allocated_regs++
+
+			res.Code.Appendln(GEN_move(arg_reg, arg).Code)
 		}
 	}
 	
-	//nargs_in_stack := len(args_in_stack)
-	//nargs_in_regs :=  len(args_in_regs)
-		
-
-	rbp := REGISTER_RBP.register_from_sub(REG_SUB_Q)
-
-	for arg, arg_v := range(args_in_stack) {
-		//typ := arg_v.Type()
-
-		parameter := Memory_Reference{
-			datatype.TYPE_INT64,
-			int64(16 + ((arg) * 8)),
-			rbp,
-			nil,
-			ASMREF_INDEXCOEFF_1,
-		}
-
-		res.Code.Appendln(GEN_move(parameter, arg_v).Code)
-	}
-
-	for arg, arg_v := range(args_in_regs) {
-		reg := ArgumentRegisters[arg]
-		err := false
-
-		parameter, err := reg.GetRegister(arg_v.Type())
-		if err {
-			fmt.Println("codegen error: could not find an argument register for type `" + arg_v.Type().Name() + "`")
-		}
-		
-		res.Code.Appendln(GEN_move(parameter, arg_v).Code)
-	}
-		
+	RegisterArgumentFreeAll()
 
 	return res
 }
@@ -805,9 +849,8 @@ func GEN_callargs(args []Operand) Codegen_Out {
 			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 
 			// We unreserve this in GEN_call. I know this is confusing.
-			reserved := StackAllocateAndRemember(a.Type())
-			reserved_bytes := reserved.datatype.ByteSize()
-			res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(reserved_bytes), 10}, rsp))
+			allocated_region := StackAllocateAndRemember(a.Type())
+			res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(allocated_region.reserved), 10}, rsp))
 
 			res.Code.Appendln(GEN_move(rsp, rax).Code)
 
@@ -888,11 +931,8 @@ func GEN_call(f *front.Ast_Node) Codegen_Out {
 	// unreserve the stack space where we passed the arguments
 	arguments_in_stack := StackDeallocateCurrentRegion()
 	if arguments_in_stack != nil {
-		deallocated := arguments_in_stack.datatype.ByteSize()
-
-		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(deallocated), 10}, rsp))
+		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(arguments_in_stack.reserved), 10}, rsp))
 	}
-
 
 	return res
 }
