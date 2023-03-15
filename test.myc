@@ -34,35 +34,21 @@ struct Bytes40 {
 	:y Bytes16;
 }
 
-function foo(:baby int64) {
-
-}
-
-function poo(:baby uint32) {
-
-}
-
-function undefined_function_a(:bytes_a Bytes16, :bytes_b Bytes16) bool {
+function undefined_function_a(:bytes_a Bytes16, :bytes_b Bytes16) {
 	printf("x: %lld, y: %lld\n", bytes_a.x, bytes_a.y);
 	printf("x: %lld, y: %lld\n", bytes_b.x, bytes_b.y);
-
-	false	
 }
 
-function undefined_function_b(:bytes_c Bytes24) bool {
-	printf("x: %lld, y: %lld, z: %lld\n", bytes_c.x, bytes_c.y, bytes_c.z);
-
-	false
+function undefined_function_b(:bytes Bytes24) {
+	printf("x: %lld, y: %lld, z: %lld\n", bytes.x, bytes.y, bytes.z);
 }
 
-function undefined_function_c(:bytes_d Bytes40) bool {
+function undefined_function_c(:bytes Bytes40) {
 	printf("x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n",
-      bytes_d.x.x, bytes_d.x.y, bytes_d.x.z, bytes_d.y.x, bytes_d.y.y);
-
-	false
+      bytes.x.x, bytes.x.y, bytes.x.z, bytes.y.x, bytes.y.y);
 }
 
-function test_big_things() bool {
+function test_big_things() {
 	:a Bytes16;
 	:c Bytes16;
 	:b Bytes24;
@@ -70,7 +56,7 @@ function test_big_things() bool {
 	a.x = 49;
 	a.y = 420;
 	
-	c.x = 58;
+	c.x = 2359;
 	c.y = 1248;
 	
 	b.x = 69;
@@ -91,8 +77,6 @@ function test_big_things() bool {
 	d.y.y = 5;
 
 	undefined_function_c(d);
-
-	return false;
 }
 
 function main() {	

@@ -238,24 +238,29 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Code.Append(children_out[1].Code)
 			out.Code.Appendln(GEN_call(ast).Code)
 			
-			var result Operand
-			reg, full := RegisterScratchAllocate(ast.DataType)
-			if full {
-				result = StackAllocate(ast.DataType).Reference()
-			} else {
-				result = reg
-			}
+			if ast.DataType != nil 				       &&
+			   ast.DataType != datatype.TYPE_NONE      &&
+			   ast.DataType != datatype.TYPE_UNDEFINED {
+				var result Operand
+				reg, full := RegisterScratchAllocate(ast.DataType)
+				if full {
+					result = StackAllocate(ast.DataType).Reference()
+				} else {
+					result = reg
+				}
 				
-			println(ast.DataType.BitSize())
-			println(ast.DataType.Name())
-			return_reg, err := RETURN_REGISTER.GetRegister(ast.DataType)
-			if err {
-				fmt.Println("codegen error: could not find return register for type `" + ast.DataType.Name() + "`")
-			}
+				println(ast.DataType.BitSize())
+				println(ast.DataType.Name())
+				return_reg, err := RETURN_REGISTER.GetRegister(ast.DataType)
+				if err {
+					fmt.Println("codegen error: could not find return register for type `" + ast.DataType.Name() + "`")
+				}
 
-			out.Code.Appendln(GEN_move(return_reg, result).Code)
-	
-			out.Result = result
+				out.Code.Appendln(GEN_move(return_reg, result).Code)
+				out.Result = result
+			} else {
+				out.Result = nil
+			}
 
 		case front.AST_FUNCTION_CALL_ARGS:
 			for _, child_out := range(children_out) {

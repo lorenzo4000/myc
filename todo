@@ -3,9 +3,8 @@
 -> User defined types (structs...) {
       .  Struct allocation for scratch and arguments
 	  -> AST_OP_DOT `.` notation and field typechecking
-	  -> Pass structs to functions
+	  -> field padding (multiples of 4 Bytes)
    }
--> Fix function arguments scope (it's using the global scope now)
 -> Fix TYPE_NONE function call doing weird things
 .  External functions (call C functions from myc)
 .  Misecellaneus types and other stuff
