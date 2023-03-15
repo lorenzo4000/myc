@@ -614,9 +614,12 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 				field_size := uint32(field_type.ByteSize())
 
+				padding := (0b100 - ((field_size - 1) & 0b11)) - 1
+
 				struct_field := datatype_struct.StructField{field_name, field_type, _struct.Size_}
 				_struct.AddField(struct_field)
-
+				
+				_struct.Size_ += padding
 				_struct.Size_ += field_size
 			}
 

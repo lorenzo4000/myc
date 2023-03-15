@@ -16,7 +16,25 @@ function print_line(:line Line) bool {
 	false
 }
 
+// test paddings
+struct Bytes6 {
+	:x uint16;
+	// padding of 2 bytes should be here
+	:y uint32;
+}
 
+function print_bytes6(:bytes Bytes6) {
+	printf("x: %hu, y: %lu", bytes.x, bytes.y);
+}
+
+function test_struct_paddings() {
+	:s Bytes6;
+	
+	s.x = [uint16]111;
+	s.y = [uint32]222;
+
+	print_bytes6(s);
+}
 
 struct Bytes16 {
 	:x int64;
@@ -112,4 +130,5 @@ function main() {
 	*/
 
 	test_big_things();
+	test_struct_paddings();
 }

@@ -5,9 +5,9 @@
 	  -> AST_OP_DOT `.` notation and field typechecking
 	  -> field padding (multiples of 4 Bytes)
    }
--> Fix TYPE_NONE function call doing weird things
 .  External functions (call C functions from myc)
 .  Misecellaneus types and other stuff
+.  implicit integer casts
 
 
 
