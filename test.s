@@ -1,4 +1,4 @@
-[{5 1 1 1 7 0 } {0 1 8 1 12 0 Line} {123 1 13 1 13 0 } {58 2 3 2 3 0 } {0 2 4 2 10 0 length} {0 2 11 2 15 0 uint8} {59 2 16 2 16 0 } {58 3 3 3 3 0 } {0 3 4 3 9 0 pixel} {0 3 11 3 15 0 uint8} {59 3 16 3 16 0 } {125 4 2 4 2 0 } {4 6 2 6 10 0 } {0 6 11 6 20 0 print_line} {40 6 21 6 21 0 } {58 6 22 6 22 0 } {0 6 23 6 27 0 line} {0 6 28 6 31 0 Line} {41 6 32 6 32 0 } {0 6 34 6 38 0 bool} {123 6 39 6 39 0 } {9 7 3 7 5 0 } {0 7 6 7 9 0 line} {46 7 10 7 10 0 } {0 7 11 7 17 0 length} {60 7 18 7 18 0 } {91 7 20 7 20 0 } {0 7 21 7 25 0 uint8} {93 7 26 7 26 0 } {2 7 27 7 28 0 } {123 7 29 7 29 0 } {6 8 4 8 10 0 } {3 8 11 8 14 1 true} {59 8 15 8 15 0 } {125 9 3 9 3 0 } {8 11 3 11 6 0 } {40 11 7 11 7 0 } {58 11 8 11 8 0 } {0 11 9 11 10 0 i} {0 11 11 11 16 0 uint8} {61 11 17 11 17 0 } {91 11 19 11 19 0 } {0 11 20 11 24 0 uint8} {93 11 25 11 25 0 } {2 11 26 11 26 1 } {59 11 27 11 27 0 } {0 11 29 11 30 0 i} {60 11 31 11 31 0 } {0 11 33 11 36 0 line} {46 11 37 11 37 0 } {0 11 38 11 43 0 length} {59 11 44 11 44 0 } {0 11 46 11 47 0 i} {61 11 48 11 48 0 } {0 11 50 11 51 0 i} {43 11 52 11 52 0 } {91 11 54 11 54 0 } {0 11 55 11 59 0 uint8} {93 11 60 11 60 0 } {2 11 61 11 61 1 } {41 11 62 11 62 0 } {123 11 64 11 64 0 } {0 12 4 12 9 0 printf} {40 12 10 12 10 0 } {1 12 11 12 14 0 %c} {44 12 15 12 15 0 } {0 12 17 12 20 0 line} {46 12 21 12 21 0 } {0 12 22 12 26 0 pixel} {41 12 27 12 27 0 } {59 12 28 12 28 0 } {125 13 3 13 3 0 } {0 14 3 14 8 0 printf} {40 14 9 14 9 0 } {1 14 10 14 13 0 \n} {41 14 14 14 14 0 } {59 14 15 14 15 0 } {3 16 3 17 1 0 false} {125 17 2 17 2 0 } {5 21 2 21 8 0 } {0 21 9 21 16 0 Bytes16} {123 21 17 21 17 0 } {58 22 3 22 3 0 } {0 22 4 22 5 0 x} {0 22 6 22 10 0 int64} {59 22 11 22 11 0 } {58 23 3 23 3 0 } {0 23 4 23 5 0 y} {0 23 6 23 10 0 int64} {59 23 11 23 11 0 } {125 24 2 24 2 0 } {5 26 2 26 8 0 } {0 26 9 26 16 0 Bytes24} {123 26 17 26 17 0 } {58 27 3 27 3 0 } {0 27 4 27 5 0 x} {0 27 6 27 10 0 int64} {59 27 11 27 11 0 } {58 28 3 28 3 0 } {0 28 4 28 5 0 y} {0 28 6 28 10 0 int64} {59 28 11 28 11 0 } {58 29 3 29 3 0 } {0 29 4 29 5 0 z} {0 29 6 29 10 0 int64} {59 29 11 29 11 0 } {125 30 2 30 2 0 } {5 32 2 32 8 0 } {0 32 9 32 16 0 Bytes40} {123 32 17 32 17 0 } {58 33 3 33 3 0 } {0 33 4 33 5 0 x} {0 33 6 33 12 0 Bytes24} {59 33 13 33 13 0 } {58 34 3 34 3 0 } {0 34 4 34 5 0 y} {0 34 6 34 12 0 Bytes16} {59 34 13 34 13 0 } {125 35 2 35 2 0 } {4 37 2 37 10 0 } {0 37 11 37 30 0 undefined_function_a} {40 37 31 37 31 0 } {58 37 32 37 32 0 } {0 37 33 37 40 0 bytes_a} {0 37 41 37 47 0 Bytes16} {44 37 48 37 48 0 } {58 37 50 37 50 0 } {0 37 51 37 58 0 bytes_b} {0 37 59 37 65 0 Bytes16} {41 37 66 37 66 0 } {0 37 68 37 72 0 bool} {123 37 73 37 73 0 } {0 38 3 38 8 0 printf} {40 38 9 38 9 0 } {1 38 10 38 29 0 x: %lld, y: %lld\n} {44 38 30 38 30 0 } {0 38 32 38 38 0 bytes_a} {46 38 39 38 39 0 } {0 38 40 38 40 0 x} {44 38 41 38 41 0 } {0 38 43 38 49 0 bytes_a} {46 38 50 38 50 0 } {0 38 51 38 51 0 y} {41 38 52 38 52 0 } {59 38 53 38 53 0 } {0 39 3 39 8 0 printf} {40 39 9 39 9 0 } {1 39 10 39 29 0 x: %lld, y: %lld\n} {44 39 30 39 30 0 } {0 39 32 39 38 0 bytes_b} {46 39 39 39 39 0 } {0 39 40 39 40 0 x} {44 39 41 39 41 0 } {0 39 43 39 49 0 bytes_b} {46 39 50 39 50 0 } {0 39 51 39 51 0 y} {41 39 52 39 52 0 } {59 39 53 39 53 0 } {3 41 3 41 8 0 false} {125 42 2 42 2 0 } {4 44 2 44 10 0 } {0 44 11 44 30 0 undefined_function_b} {40 44 31 44 31 0 } {58 44 32 44 32 0 } {0 44 33 44 40 0 bytes_c} {0 44 41 44 47 0 Bytes24} {41 44 48 44 48 0 } {0 44 50 44 54 0 bool} {123 44 55 44 55 0 } {0 45 3 45 8 0 printf} {40 45 9 45 9 0 } {1 45 10 45 38 0 x: %lld, y: %lld, z: %lld\n} {44 45 39 45 39 0 } {0 45 41 45 47 0 bytes_c} {46 45 48 45 48 0 } {0 45 49 45 49 0 x} {44 45 50 45 50 0 } {0 45 52 45 58 0 bytes_c} {46 45 59 45 59 0 } {0 45 60 45 60 0 y} {44 45 61 45 61 0 } {0 45 63 45 69 0 bytes_c} {46 45 70 45 70 0 } {0 45 71 45 71 0 z} {41 45 72 45 72 0 } {59 45 73 45 73 0 } {3 47 3 48 1 0 false} {125 48 2 48 2 0 } {4 50 2 50 10 0 } {0 50 11 50 25 0 test_big_things} {40 50 26 50 26 0 } {41 50 27 50 27 0 } {0 50 29 50 33 0 bool} {123 50 34 50 34 0 } {58 51 3 51 3 0 } {0 51 4 51 5 0 a} {0 51 6 51 12 0 Bytes16} {59 51 13 51 13 0 } {58 52 3 52 3 0 } {0 52 4 52 5 0 c} {0 52 6 52 12 0 Bytes16} {59 52 13 52 13 0 } {58 53 3 53 3 0 } {0 53 4 53 5 0 b} {0 53 6 53 12 0 Bytes24} {59 53 13 53 13 0 } {0 55 3 55 3 0 a} {46 55 4 55 4 0 } {0 55 5 55 6 0 x} {61 55 7 55 7 0 } {2 55 9 55 10 49 } {59 55 11 55 11 0 } {0 56 3 56 3 0 a} {46 56 4 56 4 0 } {0 56 5 56 6 0 y} {61 56 7 56 7 0 } {2 56 9 56 11 420 } {59 56 12 56 12 0 } {0 58 3 58 3 0 c} {46 58 4 58 4 0 } {0 58 5 58 6 0 x} {61 58 7 58 7 0 } {2 58 9 58 10 58 } {59 58 11 58 11 0 } {0 59 3 59 3 0 c} {46 59 4 59 4 0 } {0 59 5 59 6 0 y} {61 59 7 59 7 0 } {2 59 9 59 12 1248 } {59 59 13 59 13 0 } {0 61 3 61 3 0 b} {46 61 4 61 4 0 } {0 61 5 61 6 0 x} {61 61 7 61 7 0 } {2 61 9 61 10 69 } {59 61 11 61 11 0 } {0 62 3 62 3 0 b} {46 62 4 62 4 0 } {0 62 5 62 6 0 y} {61 62 7 62 7 0 } {2 62 9 62 10 42 } {59 62 11 62 11 0 } {0 63 3 63 3 0 b} {46 63 4 63 4 0 } {0 63 5 63 6 0 z} {61 63 7 63 7 0 } {2 63 9 63 11 118 } {59 63 12 63 12 0 } {0 65 3 65 22 0 undefined_function_a} {40 65 23 65 23 0 } {0 65 24 65 24 0 a} {44 65 25 65 25 0 } {0 65 27 65 27 0 c} {41 65 28 65 28 0 } {59 65 29 65 29 0 } {0 66 3 66 8 0 printf} {40 66 9 66 9 0 } {1 66 10 66 15 0 \n\n} {41 66 16 66 16 0 } {59 66 17 66 17 0 } {0 67 3 67 22 0 undefined_function_b} {40 67 23 67 23 0 } {0 67 24 67 24 0 b} {41 67 25 67 25 0 } {59 67 26 67 26 0 } {58 70 3 70 3 0 } {0 70 4 70 5 0 d} {0 70 6 70 12 0 Bytes40} {59 70 13 70 13 0 } {0 72 3 72 3 0 d} {46 72 4 72 4 0 } {0 72 5 72 5 0 x} {46 72 6 72 6 0 } {0 72 7 72 8 0 x} {61 72 9 72 9 0 } {2 72 11 72 11 1 } {59 72 12 72 12 0 } {0 73 3 73 3 0 d} {46 73 4 73 4 0 } {0 73 5 73 5 0 x} {46 73 6 73 6 0 } {0 73 7 73 8 0 y} {61 73 9 73 9 0 } {2 73 11 73 11 2 } {59 73 12 73 12 0 } {0 74 3 74 3 0 d} {46 74 4 74 4 0 } {0 74 5 74 5 0 x} {46 74 6 74 6 0 } {0 74 7 74 8 0 z} {61 74 9 74 9 0 } {2 74 11 74 11 3 } {59 74 12 74 12 0 } {0 75 3 75 3 0 d} {46 75 4 75 4 0 } {0 75 5 75 5 0 y} {46 75 6 75 6 0 } {0 75 7 75 8 0 x} {61 75 9 75 9 0 } {2 75 11 75 11 4 } {59 75 12 75 12 0 } {0 76 3 76 3 0 d} {46 76 4 76 4 0 } {0 76 5 76 5 0 y} {46 76 6 76 6 0 } {0 76 7 76 8 0 y} {61 76 9 76 9 0 } {2 76 11 76 11 5 } {59 76 12 76 12 0 } {6 80 3 80 9 0 } {3 80 10 80 14 0 false} {59 80 15 80 15 0 } {125 81 2 81 2 0 } {4 83 2 83 10 0 } {0 83 11 83 14 0 main} {40 83 15 83 15 0 } {41 83 16 83 16 0 } {123 83 18 83 18 0 } {0 86 3 86 17 0 test_big_things} {40 86 18 86 18 0 } {41 86 19 86 19 0 } {59 86 20 86 20 0 } {125 87 2 87 2 0 }]
+[{5 1 1 1 7 0 } {0 1 8 1 12 0 Line} {123 1 13 1 13 0 } {58 2 3 2 3 0 } {0 2 4 2 10 0 length} {0 2 11 2 15 0 uint8} {59 2 16 2 16 0 } {58 3 3 3 3 0 } {0 3 4 3 9 0 pixel} {0 3 11 3 15 0 uint8} {59 3 16 3 16 0 } {125 4 2 4 2 0 } {4 6 2 6 10 0 } {0 6 11 6 20 0 print_line} {40 6 21 6 21 0 } {58 6 22 6 22 0 } {0 6 23 6 27 0 line} {0 6 28 6 31 0 Line} {41 6 32 6 32 0 } {0 6 34 6 38 0 bool} {123 6 39 6 39 0 } {9 7 3 7 5 0 } {0 7 6 7 9 0 line} {46 7 10 7 10 0 } {0 7 11 7 17 0 length} {60 7 18 7 18 0 } {91 7 20 7 20 0 } {0 7 21 7 25 0 uint8} {93 7 26 7 26 0 } {2 7 27 7 28 0 } {123 7 29 7 29 0 } {6 8 4 8 10 0 } {3 8 11 8 14 1 true} {59 8 15 8 15 0 } {125 9 3 9 3 0 } {8 11 3 11 6 0 } {40 11 7 11 7 0 } {58 11 8 11 8 0 } {0 11 9 11 10 0 i} {0 11 11 11 16 0 uint8} {61 11 17 11 17 0 } {91 11 19 11 19 0 } {0 11 20 11 24 0 uint8} {93 11 25 11 25 0 } {2 11 26 11 26 1 } {59 11 27 11 27 0 } {0 11 29 11 30 0 i} {60 11 31 11 31 0 } {0 11 33 11 36 0 line} {46 11 37 11 37 0 } {0 11 38 11 43 0 length} {59 11 44 11 44 0 } {0 11 46 11 47 0 i} {61 11 48 11 48 0 } {0 11 50 11 51 0 i} {43 11 52 11 52 0 } {91 11 54 11 54 0 } {0 11 55 11 59 0 uint8} {93 11 60 11 60 0 } {2 11 61 11 61 1 } {41 11 62 11 62 0 } {123 11 64 11 64 0 } {0 12 4 12 9 0 printf} {40 12 10 12 10 0 } {1 12 11 12 14 0 %c} {44 12 15 12 15 0 } {0 12 17 12 20 0 line} {46 12 21 12 21 0 } {0 12 22 12 26 0 pixel} {41 12 27 12 27 0 } {59 12 28 12 28 0 } {125 13 3 13 3 0 } {0 14 3 14 8 0 printf} {40 14 9 14 9 0 } {1 14 10 14 13 0 \n} {41 14 14 14 14 0 } {59 14 15 14 15 0 } {3 16 3 17 1 0 false} {125 17 2 17 2 0 } {5 21 2 21 8 0 } {0 21 9 21 16 0 Bytes16} {123 21 17 21 17 0 } {58 22 3 22 3 0 } {0 22 4 22 5 0 x} {0 22 6 22 10 0 int64} {59 22 11 22 11 0 } {58 23 3 23 3 0 } {0 23 4 23 5 0 y} {0 23 6 23 10 0 int64} {59 23 11 23 11 0 } {125 24 2 24 2 0 } {5 26 2 26 8 0 } {0 26 9 26 16 0 Bytes24} {123 26 17 26 17 0 } {58 27 3 27 3 0 } {0 27 4 27 5 0 x} {0 27 6 27 10 0 int64} {59 27 11 27 11 0 } {58 28 3 28 3 0 } {0 28 4 28 5 0 y} {0 28 6 28 10 0 int64} {59 28 11 28 11 0 } {58 29 3 29 3 0 } {0 29 4 29 5 0 z} {0 29 6 29 10 0 int64} {59 29 11 29 11 0 } {125 30 2 30 2 0 } {5 32 2 32 8 0 } {0 32 9 32 16 0 Bytes40} {123 32 17 32 17 0 } {58 33 3 33 3 0 } {0 33 4 33 5 0 x} {0 33 6 33 12 0 Bytes24} {59 33 13 33 13 0 } {58 34 3 34 3 0 } {0 34 4 34 5 0 y} {0 34 6 34 12 0 Bytes16} {59 34 13 34 13 0 } {125 35 2 35 2 0 } {4 37 2 37 10 0 } {0 37 11 37 13 0 foo} {40 37 14 37 14 0 } {58 37 15 37 15 0 } {0 37 16 37 20 0 baby} {0 37 21 37 25 0 int64} {41 37 26 37 26 0 } {123 37 28 37 28 0 } {125 39 2 39 2 0 } {4 41 2 41 10 0 } {0 41 11 41 13 0 poo} {40 41 14 41 14 0 } {58 41 15 41 15 0 } {0 41 16 41 20 0 baby} {0 41 21 41 26 0 uint32} {41 41 27 41 27 0 } {123 41 29 41 29 0 } {125 43 2 43 2 0 } {4 45 2 45 10 0 } {0 45 11 45 30 0 undefined_function_a} {40 45 31 45 31 0 } {58 45 32 45 32 0 } {0 45 33 45 40 0 bytes_a} {0 45 41 45 47 0 Bytes16} {44 45 48 45 48 0 } {58 45 50 45 50 0 } {0 45 51 45 58 0 bytes_b} {0 45 59 45 65 0 Bytes16} {41 45 66 45 66 0 } {0 45 68 45 72 0 bool} {123 45 73 45 73 0 } {0 46 3 46 8 0 printf} {40 46 9 46 9 0 } {1 46 10 46 29 0 x: %lld, y: %lld\n} {44 46 30 46 30 0 } {0 46 32 46 38 0 bytes_a} {46 46 39 46 39 0 } {0 46 40 46 40 0 x} {44 46 41 46 41 0 } {0 46 43 46 49 0 bytes_a} {46 46 50 46 50 0 } {0 46 51 46 51 0 y} {41 46 52 46 52 0 } {59 46 53 46 53 0 } {0 47 3 47 8 0 printf} {40 47 9 47 9 0 } {1 47 10 47 29 0 x: %lld, y: %lld\n} {44 47 30 47 30 0 } {0 47 32 47 38 0 bytes_b} {46 47 39 47 39 0 } {0 47 40 47 40 0 x} {44 47 41 47 41 0 } {0 47 43 47 49 0 bytes_b} {46 47 50 47 50 0 } {0 47 51 47 51 0 y} {41 47 52 47 52 0 } {59 47 53 47 53 0 } {3 49 3 49 8 0 false} {125 50 2 50 2 0 } {4 52 2 52 10 0 } {0 52 11 52 30 0 undefined_function_b} {40 52 31 52 31 0 } {58 52 32 52 32 0 } {0 52 33 52 40 0 bytes_c} {0 52 41 52 47 0 Bytes24} {41 52 48 52 48 0 } {0 52 50 52 54 0 bool} {123 52 55 52 55 0 } {0 53 3 53 8 0 printf} {40 53 9 53 9 0 } {1 53 10 53 38 0 x: %lld, y: %lld, z: %lld\n} {44 53 39 53 39 0 } {0 53 41 53 47 0 bytes_c} {46 53 48 53 48 0 } {0 53 49 53 49 0 x} {44 53 50 53 50 0 } {0 53 52 53 58 0 bytes_c} {46 53 59 53 59 0 } {0 53 60 53 60 0 y} {44 53 61 53 61 0 } {0 53 63 53 69 0 bytes_c} {46 53 70 53 70 0 } {0 53 71 53 71 0 z} {41 53 72 53 72 0 } {59 53 73 53 73 0 } {3 55 3 56 1 0 false} {125 56 2 56 2 0 } {4 58 2 58 10 0 } {0 58 11 58 30 0 undefined_function_c} {40 58 31 58 31 0 } {58 58 32 58 32 0 } {0 58 33 58 40 0 bytes_d} {0 58 41 58 47 0 Bytes40} {41 58 48 58 48 0 } {0 58 50 58 54 0 bool} {123 58 55 58 55 0 } {0 59 3 59 8 0 printf} {40 59 9 59 9 0 } {1 59 10 59 66 0 x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n} {44 59 67 59 67 0 } {0 60 8 60 14 0 bytes_d} {46 60 15 60 15 0 } {0 60 16 60 16 0 x} {46 60 17 60 17 0 } {0 60 18 60 18 0 x} {44 60 19 60 19 0 } {0 60 21 60 27 0 bytes_d} {46 60 28 60 28 0 } {0 60 29 60 29 0 x} {46 60 30 60 30 0 } {0 60 31 60 31 0 y} {44 60 32 60 32 0 } {0 60 34 60 40 0 bytes_d} {46 60 41 60 41 0 } {0 60 42 60 42 0 x} {46 60 43 60 43 0 } {0 60 44 60 44 0 z} {44 60 45 60 45 0 } {0 60 47 60 53 0 bytes_d} {46 60 54 60 54 0 } {0 60 55 60 55 0 y} {46 60 56 60 56 0 } {0 60 57 60 57 0 x} {44 60 58 60 58 0 } {0 60 60 60 66 0 bytes_d} {46 60 67 60 67 0 } {0 60 68 60 68 0 y} {46 60 69 60 69 0 } {0 60 70 60 70 0 y} {41 60 71 60 71 0 } {59 60 72 60 72 0 } {3 62 3 63 1 0 false} {125 63 2 63 2 0 } {4 65 2 65 10 0 } {0 65 11 65 25 0 test_big_things} {40 65 26 65 26 0 } {41 65 27 65 27 0 } {0 65 29 65 33 0 bool} {123 65 34 65 34 0 } {58 66 3 66 3 0 } {0 66 4 66 5 0 a} {0 66 6 66 12 0 Bytes16} {59 66 13 66 13 0 } {58 67 3 67 3 0 } {0 67 4 67 5 0 c} {0 67 6 67 12 0 Bytes16} {59 67 13 67 13 0 } {58 68 3 68 3 0 } {0 68 4 68 5 0 b} {0 68 6 68 12 0 Bytes24} {59 68 13 68 13 0 } {0 70 3 70 3 0 a} {46 70 4 70 4 0 } {0 70 5 70 6 0 x} {61 70 7 70 7 0 } {2 70 9 70 10 49 } {59 70 11 70 11 0 } {0 71 3 71 3 0 a} {46 71 4 71 4 0 } {0 71 5 71 6 0 y} {61 71 7 71 7 0 } {2 71 9 71 11 420 } {59 71 12 71 12 0 } {0 73 3 73 3 0 c} {46 73 4 73 4 0 } {0 73 5 73 6 0 x} {61 73 7 73 7 0 } {2 73 9 73 10 58 } {59 73 11 73 11 0 } {0 74 3 74 3 0 c} {46 74 4 74 4 0 } {0 74 5 74 6 0 y} {61 74 7 74 7 0 } {2 74 9 74 12 1248 } {59 74 13 74 13 0 } {0 76 3 76 3 0 b} {46 76 4 76 4 0 } {0 76 5 76 6 0 x} {61 76 7 76 7 0 } {2 76 9 76 10 69 } {59 76 11 76 11 0 } {0 77 3 77 3 0 b} {46 77 4 77 4 0 } {0 77 5 77 6 0 y} {61 77 7 77 7 0 } {2 77 9 77 10 42 } {59 77 11 77 11 0 } {0 78 3 78 3 0 b} {46 78 4 78 4 0 } {0 78 5 78 6 0 z} {61 78 7 78 7 0 } {2 78 9 78 11 118 } {59 78 12 78 12 0 } {0 80 3 80 22 0 undefined_function_a} {40 80 23 80 23 0 } {0 80 24 80 24 0 a} {44 80 25 80 25 0 } {0 80 27 80 27 0 c} {41 80 28 80 28 0 } {59 80 29 80 29 0 } {0 81 3 81 8 0 printf} {40 81 9 81 9 0 } {1 81 10 81 15 0 \n\n} {41 81 16 81 16 0 } {59 81 17 81 17 0 } {0 82 3 82 22 0 undefined_function_b} {40 82 23 82 23 0 } {0 82 24 82 24 0 b} {41 82 25 82 25 0 } {59 82 26 82 26 0 } {58 85 3 85 3 0 } {0 85 4 85 5 0 d} {0 85 6 85 12 0 Bytes40} {59 85 13 85 13 0 } {0 87 3 87 3 0 d} {46 87 4 87 4 0 } {0 87 5 87 5 0 x} {46 87 6 87 6 0 } {0 87 7 87 8 0 x} {61 87 9 87 9 0 } {2 87 11 87 11 1 } {59 87 12 87 12 0 } {0 88 3 88 3 0 d} {46 88 4 88 4 0 } {0 88 5 88 5 0 x} {46 88 6 88 6 0 } {0 88 7 88 8 0 y} {61 88 9 88 9 0 } {2 88 11 88 11 2 } {59 88 12 88 12 0 } {0 89 3 89 3 0 d} {46 89 4 89 4 0 } {0 89 5 89 5 0 x} {46 89 6 89 6 0 } {0 89 7 89 8 0 z} {61 89 9 89 9 0 } {2 89 11 89 11 3 } {59 89 12 89 12 0 } {0 90 3 90 3 0 d} {46 90 4 90 4 0 } {0 90 5 90 5 0 y} {46 90 6 90 6 0 } {0 90 7 90 8 0 x} {61 90 9 90 9 0 } {2 90 11 90 11 4 } {59 90 12 90 12 0 } {0 91 3 91 3 0 d} {46 91 4 91 4 0 } {0 91 5 91 5 0 y} {46 91 6 91 6 0 } {0 91 7 91 8 0 y} {61 91 9 91 9 0 } {2 91 11 91 11 5 } {59 91 12 91 12 0 } {0 93 3 93 22 0 undefined_function_c} {40 93 23 93 23 0 } {0 93 24 93 24 0 d} {41 93 25 93 25 0 } {59 93 26 93 26 0 } {6 95 3 95 9 0 } {3 95 10 95 14 0 false} {59 95 15 95 15 0 } {125 96 2 96 2 0 } {4 98 2 98 10 0 } {0 98 11 98 14 0 main} {40 98 15 98 15 0 } {41 98 16 98 16 0 } {123 98 18 98 18 0 } {0 101 3 101 17 0 test_big_things} {40 101 18 101 18 0 } {41 101 19 101 19 0 } {59 101 20 101 20 0 } {125 102 2 102 2 0 }]
 AST_OP_DOT : 
 	AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
 	AST_VARIABLE_NAME : [ int_value = 0, string_value = length ]
@@ -43,6 +43,96 @@ AST_OP_DOT :
 	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
 	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
 z
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = x ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = x ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : [ int_value = 0, string_value = z ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : [ int_value = 0, string_value = z ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = x ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+z
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : [ int_value = 0, string_value = x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+x
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
+AST_OP_DOT : 
+	AST_OP_DOT : [ int_value = 0, string_value = y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+y
 AST_OP_DOT : 
 	AST_VARIABLE_NAME : [ int_value = 0, string_value = a ]
 	AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
@@ -256,6 +346,22 @@ AST_HEAD :
 				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = y ]
 				AST_DATATYPE : [ int_value = 0, string_value = Bytes16 ]
 	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = foo ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = baby ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_DATATYPE : 
+		AST_BODY : 
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = poo ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = baby ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+		AST_DATATYPE : 
+		AST_BODY : 
+	AST_FUNCTION_DEFINITION : 
 		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = undefined_function_a ]
 		AST_FUNCTION_DEFINITION_ARGS : 
 			AST_VARIABLE_DEFINITION : 
@@ -309,6 +415,45 @@ AST_HEAD :
 					AST_OP_DOT : [ int_value = 0, string_value = z ]
 						AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_c ]
 						AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+			AST_BODY_RESULT : 
+				AST_LITERAL : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = undefined_function_c ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = bytes_d ]
+				AST_DATATYPE : [ int_value = 0, string_value = Bytes40 ]
+		AST_DATATYPE : [ int_value = 0, string_value = bool ]
+		AST_BODY : 
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_LITERAL : [ int_value = 0, string_value = x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_OP_DOT : [ int_value = 0, string_value = x ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_OP_DOT : [ int_value = 0, string_value = y ]
+						AST_OP_DOT : [ int_value = 0, string_value = x ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+					AST_OP_DOT : [ int_value = 0, string_value = z ]
+						AST_OP_DOT : [ int_value = 0, string_value = x ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = z ]
+					AST_OP_DOT : [ int_value = 0, string_value = x ]
+						AST_OP_DOT : [ int_value = 0, string_value = y ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = x ]
+					AST_OP_DOT : [ int_value = 0, string_value = y ]
+						AST_OP_DOT : [ int_value = 0, string_value = y ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
 			AST_BODY_RESULT : 
 				AST_LITERAL : [ int_value = 0, string_value = false ]
 	AST_FUNCTION_DEFINITION : 
@@ -411,6 +556,10 @@ AST_HEAD :
 						AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
 					AST_VARIABLE_NAME : [ int_value = 0, string_value = y ]
 				AST_LITERAL : [ int_value = 5, string_value =  ]
+			AST_FUNCTION_CALL : 
+				AST_FUNCTION_CALL_NAME : [ int_value = 0, string_value = undefined_function_c ]
+				AST_FUNCTION_CALL_ARGS : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = d ]
 			AST_RETURN : 
 				AST_LITERAL : [ int_value = 0, string_value = false ]
 	AST_FUNCTION_DEFINITION : 
@@ -515,6 +664,22 @@ AST_HEAD :
 			AST_VARIABLE_DEFINITION(Bytes16) : 
 				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = y ]
 				AST_DATATYPE(Bytes16) : [ int_value = 0, string_value = Bytes16 ]
+	AST_FUNCTION_DEFINITION() : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = foo ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+			AST_VARIABLE_DEFINITION(int64) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = baby ]
+				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
+		AST_DATATYPE() : 
+		AST_BODY() : 
+	AST_FUNCTION_DEFINITION() : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = poo ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+			AST_VARIABLE_DEFINITION(uint32) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = baby ]
+				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
+		AST_DATATYPE() : 
+		AST_BODY() : 
 	AST_FUNCTION_DEFINITION(bool) : 
 		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = undefined_function_a ]
 		AST_FUNCTION_DEFINITION_ARGS() : 
@@ -569,6 +734,45 @@ AST_HEAD :
 					AST_OP_DOT(int64) : [ int_value = 0, string_value = z ]
 						AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = bytes_c ]
 						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = z ]
+			AST_BODY_RESULT(bool) : 
+				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
+	AST_FUNCTION_DEFINITION(bool) : 
+		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = undefined_function_c ]
+		AST_FUNCTION_DEFINITION_ARGS() : 
+			AST_VARIABLE_DEFINITION(Bytes40) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = bytes_d ]
+				AST_DATATYPE(Bytes40) : [ int_value = 0, string_value = Bytes40 ]
+		AST_DATATYPE(bool) : [ int_value = 0, string_value = bool ]
+		AST_BODY(bool) : 
+			AST_FUNCTION_CALL(int64) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = printf ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_LITERAL() : [ int_value = 0, string_value = x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+						AST_OP_DOT(Bytes24) : [ int_value = 0, string_value = x ]
+							AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+						AST_OP_DOT(Bytes24) : [ int_value = 0, string_value = x ]
+							AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = z ]
+						AST_OP_DOT(Bytes24) : [ int_value = 0, string_value = x ]
+							AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME(Bytes24) : [ int_value = 0, string_value = x ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = z ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = x ]
+						AST_OP_DOT(Bytes16) : [ int_value = 0, string_value = y ]
+							AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+					AST_OP_DOT(int64) : [ int_value = 0, string_value = y ]
+						AST_OP_DOT(Bytes16) : [ int_value = 0, string_value = y ]
+							AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = bytes_d ]
+							AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = y ]
+						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
 			AST_BODY_RESULT(bool) : 
 				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
 	AST_FUNCTION_DEFINITION(bool) : 
@@ -671,6 +875,10 @@ AST_HEAD :
 						AST_VARIABLE_NAME(Bytes16) : [ int_value = 0, string_value = y ]
 					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = y ]
 				AST_LITERAL(int64) : [ int_value = 5, string_value =  ]
+			AST_FUNCTION_CALL(bool) : 
+				AST_FUNCTION_CALL_NAME() : [ int_value = 0, string_value = undefined_function_c ]
+				AST_FUNCTION_CALL_ARGS() : 
+					AST_VARIABLE_NAME(Bytes40) : [ int_value = 0, string_value = d ]
 			AST_RETURN(bool) : 
 				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
 	AST_FUNCTION_DEFINITION() : 
@@ -692,16 +900,16 @@ codegen INFO: searching `pixel` inside struct of type `Line`
 offissetto : -3  :  -4  +  1
 left:  bytes_a
 codegen INFO: searching `x` inside struct of type `Bytes16`
-offissetto : -96  :  -96  +  0
+offissetto : -16  :  -16  +  0
 left:  bytes_a
 codegen INFO: searching `y` inside struct of type `Bytes16`
-offissetto : -88  :  -96  +  8
+offissetto : -8  :  -16  +  8
 left:  bytes_b
 codegen INFO: searching `x` inside struct of type `Bytes16`
-offissetto : -112  :  -112  +  0
+offissetto : -32  :  -32  +  0
 left:  bytes_b
 codegen INFO: searching `y` inside struct of type `Bytes16`
-offissetto : -104  :  -112  +  8
+offissetto : -24  :  -32  +  8
 left:  bytes_c
 codegen INFO: searching `x` inside struct of type `Bytes24`
 offissetto : -24  :  -24  +  0
@@ -711,6 +919,36 @@ offissetto : -16  :  -24  +  8
 left:  bytes_c
 codegen INFO: searching `z` inside struct of type `Bytes24`
 offissetto : -8  :  -24  +  16
+left:  bytes_d
+codegen INFO: searching `x` inside struct of type `Bytes40`
+offissetto : -40  :  -40  +  0
+left:  x
+codegen INFO: searching `x` inside struct of type `Bytes24`
+offissetto : -40  :  -40  +  0
+left:  bytes_d
+codegen INFO: searching `x` inside struct of type `Bytes40`
+offissetto : -40  :  -40  +  0
+left:  x
+codegen INFO: searching `y` inside struct of type `Bytes24`
+offissetto : -32  :  -40  +  8
+left:  bytes_d
+codegen INFO: searching `x` inside struct of type `Bytes40`
+offissetto : -40  :  -40  +  0
+left:  x
+codegen INFO: searching `z` inside struct of type `Bytes24`
+offissetto : -24  :  -40  +  16
+left:  bytes_d
+codegen INFO: searching `y` inside struct of type `Bytes40`
+offissetto : -16  :  -40  +  24
+left:  y
+codegen INFO: searching `x` inside struct of type `Bytes16`
+offissetto : -16  :  -16  +  0
+left:  bytes_d
+codegen INFO: searching `y` inside struct of type `Bytes40`
+offissetto : -16  :  -40  +  24
+left:  y
+codegen INFO: searching `y` inside struct of type `Bytes16`
+offissetto : -8  :  -16  +  8
 left:  a
 codegen INFO: searching `x` inside struct of type `Bytes16`
 offissetto : -16  :  -16  +  0
@@ -917,22 +1155,66 @@ ret
 
 
 
+.global foo
+foo:
+pushq %rbp
+movq %rsp, %rbp
+subq $96, %rsp
+
+pushq %rbx
+movabsq $0, %rbx
+
+movq %rbx, -88(%rbp, 1)
+popq %rbx
+
+
+movq %rdi, -88(%rbp, 1)
+
+
+
+
+._foo:
+movq %rbp, %rsp
+popq %rbp
+ret
+
+
+.global poo
+poo:
+pushq %rbp
+movq %rsp, %rbp
+subq $16, %rsp
+
+movl $0, -4(%rbp, 1)
+
+
+movl %edi, -4(%rbp, 1)
+
+
+
+
+._poo:
+movq %rbp, %rsp
+popq %rbp
+ret
+
+
 .global undefined_function_a
 undefined_function_a:
 pushq %rbp
 movq %rsp, %rbp
-subq $112, %rsp
+subq $32, %rsp
 
 
 
-movq %rsi, -88(%rbp, 1)
+movq %rsi, -8(%rbp, 1)
 
-movq %rdi, -96(%rbp, 1)
+movq %rdi, -16(%rbp, 1)
 
 
-movq %rcx, -104(%rbp, 1)
+movq %rcx, -24(%rbp, 1)
 
-movq %rdx, -112(%rbp, 1)
+movq %rdx, -32(%rbp, 1)
 
 
 
@@ -942,9 +1224,9 @@ movq %rdx, -112(%rbp, 1)
 
 movq $.L6, %rdi
 
-movq -96(%rbp, 1), %rsi
+movq -16(%rbp, 1), %rsi
 
-movq -88(%rbp, 1), %rdx
+movq -8(%rbp, 1), %rdx
 
 
 call printf
@@ -957,9 +1239,9 @@ movq %rax, %rbx
 
 movq $.L7, %rdi
 
-movq -112(%rbp, 1), %rsi
+movq -32(%rbp, 1), %rsi
 
-movq -104(%rbp, 1), %rdx
+movq -24(%rbp, 1), %rdx
 
 
 call printf
@@ -1029,6 +1311,79 @@ movb $0, %r12b
 movb %r12b, %al
 
 ._undefined_function_b:
+movq %rbp, %rsp
+popq %rbp
+ret
+
+
+.global undefined_function_c
+undefined_function_c:
+pushq %rbp
+movq %rsp, %rbp
+subq $48, %rsp
+
+
+movq 48(%rbp, 1), %rbx
+
+movq %rbx, -8(%rbp, 1)
+
+
+movq 40(%rbp, 1), %rbx
+
+movq %rbx, -16(%rbp, 1)
+
+
+
+movq 32(%rbp, 1), %rbx
+
+movq %rbx, -24(%rbp, 1)
+
+
+movq 24(%rbp, 1), %rbx
+
+movq %rbx, -32(%rbp, 1)
+
+
+movq 16(%rbp, 1), %rbx
+
+movq %rbx, -40(%rbp, 1)
+
+
+
+
+
+
+
+
+
+
+
+
+movq $.L9, %rdi
+
+movq -40(%rbp, 1), %rsi
+
+movq -32(%rbp, 1), %rdx
+
+movq -24(%rbp, 1), %rcx
+
+movq -16(%rbp, 1), %r8
+
+movq -8(%rbp, 1), %r9
+
+
+call printf
+
+movq %rax, %rbx
+
+
+movb $0, %r12b
+
+
+
+movb %r12b, %al
+
+._undefined_function_c:
 movq %rbp, %rsp
 popq %rbp
 ret
@@ -1124,7 +1479,7 @@ movb %al, -73(%rbp, 1)
 
 
 
-movq $.L9, %rdi
+movq $.L10, %rdi
 
 
 call printf
@@ -1241,10 +1596,59 @@ popq %rbx
 
 
 
-movb $0, -163(%rbp, 1)
+
+subq $32, %rsp
+movq %rsp, %rax
+
+pushq %rbx
+movq -90(%rbp, 1), %rbx
+
+movq %rbx, 32(%rax, 1)
+popq %rbx
 
 
-movb -163(%rbp, 1), %al
+pushq %rbx
+movq -98(%rbp, 1), %rbx
+
+movq %rbx, 24(%rax, 1)
+popq %rbx
+
+
+
+pushq %rbx
+movq -106(%rbp, 1), %rbx
+
+movq %rbx, 16(%rax, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -114(%rbp, 1), %rbx
+
+movq %rbx, 8(%rax, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -122(%rbp, 1), %rbx
+
+movq %rbx, 0(%rax, 1)
+popq %rbx
+
+
+
+
+
+call undefined_function_c
+addq $32, %rsp
+
+movb %al, -163(%rbp, 1)
+
+
+movb $0, -164(%rbp, 1)
+
+
+movb -164(%rbp, 1), %al
 
 jmp ._test_big_things
 
@@ -1364,6 +1768,25 @@ ret
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .L6: .string "x: %lld, y: %lld\n"
 
 
@@ -1431,6 +1854,7 @@ ret
 
 
 
+.L9: .string "x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n"
 
 
 
@@ -1467,7 +1891,55 @@ ret
 
 
 
-.L9: .string "\n\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L10: .string "\n\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

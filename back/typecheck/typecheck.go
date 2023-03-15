@@ -79,19 +79,22 @@ func TypeFromName(type_name string) datatype.DataType {
 
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
-	if ast.Type == front.AST_BODY 				    || 
+	if (ast.Type == front.AST_BODY &&
+	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)) || 
+	   ast.Type == front.AST_FUNCTION_DEFINITION    ||
 	   ast.Type == front.AST_HEAD 				    ||
 	   ast.Type == front.AST_STRUCT_DEFINITION_BODY {
 		if ast.Type == front.AST_BODY {
 			current_body_ast = ast
-			if ast.Flags & front.ASTO_BODY_FUNCTION != 0 {
-				current_function_body_ast = ast
-			}
 		}
 		symbol.SymbolScopeStackPush()
 	}
 	if ast.Type == front.AST_FUNCTION_DEFINITION {
 		current_function_ast = ast	
+	}
+	if (ast.Type == front.AST_BODY &&
+	   (ast.Flags & front.ASTO_BODY_FUNCTION != 0)) {
+		current_function_body_ast = ast
 	}
 
 	/*

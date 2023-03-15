@@ -34,6 +34,14 @@ struct Bytes40 {
 	:y Bytes16;
 }
 
+function foo(:baby int64) {
+
+}
+
+function poo(:baby uint32) {
+
+}
+
 function undefined_function_a(:bytes_a Bytes16, :bytes_b Bytes16) bool {
 	printf("x: %lld, y: %lld\n", bytes_a.x, bytes_a.y);
 	printf("x: %lld, y: %lld\n", bytes_b.x, bytes_b.y);
