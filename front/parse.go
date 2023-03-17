@@ -115,6 +115,53 @@ func (parser *Parser) ParseFunctionCall() (*Ast_Node) {
 	return function_call
 }
 
+func (parser *Parser) ParseStructLiteral() (*Ast_Node) {
+	struct_literal := new(Ast_Node)
+	struct_literal.Type = AST_STRUCT_LITERAL
+
+	{
+		struct_type := parser.ParseDataType()
+		if struct_type == nil {
+			return nil
+		}
+
+		struct_literal.AddChild(struct_type)
+	}
+	
+	{
+		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+
+	for !parser.CurrentIs(TOKEN_CLOSING_BRACE) {
+		exp := parser.ParseExpression()
+		if exp != nil {
+			struct_literal.AddChild(exp)
+		}
+
+		next, not_comma := parser.PopIf(TOKEN_COMMA)
+		if not_comma {
+			if next.Type != TOKEN_CLOSING_BRACE {
+				parseExpectErrorAt(next, "`,` or `}`")
+				return nil
+			}
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_CLOSING_BRACE)
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
+
+	return struct_literal
+}
+
 func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	curr, end := parser.Current()
 	if !end {
@@ -125,6 +172,7 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 					if !end {
 						switch next.Type {
 							case TOKEN_OPENING_PARENTHESES: return parser.ParseFunctionCall()
+							case TOKEN_OPENING_BRACE: return parser.ParseStructLiteral()
 							default: return parser.ParseVariableName()
 						}
 					}
@@ -834,6 +882,8 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 						} 
 						body.AddChild(exp)
 					}
+				} else {
+					return nil
 				}
 			}
 		}

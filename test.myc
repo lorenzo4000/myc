@@ -24,7 +24,7 @@ struct Bytes6 {
 }
 
 function print_bytes6(:bytes Bytes6) {
-	printf("x: %hu, y: %lu", bytes.x, bytes.y);
+	printf("x: %hu, y: %lu\n", bytes.x, bytes.y);
 }
 
 function test_struct_paddings() {
@@ -71,15 +71,13 @@ function test_big_things() {
 	:c Bytes16;
 	:b Bytes24;
 
-	a.x = 49;
-	a.y = 420;
-	
-	c.x = 2359;
-	c.y = 1248;
+	a = Bytes16{345, 420};
 	
 	b.x = 69;
 	b.y = 42;
 	b.z = 118;
+	
+	c = a;
 
 	undefined_function_a(a, c);
 	printf("\n\n");
@@ -88,11 +86,10 @@ function test_big_things() {
 	
 	:d Bytes40;
 
-	d.x.x = 1;
-	d.x.y = 2;
-	d.x.z = 3;
-	d.y.x = 4;
-	d.y.y = 5;
+	d = Bytes40{
+		Bytes24{34578, 283, 283},
+		Bytes16{23, 4}
+	};
 
 	undefined_function_c(d);
 }

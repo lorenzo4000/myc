@@ -692,7 +692,7 @@ func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
 	return res
 }
 
-func GEN_storestruct_from_registers(s []Register, d Memory_Reference) Codegen_Out {
+func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out {
 	var res Codegen_Out
 
 	struct_type := d.Type().(datatype_struct.StructType)
@@ -811,7 +811,7 @@ func GEN_function_params(args []Operand) Codegen_Out {
 				return res
 			}
 
-			res.Code.Appendln(GEN_storestruct_from_registers([]Register{reg_a, reg_b}, a.(Memory_Reference)).Code)
+			res.Code.Appendln(GEN_storestruct_from_operands([]Operand{reg_a, reg_b}, a.(Memory_Reference)).Code)
 
 			allocated_regs += 2
 		} else {

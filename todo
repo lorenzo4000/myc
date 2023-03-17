@@ -1,13 +1,12 @@
 .  String type (with literals and stuff)
--> Operator precedence 
 -> User defined types (structs...) {
       .  Struct allocation for scratch and arguments
-	  -> AST_OP_DOT `.` notation and field typechecking
-	  -> field padding (multiples of 4 Bytes)
+	  -> Struct copying assignment
+	  -> Struct literals
    }
 .  External functions (call C functions from myc)
-.  Misecellaneus types and other stuff
-.  implicit integer casts
+.  Misecellaneus types, operators and other stuff
+.  implicit integer literal casts
 
 
 

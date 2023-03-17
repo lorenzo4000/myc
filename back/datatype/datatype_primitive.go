@@ -81,6 +81,17 @@ func (typ PrimitiveType) Sign() bool {
 		   typ == TYPE_INT8
 }
 
+func (typ PrimitiveType) Equals(t DataType) bool {
+	if typ.Name() != t.Name() || typ.ByteSize() != t.ByteSize() {
+		return false
+	}
+	
+	switch t.(type) {
+		case PrimitiveType: return true
+	}
+	return false
+}
+
 func PrimitiveTypeFromName(typ string) PrimitiveType {
 	for i := 0; i < N_PRIMITIVE_TYPES; i++ {
 		if PrimitiveType(i).Name() == typ {
@@ -90,3 +101,4 @@ func PrimitiveTypeFromName(typ string) PrimitiveType {
 
 	return TYPE_UNDEFINED
 }
+

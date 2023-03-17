@@ -15,3 +15,14 @@ func (typ PointerType) BitSize() uint32 {
 func (typ PointerType) ByteSize() uint32 {
 	return PTR_SIZE
 }
+
+func (typ PointerType) Equals(t DataType) bool {
+	if typ.Name() != t.Name() || typ.ByteSize() != t.ByteSize() {
+		return false
+	}
+	
+	switch t.(type) {
+		case PointerType: return true
+	}
+	return false
+}

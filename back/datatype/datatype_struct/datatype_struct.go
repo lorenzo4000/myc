@@ -44,3 +44,27 @@ func (_struct StructType) FindField(name string) *StructField {
 	}
 	return nil
 }
+
+func (field StructField) Equals(f StructField) bool {
+	return field.Name == f.Name && field.Offset == f.Offset && field.Type.Equals(f.Type)
+}
+
+func (_struct StructType) Equals(_type datatype.DataType) bool {
+	if _struct.Name_ != _type.Name() || _struct.Size_ != _type.ByteSize() {
+		return false
+	}
+	
+	switch _type.(type) {
+		case StructType: 
+			struct_type := _type.(StructType)
+			if len(_struct.Fields) != len(struct_type.Fields) {
+				return false
+			}
+			for i, f := range(_struct.Fields) {
+				if !f.Equals(struct_type.Fields[i]) {
+					return false
+				}
+			}
+	}
+	return true
+}

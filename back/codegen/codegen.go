@@ -457,13 +457,8 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			right_value := children_out[1].Result
 			
 			if ast.Children[0].Type == front.AST_OP_DOT {
-				//_ = left_value.Type().(datatype_struct.StructType)
-
-				// if we don't crash, we can just move the thing into the thing
-				out.Code.Appendln(GEN_move(right_value, left_value).Code)
-
-
-
+				// we can just move the thing into the thing
+				out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
 			} else {
 				variable_name := ast.Children[0].Data[0].String_value
 				symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
@@ -472,7 +467,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 					return out
 				}
 
-				out.Code.Appendln(GEN_move(right_value, symbol.(Codegen_Symbol).Data.Reference()).Code)
+				out.Code.Appendln(GEN_very_generic_move(right_value, symbol.(Codegen_Symbol).Data.Reference()).Code)
 				out.Code.Appendln(children_out[0].Code)
 				
 				switch right_value.(type) {
@@ -805,6 +800,28 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			//out.Code.Appendln(GEN_move(field_allocation, result).Code)
 
 			out.Result = field_allocation
+		}
+		case front.AST_STRUCT_LITERAL: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			struct_type := ast.DataType.(datatype_struct.StructType)
+			struct_allocation := StackAllocate(struct_type).Reference()
+			
+			values := make([]Operand, len(children_out) - 1)
+			
+			if len(values) != len(struct_type.Fields) {
+				fmt.Println("codegen error: invalid number of fields for struct `%s` definition", struct_type.Name())
+				return out
+			}
+
+			for i, _ := range(values) {
+				values[i] = children_out[i + 1].Result
+			}
+
+			out.Code.Appendln(GEN_storestruct_from_operands(values, struct_allocation).Code)
+			out.Result = struct_allocation
 		}
 	}
 
