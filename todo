@@ -8,6 +8,10 @@
 .  Misecellaneus types, operators and other stuff
 .  implicit integer literal casts
 
+-> Command line options:
+	. Debug setting
+	. Options passed to gcc
+	...
 
 
 -> : wip
