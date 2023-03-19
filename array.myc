@@ -1,0 +1,6 @@
+function main() {
+	//:static_array [24]intasjfasj;
+	// :dynamic_array []int64;
+
+	:pointer *inasjfsajf;
+}

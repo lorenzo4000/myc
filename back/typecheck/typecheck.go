@@ -45,17 +45,17 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 		   value.Type == front.AST_OP_DOT
 }
 
-func TypeFromName(type_name string) datatype.DataType {
-	if len(type_name) <= 0 {
+func TypeFromData(type_data []front.Token) datatype.DataType {
+	if len(type_data) <= 0 {
 		return nil
 	}
 
-	if type_name[0] == '*' {
-		pointed_type := TypeFromName(type_name[1:])
+	if type_data[0].Type == '*' {
+		pointed_type := TypeFromData(type_data[1:])
 		return datatype.PointerType{pointed_type}
 	}
 
-	primitive_type := datatype.PrimitiveTypeFromName(type_name)
+	primitive_type := datatype.PrimitiveTypeFromName(type_data[0].String_value)
 	if primitive_type != datatype.TYPE_UNDEFINED {
 		return primitive_type
 	}
@@ -64,7 +64,7 @@ func TypeFromName(type_name string) datatype.DataType {
 	//	 User defined
 	//
 
-	sym, found := symbol.SymbolTableGetFromCurrentScope(type_name)
+	sym, found := symbol.SymbolTableGetFromCurrentScope(type_data[0].String_value)
 	if !found {
 		return datatype.TYPE_UNDEFINED
 	}
@@ -128,26 +128,22 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 	switch ast.Type {
 		case front.AST_DATATYPE: {
-			var type_name string
 			if ast.Data != nil && len(ast.Data) > 0 {
-				type_name = ast.Data[0].String_value
+				_type := TypeFromData(ast.Data)
+
+				if _type == nil { 
+					typeErrorAt(ast, "expected type")
+					return nil
+				}
+				if _type.Equals(datatype.TYPE_UNDEFINED) || _type.Equals(datatype.TYPE_NONE) {
+					typeErrorAt(ast, "type is undefined")
+					return nil
+				}
+
+				ast.DataType = _type
 			} else {
 				ast.DataType = datatype.TYPE_NONE
-				break
 			}
-
-			_type := TypeFromName(type_name)
-
-			if _type == nil { 
-				typeErrorAt(ast, "expected type")
-				return nil
-			}
-			if _type.Equals(datatype.TYPE_UNDEFINED) || _type.Equals(datatype.TYPE_NONE) {
-				typeErrorAt(ast, "type `%s` is undefined", type_name)
-				return nil
-			}
-
-			ast.DataType = _type
 		}
 		case front.AST_FUNCTION_DEFINITION: {
 			function_name := ast.Children[0].Data[0].String_value

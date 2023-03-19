@@ -1127,24 +1127,57 @@ func (parser *Parser) ParseReturn() (*Ast_Node) {
 	return ast_return
 }
 
-func (parser *Parser) GetDataType() string {
+func (parser *Parser) GetDataType() []Token {
 	cur, end := parser.Current()
 	if end {
-		return ""
+		return nil
 	}
 	
 	switch cur.Type {
 		case TOKEN_IDENTIFIER: 
 			parser.Pop()
-			return cur.String_value
+			return []Token{cur}
 		case TOKEN_MUL:
 			parser.Pop()
-			data_type := string(byte(cur.Type))
-			data_type += parser.GetDataType()
 
-			return data_type
+			typedata := []Token{cur}
+
+			next := parser.GetDataType()
+			if next == nil {
+				return nil
+			}
+			for _, n := range next {
+				typedata = append(typedata, n)
+			}	
+			return typedata
+		case TOKEN_OPENING_BRACKET:
+			parser.Pop()
+
+			size, expect := parser.PopIf(TOKEN_INT_LITERAL)
+			if expect {
+				parseExpectErrorAt(cur, "literal value after `[`")
+				return nil
+			}
+
+			cur, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+			if expect  {
+				parseExpectErrorAt(cur, "`]`")
+				return nil
+			}
+			
+			typedata := []Token{size}
+
+			next := parser.GetDataType()
+			if next == nil {
+				return nil
+			}
+			for _, n := range next {
+				typedata = append(typedata, n)
+			}	
+
+			return typedata
 		default:
-			return ""
+			return nil
 	}
 }
 
@@ -1153,14 +1186,11 @@ func (parser *Parser) ParseDataType() (*Ast_Node) {
 	datatype := new(Ast_Node)
 	datatype.Type = AST_DATATYPE
 
-	datatype.Data    = make([]Token, 1)
-
-	t := parser.GetDataType()
-	if len(t) <= 0 {
+	datatype.Data = parser.GetDataType()
+	if datatype.Data == nil {
 		return nil
 	}
 
-	datatype.Data[0].String_value = t
 	return datatype
 }
 
