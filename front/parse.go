@@ -1,6 +1,7 @@
 package front
 
 import "fmt"
+import "strconv"
 
 func parseErrorAt (token Token, err string, a ...any) {
 	formatted_error := fmt.Sprintf(err, a...)
@@ -1127,57 +1128,52 @@ func (parser *Parser) ParseReturn() (*Ast_Node) {
 	return ast_return
 }
 
-func (parser *Parser) GetDataType() []Token {
+func (parser *Parser) GetDataType() string {
 	cur, end := parser.Current()
 	if end {
-		return nil
+		return ""
 	}
 	
 	switch cur.Type {
 		case TOKEN_IDENTIFIER: 
 			parser.Pop()
-			return []Token{cur}
+			return cur.String_value
 		case TOKEN_MUL:
 			parser.Pop()
+			data_type := string(byte(cur.Type))
+			data_type += parser.GetDataType()
 
-			typedata := []Token{cur}
-
-			next := parser.GetDataType()
-			if next == nil {
-				return nil
-			}
-			for _, n := range next {
-				typedata = append(typedata, n)
-			}	
-			return typedata
-		case TOKEN_OPENING_BRACKET:
+			return data_type
+		case '[':
 			parser.Pop()
 
-			size, expect := parser.PopIf(TOKEN_INT_LITERAL)
+			data_type := "["
+
+			next, end := parser.Current()
+			if end {
+				parseExpectErrorAt(next, "int literal or `]`, after `[`")
+				return ""
+			}
+
+			if next.Type == TOKEN_INT_LITERAL {
+				data_type += strconv.FormatInt(next.Int_value, 10)
+			} else
+			if next.Type != ']' {
+				parseExpectErrorAt(next, "int literal or `]`, after `[`")
+				return ""
+			}
+
+			closing, expect := parser.PopIf(']')
 			if expect {
-				parseExpectErrorAt(cur, "literal value after `[`")
-				return nil
+				parseExpectErrorAt(closing, "`]`")
+				return ""
 			}
+			data_type += "]"
+			data_type += parser.GetDataType()
 
-			cur, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
-			if expect  {
-				parseExpectErrorAt(cur, "`]`")
-				return nil
-			}
-			
-			typedata := []Token{size}
-
-			next := parser.GetDataType()
-			if next == nil {
-				return nil
-			}
-			for _, n := range next {
-				typedata = append(typedata, n)
-			}	
-
-			return typedata
+			return data_type
 		default:
-			return nil
+			return ""
 	}
 }
 
@@ -1186,11 +1182,14 @@ func (parser *Parser) ParseDataType() (*Ast_Node) {
 	datatype := new(Ast_Node)
 	datatype.Type = AST_DATATYPE
 
-	datatype.Data = parser.GetDataType()
-	if datatype.Data == nil {
+	datatype.Data    = make([]Token, 1)
+
+	t := parser.GetDataType()
+	if len(t) <= 0 {
 		return nil
 	}
 
+	datatype.Data[0].String_value = t
 	return datatype
 }
 

@@ -2,17 +2,22 @@ package typecheck
 
 import (
 	"fmt"
+	"strconv"
 
 	"mycgo/front"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/datatype/datatype_array"
 	"mycgo/back/symbol"
 )
 
 func typeErrorAt (ast *front.Ast_Node, err string, a ...any) {
 	formatted_error := fmt.Sprintf(err, a...)
 
-	first_token := ast.FindFirstToken()
+	var first_token *front.Token = nil
+	if ast != nil {
+		first_token = ast.FindFirstToken()
+	}
 
 	if first_token != nil {
 		line := first_token.L0
@@ -45,17 +50,48 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 		   value.Type == front.AST_OP_DOT
 }
 
-func TypeFromData(type_data []front.Token) datatype.DataType {
-	if len(type_data) <= 0 {
+func TypeFromName(type_name string) datatype.DataType {
+	if len(type_name) <= 0 {
 		return nil
 	}
 
-	if type_data[0].Type == '*' {
-		pointed_type := TypeFromData(type_data[1:])
+	if type_name[0] == '*' {
+		pointed_type_name := type_name[1:]
+		pointed_type := TypeFromName(pointed_type_name)
+
+		if pointed_type == nil || pointed_type.Equals(datatype.TYPE_UNDEFINED) || pointed_type.Equals(datatype.TYPE_NONE) {
+			return pointed_type
+		}
+
 		return datatype.PointerType{pointed_type}
 	}
 
-	primitive_type := datatype.PrimitiveTypeFromName(type_data[0].String_value)
+	if type_name[0] == '[' {
+		size_literal := ""
+
+		i := 1
+		for type_name[i] != ']' {
+			size_literal += string(type_name[i])
+			i++
+		}
+
+		type_of_array_name := type_name[i:]
+		type_of_array := TypeFromName(type_of_array_name)
+
+		if len(size_literal) <= 0 {
+			return datatype_array.NewDynamicArrayType(type_name, type_of_array)
+		} else {
+			_, err := strconv.ParseInt(size_literal, 0, 64)
+			if err != nil {
+				fmt.Println(err)
+				return nil
+			}
+			
+			//TODO: static array stuff
+		}
+	}
+
+	primitive_type := datatype.PrimitiveTypeFromName(type_name)
 	if primitive_type != datatype.TYPE_UNDEFINED {
 		return primitive_type
 	}
@@ -64,7 +100,7 @@ func TypeFromData(type_data []front.Token) datatype.DataType {
 	//	 User defined
 	//
 
-	sym, found := symbol.SymbolTableGetFromCurrentScope(type_data[0].String_value)
+	sym, found := symbol.SymbolTableGetFromCurrentScope(type_name)
 	if !found {
 		return datatype.TYPE_UNDEFINED
 	}
@@ -128,22 +164,26 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 	switch ast.Type {
 		case front.AST_DATATYPE: {
+			var type_name string
 			if ast.Data != nil && len(ast.Data) > 0 {
-				_type := TypeFromData(ast.Data)
-
-				if _type == nil { 
-					typeErrorAt(ast, "expected type")
-					return nil
-				}
-				if _type.Equals(datatype.TYPE_UNDEFINED) || _type.Equals(datatype.TYPE_NONE) {
-					typeErrorAt(ast, "type is undefined")
-					return nil
-				}
-
-				ast.DataType = _type
+				type_name = ast.Data[0].String_value
 			} else {
 				ast.DataType = datatype.TYPE_NONE
+				break
 			}
+
+			_type := TypeFromName(type_name)
+
+			if _type == nil { 
+				typeErrorAt(ast, "expected type")
+				return nil
+			}
+			if _type.Equals(datatype.TYPE_UNDEFINED) || _type.Equals(datatype.TYPE_NONE) {
+				typeErrorAt(ast, "type `%s` is undefined", type_name)
+				return nil
+			}
+
+			ast.DataType = _type
 		}
 		case front.AST_FUNCTION_DEFINITION: {
 			function_name := ast.Children[0].Data[0].String_value
