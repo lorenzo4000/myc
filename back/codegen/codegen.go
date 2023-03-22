@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/datatype/datatype_array"
+
 	"mycgo/back/typecheck"
 	"mycgo/back/symbol"
 )	
@@ -65,6 +67,50 @@ var current_function_ast *front.Ast_Node
 
 var current_dot_scope symbol.Symbol_Scope_Id = -1
 
+func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struct.StructType {
+	symbol.SymbolScopeStackPush()
+
+	// declare fields in this scope, this feels hackish
+	symbol.SymbolTableInsertInCurrentScope(
+		"data", 
+		Codegen_Symbol{
+			datatype.PointerType{ _type },
+			Stack_Region{},
+		},
+	)
+	symbol.SymbolTableInsertInCurrentScope(
+		"len", 
+		Codegen_Symbol{
+			datatype.TYPE_UINT64,
+			Stack_Region{},
+		},
+	)
+
+	array_type_scope := symbol.SymbolScopeStackCurrent()
+	symbol.SymbolScopeStackPop()
+
+	return datatype_struct.StructType {
+		name,
+		datatype.PTR_SIZE + 64,
+
+		array_type_scope,
+		[]datatype_struct.StructField {
+			datatype_struct.StructField{
+				"data",
+				datatype.PointerType{ _type },
+
+				0,
+			},
+			datatype_struct.StructField{
+				"len",
+				datatype.TYPE_UINT64,
+
+				datatype.PTR_SIZE,
+			},
+		},
+	}
+}
+
 func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 	if ast.Type == front.AST_FUNCTION_DEFINITION {
 		current_function_ast = ast
@@ -99,6 +145,12 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 			symbol.SymbolScopeStackPop()
 			
+		case front.AST_DATATYPE:
+			if datatype_array.IsArrayType(ast.DataType) {
+				_type := ast.DataType.(datatype_struct.StructType)
+				new_dynamic_array_type(_type.Name(), _type.Fields[0].Type.(datatype.PointerType).Pointed_type)
+			}
+
 		case front.AST_FUNCTION_DEFINITION:
 			function_name := ast.Children[0].Data[0].String_value
 			
@@ -611,11 +663,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			value := ast.Children[0]
 			
-			if value.Type != front.AST_EXPRESSION || !typecheck.ExpressionIsLeftValue(value) {
+			if !typecheck.ExpressionIsLeftValue(value) {
 				goto reference_error
 			}
-
-			value = value.Children[0]
 
 			switch value.Type {
 				case front.AST_VARIABLE_NAME:

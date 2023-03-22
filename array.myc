@@ -1,6 +1,9 @@
 function main() {
-	//:static_array [0x34]int64;
 	:dynamic_array []int64;
+	dynamic_array.len = [uint64]49;
+	
+	printf("%d\n", dynamic_array.len);
 
-	//:pointer *int64;
+	// indexing
+	dynamic_array[2] = 32;
 }

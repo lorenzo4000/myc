@@ -355,6 +355,45 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		case TOKEN_OR:    operator.Type = AST_OP_OR
 
 		case TOKEN_DOT:   operator.Type = AST_OP_DOT
+		case TOKEN_OPENING_BRACKET: {
+			parser.Pop()
+			index_expression := parser.ParseExpression()
+			if index_expression ==  nil {
+				return nil
+			}
+
+			index_expression = fix_precedence(index_expression)
+			if index_expression ==  nil {
+				return nil
+			}
+
+			cur, expect := parser.PopIf(']')
+			if expect {
+				parseExpectErrorAt(cur, "`]`")
+				return nil
+			}
+		
+			right_op := parser.ParseOperator()
+			if right_op == nil {
+				return index_expression
+			}
+			
+			right_exp := parser.ParseExpression()
+			if right_exp == nil {
+				return nil
+			}
+
+			right_op.AddChild(index_expression)
+			right_op.AddChild(right_exp)
+
+			right_op = fix_precedence(right_op)
+
+			operator.Type = AST_OP_INDEX
+			operator.NewChild(AST_EXPRESSION)
+			operator.AddChild(right_op)
+
+			return operator
+		}
 		default:          return nil
 	}
 	parser.Pop()
@@ -396,6 +435,7 @@ func precedence(ast *Ast_Node) uint8 {
 		case AST_LITERAL:    return 0xFF
 		
 		case AST_OP_DOT:     return 6
+		case AST_OP_INDEX:     return 6
 
 		case AST_OP_REFERENCE:   return 5
 		case AST_OP_DEREFERENCE: return 5
@@ -528,14 +568,22 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 		}
 		return fixed_expression
 	}
-
+	
+	if operator.Type == AST_OP_INDEX {
+		operator.Children[0] = left
+	
+		fixed_expression := fix_precedence(operator)
+		return fixed_expression
+	}
+	
 	right := parser.ParseExpression()
 	if right == nil {
 		return nil
 	}
-	
+
 	operator.AddChild(left)
 	operator.AddChild(right)
+
 
 	fixed_expression := fix_precedence(operator)
 	

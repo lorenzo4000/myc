@@ -78,6 +78,8 @@ const (
     AST_OP_BNOT = Ast_Type(iota)
 
 	AST_OP_DOT = Ast_Type(iota)
+	
+	AST_OP_INDEX = Ast_Type(iota)
 
 	AST_OP_REFERENCE = Ast_Type(iota)
 	AST_OP_DEREFERENCE = Ast_Type(iota)
@@ -155,6 +157,8 @@ var ast_type_str = [N_AST]string {
     "AST_OP_BNOT",
 
 	"AST_OP_DOT",
+	
+	"AST_OP_INDEX",
 
 	"AST_OP_REFERENCE",
 	"AST_OP_DEREFERENCE",
