@@ -7,7 +7,7 @@ import (
 	"mycgo/front"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
-	//"mycgo/back/datatype/datatype_array"
+	"mycgo/back/datatype/datatype_array"
 	"mycgo/back/symbol"
 )
 
@@ -752,6 +752,16 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 
 			ast.DataType = struct_type
+		}
+		case front.AST_OP_INDEX: {
+			left := ast.Children[0]
+
+			if !datatype_array.IsArrayType(left.DataType) {
+				typeErrorAt(ast, "left value in indexing is not an array")
+				return nil
+			}
+
+			ast.DataType = datatype_array.ArrayDataType(left.DataType)
 		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED

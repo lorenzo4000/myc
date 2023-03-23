@@ -356,6 +356,9 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 
 		case TOKEN_DOT:   operator.Type = AST_OP_DOT
 		case TOKEN_OPENING_BRACKET: {
+			/*
+			  TODO: this is UUUUGGLLLYY. Find a nicer way
+			*/
 			parser.Pop()
 			index_expression := parser.ParseExpression()
 			if index_expression ==  nil {
@@ -375,7 +378,11 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		
 			right_op := parser.ParseOperator()
 			if right_op == nil {
-				return index_expression
+				operator.Type = AST_OP_INDEX
+				operator.NewChild(AST_EXPRESSION)
+				operator.AddChild(index_expression)
+				
+				return operator
 			}
 			
 			right_exp := parser.ParseExpression()

@@ -2,6 +2,7 @@ package datatype_array
 
 import (
 	"mycgo/back/datatype"
+	"mycgo/back/datatype/datatype_struct"
 )
 
 //type DynamicArrayType datatype_struct.StructType
@@ -33,3 +34,14 @@ func IsArrayType(_type datatype.DataType) bool {
 	return _type.Name()[0] == '[' // lmao
 }
 
+func ArrayDataType(_type datatype.DataType) datatype.DataType {
+	if !IsArrayType(_type) {
+		return nil
+	}
+
+	_type_struct := _type.(datatype_struct.StructType)
+	array_data := _type_struct.Fields[0].Type.(datatype.PointerType)
+	array_data_pointed_type := array_data.Pointed_type
+
+	return array_data_pointed_type
+}

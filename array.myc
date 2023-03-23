@@ -4,6 +4,9 @@ function main() {
 	
 	printf("%d\n", dynamic_array.len);
 
-	// indexing
-	dynamic_array[2] = 32;
+	:a int64 = 43;
+	dynamic_array.data = &a;
+
+	// indexing (with runtime boundary checking. maybe at some point in the future i will implement this...)
+	printf("%d\n", dynamic_array[0]);// = 32;
 }

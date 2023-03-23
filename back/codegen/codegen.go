@@ -508,8 +508,9 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			left_value := children_out[0].Result
 			right_value := children_out[1].Result
 			
-			if ast.Children[0].Type == front.AST_OP_DOT {
+			if ast.Children[0].Type == front.AST_OP_DOT || ast.Children[0].Type == front.AST_OP_INDEX {
 				// we can just move the thing into the thing
+				out.Code.Appendln(children_out[0].Code)
 				out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
 			} else {
 				variable_name := ast.Children[0].Data[0].String_value
@@ -872,6 +873,28 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 			out.Code.Appendln(GEN_storestruct_from_operands(values, struct_allocation).Code)
 			out.Result = struct_allocation
+		}
+		case front.AST_OP_INDEX: {
+			for _, child_out := range(children_out) {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			array := children_out[0].Result
+			index := children_out[1].Result
+	
+			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
+			switch index.(type) {
+				default:
+					out.Code.Appendln(GEN_move(index, rax).Code)
+					index = rax
+				case Register:
+					break
+			}
+
+			array_index := GEN_array_index(array.(Memory_Reference), index.(Register), ast)
+
+			out.Code.Appendln(array_index.Code)
+			out.Result = array_index.Result
 		}
 	}
 
