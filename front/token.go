@@ -12,7 +12,7 @@ const (
 	TOKEN_INT_LITERAL	  	  = iota
 	TOKEN_BOOL_LITERAL	  	  = iota
 
-	TOKEN_DIRECTIVE    		  = iota // used by directives.go, ignored by the parser
+	TOKEN_DIRECTIVE    		  = iota // used by pre-processor, ignored by the parser
 	
 	// keywords
 	TOKEN_KEYWORD_FUNCTION    = iota

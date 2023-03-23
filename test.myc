@@ -1,10 +1,5 @@
 @import "utils.myc"
 
-@@
-	import "stuff1.myc"
-	import "stuff2.myc"
-@@
-
 
 
 function print_line(:line Line) bool {

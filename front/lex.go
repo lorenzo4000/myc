@@ -75,7 +75,7 @@ func Lex(src string) ([]Token) {
 				for src[index] != '@' || src[index+1] != '@' {
 					if src[index] == '\n' {
 						l1++
-						c1 = 0
+						c1 = 1
 					}
 
 					if index+1 >= len(src) {
@@ -100,7 +100,7 @@ func Lex(src string) ([]Token) {
 				for index < len(src) {
 					if src[index] == '\n' {
 						l1++
-						c1 = 0
+						c1 = 1
 
 						index++
 						break

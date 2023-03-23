@@ -33,7 +33,15 @@ func main() {
 	}
 
 	fmt.Println(tokens)
+
+	tokens = front.PrePar(tokens)
+	if tokens == nil {
+		fmt.Println("Preprocessing Errors: aborting...")
+		return 
+	}
 	
+	fmt.Println(tokens)
+
 	parser := front.Parser{tokens, 0}
 	ast := parser.Parse()
 	if ast == nil {
