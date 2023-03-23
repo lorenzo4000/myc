@@ -1,7 +1,11 @@
-struct Line {
-	:length uint8;
-	:pixel  uint8;
-}
+@import "utils.myc"
+
+@@
+	import "stuff1.myc"
+	import "stuff2.myc"
+@@
+
+
 
 function print_line(:line Line) bool {
 	if line.length < [uint8]0 {

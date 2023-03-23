@@ -11,6 +11,8 @@ const (
 	TOKEN_STRING_LITERAL	  = iota
 	TOKEN_INT_LITERAL	  	  = iota
 	TOKEN_BOOL_LITERAL	  	  = iota
+
+	TOKEN_DIRECTIVE    		  = iota // used by directives.go, ignored by the parser
 	
 	// keywords
 	TOKEN_KEYWORD_FUNCTION    = iota
@@ -146,6 +148,14 @@ func GetToken(str string, l0 int32, l1 int32, c0 int32, c1 int32) (Token, error)
 
 	if str[0] == '"' {
 		return Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, str[1:len(str) - 1]}, nil
+	}
+	if str[0] == '@' {
+
+		if len(str) <= 1 || str[1] != '@' {
+			return Token{TOKEN_DIRECTIVE, l0, c0, l1, c1, 0, str[1:]}, nil
+		} else {
+			return Token{TOKEN_DIRECTIVE, l0, c0, l1, c1, 0, str[2:len(str) - 2]}, nil
+		}
 	}
 	if str[0] >= 48 && str[0] <= 57 {
 		i, err := strconv.ParseInt(str, 0, 64)

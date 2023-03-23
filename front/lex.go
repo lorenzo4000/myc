@@ -14,7 +14,7 @@ func Lex(src string) ([]Token) {
 		next_token_str := ""
 		l0 := l1
 		c0 := c1
-		for index < len(src) && src[index] != ' ' && src[index] != '\t' && src[index] != '"'  {
+		for index < len(src) && src[index] != ' ' && src[index] != '\t' && src[index] != '"' && src[index] != '@' {
 			if src[index] == '\n' {
 				l1 += 1
 				c1  = 1
@@ -55,6 +55,60 @@ func Lex(src string) ([]Token) {
 				fmt.Printf("%d:%d: lexical error: Expected `\"` before end of input\n", l1, c1)	
 			} else {
 				next_token_str += "\""	// close literal	
+			}
+		}
+
+		// directives
+		if index < len(src) && src[index] == '@' {
+			if index+1 >= len(src) {
+				fmt.Printf("%d:%d: lexical error: Unexpected end of input\n", l1, c1)	
+			} else
+			if src[index+1] == '@' {
+				next_token_str += "@@" // start directive
+
+				c1 += 2
+				index += 2
+				if index+1 >= len(src) {
+					fmt.Printf("%d:%d: lexical error: Expected `@@` before end of input\n", l1, c1)	
+					break;
+				}
+				for src[index] != '@' || src[index+1] != '@' {
+					if src[index] == '\n' {
+						l1++
+						c1 = 0
+					}
+
+					if index+1 >= len(src) {
+						fmt.Printf("%d:%d: lexical error: Expected `@@` before end of input\n", l1, c1)	
+						break;
+					}
+				
+					next_token_str += string(src[index])
+					c1++
+					index++
+				}
+
+				next_token_str += "@@" // end directive
+				
+				c1 += 2
+				index += 2
+			} else {
+				next_token_str += "@" // start directive
+
+				c1++
+				index++
+				for index < len(src) {
+					if src[index] == '\n' {
+						l1++
+						c1 = 0
+
+						index++
+						break
+					}
+					next_token_str += string(src[index])
+					c1++
+					index++
+				}
 			}
 		}
 

@@ -1237,6 +1237,10 @@ func (parser *Parser) Parse() (*Ast_Node) {
 					return nil
 				}
 			}
+			case TOKEN_DIRECTIVE: {
+				// skip
+				parser.Pop()
+			}
 			default: {
 				parseExpectErrorAt(current, "declaration")
 				return head
