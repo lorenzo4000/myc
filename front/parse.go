@@ -1026,8 +1026,22 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 		}
 	}
 	
+	function_definition.NewChild(AST_DATATYPE)
+
+	{		
+		next, expect := parser.PopIf(TOKEN_KEYWORD_EXTERNAL)
+		if !expect {
+			function_definition.Flags |= ASTO_FUNCTION_EXTERNAL
+			next, expect = parser.PopIf(TOKEN_SEMICOLON)
+			if expect {
+				parseExpectErrorAt(next, "`;`")
+				return nil
+			}
+			return function_definition
+		}
+	}
+	
 	{
-		function_definition.NewChild(AST_DATATYPE)
 
 		return_type := parser.ParseDataType()
 		next, _ := parser.Current()
