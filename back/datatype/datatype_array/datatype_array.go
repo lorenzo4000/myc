@@ -24,18 +24,8 @@ func (_type DynamicArrayType) Equals(t datatype.DataType) bool {
 	return datatype_struct.StructType(_type).Equals(t)
 }
 */
-
-func IsArrayType(_type datatype.DataType) bool {
-	name := _type.Name()
-	if len(name) <= 0 {
-		return false
-	}
-
-	return _type.Name()[0] == '[' // lmao
-}
-
 func ArrayDataType(_type datatype.DataType) datatype.DataType {
-	if !IsArrayType(_type) {
+	if !datatype.IsArrayType(_type) {
 		return nil
 	}
 

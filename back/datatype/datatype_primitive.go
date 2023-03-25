@@ -18,6 +18,9 @@ const (
 
 	TYPE_BOOL  = PrimitiveType(iota)
 
+	// works only as pointer and array! It's basically C's void type~ ^^;
+	TYPE_GENERIC  = PrimitiveType(iota)
+
 	N_PRIMITIVE_TYPES = int(iota)
 )
 
@@ -34,6 +37,8 @@ func (typ PrimitiveType) Name() string {
 		case TYPE_UINT8:  return "uint8"
 
 		case TYPE_BOOL: return "bool"
+		
+		case TYPE_GENERIC: return "?"
 	}
 
 	return ""
@@ -52,6 +57,8 @@ func (typ PrimitiveType) BitSize() uint32 {
 		case TYPE_UINT8: return 8
 		
 		case TYPE_BOOL: return 8
+		
+		case TYPE_GENERIC: return 8
 	}
 	
 	return 0

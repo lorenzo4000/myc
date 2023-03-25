@@ -1,5 +1,9 @@
-function allocate(:bytes uint64) []uint8 {
-	:array []uint8;
+function malloc() *? external;
+
+function allocate(:bytes uint64) []? {
+	:array []?;
 	array.data = malloc(bytes);
 	array.len = bytes;
+
+	return array;
 }

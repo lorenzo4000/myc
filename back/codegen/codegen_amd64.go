@@ -103,7 +103,7 @@ func (reg RegisterClass) GetRegister(typ datatype.DataType) (Register, bool) {
 						 r.Datatype = typ
 				case 16: r = reg.register_from_sub(REG_SUB_W)
 						 r.Datatype = typ
-				case 8:  return Register{}, true
+				default: return Register{}, true
 			}
 		default:
 			switch bit_size {
@@ -115,6 +115,7 @@ func (reg RegisterClass) GetRegister(typ datatype.DataType) (Register, bool) {
 						 r.Datatype = typ
 				case 8:  r = reg.register_from_sub(REG_SUB_B)
 						 r.Datatype = typ
+				default: return Register{}, true
 			}
 	}
 
@@ -504,8 +505,53 @@ func Allocate_For_Scratchy(_type datatype.DataType) Operand {
 
 // === GEN_* ===
 
-func GEN_function_prologue() Codegen_Out {
+func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
+	out := Codegen_Out{}
+	function_name := function.Children[0].Data[0].String_value
+
+	if v != nil {
+		return_type := v.Type()
+		
+		if return_type.ByteSize() <= 8 {
+			return_reg, err := RETURN_REGISTER.GetRegister(return_type)
+			if err {
+				fmt.Println("codegen error: could not find return register for type `" + return_type.Name() + "`")
+			}
+
+			out.Code.Appendln(GEN_very_generic_move(v, return_reg).Code)
+		} else
+		if return_type.ByteSize() <= 16 {
+			rax, err := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+			if err {
+				fmt.Println("codegen error: could not find return register 1 for type `" + return_type.Name() + "`")
+			}
+			rdx, err := REGISTER_RDX.GetRegister(datatype.TYPE_UINT64)
+			if err {
+				fmt.Println("codegen error: could not find return register 2 for type `" + return_type.Name() + "`")
+			}
+
+			return_regs := []Register{rdx, rax}
+			out.Code.Appendln(GEN_loadstruct(v.(Memory_Reference), return_regs).Code)
+
+		}
+	}
+			
+	function_epilogue := LabelGet("._" + function_name)
+	out.Code.Appendln(GEN_jump(function_epilogue).Code)
+
+	return out
+}
+
+func GEN_function_prologue(f *front.Ast_Node) Codegen_Out {
 	res := Codegen_Out{}
+	
+	function_name := f.Children[0].Data[0].String_value
+			
+	name := LabelGet(function_name)
+	res.Code.TextAppendSln(Instruction(".global", name))
+	res.Code.TextAppendSln(name.Text() + ":")
+			
+
 	rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_INT64)
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
 	res.Code.TextAppendSln((ii("pushq", rbp)))
@@ -519,8 +565,41 @@ func GEN_function_prologue() Codegen_Out {
 	return res
 }
 
-func GEN_function_epilogue() Codegen_Out {
+func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out {
 	res := Codegen_Out{}
+
+	function_name := ast.Children[0].Data[0].String_value
+
+	if body_result != nil {
+		body_type := ast.Children[3].DataType
+
+		println("epilogue ", body_type)
+		if body_type.ByteSize() <= 8 {
+			return_reg, err := RETURN_REGISTER.GetRegister(body_type)
+			if err {
+				fmt.Println("codegen error: could not find return register for type `" + body_type.Name() + "`")
+			}
+
+			res.Code.Appendln(GEN_very_generic_move(body_result, return_reg).Code)
+		} else
+		if body_type.ByteSize() <= 16 {
+			rax, err := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+			if err {
+				fmt.Println("codegen error: could not find return register 1 for type `" + body_type.Name() + "`")
+			}
+			rdx, err := REGISTER_RDX.GetRegister(datatype.TYPE_UINT64)
+			if err {
+				fmt.Println("codegen error: could not find return register 2 for type `" + body_type.Name() + "`")
+			}
+			
+			return_regs := []Register{rdx, rax}
+			res.Code.Appendln(GEN_loadstruct(body_result.(Memory_Reference), return_regs).Code)
+		}
+	}
+
+	function_epilogue := "._" + function_name
+	res.Code.TextAppendSln(function_epilogue + ":")
+
 
 	rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_INT64)
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
@@ -933,6 +1012,49 @@ func GEN_call(f *front.Ast_Node) Codegen_Out {
 	arguments_in_stack := StackDeallocateCurrentRegion()
 	if arguments_in_stack != nil {
 		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(arguments_in_stack.reserved), 10}, rsp))
+	}
+			
+	if f.DataType != nil 				 &&
+	   f.DataType != datatype.TYPE_NONE  &&
+	   f.DataType != datatype.TYPE_UNDEFINED {
+		var result Operand
+
+		println(f.DataType.Name())
+		println(f.DataType.ByteSize())
+		if f.DataType.ByteSize() <= 8 {
+			reg, full := RegisterScratchAllocate(f.DataType)
+			if full {
+				result = StackAllocate(f.DataType).Reference()
+			} else {
+				result = reg
+			}
+			
+			return_reg, err := REGISTER_RAX.GetRegister(f.DataType)
+			if err {
+				fmt.Println("codegen error: could not find return register for type `" + f.DataType.Name() + "`")
+			}
+
+			res.Code.Appendln(GEN_very_generic_move(return_reg, result).Code)
+		} else
+		if f.DataType.ByteSize() <= 16 {
+			result = StackAllocate(f.DataType).Reference()
+			
+			rax, err := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+			if err {
+				fmt.Println("codegen error: could not find return register 1 for type `" + f.DataType.Name() + "`")
+			}
+			rdx, err := REGISTER_RDX.GetRegister(datatype.TYPE_UINT64)
+			if err {
+				fmt.Println("codegen error: could not find return register 2 for type `" + f.DataType.Name() + "`")
+			}
+
+			return_regs := []Operand{rax, rdx}
+			res.Code.Appendln(GEN_storestruct_from_operands(return_regs, result.(Memory_Reference)).Code)
+		}
+
+		res.Result = result
+	} else {
+		res.Result = nil
 	}
 
 	return res

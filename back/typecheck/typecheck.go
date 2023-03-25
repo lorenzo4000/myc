@@ -134,7 +134,7 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 
 	return datatype_struct.StructType {
 		name,
-		datatype.PTR_SIZE + 64,
+		datatype.PTR_SIZE + 8,
 
 		array_type_scope,
 		[]datatype_struct.StructField {
@@ -223,6 +223,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			if _type.Equals(datatype.TYPE_UNDEFINED) || _type.Equals(datatype.TYPE_NONE) {
 				typeErrorAt(ast, "type `%s` is undefined", type_name)
+				return nil
+			}
+			if _type.Equals(datatype.TYPE_GENERIC) {
+				typeErrorAt(ast, "`%s` can only be used as pointer or array type", type_name)
 				return nil
 			}
 
@@ -762,7 +766,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_INDEX: {
 			left := ast.Children[0]
 
-			if !datatype_array.IsArrayType(left.DataType) {
+			if !datatype.IsArrayType(left.DataType) {
 				typeErrorAt(ast, "left value in indexing is not an array")
 				return nil
 			}

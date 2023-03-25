@@ -1,5 +1,7 @@
 @import "utils.myc"
 
+@import "lib/c/stdio.myc"
+
 
 
 function print_line(:line Line) bool {
@@ -94,36 +96,13 @@ function test_big_things() {
 }
 
 function main() {	
-	/*
-	:CAP int64 = 100 / 2;
-
-	:INCR int64 = 2;
-	
-	:x int64 = 0;
-	:sing int64 = 1;
-
-	while true {
- 		if sing > 0 {
-			x = x + INCR;
-		} else {
-			x = x - INCR;
-		}
-		if x >= CAP {
-			sing = 0;
-		}
-		if x <= 0 {
-			sing = 1;
-		}
-
-		:line Line;
-		line.length = [uint8]x;
-		line.pixel  = [uint8]65;
-		if print_line(line) != false {
-			printf("error: negative length for the line is illegal\n");
-			return;
-		}
+	:line Line;
+	line.length = [uint8]255;
+	line.pixel  = [uint8]65;
+	if print_line(line) != false {
+		printf("error: negative length for the line is illegal\n");
+		return;
 	}
-	*/
 
 	test_big_things();
 	test_struct_paddings();

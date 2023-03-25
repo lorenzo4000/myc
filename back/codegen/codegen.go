@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
-	"mycgo/back/datatype/datatype_array"
 
 	"mycgo/back/typecheck"
 	"mycgo/back/symbol"
@@ -91,7 +90,7 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 
 	return datatype_struct.StructType {
 		name,
-		datatype.PTR_SIZE + 64,
+		datatype.PTR_SIZE + 8,
 
 		array_type_scope,
 		[]datatype_struct.StructField {
@@ -146,7 +145,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			symbol.SymbolScopeStackPop()
 			
 		case front.AST_DATATYPE:
-			if datatype_array.IsArrayType(ast.DataType) {
+			if datatype.IsArrayType(ast.DataType) {
 				_type := ast.DataType.(datatype_struct.StructType)
 				new_dynamic_array_type(_type.Name(), _type.Fields[0].Type.(datatype.PointerType).Pointed_type)
 			}
@@ -155,8 +154,6 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			if ast.Flags & front.ASTO_FUNCTION_EXTERNAL != 0 {
 				break
 			}
-
-			function_name := ast.Children[0].Data[0].String_value
 			
 			//_, found := symbol.SymbolTableGetInCurrentScope(function_name)
 			//if found {
@@ -172,32 +169,14 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			//	return out
 			//}
 
-			name := LabelGet(function_name)
-			out.Code.TextAppendSln(Instruction(".global", name))
-			out.Code.TextAppendSln(name.Text() + ":")
-			
-			out.Code.Appendln(GEN_function_prologue().Code)
+			out.Code.Appendln(GEN_function_prologue(ast).Code)
 			
 			out.Code.Appendln(children_out[1].Code)
 			out.Code.Appendln(children_out[3].Code)
 
 			body_result := children_out[3].Result
 
-			if body_result != nil {
-				body_type := ast.Children[3].DataType
-
-				return_reg, err := RETURN_REGISTER.GetRegister(body_type)
-				if err {
-					fmt.Println("codegen error: could not find return register for type `" + body_type.Name() + "`")
-				}
-
-				out.Code.Appendln(GEN_move(body_result, return_reg).Code)
-			}
-	
-			function_epilogue := "._" + function_name
-			out.Code.TextAppendSln(function_epilogue + ":")
-
-			out.Code.Appendln(GEN_function_epilogue().Code)
+			out.Code.Appendln(GEN_function_epilogue(ast, body_result).Code)
 			
 			RegisterScratchFreeAll()
 
@@ -206,22 +185,13 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				out.Code.Appendln(child_out.Code)
 			}
 
-			function_name := current_function_ast.Children[0].Data[0].String_value
-
+			var return_value Operand = nil
 			if len(ast.Children) > 0 {
-				return_value := children_out[0].Result
-				return_type := ast.Children[0].DataType
-				
-				return_reg, err := RETURN_REGISTER.GetRegister(return_type)
-				if err {
-					fmt.Println("codegen error: could not find return register for type `" + return_type.Name() + "`")
-				}
-
-				out.Code.Appendln(GEN_move(return_value, return_reg).Code)
+				return_value = children_out[0].Result
 			}
 
-			function_epilogue := LabelGet("._" + function_name)
-			out.Code.Appendln(GEN_jump(function_epilogue).Code)
+			out.Code.Appendln(GEN_return(return_value, current_function_ast).Code)
+
 
 		case front.AST_FUNCTION_DEFINITION_ARGS:
 			for _, child_out := range(children_out) {
@@ -292,29 +262,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 
 		case front.AST_FUNCTION_CALL:
 			out.Code.Append(children_out[1].Code)
-			out.Code.Appendln(GEN_call(ast).Code)
-			
-			if ast.DataType != nil 				       &&
-			   ast.DataType != datatype.TYPE_NONE      &&
-			   ast.DataType != datatype.TYPE_UNDEFINED {
-				var result Operand
-				reg, full := RegisterScratchAllocate(ast.DataType)
-				if full {
-					result = StackAllocate(ast.DataType).Reference()
-				} else {
-					result = reg
-				}
-				
-				return_reg, err := RETURN_REGISTER.GetRegister(ast.DataType)
-				if err {
-					fmt.Println("codegen error: could not find return register for type `" + ast.DataType.Name() + "`")
-				}
+			call := GEN_call(ast)
+			out.Code.Appendln(call.Code)
 
-				out.Code.Appendln(GEN_move(return_reg, result).Code)
-				out.Result = result
-			} else {
-				out.Result = nil
-			}
+			out.Result = call.Result
 
 		case front.AST_FUNCTION_CALL_ARGS:
 			for _, child_out := range(children_out) {
