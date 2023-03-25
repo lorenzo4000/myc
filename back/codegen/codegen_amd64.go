@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/datatype/datatype_array"
 	"mycgo/front"
 )
 
@@ -1376,5 +1377,33 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	}
 
 	res.Result = allocation
+	return res
+}
+
+// this uses R10 and R11 !!
+func GEN_array_index(array_struct Memory_Reference, index Register, ast *front.Ast_Node) Codegen_Out {
+	res := Codegen_Out{}
+
+	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
+	r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64)
+	
+	// load array.data, array.len => r10, r11
+	res.Code.Appendln(GEN_loadstruct(array_struct, []Register{r10, r11}).Code)
+
+	// do boundary checking
+
+
+	// return index + data ?? 
+	//res.Code.Appendln(GEN_binop(front.AST_OP_SUM, r11, index).Code)
+	array_index_reference := Memory_Reference {
+		datatype_array.ArrayDataType(array_struct.Type()),
+		0, // Offset int64
+		r11,
+		index, //Index Operand
+		1, // IndexCoefficient Index_Coeff
+	} 
+	
+	res.Result = array_index_reference
+	
 	return res
 }

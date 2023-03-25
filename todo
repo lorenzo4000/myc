@@ -1,3 +1,10 @@
+-> static and dynamic array declaration syntax
+.  literal array syntax
+.  typecheck array
+.  codegen array
+
+
+
 .  String type (with literals and stuff)
 -> User defined types (structs...) {
       .  Struct allocation for scratch and arguments

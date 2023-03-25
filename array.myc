@@ -1,0 +1,12 @@
+function main() {
+	:dynamic_array []int64;
+	dynamic_array.len = [uint64]49;
+	
+	printf("%d\n", dynamic_array.len);
+
+	:a int64 = 43;
+	dynamic_array.data = &a;
+
+	// indexing (with runtime boundary checking. maybe at some point in the future i will implement this...)
+	printf("%d\n", dynamic_array[0]);// = 32;
+}

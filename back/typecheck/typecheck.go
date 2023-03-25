@@ -2,17 +2,22 @@ package typecheck
 
 import (
 	"fmt"
+	"strconv"
 
 	"mycgo/front"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/datatype/datatype_array"
 	"mycgo/back/symbol"
 )
 
 func typeErrorAt (ast *front.Ast_Node, err string, a ...any) {
 	formatted_error := fmt.Sprintf(err, a...)
 
-	first_token := ast.FindFirstToken()
+	var first_token *front.Token = nil
+	if ast != nil {
+		first_token = ast.FindFirstToken()
+	}
 
 	if first_token != nil {
 		line := first_token.L0
@@ -35,14 +40,17 @@ var current_function_body_ast *front.Ast_Node
 var current_dot_scope symbol.Symbol_Scope_Id = -1
 
 func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
-	if len(exp.Children) <= 0 {
-		return false
+	if exp.Type == front.AST_EXPRESSION {
+		if len(exp.Children) <= 0 {
+			return false
+		}
+		return ExpressionIsLeftValue(exp.Children[0])
 	}
 
-	value := exp.Children[0]
-	return value.Type == front.AST_VARIABLE_NAME  ||
-		   value.Type == front.AST_OP_DEREFERENCE ||
-		   value.Type == front.AST_OP_DOT
+	return exp.Type == front.AST_VARIABLE_NAME  ||
+		   exp.Type == front.AST_OP_DEREFERENCE ||
+		   exp.Type == front.AST_OP_DOT			||
+		   exp.Type == front.AST_OP_INDEX
 }
 
 func TypeFromName(type_name string) datatype.DataType {
@@ -51,8 +59,39 @@ func TypeFromName(type_name string) datatype.DataType {
 	}
 
 	if type_name[0] == '*' {
-		pointed_type := TypeFromName(type_name[1:])
+		pointed_type_name := type_name[1:]
+		pointed_type := TypeFromName(pointed_type_name)
+
+		if pointed_type == nil || pointed_type.Equals(datatype.TYPE_UNDEFINED) || pointed_type.Equals(datatype.TYPE_NONE) {
+			return pointed_type
+		}
+
 		return datatype.PointerType{pointed_type}
+	}
+
+	if type_name[0] == '[' {
+		size_literal := ""
+
+		i := 1
+		for type_name[i] != ']' {
+			size_literal += string(type_name[i])
+			i++
+		}
+
+		type_of_array_name := type_name[i+1:]
+		type_of_array := TypeFromName(type_of_array_name)
+
+		if len(size_literal) <= 0 {
+			return new_dynamic_array_type(type_name, type_of_array)
+		} else {
+			_, err := strconv.ParseInt(size_literal, 0, 64)
+			if err != nil {
+				fmt.Println(err)
+				return nil
+			}
+			
+			//TODO: static array stuff
+		}
 	}
 
 	primitive_type := datatype.PrimitiveTypeFromName(type_name)
@@ -77,6 +116,43 @@ func TypeFromName(type_name string) datatype.DataType {
 	return sym_typ
 }
 
+func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struct.StructType {
+	symbol.SymbolScopeStackPush()
+
+	// declare fields in this scope, this feels hackish
+	symbol.SymbolTableInsertInCurrentScope(
+		"data", 
+		TypeCheck_Symbol{datatype.PointerType{ _type }},
+	)
+	symbol.SymbolTableInsertInCurrentScope(
+		"len", 
+		TypeCheck_Symbol{datatype.TYPE_UINT64},
+	)
+
+	array_type_scope := symbol.SymbolScopeStackCurrent()
+	symbol.SymbolScopeStackPop()
+
+	return datatype_struct.StructType {
+		name,
+		datatype.PTR_SIZE + 64,
+
+		array_type_scope,
+		[]datatype_struct.StructField {
+			datatype_struct.StructField{
+				"data",
+				datatype.PointerType{ _type },
+
+				0,
+			},
+			datatype_struct.StructField{
+				"len",
+				datatype.TYPE_UINT64,
+
+				datatype.PTR_SIZE,
+			},
+		},
+	}
+}
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if (ast.Type == front.AST_BODY &&
@@ -438,7 +514,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = left_type
 		}
 		case front.AST_OP_ASN: {
-			if !ExpressionIsLeftValue(ast) {
+			if !ExpressionIsLeftValue(ast.Children[0]) {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
 			}
@@ -676,6 +752,16 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 
 			ast.DataType = struct_type
+		}
+		case front.AST_OP_INDEX: {
+			left := ast.Children[0]
+
+			if !datatype_array.IsArrayType(left.DataType) {
+				typeErrorAt(ast, "left value in indexing is not an array")
+				return nil
+			}
+
+			ast.DataType = datatype_array.ArrayDataType(left.DataType)
 		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED
