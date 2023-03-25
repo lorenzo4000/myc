@@ -1,0 +1,34 @@
+function abort() external;	//(void)
+function abs() int32 external;	//(int n)
+function atexit() int32 external;	//(void (*func)(void))
+function atoi() int32 external;	//(const char *string)
+function atol() int64 external;	//(const char *string)
+function exit() external;	//(int status)
+function free() external;	//(void *ptr)
+function labs() int64 external;	//(int n//)
+function mblen() int32 external;	//(const char *string, size_t n)
+function mbtowc() int32 external;	//(wchar_t *pwc, const char *string, size_t n)
+function qsort() external;	//(void *base, size_t num, size_t width, int(*compare)(const void *element1, const void *element2))
+function rand() int32 external;	//(void)
+function rand_r() int32 external;	//(void)
+function srand() external;	//(int seed)
+function strtoul() uint64 external;	//(const char *string1, char **string2, int base)
+function strtol() int64 external;	//(const char *nptr, char **endptr, int base)
+function system() int32 external;	//(const char *string)
+function wctomb() int32 external;	//(char *string, wchar_t character)
+function mbstowcs() int64 external; //(wchar_t *pwc, const char *string, size_t n)
+function wcstombs() int64 external; //(char *dest, const wchar_t *string, size_t count)
+function putenv() *int32 external;    //(const char *varname)
+function getenv() *int8 external; //(const char *varname)
+
+
+/*
+div_t div(long int numerator, long int denominator)
+ldiv_t ldiv(int numerator, int denominator)
+
+
+void *malloc(size_t size)
+void *realloc(void *ptr, size_t size)
+void *bsearch(const void *key, const void *base, size_t num, size_t size, int (*compare) (const void *element1, const void *element2))
+void *calloc(size_t num, size_t size)
+*/

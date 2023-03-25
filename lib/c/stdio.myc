@@ -1,0 +1,57 @@
+function getchar() int32 external; //(void);	Reads a single character from stdin.
+function gets() *int8 external; // (char *buffer);	Reads a string from stdin, and stores it in buffer.
+function perror() external;//(const char *string);	Prints an error message to stderr.
+function printf() int32 external;//(const char *format-string, arg-list);	Formats and prints characters and values to stdout.
+function putchar() int32 external;//(c() int32 external;//);	Prints c to stdout.
+function puts() int32 external;//(const char *string);	Prints a string to stdout.
+function remove() int32 external;//(const char *filename);	Deletes the file specified by filename.
+function rename() int32 external;//(const char *oldname, const char *newname);	Renames the specified file.
+function scanf() int32 external;//(const char *format-string, arg-list);	Reads data from stdin into locations given by arg-list.
+function snprintf() int32 external;//(char *outbuf, size_t n, const char*, ...)	Same as sprintf except that the function will stop after n characters have been written to outbuf.
+function sprintf() int32 external;//(char *buffer, const char *format-string, arg-list);	Formats and stores characters and values in buffer.
+function sscanf() int32 external;//(const char *buffer, const char *format, arg-list);	Reads data from buffer into the locations given by arg-list.
+function tmpnam() *int8 external; // (char *string);	Generates a temporary file name.
+function vprintf() int32 external;//(const char *format, va_list arg_ptr);	Formats and prints characters to stdout using a variable number of arguments.
+function vscanf() int32 external;//(const char *format, va_list arg_ptr);	Reads data from stdin into locations given by a variable number of arguments.
+function vsprintf() int32 external;//(char *target-string, const char *format, va_list arg_ptr);	Formats and stores characters in a buffer using a variable number of arguments.
+function vsnprintf() int32 external;//(char *outbuf, size_t n, const char*, va_list);	Same as vsprintf except that the function will stop after n characters have been written to outbuf.
+function vsscanf() int32 external;//(const char*buffer, const char *format, va_list arg_ptr);	Reads data from a buffer into locations given by a variable number of arguments.
+function vswscanf() int32 external;//(const wchar_t *buffer, const wchar_t *format, va_list arg_ptr);	Reads wide data from a buffer into locations given by a variable number of arguments.
+function vwscanf() int32 external;//(const wchar_t *format, va_list arg_ptr);	Reads wide data from stdin into locations given by a variable number of arguments.
+
+
+
+/*
+function void clearerr(FILE *stream);	Resets the error indicators and the end-of-file indicator for stream.
+function int fclose(FILE *stream);	Closes the specified stream.
+function FILE *fdopen(int handle, const char *type);	Associates an input or output stream with the file identified by handle.
+function int feof(FILE *stream);	Tests whether the end-of-file flag is set for a given stream.
+function int ferror(FILE *stream);	Tests for an error indicator in reading from or writing to stream.
+function int fflush(FILE *stream);	Writes the contents of the buffer associated with the output stream.
+function int fgetc(FILE *stream);	Reads a single unsigned character from the input stream.
+function int fgetpos(FILE *stream, fpos_t *pos);	Stores the current position of the file pointer associated with stream into the object pointed to by pos.
+function char *fgets(char *string, int n, FILE *stream);	Reads a string from the input stream.
+function int fileno(FILE *stream);	Determines the file handle currently associated with stream.
+function FILE *fopen(const char *filename, const char *mode);	Opens the specified file.
+function int fprintf(FILE *stream, const char *format-string, arg-list);	Formats and prints characters and values to the output stream.
+function int fputc(int c, FILE *stream);	Prints a character to the output stream.
+function int fputs(const char *string, FILE *stream);	Copies a string to the output stream.
+function size_t fread(void *buffer, size_t size, size_t count, FILE *stream);	Reads up to count items of size length from the input stream, and stores them in buffer.
+function FILE *freopen(const char *filename, const char *mode, FILE *stream);	Closes stream, and reassigns it to the file specified.
+function int fscanf(FILE *stream, const char *format-string, arg-list);	Reads data from stream into locations given by arg-list.
+function int fseek(FILE *stream, long int offset, int origin);	Changes the current file position associated with stream to a new location.
+function int fsetpos(FILE *stream, const fpos_t *pos);	Moves the current file position to a new location determined by pos.
+function int ftell(FILE *stream);	Gets the current position of the file pointer.
+function size_t fwrite(const void *buffer, size_t size,size_t count, FILE *stream);	Writes up to count items of size length from buffer to stream.
+function int getc(FILE *stream);	Reads a single character from the input stream.
+function int putc(int c, FILE *stream);	Prints c to the output stream.
+function void rewind(FILE *stream);	Repositions the file pointer associated with stream to the beginning of the file.
+function void setbuf(FILE *stream, char *buffer);	Controls buffering for stream.
+function int setvbuf(FILE *stream, char *buf, int type, size_t size);	Controls buffering and buffer size for stream.
+function FILE *tmpfile(void);	Creates a temporary binary file and opens it.
+function int ungetc(int c, FILE *stream);	Pushes c back onto the input stream.
+function int vfprintf(FILE *stream, const char *format, va_list arg_ptr);	Formats and prints characters to the output stream using a variable number of arguments.
+function int vfscanf(FILE *stream, const char *format, va_list arg_ptr);	Reads data from a specified stream into locations given by a variable number of arguments.
+function int vfwscanf(FILE *stream, const wchar_t *format, va_list arg_ptr);	Reads wide data from a specified stream into locations given by a variable number of arguments.
+function int fclose(FILE *stream);	Closes the specified stream.
+*/

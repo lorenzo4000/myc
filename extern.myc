@@ -1,3 +1,10 @@
-function foo() int64 {
-	return 53;
+@import "lib/c/stdio.myc"
+
+@import "lib/c/stdlib.myc"
+
+function main() {
+	:a int32 = printf("Hello, World!\n");
+	if a == [int32]-1 {
+		exit(-1);
+	}
 }
