@@ -1,0 +1,5 @@
+function allocate(:bytes uint64) []uint8 {
+	:array []uint8;
+	array.data = malloc(bytes);
+	array.len = bytes;
+}
