@@ -1,9 +1,3 @@
-function printf() int32 external;
-
 function foo() int64 {
 	return 53;
-}
-
-function main() {
-	:error int32 = printf("Hello, World!\n");	
 }
