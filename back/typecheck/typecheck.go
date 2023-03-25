@@ -156,15 +156,18 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if (ast.Type == front.AST_BODY &&
-	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)) || 
-	   ast.Type == front.AST_FUNCTION_DEFINITION    ||
-	   ast.Type == front.AST_HEAD 				    ||
+	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)) 	|| 
+	   (ast.Type == front.AST_FUNCTION_DEFINITION &&
+   	   (ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0)) ||
+	   ast.Type == front.AST_HEAD 				    	||
 	   ast.Type == front.AST_STRUCT_DEFINITION_BODY {
-		if ast.Type == front.AST_BODY {
-			current_body_ast = ast
-		}
 		symbol.SymbolScopeStackPush()
+	} 
+		
+	if ast.Type == front.AST_BODY {
+		current_body_ast = ast
 	}
+	
 	if ast.Type == front.AST_FUNCTION_DEFINITION {
 		current_function_ast = ast	
 	}
@@ -233,16 +236,18 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 
-			body := ast.Children[3]
-			body_type := body.DataType
-
 			return_type := ast.Children[2].DataType
 
-			if !return_type.Equals(body_type) {
-				ret_typ := return_type.Name()
-				bod_typ := body_type.Name()
-				typeErrorAt(ast, "function should return `%s`, but returns `%s`", ret_typ, bod_typ)
-				return nil
+			if ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0 {
+				body := ast.Children[3]
+				body_type := body.DataType
+
+				if !return_type.Equals(body_type) {
+					ret_typ := return_type.Name()
+					bod_typ := body_type.Name()
+					typeErrorAt(ast, "function should return `%s`, but returns `%s`", ret_typ, bod_typ)
+					return nil
+				}
 			}
 
 			err := symbol.SymbolTableInsertInCurrentScope(function_name, TypeCheck_Symbol{return_type})
@@ -360,7 +365,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
 
 			if !found {
-				ast.DataType = datatype.TYPE_INT64
+				typeErrorAt(ast, "undefined `%s`", function_name)
+				return nil
 			} else {
 				ast.DataType = declaration.Type()
 			}

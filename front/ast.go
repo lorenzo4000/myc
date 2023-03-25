@@ -180,8 +180,30 @@ const (
 	ASTO_BODY_WHILE = Ast_Node_Flags(1 << iota) 
 	ASTO_BODY_FOR = Ast_Node_Flags(1 << iota) 
 
+	ASTO_FUNCTION_EXTERNAL = Ast_Node_Flags(1 << iota) 
+
 	ASTO_ALWAYS_RETURNS = Ast_Node_Flags(1 << iota)
 )
+
+var ast_node_flags_str = [64]string {
+	"ASTO_BODY_FUNCTION",
+	"ASTO_BODY_IF",
+	"ASTO_BODY_ELSE",
+	"ASTO_BODY_WHILE",
+	"ASTO_BODY_FOR",
+	"ASTO_FUNCTION_EXTERNAL",
+	"ASTO_ALWAYS_RETURNS",
+}
+
+func (flags Ast_Node_Flags) ToString() string {
+	s := ""
+	for i := 0; i < 64; i++ {
+		if flags & (1 << i) != 0 {
+			s += " | " + ast_node_flags_str[i]
+		}
+	}
+	return s
+}
 
 type Ast_Node struct {
 	Type Ast_Type;
@@ -216,6 +238,9 @@ func (ast Ast_Node) ToString() (string) {
 	if ast.DataType != nil {
 		 ast_str += "(" + ast.DataType.Name() + ")"
 	}
+	
+	ast_str += ast.Flags.ToString()
+
 	ast_str += " : "
 	for i, token := range ast.Data {
 		ast_str += "[ int_value = " + strconv.Itoa(int(token.Int_value)) + ", string_value = " + token.String_value + " ]"

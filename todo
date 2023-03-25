@@ -1,9 +1,10 @@
 -> static and dynamic array declaration syntax
 .  literal array syntax
-.  typecheck array
-.  codegen array
-
-
+-> typecheck array
+-> codegen array
+-> allocate dyn. array
+-> resize dyn. array
+-> append to  dyn. array
 
 .  String type (with literals and stuff)
 -> User defined types (structs...) {
@@ -11,14 +12,22 @@
 	  -> Struct copying assignment
 	  -> Struct literals
    }
-.  External functions (call C functions from myc)
+.  External functions (call C/ASM functions from myc)
 .  Misecellaneus types, operators and other stuff
 .  implicit integer literal casts
+.  prepar: build dep. graph and do cycle detection before importing
+.  codegen: fix int32 to int64 casting
 
 -> Command line options:
 	. Debug setting
 	. Options passed to gcc
 	...
+
+
+.  Detach yourself from C std {
+   	  .  make --nocstd option
+   	  .  write linux syscall wrappers
+   }
 
 
 -> : wip

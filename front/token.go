@@ -23,6 +23,7 @@ const (
 	TOKEN_KEYWORD_FOR    = iota
 	TOKEN_KEYWORD_IF    = iota
 	TOKEN_KEYWORD_ELSE    = iota
+	TOKEN_KEYWORD_EXTERNAL  = iota
 
 	// characters
 	TOKEN_OPENING_PARENTHESES = '(' 
@@ -72,6 +73,7 @@ var keywordTokenMap = map[string]byte {
 	"for": TOKEN_KEYWORD_FOR,
 	"if": TOKEN_KEYWORD_IF,
 	"else": TOKEN_KEYWORD_ELSE,
+	"external": TOKEN_KEYWORD_EXTERNAL,
 }
 
 var characterTokenMap = map[byte]byte {
