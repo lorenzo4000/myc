@@ -95,8 +95,6 @@ func PrePar(src []Token) ([]Token) {
 			directive := src[i].String_value
 			directive_tokens := lex_directive(directive)
 			
-			fmt.Println("INFO: TOKENS OF DIRECTIVE `", directive, "` : ", directive_tokens)
-
 			switch directive_tokens[0].Type {
 				case directive_IMPORT:
 					if len(directive_tokens) <= 1 {
