@@ -161,11 +161,12 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
    	   (ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0)) ||
 	   ast.Type == front.AST_HEAD 				    	||
 	   ast.Type == front.AST_STRUCT_DEFINITION_BODY {
-		if ast.Type == front.AST_BODY {
-			current_body_ast = ast
-		}
 		symbol.SymbolScopeStackPush()
 	} 
+		
+	if ast.Type == front.AST_BODY {
+		current_body_ast = ast
+	}
 	
 	if ast.Type == front.AST_FUNCTION_DEFINITION {
 		current_function_ast = ast	
