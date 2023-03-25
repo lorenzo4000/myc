@@ -472,8 +472,6 @@ func fix_dot_field_name(ast *Ast_Node) *Ast_Node {
 	fix_dot_field_name(ast.Children[0])
 	fix_dot_field_name(ast.Children[1])
 
-	ast.Print()
-	fmt.Println(field_name)
 	ast.Data = []Token{
 		Token{String_value: field_name},
 	}

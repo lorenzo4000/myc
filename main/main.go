@@ -11,14 +11,75 @@ import (
 	"mycgo/back/symbol"
 );
 
+const help_message string = 
+` usage: 
+ 	myc [options] file [...]
+ 
+ options:
+ 	--help: this help message
+ 	--l <object>: link to object
+
+ 	--ast:  print abstract syntax tree for debugging purposes
+ 	--typed_ast: same as --ast, but show types
+ 	--asm: print the generated assembly
+`
+
+// options
+var filenames []string
+
+var link_objects []string
+
+var print_ast bool
+var print_typed_ast bool
+var print_asm bool
+var print_tokens bool
+
 func main() {
-	if len(os.Args) < 2 {
+	// start from 1 to skip self
+	for i := 1; i < len(os.Args); i++ {
+		arg := os.Args[i]
+
+		if arg[0] == '-' {
+			if arg == "--help" {
+				fmt.Print(help_message)
+				return
+			} else
+			if arg == "--l" {
+				i++
+				if i >= len(os.Args) {
+					fmt.Println("error: expected object after --l")
+					return
+				}
+
+				object := os.Args[i]
+				link_objects = append(link_objects, object)
+			} else
+			if arg == "--ast" {
+				print_ast = true
+			} else
+			if arg == "--typed_ast" {
+				print_typed_ast = true
+			} else 
+			if arg == "--asm" {
+				print_asm = true
+			} else
+			if arg == "--tokens" {
+				print_asm = true
+			} else {
+				fmt.Println("error: unrecognixed option `", arg, "`")
+				return
+			}
+		} else {
+			filenames = append(filenames, arg)
+		}
+	}
+
+	if len(filenames) <= 0 {
 		fmt.Println("Fatal: no source file given.")
 		return
 	}
 
-	src_filename := os.Args[1]
-	src_byte, err := ioutil.ReadFile(src_filename)
+	src_byte, err := ioutil.ReadFile(filenames[0])
 	
 	if err != nil {
 		fmt.Println(err)
@@ -32,16 +93,16 @@ func main() {
 		return 
 	}
 
-	fmt.Println(tokens)
-
 	tokens = front.PrePar(tokens)
 	if tokens == nil {
 		fmt.Println("Preprocessing Errors: aborting...")
 		return 
 	}
-	
-	fmt.Println(tokens)
 
+	if print_tokens {
+		fmt.Println(tokens)
+	}
+	
 	parser := front.Parser{tokens, 0}
 	ast := parser.Parse()
 	if ast == nil {
@@ -49,7 +110,9 @@ func main() {
 		return 
 	}
 	
-	ast.Print()
+	if print_ast {
+		ast.Print()
+	}
 	
 
 	symbol.SymbolScopeStackInit()
@@ -59,7 +122,9 @@ func main() {
 		return 
 	}
 	
-	ast.Print()
+	if print_typed_ast {
+		ast.Print()
+	}
 
 
 	symbol.SymbolScopeStackInit()
@@ -67,9 +132,11 @@ func main() {
 	code := codegen.Codegen(ast)
 	code_combined := ".text\n" + code.Code.Text + "\n.data\n" + code.Code.Data
 
-	fmt.Println(code_combined)
+	if print_asm {
+		fmt.Println(code_combined)
+	}
 
-	out, err := os.CreateTemp("", src_filename + "*.s")
+	out, err := os.CreateTemp("", filenames[0] + "*.s")
 	defer os.Remove(out.Name())
 
 	if err != nil {
@@ -77,13 +144,24 @@ func main() {
 		return
 	}
 
-	println(out.Name())
 	out.WriteString(code_combined)
 
 	out.Chmod(0644)
 
-	gcc_cmd := exec.Command("gcc", "-ggdb", "-no-pie", "-z", "noexecstack", out.Name())
+	gcc_options := []string{
+		"-ggdb",
+		"-no-pie",
+		"-z", 
+		"noexecstack", 
+		out.Name(),
+	}
 
+	for _, l := range(link_objects) {
+		gcc_options = append(gcc_options, "-l" + l)
+	}
+
+	gcc_cmd := exec.Command("gcc", gcc_options...)
+	
 	gcc_output, _ := gcc_cmd.CombinedOutput()
-	fmt.Println(string(gcc_output))
+	fmt.Print(string(gcc_output))
 }
