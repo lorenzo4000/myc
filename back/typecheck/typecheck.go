@@ -233,16 +233,18 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 
-			body := ast.Children[3]
-			body_type := body.DataType
-
 			return_type := ast.Children[2].DataType
 
-			if !return_type.Equals(body_type) {
-				ret_typ := return_type.Name()
-				bod_typ := body_type.Name()
-				typeErrorAt(ast, "function should return `%s`, but returns `%s`", ret_typ, bod_typ)
-				return nil
+			if ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0 {
+				body := ast.Children[3]
+				body_type := body.DataType
+
+				if !return_type.Equals(body_type) {
+					ret_typ := return_type.Name()
+					bod_typ := body_type.Name()
+					typeErrorAt(ast, "function should return `%s`, but returns `%s`", ret_typ, bod_typ)
+					return nil
+				}
 			}
 
 			err := symbol.SymbolTableInsertInCurrentScope(function_name, TypeCheck_Symbol{return_type})
@@ -360,7 +362,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
 
 			if !found {
-				ast.DataType = datatype.TYPE_INT64
+				typeErrorAt(ast, "undefined `%s`", function_name)
+				return nil
 			} else {
 				ast.DataType = declaration.Type()
 			}

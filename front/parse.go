@@ -1040,7 +1040,20 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 			}
 		}
 	}
-	
+
+	{		
+		next, expect := parser.PopIf(TOKEN_KEYWORD_EXTERNAL)
+		if !expect {
+			function_definition.Flags |= ASTO_FUNCTION_EXTERNAL
+			next, expect = parser.PopIf(TOKEN_SEMICOLON)
+			if expect {
+				parseExpectErrorAt(next, "`;`")
+				return nil
+			}
+			return function_definition
+		}
+	}
+
 	{
 		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
 		if expect {

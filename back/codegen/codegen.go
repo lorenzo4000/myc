@@ -152,6 +152,10 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			}
 
 		case front.AST_FUNCTION_DEFINITION:
+			if ast.Flags & front.ASTO_FUNCTION_EXTERNAL != 0 {
+				break
+			}
+
 			function_name := ast.Children[0].Data[0].String_value
 			
 			//_, found := symbol.SymbolTableGetInCurrentScope(function_name)

@@ -180,6 +180,8 @@ const (
 	ASTO_BODY_WHILE = Ast_Node_Flags(1 << iota) 
 	ASTO_BODY_FOR = Ast_Node_Flags(1 << iota) 
 
+	ASTO_FUNCTION_EXTERNAL = Ast_Node_Flags(1 << iota) 
+
 	ASTO_ALWAYS_RETURNS = Ast_Node_Flags(1 << iota)
 )
 
