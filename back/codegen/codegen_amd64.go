@@ -990,11 +990,11 @@ func GEN_call(f *front.Ast_Node) Codegen_Out {
 	
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
 
-	name := LabelGet(f.Children[0].Data[0].String_value)
+	name := LabelGet(f.Data[0].String_value)
 
 	res.Code.TextAppendSln(ii("call", name) )
 
-	nargs := len(f.Children[1].Children)
+	nargs := len(f.Children)
 	nargs_in_stack := nargs - len(ArgumentRegisters)
 	if nargs_in_stack > 0 {
 		reserved_stack := uint32(nargs_in_stack * 8)
@@ -1050,6 +1050,9 @@ func GEN_call(f *front.Ast_Node) Codegen_Out {
 
 			return_regs := []Operand{rax, rdx}
 			res.Code.Appendln(GEN_storestruct_from_operands(return_regs, result.(Memory_Reference)).Code)
+		} else 
+		if f.DataType.ByteSize() > 16 {
+
 		}
 
 		res.Result = result

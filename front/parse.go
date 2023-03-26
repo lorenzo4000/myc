@@ -56,28 +56,6 @@ func (parser *Parser) PopIf(expected_type byte) (Token, bool) {
 	return parser.Pop()
 }
 
-func (parser *Parser) ParseFunctionCallArgs() (*Ast_Node) {
-	function_call_args := new(Ast_Node)
-	function_call_args.Type = AST_FUNCTION_CALL_ARGS
-
-	for !parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
-		exp := parser.ParseExpression()
-		if exp != nil {
-			function_call_args.AddChild(exp)
-		}
-
-		next, not_comma := parser.PopIf(TOKEN_COMMA)
-		if not_comma {
-			if next.Type != TOKEN_CLOSING_PARENTHESES {
-				parseExpectErrorAt(next, "`,` or `)`")
-				return nil
-			}
-		}
-	}
-
-	return function_call_args	
-}
-
 func (parser *Parser) ParseFunctionCall() (*Ast_Node) {
 	function_call := new(Ast_Node)
 	function_call.Type = AST_FUNCTION_CALL
@@ -88,11 +66,7 @@ func (parser *Parser) ParseFunctionCall() (*Ast_Node) {
 			parseExpectErrorAt(next, "function name")
 			return nil
 		}
-		function_name := new(Ast_Node)
-		function_name.Type = AST_FUNCTION_CALL_NAME
-		function_name.Data = []Token{next}
-
-		function_call.AddChild(function_name)
+		function_call.Data = []Token{next}
 	}
 	
 	{
@@ -103,7 +77,22 @@ func (parser *Parser) ParseFunctionCall() (*Ast_Node) {
 		}
 	}
 
-	function_call.AddChild(parser.ParseFunctionCallArgs())
+	{
+		for !parser.CurrentIs(TOKEN_CLOSING_PARENTHESES) {
+			exp := parser.ParseExpression()
+			if exp != nil {
+				function_call.AddChild(exp)
+			}
+
+			next, not_comma := parser.PopIf(TOKEN_COMMA)
+			if not_comma {
+				if next.Type != TOKEN_CLOSING_PARENTHESES {
+					parseExpectErrorAt(next, "`,` or `)`")
+					return nil
+				}
+			}
+		}
+	}
 
 	{
 		next, expect := parser.PopIf(TOKEN_CLOSING_PARENTHESES)
@@ -172,7 +161,9 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 					next, end := parser.Peek(1)
 					if !end {
 						switch next.Type {
-							case TOKEN_OPENING_PARENTHESES: return parser.ParseFunctionCall()
+							case TOKEN_OPENING_PARENTHESES: 
+								call := parser.ParseFunctionCall()
+								return call
 							case TOKEN_OPENING_BRACE: return parser.ParseStructLiteral()
 							default: return parser.ParseVariableName()
 						}
@@ -441,43 +432,43 @@ func precedence(ast *Ast_Node) uint8 {
 		case AST_EXPRESSION: return precedence(ast.Children[0])
 		case AST_LITERAL:    return 0xFF
 		
-		case AST_OP_DOT:     return 6
-		case AST_OP_INDEX:     return 6
+		case AST_OP_DOT:     return 7
+		case AST_OP_INDEX:     return 7
 
-		case AST_OP_REFERENCE:   return 5
-		case AST_OP_DEREFERENCE: return 5
+		case AST_OP_REFERENCE:   return 6
+		case AST_OP_DEREFERENCE: return 6
 	
 		// mul
-		case AST_OP_MUL:     return 4
-		case AST_OP_DIV:     return 4
-		case AST_OP_MOD:     return 4
-		case AST_OP_BAND:    return 4
-		case AST_OP_NEG:     return 4
-		case AST_OP_BORE:	 return 4
-		case AST_OP_BNOT:    return 4
+		case AST_OP_MUL:     return 5
+		case AST_OP_DIV:     return 5
+		case AST_OP_MOD:     return 5
+		case AST_OP_BAND:    return 5
+		case AST_OP_NEG:     return 5
+		case AST_OP_BORE:	 return 5
+		case AST_OP_BNOT:    return 5
 
 		// sum
-		case AST_OP_SUM:     return 3
-		case AST_OP_SUB:     return 3
-		case AST_OP_BORI:	 return 3
+		case AST_OP_SUM:     return 4
+		case AST_OP_SUB:     return 4
+		case AST_OP_BORI:	 return 4
 
 
-		case AST_OP_ASN:     return 2
+		case AST_OP_ASN:     return 3
 
 
 		// conditions
-		case AST_OP_GRT:     return 1
-		case AST_OP_LES:	 return 1
-		case AST_OP_GOE:	 return 1
-		case AST_OP_LOE:	 return 1
+		case AST_OP_GRT:     return 2
+		case AST_OP_LES:	 return 2
+		case AST_OP_GOE:	 return 2
+		case AST_OP_LOE:	 return 2
 
-		case AST_OP_EQU:     return 1
-		case AST_OP_NEQ:	 return 1
+		case AST_OP_EQU:     return 2
+		case AST_OP_NEQ:	 return 2
 
 		// bool ops
-		case AST_OP_NOT:	 return 0
-		case AST_OP_AND:	 return 0
-		case AST_OP_OR :	 return 0
+		case AST_OP_NOT:	 return 1
+		case AST_OP_AND:	 return 1
+		case AST_OP_OR :	 return 1
 	}
 	return 0xFF
 }
@@ -486,6 +477,10 @@ func fix_precedence(ast *Ast_Node) *Ast_Node {
 	if ast.Type == AST_EXPRESSION {
 		return fix_precedence(ast.Children[0])
 	} else
+	// skip stuff
+	if ast.Type == AST_FUNCTION_CALL {
+		return ast
+	}
 
 	if len(ast.Children) == 1 {
 		blw := ast.Children[0]

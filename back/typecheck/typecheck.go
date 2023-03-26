@@ -199,7 +199,15 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 
 		if ast.Type == front.AST_OP_DOT {
-			current_dot_scope = ast.Children[0].DataType.(datatype_struct.StructType).Scope
+			left := ast.Children[0]
+
+			switch left.DataType.(type) {
+				default: 
+					typeErrorAt(ast, "left value in dot-op is not a struct")
+					return nil
+				case datatype_struct.StructType:
+					current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+			}
 		} else {
 			current_dot_scope = -1
 		}
@@ -365,7 +373,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 		}
 		case front.AST_FUNCTION_CALL: {
-			function_name := ast.Children[0].Data[0].String_value
+			function_name := ast.Data[0].String_value
 			declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
 
 			if !found {
@@ -714,14 +722,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		case front.AST_OP_DOT: {
 			/*
-			left := ast.Children[0]
 			field_name := &ast.Children[1].Children[0]
 			field_name_str := (*field_name).Data[0].String_value
 
 			switch left.DataType.(type) {
-				default: 
-					typeErrorAt(ast, "left value in dot-op is not a struct")
-					return nil
 				case datatype_struct.StructType:
 					f := left.DataType.(datatype_struct.StructType).FindField(field_name_str)
 					if f == nil {

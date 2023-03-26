@@ -261,13 +261,6 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			out.Result = allocation
 
 		case front.AST_FUNCTION_CALL:
-			out.Code.Append(children_out[1].Code)
-			call := GEN_call(ast)
-			out.Code.Appendln(call.Code)
-
-			out.Result = call.Result
-
-		case front.AST_FUNCTION_CALL_ARGS:
 			for _, child_out := range(children_out) {
 				out.Code.Appendln(child_out.Code)
 			}
@@ -276,8 +269,11 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			for i, _ := range(children_out) {
 				results[i] = children_out[i].Result
 			}
-
 			out.Code.Appendln(GEN_callargs(results).Code)
+
+			call := GEN_call(ast)
+			out.Code.Appendln(call.Code)
+			out.Result = call.Result
 
 		case front.AST_VARIABLE_DEFINITION: {
 			variable_name := ast.Children[0].Data[0].String_value
