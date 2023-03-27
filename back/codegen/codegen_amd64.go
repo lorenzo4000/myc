@@ -5,6 +5,7 @@ import (
 	"log"
 	"fmt"
 	"mycgo/back/datatype"
+	"mycgo/back/symbol"
 	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/datatype/datatype_array"
 	"mycgo/front"
@@ -484,25 +485,6 @@ func ii(op string, oprnds ...Operand) string {
 	return Instruction(op, oprnds...)
 }
 
-// === general data allocation === 
-
-func Allocate_For_Scratchy(_type datatype.DataType) Operand {
-	size := _type.ByteSize()
-
-	if size <= 8 {
-		reg, full := RegisterScratchAllocate(_type)
-		if full {
-			return StackAllocate(_type).Reference()
-		} 
-		return reg
-	}
-	if size <= 16 {
-		// TODO: allocate register pair (SystemV C ABI)
-	} 
-	return StackAllocate(_type).Reference()
-}
-
-
 // === GEN_* ===
 
 func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
@@ -532,7 +514,35 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 
 			return_regs := []Register{rdx, rax}
 			out.Code.Appendln(GEN_loadstruct(v.(Memory_Reference), return_regs).Code)
+		} else
+		if return_type.ByteSize() > 16 {
+			// fill up the memory pointed by the ghost parameter with the return value~ ^^
+			// to do this we have to actually copy the entire value into the memory pointed by ghost;
+			ghost_parameter_name := ".ghost_" + function_name
 
+			ghost_parameter, found := symbol.SymbolTableGetInCurrentScope(ghost_parameter_name)
+			if !found {
+				fmt.Println("codegen error: ghost parameter `" + ghost_parameter_name + "` was not declared in this function")
+				return out
+			}
+
+			println("return value size: ", v.(Memory_Reference).DataType.ByteSize())
+			println("return param size: ", ghost_parameter.(Codegen_Symbol).Data.Reference().DataType.ByteSize())
+			
+			// get the ghost_parameter poitner and put it in rax
+			rax, _ := REGISTER_RAX.GetRegister(ghost_parameter.Type())
+			out.Code.Appendln(GEN_move(ghost_parameter.(Codegen_Symbol).Data.Reference(), rax).Code)
+
+			// create a memory reference with rax as start
+			ghost_parameter_reference := Memory_Reference {
+				return_type,
+				0,
+				rax,
+				nil,
+				1,	
+			}
+			
+			out.Code.Appendln(GEN_storestruct(v.(Memory_Reference), ghost_parameter_reference).Code)
 		}
 	}
 			
@@ -594,6 +604,10 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 			
 			return_regs := []Register{rdx, rax}
 			res.Code.Appendln(GEN_loadstruct(body_result.(Memory_Reference), return_regs).Code)
+		} else
+		if body_type.ByteSize() > 16 {
+
+
 		}
 	}
 
@@ -857,8 +871,41 @@ func GEN_jump(a Operand) Codegen_Out {
 	return res
 }
 
-func GEN_function_params(args []Operand) Codegen_Out {
+func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 	res := Codegen_Out{}
+	function_name := f.Children[0].Data[0].String_value
+
+	if f.DataType.ByteSize() > 16 {
+		// create a ghost parameter for returning the big stuff
+		ghost_parameter_name := ".ghost_" + function_name
+		variable_type := datatype.PointerType{f.DataType}
+		
+		// this is expensive and superflous
+		/*
+		_, found := symbol.SymbolTableGetInCurrentScope(ghost_parameter_name)
+		
+		if found {
+			fmt.Println("codegen error: `" + ghost_parameter_name + "` was already declared in this scope")
+			return out
+		}
+		*/
+
+		variable_allc := StackAllocate(variable_type)
+		init_value := Asm_Int_Literal{variable_type, 0, 10}
+		res.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
+
+		err := symbol.SymbolTableInsertInCurrentScope(ghost_parameter_name, Codegen_Symbol{variable_type, variable_allc})
+		if err != nil {
+			fmt.Println(err)	
+			return res
+		}
+
+		// push-front the ghost parameter into args
+		new_args := make([]Operand, 0, 1 + len(args))
+		new_args = append(new_args, variable_allc.Reference())
+		new_args = append(new_args, args...)
+		args = new_args
+	}
 		
 	allocated_regs := 0
 	allocated_stack := int64(16) // return address (8B) + pushed rbp (8B)
@@ -985,14 +1032,46 @@ func GEN_callargs(args []Operand) Codegen_Out {
 	return res
 }
 
-func GEN_call(f *front.Ast_Node) Codegen_Out {
+func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	res := Codegen_Out{}
-	
-	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
+
+	var return_value_memory Memory_Reference
+	if f.DataType.ByteSize() > 16 {
+		// allocate memory
+		memory := StackAllocate(f.DataType).Reference()
+		return_value_memory = memory
+
+		// get a pointer to that memory and put it in a register
+		pointer_type := datatype.PointerType{memory.Type()}
+		var allocation Operand
+		var full bool
+		reg, full := RegisterScratchAllocate(pointer_type)
+		if full {
+			allocation, full := REGISTER_RBX.GetRegister(pointer_type) 
+			if full {
+				fmt.Println("codegen error: could not find return register for type `" + f.DataType.Name() + "`")
+			}
+			res.Code.TextAppendSln(ii("pushq", allocation))
+		} else {
+			allocation = reg
+		}
+		res.Code.TextAppendSln(ii("leaq", memory, allocation))
+
+		// push-front pointer to args
+		new_args := make([]Operand, 0, 1 + len(args))
+		new_args = append(new_args, allocation)
+		new_args = append(new_args, args...)
+		args = new_args
+	}
+
+	call_args := GEN_callargs(args)
+	res.Code.Appendln(call_args.Code)
 
 	name := LabelGet(f.Data[0].String_value)
+	println("CALLing ", name.Text())
+	res.Code.TextAppendSln(ii("call", name))
 
-	res.Code.TextAppendSln(ii("call", name) )
+	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
 
 	nargs := len(f.Children)
 	nargs_in_stack := nargs - len(ArgumentRegisters)
@@ -1052,6 +1131,27 @@ func GEN_call(f *front.Ast_Node) Codegen_Out {
 			res.Code.Appendln(GEN_storestruct_from_operands(return_regs, result.(Memory_Reference)).Code)
 		} else 
 		if f.DataType.ByteSize() > 16 {
+			return_type := datatype.PointerType{f.DataType}
+			reg, full := RegisterScratchAllocate(return_type)
+			if full {
+				result = StackAllocate(return_type).Reference()
+			} else {
+				result = reg
+			}
+			
+			return_reg, err := REGISTER_RAX.GetRegister(return_type)
+			if err {
+				fmt.Println("codegen error: could not find return register for type `" + f.DataType.Name() + "`")
+			}
+
+			res.Code.Appendln(GEN_very_generic_move(return_reg, result).Code)
+
+			// the actual result is going to be the stack allocation that we allocated before... 
+			// this is true if we assume that returned pointer = given pointer
+			// but is this always true? TODO: figure this out
+			result = return_value_memory
+			
+
 
 		}
 

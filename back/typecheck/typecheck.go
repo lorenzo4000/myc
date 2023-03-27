@@ -244,7 +244,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			function_name := ast.Children[0].Data[0].String_value
 			_, found := symbol.SymbolTableGetInCurrentScope(function_name)
 			if found {
-				typeErrorAt(ast, "`%s` was already declared", function_name)
+				typeErrorAt(ast, "function `%s` was already declared in this scope", function_name)
 				return nil
 			}
 
@@ -375,6 +375,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_FUNCTION_CALL: {
 			function_name := ast.Data[0].String_value
 			declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
+
+			// TODO: typecheck arguments
 
 			if !found {
 				typeErrorAt(ast, "undefined `%s`", function_name)

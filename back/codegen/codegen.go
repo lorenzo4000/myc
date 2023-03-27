@@ -204,7 +204,7 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 				results[i] = children_out[i].Result
 			}
 
-			out.Code.Appendln(GEN_function_params(results).Code)
+			out.Code.Appendln(GEN_function_params(current_function_ast, results).Code)
 
 		case front.AST_BODY:
 			for _, child_out := range(children_out) {
@@ -269,9 +269,12 @@ func Codegen(ast *front.Ast_Node) (Codegen_Out) {
 			for i, _ := range(children_out) {
 				results[i] = children_out[i].Result
 			}
-			out.Code.Appendln(GEN_callargs(results).Code)
 
-			call := GEN_call(ast)
+			call := GEN_call(ast, results)
+			println(call.Code.Text)
+			if call.Result == nil {
+				println("NIL RESUsdjjjjjjjjjjjjjjjjgsdjgjsLT")
+			}
 			out.Code.Appendln(call.Code)
 			out.Result = call.Result
 

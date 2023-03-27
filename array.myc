@@ -2,7 +2,28 @@
 
 @import "lib/c/stdio.myc"
 
+
+struct Big {
+	:a uint64;
+	:b uint64;
+	:c uint64;
+}
+
+function foo() Big {
+	:big Big;
+	big.a = [uint64]54;
+	return big;
+}
+
+
 function main() {
+	foo();
+	:big Big;
+
+	big = foo();
+	printf("big.a: %lld\n", big.a);
+	
+
 	:dynamic_array []int64;
 	
 	dynamic_array = allocate(256); // allocate 256 bytes
