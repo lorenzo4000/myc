@@ -117,7 +117,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 	if (ast.Type == front.AST_BODY &&
 		(ast.Flags&front.ASTO_BODY_FUNCTION == 0)) ||
-		ast.Type == front.AST_FUNCTION_DEFINITION ||
+		(ast.Type == front.AST_FUNCTION_DEFINITION &&
+			(ast.Flags&front.ASTO_FUNCTION_EXTERNAL == 0)) ||
 		ast.Type == front.AST_HEAD ||
 		ast.Type == front.AST_STRUCT_DEFINITION_BODY {
 		symbol.SymbolScopeStackPush()
@@ -129,7 +130,14 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 		children_out = append(children_out, Codegen(child))
 
 		if ast.Type == front.AST_OP_DOT {
-			current_dot_scope = ast.Children[0].DataType.(datatype_struct.StructType).Scope
+			left := ast.Children[0]
+
+			switch left.DataType.(type) {
+			default:
+				fmt.Println("codegen error: left value in dot-op is not a struct")
+			case datatype_struct.StructType:
+				current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+			}
 		} else {
 			current_dot_scope = -1
 		}
