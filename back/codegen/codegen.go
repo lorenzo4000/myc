@@ -319,6 +319,11 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
 			case datatype_struct.StructType:
 				variable_allc = StackAllocate(variable_type)
+
+				if len(ast.Children) > 2 {
+					out.Code.Appendln(children_out[2].Code)
+					out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, variable_allc.Reference()).Code)
+				}
 			}
 
 			err := symbol.SymbolTableInsertInCurrentScope(variable_name, Codegen_Symbol{variable_type, variable_allc})

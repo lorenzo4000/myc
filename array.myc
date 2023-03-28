@@ -18,9 +18,8 @@ function foo() Big {
 
 function main() {
 	foo();
-	:big Big;
+	:big Big = foo();
 
-	big = foo();
 	printf("big.a: %lld\n", big.a);
 	
 
