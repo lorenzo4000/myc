@@ -792,7 +792,9 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			out.Code.Appendln(move.Code)
 
 			mask := uint64(1<<expression.Type().BitSize()) - uint64(1)
-			mask_code := ii("andq", Asm_Int_Literal{ast.DataType, int64(mask), 10}, result_expression_type_view)
+			rax, _ := REGISTER_RAX.GetRegister(result_expression_type_view.Type())
+			out.Code.Appendln(GEN_move(Asm_Int_Literal{result_expression_type_view.Type(), int64(mask), 10}, rax).Code)
+			mask_code := ii("andq", rax, result_expression_type_view)
 			out.Code.TextAppendSln(mask_code)
 
 			out.Result = result
