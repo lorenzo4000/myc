@@ -1,14 +1,14 @@
 package codegen
 
 import (
-	"strconv"
-	"log"
 	"fmt"
+	"log"
 	"mycgo/back/datatype"
-	"mycgo/back/symbol"
-	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/datatype/datatype_array"
+	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/symbol"
 	"mycgo/front"
+	"strconv"
 )
 
 // === Register ===
@@ -19,7 +19,7 @@ const (
 	REG_SUB_B = byte(iota)
 	REG_SUB_b = byte(iota)
 
-    REG_SUB_MAX = byte(iota)
+	REG_SUB_MAX = byte(iota)
 
 	REG_KIND_MASK  = byte(0xE0)
 	REG_KIND_MASKI = REG_KIND_MASK ^ 0xFF
@@ -32,8 +32,8 @@ const (
 type RegisterClass byte
 type Register struct {
 	Datatype datatype.DataType
-	Class RegisterClass
-	Sub byte
+	Class    RegisterClass
+	Sub      byte
 }
 
 type RegisterPair struct {
@@ -42,29 +42,29 @@ type RegisterPair struct {
 }
 
 const (
-	REGISTER_RAX	= RegisterClass(iota|REG_KIND_QDWBb)
-	REGISTER_RDI	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_RSI	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_RDX	= RegisterClass(iota|REG_KIND_QDWBb)
-	REGISTER_RCX	= RegisterClass(iota|REG_KIND_QDWBb)
-	REGISTER_R8 	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_R9 	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_R10	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_R11	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_RSP	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_RBX	= RegisterClass(iota|REG_KIND_QDWBb)
-	REGISTER_RBP	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_R12	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_R13	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_R14	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_R15	= RegisterClass(iota|REG_KIND_QDWB)
-	REGISTER_RIP    = RegisterClass(iota|REG_KIND_QDW)
-	REGISTER_RFLAGS = RegisterClass(iota|REG_KIND_QDW)
+	REGISTER_RAX    = RegisterClass(iota | REG_KIND_QDWBb)
+	REGISTER_RDI    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_RSI    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_RDX    = RegisterClass(iota | REG_KIND_QDWBb)
+	REGISTER_RCX    = RegisterClass(iota | REG_KIND_QDWBb)
+	REGISTER_R8     = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_R9     = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_R10    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_R11    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_RSP    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_RBX    = RegisterClass(iota | REG_KIND_QDWBb)
+	REGISTER_RBP    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_R12    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_R13    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_R14    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_R15    = RegisterClass(iota | REG_KIND_QDWB)
+	REGISTER_RIP    = RegisterClass(iota | REG_KIND_QDW)
+	REGISTER_RFLAGS = RegisterClass(iota | REG_KIND_QDW)
 
 	N_REGISTERS = iota
 )
 
-var RegistersStr = [N_REGISTERS][REG_SUB_MAX]string {
+var RegistersStr = [N_REGISTERS][REG_SUB_MAX]string{
 	{"%rax", "%eax", "%ax", "%al", "%ah"},
 	{"%rdi", "%edi", "%di", "%dil"},
 	{"%rsi", "%esi", "%si", "%sil"},
@@ -90,91 +90,101 @@ func (reg RegisterClass) register_from_sub(sub byte) Register {
 }
 
 var registers_alloc = [N_REGISTERS][REG_SUB_MAX]bool{}
+
 func (reg RegisterClass) GetRegister(typ datatype.DataType) (Register, bool) {
 	bit_size := typ.BitSize()
 	reg_kind := byte(reg) & REG_KIND_MASK
 
 	var r Register
 	switch reg_kind {
-		case REG_KIND_QDW:
-			switch bit_size {
-				case 64: r = reg.register_from_sub(REG_SUB_Q)
-						 r.Datatype = typ
-				case 32: r = reg.register_from_sub(REG_SUB_D)
-						 r.Datatype = typ
-				case 16: r = reg.register_from_sub(REG_SUB_W)
-						 r.Datatype = typ
-				default: return Register{}, true
-			}
+	case REG_KIND_QDW:
+		switch bit_size {
+		case 64:
+			r = reg.register_from_sub(REG_SUB_Q)
+			r.Datatype = typ
+		case 32:
+			r = reg.register_from_sub(REG_SUB_D)
+			r.Datatype = typ
+		case 16:
+			r = reg.register_from_sub(REG_SUB_W)
+			r.Datatype = typ
 		default:
-			switch bit_size {
-				case 64: r = reg.register_from_sub(REG_SUB_Q)
-						 r.Datatype = typ
-				case 32: r = reg.register_from_sub(REG_SUB_D)
-						 r.Datatype = typ
-				case 16: r = reg.register_from_sub(REG_SUB_W)
-						 r.Datatype = typ
-				case 8:  r = reg.register_from_sub(REG_SUB_B)
-						 r.Datatype = typ
-				default: return Register{}, true
-			}
+			return Register{}, true
+		}
+	default:
+		switch bit_size {
+		case 64:
+			r = reg.register_from_sub(REG_SUB_Q)
+			r.Datatype = typ
+		case 32:
+			r = reg.register_from_sub(REG_SUB_D)
+			r.Datatype = typ
+		case 16:
+			r = reg.register_from_sub(REG_SUB_W)
+			r.Datatype = typ
+		case 8:
+			r = reg.register_from_sub(REG_SUB_B)
+			r.Datatype = typ
+		default:
+			return Register{}, true
+		}
 	}
 
 	return r, false
 }
 
 func (reg Register) Allocate() {
-	registers_alloc[byte(reg.Class) & REG_KIND_MASKI][reg.Sub] = true
+	registers_alloc[byte(reg.Class)&REG_KIND_MASKI][reg.Sub] = true
 }
 
 func (reg Register) Free() {
-	registers_alloc[byte(reg.Class) & REG_KIND_MASKI][reg.Sub] = false
+	registers_alloc[byte(reg.Class)&REG_KIND_MASKI][reg.Sub] = false
 }
 
 func (class RegisterClass) Allocate() {
 	for i := byte(0); i < REG_SUB_b; i++ {
-		registers_alloc[byte(class) & REG_KIND_MASKI][i] = true
+		registers_alloc[byte(class)&REG_KIND_MASKI][i] = true
 	}
 }
 
 func (class RegisterClass) Free() {
 	for i := byte(0); i < REG_SUB_b; i++ {
-		registers_alloc[byte(class) & REG_KIND_MASKI][i] = false
+		registers_alloc[byte(class)&REG_KIND_MASKI][i] = false
 	}
 }
 
 func (reg Register) Allocated() bool {
 	switch reg.Sub {
-		case REG_SUB_B:
-			for i := byte(0); i < REG_SUB_B; i++ {
-				if registers_alloc[byte(reg.Class) & REG_KIND_MASKI][i] {
-					return true
-				}
-			}
-			if registers_alloc[byte(reg.Class) & REG_KIND_MASKI][REG_SUB_B] {
+	case REG_SUB_B:
+		for i := byte(0); i < REG_SUB_B; i++ {
+			if registers_alloc[byte(reg.Class)&REG_KIND_MASKI][i] {
 				return true
 			}
-		case REG_SUB_b:
-			for i := byte(0); i < REG_SUB_B; i++ {
-				if registers_alloc[byte(reg.Class) & REG_KIND_MASKI][i] {
-					return true
-				}
-			}
-			if registers_alloc[byte(reg.Class) & REG_KIND_MASKI][REG_SUB_b] {
+		}
+		if registers_alloc[byte(reg.Class)&REG_KIND_MASKI][REG_SUB_B] {
+			return true
+		}
+	case REG_SUB_b:
+		for i := byte(0); i < REG_SUB_B; i++ {
+			if registers_alloc[byte(reg.Class)&REG_KIND_MASKI][i] {
 				return true
 			}
-		default:
-			for _, sub := range registers_alloc[byte(reg.Class) & REG_KIND_MASKI] {
-				if sub {
-					return true
-				}
+		}
+		if registers_alloc[byte(reg.Class)&REG_KIND_MASKI][REG_SUB_b] {
+			return true
+		}
+	default:
+		for _, sub := range registers_alloc[byte(reg.Class)&REG_KIND_MASKI] {
+			if sub {
+				return true
 			}
+		}
 	}
 	return false
 }
 
 func (reg Register) Text() string {
-	return RegistersStr[byte(reg.Class) & REG_KIND_MASKI][reg.Sub]
+	return RegistersStr[byte(reg.Class)&REG_KIND_MASKI][reg.Sub]
 }
 
 func (reg Register) LiteralValue() Operand {
@@ -190,14 +200,14 @@ func (reg Register) Type() datatype.DataType {
 }
 
 func register_scratch_allocate(sub byte) (Register, bool) {
-	for _, s := range(ScratchRegisters) {
+	for _, s := range ScratchRegisters {
 		if sub == REG_SUB_B {
-			if byte(s) & REG_KIND_MASK > REG_KIND_QDWB {
+			if byte(s)&REG_KIND_MASK > REG_KIND_QDWB {
 				continue
 			}
 		}
 		if sub == REG_SUB_b {
-			if byte(s) & REG_KIND_MASK > REG_KIND_QDWBb {
+			if byte(s)&REG_KIND_MASK > REG_KIND_QDWBb {
 				continue
 			}
 		}
@@ -220,43 +230,45 @@ func RegisterScratchAllocate(_type datatype.DataType) (Register, bool) {
 	var r Register
 	f := false
 	switch _type.BitSize() {
-		case 64: r, f = register_scratch_allocate(REG_SUB_Q)
-				 r.Datatype = _type
-		case 32: r, f = register_scratch_allocate(REG_SUB_D)
-				 r.Datatype = _type
-		case 16: r, f = register_scratch_allocate(REG_SUB_W)
-				 r.Datatype = _type
-		case 8:
-			r, f =  register_scratch_allocate(REG_SUB_B)
+	case 64:
+		r, f = register_scratch_allocate(REG_SUB_Q)
+		r.Datatype = _type
+	case 32:
+		r, f = register_scratch_allocate(REG_SUB_D)
+		r.Datatype = _type
+	case 16:
+		r, f = register_scratch_allocate(REG_SUB_W)
+		r.Datatype = _type
+	case 8:
+		r, f = register_scratch_allocate(REG_SUB_B)
+		if f {
+			r, f = register_scratch_allocate(REG_SUB_b)
 			if f {
-				r, f = register_scratch_allocate(REG_SUB_b)
-				if f {
-					return Register{}, f
-				}
+				return Register{}, f
 			}
-			r.Datatype = _type
-		default:
-			return Register{}, true
+		}
+		r.Datatype = _type
+	default:
+		return Register{}, true
 	}
 	return r, f
 }
 
-
 func RegisterScratchFreeAll() {
-	for _, s := range(ScratchRegisters) {
+	for _, s := range ScratchRegisters {
 		s.Free()
 	}
 }
 
 func register_argument_allocate(sub byte) (Register, bool) {
-	for _, s := range(ArgumentRegisters) {
+	for _, s := range ArgumentRegisters {
 		if sub == REG_SUB_B {
-			if byte(s) & REG_KIND_MASK > REG_KIND_QDWB {
+			if byte(s)&REG_KIND_MASK > REG_KIND_QDWB {
 				continue
 			}
 		}
 		if sub == REG_SUB_b {
-			if byte(s) & REG_KIND_MASK > REG_KIND_QDWBb {
+			if byte(s)&REG_KIND_MASK > REG_KIND_QDWBb {
 				continue
 			}
 		}
@@ -276,35 +288,37 @@ func RegisterArgumentAllocate(_type datatype.DataType) (Register, bool) {
 	var r Register
 	f := false
 	switch _type.BitSize() {
-		case 64: r, f = register_argument_allocate(REG_SUB_Q)
-				 r.Datatype = _type
-		case 32: r, f = register_argument_allocate(REG_SUB_D)
-				 r.Datatype = _type
-		case 16: r, f = register_argument_allocate(REG_SUB_W)
-				 r.Datatype = _type
-		case 8:
-			r, f = register_argument_allocate(REG_SUB_B)
+	case 64:
+		r, f = register_argument_allocate(REG_SUB_Q)
+		r.Datatype = _type
+	case 32:
+		r, f = register_argument_allocate(REG_SUB_D)
+		r.Datatype = _type
+	case 16:
+		r, f = register_argument_allocate(REG_SUB_W)
+		r.Datatype = _type
+	case 8:
+		r, f = register_argument_allocate(REG_SUB_B)
+		if f {
+			r, f = register_argument_allocate(REG_SUB_b)
 			if f {
-				r, f = register_argument_allocate(REG_SUB_b)
-				if f {
-					return Register{}, f
-				}
+				return Register{}, f
 			}
-			r.Datatype = _type
-		default:
-			return Register{}, true
+		}
+		r.Datatype = _type
+	default:
+		return Register{}, true
 	}
 	return r, f
 }
 
-
 func RegisterArgumentFreeAll() {
-	for _, s := range(ArgumentRegisters) {
+	for _, s := range ArgumentRegisters {
 		s.Free()
 	}
 }
 
-var ScratchRegisters = [5]RegisterClass {
+var ScratchRegisters = [5]RegisterClass{
 	REGISTER_RBX,
 	REGISTER_R12,
 	REGISTER_R13,
@@ -312,13 +326,13 @@ var ScratchRegisters = [5]RegisterClass {
 	REGISTER_R15,
 }
 
-var ArgumentRegisters = [6]RegisterClass {
+var ArgumentRegisters = [6]RegisterClass{
 	REGISTER_RDI,
 	REGISTER_RSI,
 	REGISTER_RDX,
 	REGISTER_RCX,
-	REGISTER_R8 ,
-    REGISTER_R9 ,
+	REGISTER_R8,
+	REGISTER_R9,
 }
 
 const RETURN_REGISTER = REGISTER_RAX
@@ -334,12 +348,11 @@ const (
 	ASMREF_INDEXCOEFF_8 = Index_Coeff(8)
 )
 
-
 type Memory_Reference struct {
-	DataType datatype.DataType
-	Offset int64
-	Start Operand
-	Index Operand
+	DataType         datatype.DataType
+	Offset           int64
+	Start            Operand
+	Index            Operand
 	IndexCoefficient Index_Coeff
 }
 
@@ -352,14 +365,14 @@ func (mem Memory_Reference) Text() string {
 		return ""
 	}
 	if mem.Index == nil {
-		return  strconv.FormatInt(mem.Offset, 10)           + "("  +
-				mem.Start.Text()    		      		    + ", " +
-				strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
-	}
-	return  strconv.FormatInt(mem.Offset, 10)           + "("  +
-			mem.Start.(Register).Text()    		      		    + ", " +
-			mem.Index.(Register).Text() 				            + ", "  +
+		return strconv.FormatInt(mem.Offset, 10) + "(" +
+			mem.Start.Text() + ", " +
 			strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
+	}
+	return strconv.FormatInt(mem.Offset, 10) + "(" +
+		mem.Start.(Register).Text() + ", " +
+		mem.Index.(Register).Text() + ", " +
+		strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
 }
 
 func (mem Memory_Reference) LiteralValue() Operand {
@@ -373,14 +386,15 @@ func (mem Memory_Reference) Dereference() Operand {
 
 type Stack_Region struct {
 	rbp_offset uint32
-	datatype datatype.DataType
+	datatype   datatype.DataType
 
 	reserved uint32
 }
 
 var CurrentReservedStack uint32 = 0
+
 func StackReserveBytes(bytes uint32) uint32 {
-	if bytes % 16 != 0 {
+	if bytes%16 != 0 {
 		bytes += 16 - (bytes & 0xF)
 	}
 	CurrentReservedStack += bytes
@@ -401,11 +415,12 @@ func StackUnreserveAll() {
 }
 
 var CurrentAllocatedStack uint32 = 0
+
 func StackAllocate(_type datatype.DataType) Stack_Region {
 	size := uint32(_type.ByteSize())
 	reserved := uint32(0)
 
-	for CurrentAllocatedStack + size > CurrentReservedStack {
+	for CurrentAllocatedStack+size > CurrentReservedStack {
 		StackReserve16Bytes()
 		reserved += 0x10
 	}
@@ -417,6 +432,7 @@ func StackAllocate(_type datatype.DataType) Stack_Region {
 }
 
 var StackRegions []Stack_Region
+
 func StackAllocateAndRemember(_type datatype.DataType) Stack_Region {
 	allocated := StackAllocate(_type)
 	StackRegions = append(StackRegions, allocated)
@@ -429,7 +445,7 @@ func StackDeallocateCurrentRegion() *Stack_Region {
 	if i <= 0 {
 		return nil
 	}
-	
+
 	current_region := &StackRegions[i-1]
 
 	CurrentAllocatedStack -= current_region.datatype.ByteSize()
@@ -451,7 +467,8 @@ func ii(op string, oprnds ...Operand) string {
 	cnt := 0
 	for _, oprnd := range oprnds {
 		switch oprnd.(type) {
-			case Memory_Reference: cnt++
+		case Memory_Reference:
+			cnt++
 		}
 	}
 
@@ -466,21 +483,21 @@ func ii(op string, oprnds ...Operand) string {
 
 			instruction += Instruction("pushq", rbx) + "\n"
 		} else {
-			allocation   = reg
+			allocation = reg
 		}
 
 		instruction += GEN_move(oprnds[0], allocation).Code.Text + "\n"
 		oprnds[0] = allocation
-	    instruction += Instruction(op, oprnds...) + "\n"
+		instruction += Instruction(op, oprnds...) + "\n"
 
 		if full {
 			rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
-			instruction  += Instruction("popq", rbx) + "\n"
+			instruction += Instruction("popq", rbx) + "\n"
 		} else {
 			reg.Free()
 		}
 		return instruction
-	}	
+	}
 
 	return Instruction(op, oprnds...)
 }
@@ -493,7 +510,7 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 
 	if v != nil {
 		return_type := v.Type()
-		
+
 		if return_type.ByteSize() <= 8 {
 			return_reg, err := RETURN_REGISTER.GetRegister(return_type)
 			if err {
@@ -501,8 +518,7 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 			}
 
 			out.Code.Appendln(GEN_very_generic_move(v, return_reg).Code)
-		} else
-		if return_type.ByteSize() <= 16 {
+		} else if return_type.ByteSize() <= 16 {
 			rax, err := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 			if err {
 				fmt.Println("codegen error: could not find return register 1 for type `" + return_type.Name() + "`")
@@ -514,8 +530,7 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 
 			return_regs := []Register{rdx, rax}
 			out.Code.Appendln(GEN_loadstruct(v.(Memory_Reference), return_regs).Code)
-		} else
-		if return_type.ByteSize() > 16 {
+		} else if return_type.ByteSize() > 16 {
 			// fill up the memory pointed by the ghost parameter with the return value~ ^^
 			// to do this we have to actually copy the entire value into the memory pointed by ghost;
 			ghost_parameter_name := ".ghost_" + function_name
@@ -526,26 +541,23 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 				return out
 			}
 
-			println("return value size: ", v.(Memory_Reference).DataType.ByteSize())
-			println("return param size: ", ghost_parameter.(Codegen_Symbol).Data.Reference().DataType.ByteSize())
-			
 			// get the ghost_parameter poitner and put it in rax
 			rax, _ := REGISTER_RAX.GetRegister(ghost_parameter.Type())
 			out.Code.Appendln(GEN_move(ghost_parameter.(Codegen_Symbol).Data.Reference(), rax).Code)
 
 			// create a memory reference with rax as start
-			ghost_parameter_reference := Memory_Reference {
+			ghost_parameter_reference := Memory_Reference{
 				return_type,
 				0,
 				rax,
 				nil,
-				1,	
+				1,
 			}
-			
+
 			out.Code.Appendln(GEN_storestruct(v.(Memory_Reference), ghost_parameter_reference).Code)
 		}
 	}
-			
+
 	function_epilogue := LabelGet("._" + function_name)
 	out.Code.Appendln(GEN_jump(function_epilogue).Code)
 
@@ -554,13 +566,12 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 
 func GEN_function_prologue(f *front.Ast_Node) Codegen_Out {
 	res := Codegen_Out{}
-	
+
 	function_name := f.Children[0].Data[0].String_value
-			
+
 	name := LabelGet(function_name)
 	res.Code.TextAppendSln(Instruction(".global", name))
 	res.Code.TextAppendSln(name.Text() + ":")
-			
 
 	rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_INT64)
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
@@ -583,7 +594,6 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 	if body_result != nil {
 		body_type := ast.Children[3].DataType
 
-		println("epilogue ", body_type)
 		if body_type.ByteSize() <= 8 {
 			return_reg, err := RETURN_REGISTER.GetRegister(body_type)
 			if err {
@@ -591,8 +601,7 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 			}
 
 			res.Code.Appendln(GEN_very_generic_move(body_result, return_reg).Code)
-		} else
-		if body_type.ByteSize() <= 16 {
+		} else if body_type.ByteSize() <= 16 {
 			rax, err := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 			if err {
 				fmt.Println("codegen error: could not find return register 1 for type `" + body_type.Name() + "`")
@@ -601,12 +610,10 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 			if err {
 				fmt.Println("codegen error: could not find return register 2 for type `" + body_type.Name() + "`")
 			}
-			
+
 			return_regs := []Register{rdx, rax}
 			res.Code.Appendln(GEN_loadstruct(body_result.(Memory_Reference), return_regs).Code)
-		} else
-		if body_type.ByteSize() > 16 {
-
+		} else if body_type.ByteSize() > 16 {
 
 		}
 	}
@@ -614,17 +621,16 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 	function_epilogue := "._" + function_name
 	res.Code.TextAppendSln(function_epilogue + ":")
 
-
 	rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_INT64)
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
 
 	// deallocate used stack
-	res.Code.TextAppendSln(ii("movq", rbp, rsp) )
+	res.Code.TextAppendSln(ii("movq", rbp, rsp))
 	res.Code.TextAppendSln(ii("popq", rbp))
 	CurrentReservedStack = 0
 	CurrentAllocatedStack = 0
 
-	res.Code.TextAppendSln(ii("ret") )
+	res.Code.TextAppendSln(ii("ret"))
 
 	return res
 }
@@ -632,17 +638,23 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 // value -> register
 func GEN_load(v Operand, r Register) Codegen_Out {
 	res := Codegen_Out{}
-	
+
 	switch v.Type().BitSize() {
-		case 64:  
-			switch v.(type) {
-				case Asm_Int_Literal: res.Code.TextAppendSln(ii("movabsq", v, r))
-				default:			  res.Code.TextAppendSln(ii("movq", v, r))
-			}
-		case 32:  res.Code.TextAppendSln(ii("movl", v, r))
-		case 16:  res.Code.TextAppendSln(ii("movw", v, r))
-		case 8:   res.Code.TextAppendSln(ii("movb", v, r))
-		default: return res
+	case 64:
+		switch v.(type) {
+		case Asm_Int_Literal:
+			res.Code.TextAppendSln(ii("movabsq", v, r))
+		default:
+			res.Code.TextAppendSln(ii("movq", v, r))
+		}
+	case 32:
+		res.Code.TextAppendSln(ii("movl", v, r))
+	case 16:
+		res.Code.TextAppendSln(ii("movw", v, r))
+	case 8:
+		res.Code.TextAppendSln(ii("movb", v, r))
+	default:
+		return res
 	}
 
 	return res
@@ -655,22 +667,26 @@ func GEN_store(v Operand, m Memory_Reference) Codegen_Out {
 	rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
 
 	switch v.Type().BitSize() {
-		case 64:  
-			switch v.(type) {
-				case Asm_Int_Literal: 
-					res.Code.TextAppendSln(Instruction("pushq", rbx))
+	case 64:
+		switch v.(type) {
+		case Asm_Int_Literal:
+			res.Code.TextAppendSln(Instruction("pushq", rbx))
 
-					res.Code.Appendln(GEN_load(v, rbx).Code)
-					res.Code.TextAppendSln(ii("movq", rbx, m))
+			res.Code.Appendln(GEN_load(v, rbx).Code)
+			res.Code.TextAppendSln(ii("movq", rbx, m))
 
-					res.Code.TextAppendSln(Instruction("popq", rbx))
-				default: 
-					res.Code.TextAppendSln(ii("movq", v, m))
-			}
-		case 32:  res.Code.TextAppendSln(ii("movl", v, m))
-		case 16:  res.Code.TextAppendSln(ii("movw", v, m))
-		case 8:   res.Code.TextAppendSln(ii("movb", v, m))
-		default: return res
+			res.Code.TextAppendSln(Instruction("popq", rbx))
+		default:
+			res.Code.TextAppendSln(ii("movq", v, m))
+		}
+	case 32:
+		res.Code.TextAppendSln(ii("movl", v, m))
+	case 16:
+		res.Code.TextAppendSln(ii("movw", v, m))
+	case 8:
+		res.Code.TextAppendSln(ii("movb", v, m))
+	default:
+		return res
 	}
 
 	return res
@@ -679,8 +695,10 @@ func GEN_store(v Operand, m Memory_Reference) Codegen_Out {
 // value -> reg/mem
 func GEN_move(s Operand, d Operand) Codegen_Out {
 	switch d.(type) {
-		case Register: 		   return GEN_load(s, d.(Register))
-		case Memory_Reference: return GEN_store(s, d.(Memory_Reference))
+	case Register:
+		return GEN_load(s, d.(Register))
+	case Memory_Reference:
+		return GEN_store(s, d.(Memory_Reference))
 	}
 	return Codegen_Out{}
 }
@@ -695,9 +713,9 @@ func GEN_loadstruct(s Memory_Reference, d []Register) Codegen_Out {
 		fmt.Println("codegen error: not enough registers to load struct of type `", struct_type.Name, "`")
 		return res
 	}
-	
+
 	struct_allocation := s
-	struct_start  := struct_allocation.Start
+	struct_start := struct_allocation.Start
 	struct_offset := struct_allocation.Offset
 
 	for field := nfields - 1; field >= 0; field-- {
@@ -705,11 +723,11 @@ func GEN_loadstruct(s Memory_Reference, d []Register) Codegen_Out {
 		field_name := struct_type.Fields[field].Name
 		field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
 
-		field_destination := d[(nfields - field) - 1]
-		
+		field_destination := d[(nfields-field)-1]
+
 		if field_type.ByteSize() > field_destination.Datatype.ByteSize() {
 			fmt.Println(
-				"codegen error: struct field `", 
+				"codegen error: struct field `",
 				field_name,
 				"` (of type `", field_type.Name(),
 				"`) is too big for register of type `",
@@ -726,7 +744,6 @@ func GEN_loadstruct(s Memory_Reference, d []Register) Codegen_Out {
 			1,
 		}
 
-
 		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), field_destination).Code)
 	}
 
@@ -738,14 +755,14 @@ func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
 
 	struct_type := s.Type().(datatype_struct.StructType)
 	nfields := len(struct_type.Fields)
-	
+
 	if s.DataType.ByteSize() > d.DataType.ByteSize() {
 		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
 		return res
 	}
-	
+
 	struct_allocation := s
-	struct_start  := struct_allocation.Start
+	struct_start := struct_allocation.Start
 	struct_offset := struct_allocation.Offset
 
 	for field := nfields - 1; field >= 0; field-- {
@@ -769,7 +786,7 @@ func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
 		}
 
 		//
-		//   in a case like this: 
+		//   in a case like this:
 		//	 	struct {
 		//			struct {
 		//				struct {
@@ -777,7 +794,7 @@ func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
 		//				}
 		//			}
 		//		}
-		// 
+		//
 		//	 ... we need to find the most primitive value in a rescursive way.
 
 		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), destination).Code)
@@ -796,12 +813,12 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 	for _, f := range s {
 		fields_size += f.Type().ByteSize()
 	}
-	
+
 	if fields_size > struct_type.ByteSize() {
 		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
 		return res
 	}
-	
+
 	//struct_allocation := s
 	//struct_start  := struct_allocation.Start
 	//struct_offset := struct_allocation.Offset
@@ -829,7 +846,7 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 		}
 
 		//
-		//   in a case like this: 
+		//   in a case like this:
 		//	 	struct {
 		//			struct {
 		//				struct {
@@ -837,27 +854,30 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 		//				}
 		//			}
 		//		}
-		// 
+		//
 		//	 ... we need to find the most primitive value in a rescursive way.
 
 		res.Code.Appendln(GEN_very_generic_move(field_allocation, destination).Code)
 	}
 
 	return res
-	
+
 }
 
 func GEN_very_generic_move(s Operand, d any) Codegen_Out {
 	switch s.Type().(type) {
-		case datatype_struct.StructType: 
-			struct_allocation := s.(Memory_Reference)
-			switch d.(type) {
-				case Register: return GEN_loadstruct(struct_allocation, []Register{d.(Register)})
-				case Memory_Reference: return GEN_storestruct(struct_allocation, d.(Memory_Reference))
-				case []Register: return GEN_loadstruct(struct_allocation, d.([]Register))
-			}
-		default:
-			return GEN_move(s, d.(Operand))
+	case datatype_struct.StructType:
+		struct_allocation := s.(Memory_Reference)
+		switch d.(type) {
+		case Register:
+			return GEN_loadstruct(struct_allocation, []Register{d.(Register)})
+		case Memory_Reference:
+			return GEN_storestruct(struct_allocation, d.(Memory_Reference))
+		case []Register:
+			return GEN_loadstruct(struct_allocation, d.([]Register))
+		}
+	default:
+		return GEN_move(s, d.(Operand))
 	}
 
 	return Codegen_Out{}
@@ -866,7 +886,7 @@ func GEN_very_generic_move(s Operand, d any) Codegen_Out {
 func GEN_jump(a Operand) Codegen_Out {
 	res := Codegen_Out{}
 
-	res.Code.TextAppendSln(ii("jmp", a) )
+	res.Code.TextAppendSln(ii("jmp", a))
 
 	return res
 }
@@ -879,15 +899,15 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 		// create a ghost parameter for returning the big stuff
 		ghost_parameter_name := ".ghost_" + function_name
 		variable_type := datatype.PointerType{f.DataType}
-		
+
 		// this is expensive and superflous
 		/*
-		_, found := symbol.SymbolTableGetInCurrentScope(ghost_parameter_name)
-		
-		if found {
-			fmt.Println("codegen error: `" + ghost_parameter_name + "` was already declared in this scope")
-			return out
-		}
+			_, found := symbol.SymbolTableGetInCurrentScope(ghost_parameter_name)
+
+			if found {
+				fmt.Println("codegen error: `" + ghost_parameter_name + "` was already declared in this scope")
+				return out
+			}
 		*/
 
 		variable_allc := StackAllocate(variable_type)
@@ -896,21 +916,21 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 
 		err := symbol.SymbolTableInsertInCurrentScope(ghost_parameter_name, Codegen_Symbol{variable_type, variable_allc})
 		if err != nil {
-			fmt.Println(err)	
+			fmt.Println(err)
 			return res
 		}
 
 		// push-front the ghost parameter into args
-		new_args := make([]Operand, 0, 1 + len(args))
+		new_args := make([]Operand, 0, 1+len(args))
 		new_args = append(new_args, variable_allc.Reference())
 		new_args = append(new_args, args...)
 		args = new_args
 	}
-		
+
 	allocated_regs := 0
 	allocated_stack := int64(16) // return address (8B) + pushed rbp (8B)
 	for _, a := range args {
-		if a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters) - 1) {
+		if a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters)-1) {
 			rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_UINT64)
 
 			stack_region := Memory_Reference{
@@ -924,9 +944,8 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 			res.Code.Appendln(GEN_storestruct(stack_region, a.(Memory_Reference)).Code)
 
 			allocated_stack += int64(a.Type().ByteSize())
-		} else
-		if a.Type().ByteSize() > 8 {
-			// TODO: don't just assume it's a struct with two fields 
+		} else if a.Type().ByteSize() > 8 {
+			// TODO: don't just assume it's a struct with two fields
 			reg_a, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
 			if full {
 				fmt.Println("codegen error: could not find an argument register for type `" + a.Type().Name() + "`")
@@ -944,10 +963,10 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 		} else {
 			var arg Operand
 			switch a.(type) {
-				case Label: 
-					arg = a.LiteralValue()
-				default:
-					arg = a 
+			case Label:
+				arg = a.LiteralValue()
+			default:
+				arg = a
 			}
 
 			arg_reg, full := RegisterArgumentAllocate(arg.Type())
@@ -961,7 +980,7 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 			res.Code.Appendln(GEN_move(arg_reg, arg).Code)
 		}
 	}
-	
+
 	RegisterArgumentFreeAll()
 
 	return res
@@ -971,7 +990,7 @@ func GEN_callargs(args []Operand) Codegen_Out {
 
 	allocated_regs := 0
 	for _, a := range args {
-		if a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters) - 1) {
+		if a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters)-1) {
 			rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
 			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 
@@ -990,8 +1009,7 @@ func GEN_callargs(args []Operand) Codegen_Out {
 			}
 
 			res.Code.Appendln(GEN_storestruct(a.(Memory_Reference), stack_region).Code)
-		} else
-		if a.Type().ByteSize() > 8 {
+		} else if a.Type().ByteSize() > 8 {
 			// TODO: don't just assume it's a struct
 			reg_a, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
 			if full {
@@ -1009,10 +1027,10 @@ func GEN_callargs(args []Operand) Codegen_Out {
 		} else {
 			var arg Operand
 			switch a.(type) {
-				case Label: 
-					arg = a.LiteralValue()
-				default:
-					arg = a 
+			case Label:
+				arg = a.LiteralValue()
+			default:
+				arg = a
 			}
 
 			arg_reg, full := RegisterArgumentAllocate(arg.Type())
@@ -1047,7 +1065,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 		var full bool
 		reg, full := RegisterScratchAllocate(pointer_type)
 		if full {
-			allocation, full := REGISTER_RBX.GetRegister(pointer_type) 
+			allocation, full := REGISTER_RBX.GetRegister(pointer_type)
 			if full {
 				fmt.Println("codegen error: could not find return register for type `" + f.DataType.Name() + "`")
 			}
@@ -1058,7 +1076,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 		res.Code.TextAppendSln(ii("leaq", memory, allocation))
 
 		// push-front pointer to args
-		new_args := make([]Operand, 0, 1 + len(args))
+		new_args := make([]Operand, 0, 1+len(args))
 		new_args = append(new_args, allocation)
 		new_args = append(new_args, args...)
 		args = new_args
@@ -1068,7 +1086,6 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	res.Code.Appendln(call_args.Code)
 
 	name := LabelGet(f.Data[0].String_value)
-	println("CALLing ", name.Text())
 	res.Code.TextAppendSln(ii("call", name))
 
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
@@ -1077,29 +1094,27 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	nargs_in_stack := nargs - len(ArgumentRegisters)
 	if nargs_in_stack > 0 {
 		reserved_stack := uint32(nargs_in_stack * 8)
-		if reserved_stack % 16 != 0 {
+		if reserved_stack%16 != 0 {
 			reserved_stack += 16 - (reserved_stack & 0xF)
 		}
-		
-		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_INT64, int64(reserved_stack), 10}, rsp) )
-		for i := 0; i < nargs_in_stack; i+=2 {
+
+		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_INT64, int64(reserved_stack), 10}, rsp))
+		for i := 0; i < nargs_in_stack; i += 2 {
 			StackUnreserve16Bytes()
 		}
 	}
-			
+
 	// unreserve the stack space where we passed the arguments
 	arguments_in_stack := StackDeallocateCurrentRegion()
 	if arguments_in_stack != nil {
 		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(arguments_in_stack.reserved), 10}, rsp))
 	}
-			
-	if f.DataType != nil 				 &&
-	   f.DataType != datatype.TYPE_NONE  &&
-	   f.DataType != datatype.TYPE_UNDEFINED {
+
+	if f.DataType != nil &&
+		f.DataType != datatype.TYPE_NONE &&
+		f.DataType != datatype.TYPE_UNDEFINED {
 		var result Operand
 
-		println(f.DataType.Name())
-		println(f.DataType.ByteSize())
 		if f.DataType.ByteSize() <= 8 {
 			reg, full := RegisterScratchAllocate(f.DataType)
 			if full {
@@ -1107,17 +1122,16 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 			} else {
 				result = reg
 			}
-			
+
 			return_reg, err := REGISTER_RAX.GetRegister(f.DataType)
 			if err {
 				fmt.Println("codegen error: could not find return register for type `" + f.DataType.Name() + "`")
 			}
 
 			res.Code.Appendln(GEN_very_generic_move(return_reg, result).Code)
-		} else
-		if f.DataType.ByteSize() <= 16 {
+		} else if f.DataType.ByteSize() <= 16 {
 			result = StackAllocate(f.DataType).Reference()
-			
+
 			rax, err := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 			if err {
 				fmt.Println("codegen error: could not find return register 1 for type `" + f.DataType.Name() + "`")
@@ -1129,8 +1143,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 
 			return_regs := []Operand{rax, rdx}
 			res.Code.Appendln(GEN_storestruct_from_operands(return_regs, result.(Memory_Reference)).Code)
-		} else 
-		if f.DataType.ByteSize() > 16 {
+		} else if f.DataType.ByteSize() > 16 {
 			return_type := datatype.PointerType{f.DataType}
 			reg, full := RegisterScratchAllocate(return_type)
 			if full {
@@ -1138,7 +1151,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 			} else {
 				result = reg
 			}
-			
+
 			return_reg, err := REGISTER_RAX.GetRegister(return_type)
 			if err {
 				fmt.Println("codegen error: could not find return register for type `" + f.DataType.Name() + "`")
@@ -1146,12 +1159,10 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 
 			res.Code.Appendln(GEN_very_generic_move(return_reg, result).Code)
 
-			// the actual result is going to be the stack allocation that we allocated before... 
+			// the actual result is going to be the stack allocation that we allocated before...
 			// this is true if we assume that returned pointer = given pointer
 			// but is this always true? TODO: figure this out
 			result = return_value_memory
-			
-
 
 		}
 
@@ -1165,7 +1176,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 
 func GEN_for(i Codegen_Out, c Codegen_Out, e Codegen_Out, b Codegen_Out) Codegen_Out {
 	res := Codegen_Out{}
-	
+
 	res.Code.Appendln(i.Code)
 
 	for_label := LabelGen()
@@ -1173,15 +1184,15 @@ func GEN_for(i Codegen_Out, c Codegen_Out, e Codegen_Out, b Codegen_Out) Codegen
 	res.Code.TextAppendSln(for_label.Text() + ":")
 
 	res.Code.Appendln(c.Code)
-	
-	res.Code.TextAppendSln(ii("andb", c.Result, c.Result) )
-	res.Code.TextAppendSln(ii("jz", for_exit_label) )
+
+	res.Code.TextAppendSln(ii("andb", c.Result, c.Result))
+	res.Code.TextAppendSln(ii("jz", for_exit_label))
 
 	res.Code.Appendln(b.Code)
 
 	res.Code.Appendln(e.Code)
-	
-	res.Code.TextAppendSln(ii("jmp", for_label) )
+
+	res.Code.TextAppendSln(ii("jmp", for_label))
 
 	res.Code.TextAppendSln(for_exit_label.Text() + ":")
 	return res
@@ -1196,21 +1207,20 @@ func GEN_while(c Codegen_Out, b Codegen_Out) Codegen_Out {
 
 	res.Code.Appendln(c.Code)
 
-	res.Code.TextAppendSln(ii("andb", c.Result, c.Result) )
-	res.Code.TextAppendSln(ii("jz", while_exit_label) )
+	res.Code.TextAppendSln(ii("andb", c.Result, c.Result))
+	res.Code.TextAppendSln(ii("jz", while_exit_label))
 
 	res.Code.Appendln(b.Code)
 
-	res.Code.TextAppendSln(ii("jmp", while_label) )
+	res.Code.TextAppendSln(ii("jmp", while_label))
 	res.Code.TextAppendSln(while_exit_label.Text() + ":")
-	
+
 	return res
 }
 
 func GEN_if(c Codegen_Out, t Codegen_Out) Codegen_Out {
 	res := Codegen_Out{}
 	if_exit_label := LabelGen()
-	
 
 	if_type := datatype.DataType(datatype.TYPE_NONE)
 
@@ -1230,8 +1240,8 @@ func GEN_if(c Codegen_Out, t Codegen_Out) Codegen_Out {
 
 	res.Code.Appendln(c.Code)
 
-	res.Code.TextAppendSln(ii("andb", c.Result, c.Result) )
-	res.Code.TextAppendSln(ii("jz", if_exit_label) )
+	res.Code.TextAppendSln(ii("andb", c.Result, c.Result))
+	res.Code.TextAppendSln(ii("jz", if_exit_label))
 
 	res.Code.Appendln(t.Code)
 
@@ -1249,13 +1259,12 @@ func GEN_ifelse(c Codegen_Out, t Codegen_Out, f Codegen_Out) Codegen_Out {
 
 	if_false_label := LabelGen()
 	if_exit_label := LabelGen()
-	
+
 	if_type := datatype.DataType(datatype.TYPE_NONE)
 
 	if t.Result != nil {
 		if_type = t.Result.Type()
 	}
-
 
 	var allocation Operand
 	if if_type != datatype.TYPE_NONE {
@@ -1269,8 +1278,8 @@ func GEN_ifelse(c Codegen_Out, t Codegen_Out, f Codegen_Out) Codegen_Out {
 
 	res.Code.Appendln(c.Code)
 
-	res.Code.TextAppendSln(ii("andb", c.Result, c.Result) )
-	res.Code.TextAppendSln(ii("jz", if_false_label) )
+	res.Code.TextAppendSln(ii("andb", c.Result, c.Result))
+	res.Code.TextAppendSln(ii("jz", if_false_label))
 
 	res.Code.Appendln(t.Code)
 
@@ -1298,7 +1307,7 @@ func GEN_reference(s Codegen_Symbol) Codegen_Out {
 
 	pointer_type := datatype.PointerType{s.Type()}
 
-	rbx, _ := REGISTER_RBX.GetRegister(pointer_type) 
+	rbx, _ := REGISTER_RBX.GetRegister(pointer_type)
 
 	ref := s.Data.Reference()
 
@@ -1329,33 +1338,35 @@ func GEN_reference(s Codegen_Symbol) Codegen_Out {
 func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
 	res := Codegen_Out{}
 	var allocation Operand
-	
+
 	data_size := v.Type().BitSize()
 
 	switch t {
-		case front.AST_OP_NEG:
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("negq", v))
-				case 32:  res.Code.TextAppendSln(ii("negl", v))
-				case 16:  res.Code.TextAppendSln(ii("negw", v))
-				case 8:   res.Code.TextAppendSln(ii("negb", v))
-			}
-			allocation = v
-		case front.AST_OP_NOT:
-			res.Code.TextAppendSln(
-				ii(
-					"xorb",
-					Asm_Int_Literal{datatype.TYPE_BOOL, 1, 10},
-					v,
-				),
-			)
-			allocation = v
-		case front.AST_OP_REFERENCE:
-			
+	case front.AST_OP_NEG:
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("negq", v))
+		case 32:
+			res.Code.TextAppendSln(ii("negl", v))
+		case 16:
+			res.Code.TextAppendSln(ii("negw", v))
+		case 8:
+			res.Code.TextAppendSln(ii("negb", v))
+		}
+		allocation = v
+	case front.AST_OP_NOT:
+		res.Code.TextAppendSln(
+			ii(
+				"xorb",
+				Asm_Int_Literal{datatype.TYPE_BOOL, 1, 10},
+				v,
+			),
+		)
+		allocation = v
+	case front.AST_OP_REFERENCE:
 
-			
 	}
-	
+
 	res.Result = allocation
 	return res
 }
@@ -1363,242 +1374,288 @@ func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
 func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	res := Codegen_Out{}
 	var allocation Operand
-	
+
 	data_size := l.Type().BitSize()
 
 	switch t {
-		case front.AST_OP_SUM: 
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("addq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("addl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("addw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("addb", r, l))
-			}
-			allocation = l
-		case front.AST_OP_SUB: 
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("subq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("subl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("subw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("subb", r, l))
-			}
-			allocation = l
-		case front.AST_OP_MUL:
-			rax, _ := REGISTER_RAX.GetRegister(l.Type())
+	case front.AST_OP_SUM:
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("addq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("addl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("addw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("addb", r, l))
+		}
+		allocation = l
+	case front.AST_OP_SUB:
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("subq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("subl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("subw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("subb", r, l))
+		}
+		allocation = l
+	case front.AST_OP_MUL:
+		rax, _ := REGISTER_RAX.GetRegister(l.Type())
 
-			res.Code.Appendln(GEN_load(l, rax).Code)
-			switch r.Type().BitSize() {
-				case 64:  res.Code.TextAppendSln(ii("imulq", r))
-				case 32:  res.Code.TextAppendSln(ii("imull", r))
-				case 16:  res.Code.TextAppendSln(ii("imulw", r))
-				case 8:   res.Code.TextAppendSln(ii("imulb", r))
-			}
-			res.Code.Appendln(GEN_move(rax, l).Code)
+		res.Code.Appendln(GEN_load(l, rax).Code)
+		switch r.Type().BitSize() {
+		case 64:
+			res.Code.TextAppendSln(ii("imulq", r))
+		case 32:
+			res.Code.TextAppendSln(ii("imull", r))
+		case 16:
+			res.Code.TextAppendSln(ii("imulw", r))
+		case 8:
+			res.Code.TextAppendSln(ii("imulb", r))
+		}
+		res.Code.Appendln(GEN_move(rax, l).Code)
 
-			allocation = l
-		case front.AST_OP_DIV:
-			rax, _ := REGISTER_RAX.GetRegister(l.Type())
-			rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
-			rdx_64, _ := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
+		allocation = l
+	case front.AST_OP_DIV:
+		rax, _ := REGISTER_RAX.GetRegister(l.Type())
+		rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
+		rdx_64, _ := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
 
-			res.Code.TextAppendSln(ii("xorq", rdx_64, rdx_64))
-			res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
+		res.Code.TextAppendSln(ii("xorq", rdx_64, rdx_64))
+		res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
 
-			res.Code.Appendln(GEN_load(l, rax).Code)
-			switch r.Type().BitSize() {
-				case 64:  res.Code.TextAppendSln(ii("idivq", r))
-				case 32:  res.Code.TextAppendSln(ii("idivl", r))
-				case 16:  res.Code.TextAppendSln(ii("idivw", r))
-				case 8:   res.Code.TextAppendSln(ii("idivb", r))
-			}
-			res.Code.Appendln(GEN_move(rax, l).Code)
+		res.Code.Appendln(GEN_load(l, rax).Code)
+		switch r.Type().BitSize() {
+		case 64:
+			res.Code.TextAppendSln(ii("idivq", r))
+		case 32:
+			res.Code.TextAppendSln(ii("idivl", r))
+		case 16:
+			res.Code.TextAppendSln(ii("idivw", r))
+		case 8:
+			res.Code.TextAppendSln(ii("idivb", r))
+		}
+		res.Code.Appendln(GEN_move(rax, l).Code)
 
-			allocation = l
-		case front.AST_OP_MOD:
-			rax, _ := REGISTER_RAX.GetRegister(l.Type())
-			rdx, _ := REGISTER_RDX.GetRegister(l.Type())
-			rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
-			rdx_64, _ := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
+		allocation = l
+	case front.AST_OP_MOD:
+		rax, _ := REGISTER_RAX.GetRegister(l.Type())
+		rdx, _ := REGISTER_RDX.GetRegister(l.Type())
+		rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
+		rdx_64, _ := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
 
-			rem := rdx
+		rem := rdx
 
-			res.Code.TextAppendSln(ii("xorq", rdx_64, rdx_64))
-			res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
+		res.Code.TextAppendSln(ii("xorq", rdx_64, rdx_64))
+		res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
 
-			res.Code.Appendln(GEN_load(l, rax).Code)
-			switch r.Type().BitSize() {
-				case 64:  res.Code.TextAppendSln(ii("idivq", r))
-				case 32:  res.Code.TextAppendSln(ii("idivl", r))
-				case 16:  res.Code.TextAppendSln(ii("idivw", r))
-				case 8:   
-					res.Code.TextAppendSln(ii("idivb", r))
-					ah := REGISTER_RAX.register_from_sub(REG_SUB_b)
-					ah.Datatype = l.Type()
-					res.Code.Appendln(GEN_move(ah, rax).Code)
-					rem = rax
-			}
+		res.Code.Appendln(GEN_load(l, rax).Code)
+		switch r.Type().BitSize() {
+		case 64:
+			res.Code.TextAppendSln(ii("idivq", r))
+		case 32:
+			res.Code.TextAppendSln(ii("idivl", r))
+		case 16:
+			res.Code.TextAppendSln(ii("idivw", r))
+		case 8:
+			res.Code.TextAppendSln(ii("idivb", r))
+			ah := REGISTER_RAX.register_from_sub(REG_SUB_b)
+			ah.Datatype = l.Type()
+			res.Code.Appendln(GEN_move(ah, rax).Code)
+			rem = rax
+		}
 
-			res.Code.Appendln(GEN_move(rem, l).Code)
-			allocation = l
-		case front.AST_OP_GRT: 
-			var full bool
-			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-			if full {
-				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-			} else {
-				allocation = reg
-			}
-			
-			res.Code.TextAppendSln(ii("xorb", allocation, allocation) )
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("cmpq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("cmpl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("cmpw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
-			}
+		res.Code.Appendln(GEN_move(rem, l).Code)
+		allocation = l
+	case front.AST_OP_GRT:
+		var full bool
+		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+		if full {
+			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+		} else {
+			allocation = reg
+		}
 
-			if r.Type().(datatype.PrimitiveType).Sign() {
-				res.Code.TextAppendSln(ii("setg", allocation) )
-			} else {
-				res.Code.TextAppendSln(ii("seta", allocation) )
-			}
-			switch l.(type) {
-				case Register: l.(Register).Free()
-			}
-		case front.AST_OP_LES: 
-			var full bool
-			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-			if full {
-				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-			} else {
-				allocation = reg
-			}
-			
-			res.Code.TextAppendSln(ii("xorb", allocation, allocation) )
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("cmpq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("cmpl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("cmpw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
-			}
+		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("cmpq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("cmpl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("cmpw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("cmpb", r, l))
+		}
 
-			if r.Type().(datatype.PrimitiveType).Sign() {
-				res.Code.TextAppendSln(ii("setl", allocation) )
-			} else {
-				res.Code.TextAppendSln(ii("setb", allocation) )
-			}
-			switch l.(type) {
-				case Register: l.(Register).Free()
-			}
-		case front.AST_OP_GOE:
-			var full bool
-			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-			if full {
-				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-			} else {
-				allocation = reg
-			}
-			
-			res.Code.TextAppendSln(ii("xorb", allocation, allocation) )
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("cmpq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("cmpl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("cmpw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
-			}
+		if r.Type().(datatype.PrimitiveType).Sign() {
+			res.Code.TextAppendSln(ii("setg", allocation))
+		} else {
+			res.Code.TextAppendSln(ii("seta", allocation))
+		}
+		switch l.(type) {
+		case Register:
+			l.(Register).Free()
+		}
+	case front.AST_OP_LES:
+		var full bool
+		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+		if full {
+			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+		} else {
+			allocation = reg
+		}
 
+		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("cmpq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("cmpl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("cmpw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("cmpb", r, l))
+		}
 
-			if r.Type().(datatype.PrimitiveType).Sign() {
-				res.Code.TextAppendSln(ii("setge", allocation) )
-			} else {
-				res.Code.TextAppendSln(ii("setae", allocation) )
-			}
-			switch l.(type) {
-				case Register: l.(Register).Free()
-			}
-		case front.AST_OP_LOE:
-			var full bool
-			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-			if full {
-				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-			} else {
-				allocation = reg
-			}
-			
-			res.Code.TextAppendSln(ii("xorb", allocation, allocation) )
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("cmpq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("cmpl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("cmpw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
-			}
+		if r.Type().(datatype.PrimitiveType).Sign() {
+			res.Code.TextAppendSln(ii("setl", allocation))
+		} else {
+			res.Code.TextAppendSln(ii("setb", allocation))
+		}
+		switch l.(type) {
+		case Register:
+			l.(Register).Free()
+		}
+	case front.AST_OP_GOE:
+		var full bool
+		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+		if full {
+			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+		} else {
+			allocation = reg
+		}
 
+		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("cmpq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("cmpl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("cmpw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("cmpb", r, l))
+		}
 
-			if r.Type().(datatype.PrimitiveType).Sign() {
-				res.Code.TextAppendSln(ii("setle", allocation) )
-			} else {
-				res.Code.TextAppendSln(ii("setbe", allocation) )
-			}
-			switch l.(type) {
-				case Register: l.(Register).Free()
-			}
-		case front.AST_OP_EQU:
-			var full bool
-			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-			if full {
-				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-			} else {
-				allocation = reg
-			}
-			
-			res.Code.TextAppendSln(ii("xorb", allocation, allocation) )
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("cmpq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("cmpl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("cmpw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
-			}
+		if r.Type().(datatype.PrimitiveType).Sign() {
+			res.Code.TextAppendSln(ii("setge", allocation))
+		} else {
+			res.Code.TextAppendSln(ii("setae", allocation))
+		}
+		switch l.(type) {
+		case Register:
+			l.(Register).Free()
+		}
+	case front.AST_OP_LOE:
+		var full bool
+		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+		if full {
+			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+		} else {
+			allocation = reg
+		}
 
+		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("cmpq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("cmpl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("cmpw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("cmpb", r, l))
+		}
 
-			res.Code.TextAppendSln(ii("sete", allocation) )
-			switch l.(type) {
-				case Register: l.(Register).Free()
-			}
-		case front.AST_OP_NEQ:
-			var full bool
-			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-			if full {
-				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-			} else {
-				allocation = reg
-			}
-			
-			res.Code.TextAppendSln(ii("xorb", allocation, allocation) )
-			switch data_size {
-				case 64:  res.Code.TextAppendSln(ii("cmpq", r, l))
-				case 32:  res.Code.TextAppendSln(ii("cmpl", r, l))
-				case 16:  res.Code.TextAppendSln(ii("cmpw", r, l))
-				case 8:   res.Code.TextAppendSln(ii("cmpb", r, l))
-			}
+		if r.Type().(datatype.PrimitiveType).Sign() {
+			res.Code.TextAppendSln(ii("setle", allocation))
+		} else {
+			res.Code.TextAppendSln(ii("setbe", allocation))
+		}
+		switch l.(type) {
+		case Register:
+			l.(Register).Free()
+		}
+	case front.AST_OP_EQU:
+		var full bool
+		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+		if full {
+			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+		} else {
+			allocation = reg
+		}
 
+		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("cmpq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("cmpl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("cmpw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("cmpb", r, l))
+		}
 
-			res.Code.TextAppendSln(ii("setne", allocation) )
-			
-			switch l.(type) {
-				case Register: l.(Register).Free()
-			}
-		case front.AST_OP_AND:
-			res.Code.TextAppendSln(ii("andb", r, l))
+		res.Code.TextAppendSln(ii("sete", allocation))
+		switch l.(type) {
+		case Register:
+			l.(Register).Free()
+		}
+	case front.AST_OP_NEQ:
+		var full bool
+		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+		if full {
+			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+		} else {
+			allocation = reg
+		}
 
-			allocation = l
-		case front.AST_OP_OR:
-			res.Code.TextAppendSln(ii("orb", r, l))
+		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("cmpq", r, l))
+		case 32:
+			res.Code.TextAppendSln(ii("cmpl", r, l))
+		case 16:
+			res.Code.TextAppendSln(ii("cmpw", r, l))
+		case 8:
+			res.Code.TextAppendSln(ii("cmpb", r, l))
+		}
 
-			allocation = l
+		res.Code.TextAppendSln(ii("setne", allocation))
+
+		switch l.(type) {
+		case Register:
+			l.(Register).Free()
+		}
+	case front.AST_OP_AND:
+		res.Code.TextAppendSln(ii("andb", r, l))
+
+		allocation = l
+	case front.AST_OP_OR:
+		res.Code.TextAppendSln(ii("orb", r, l))
+
+		allocation = l
 	}
 
 	switch r.(type) {
-		case Register: r.(Register).Free()
+	case Register:
+		r.(Register).Free()
 	}
 
 	res.Result = allocation
@@ -1611,24 +1668,23 @@ func GEN_array_index(array_struct Memory_Reference, index Register, ast *front.A
 
 	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
 	r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64)
-	
+
 	// load array.data, array.len => r10, r11
 	res.Code.Appendln(GEN_loadstruct(array_struct, []Register{r10, r11}).Code)
 
 	// do boundary checking
 
-
-	// return index + data ?? 
+	// return index + data ??
 	//res.Code.Appendln(GEN_binop(front.AST_OP_SUM, r11, index).Code)
-	array_index_reference := Memory_Reference {
+	array_index_reference := Memory_Reference{
 		datatype_array.ArrayDataType(array_struct.Type()),
 		0, // Offset int64
 		r11,
 		index, //Index Operand
-		1, // IndexCoefficient Index_Coeff
-	} 
-	
+		1,     // IndexCoefficient Index_Coeff
+	}
+
 	res.Result = array_index_reference
-	
+
 	return res
 }
