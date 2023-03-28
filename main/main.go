@@ -19,6 +19,8 @@ const help_message string =
  	--help: this help message
  	--l <object>: link to object
 
+	--tokens: print lexer tokens
+	--prepared_tokens: print PrePar tokens
  	--ast:  print abstract syntax tree for debugging purposes
  	--typed_ast: same as --ast, but show types
  	--asm: print the generated assembly
@@ -29,10 +31,11 @@ var filenames []string
 
 var link_objects []string
 
+var print_tokens bool
+var print_prepared_tokens bool
 var print_ast bool
 var print_typed_ast bool
 var print_asm bool
-var print_tokens bool
 
 func main() {
 	// start from 1 to skip self
@@ -64,7 +67,10 @@ func main() {
 				print_asm = true
 			} else
 			if arg == "--tokens" {
-				print_asm = true
+				print_tokens = true
+			} else 
+			if arg == "--prepared_tokens" {
+				print_prepared_tokens = true
 			} else {
 				fmt.Println("error: unrecognixed option `", arg, "`")
 				return
@@ -92,14 +98,16 @@ func main() {
 		fmt.Println("Lexical Errors: aborting...")
 		return 
 	}
+	if print_tokens {
+		fmt.Println(tokens)
+	}
 
 	tokens = front.PrePar(tokens)
 	if tokens == nil {
 		fmt.Println("Preprocessing Errors: aborting...")
 		return 
 	}
-
-	if print_tokens {
+	if print_prepared_tokens {
 		fmt.Println(tokens)
 	}
 	

@@ -101,8 +101,6 @@ func Lex(src string) ([]Token) {
 					if src[index] == '\n' {
 						l1++
 						c1 = 1
-
-						index++
 						break
 					}
 					next_token_str += string(src[index])
