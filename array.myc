@@ -1,36 +1,15 @@
 @import "lib/memory.myc"
-
 @import "lib/c/stdio.myc"
 
-
-struct Big {
-	:a uint64;
-	:b uint64;
-	:c uint64;
-}
-
-function foo() Big {
-	:big Big;
-	big.a = [uint64]54;
-	return big;
-}
-
-
 function main() {
-	foo();
-	:big Big = foo();
-
-	printf("big.a: %lld\n", big.a);
-	
-
-	:dynamic_array []int64;
-	
-	dynamic_array = allocate(256); // allocate 256 bytes
-	
+	:dynamic_array []int64 = allocate(1024 * 1024);
 	printf("%d\n", dynamic_array.len);
-
 
 	// indexing (with runtime boundary checking. maybe at some point in the future i will implement this...)
 	dynamic_array[0] = 64;
-	printf("%d\n", dynamic_array[0]);// = 32;
+
+	dynamic_array = resize(dynamic_array, 1024 * 1050); 
+	printf("%d\n", dynamic_array.len);
+
+	printf("%d\n", dynamic_array[0]);
 }

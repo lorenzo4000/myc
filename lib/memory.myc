@@ -1,8 +1,15 @@
-function malloc() *? external;
+@import "lib/c/stdlib.myc"
 
 function allocate(:bytes uint64) []? {
 	:array []?;
 	array.data = malloc(bytes);
+	array.len = bytes;
+
+	return array;
+}
+
+function resize(:array []?, :bytes uint64) []? {
+	array.data = realloc(array.data, bytes);
 	array.len = bytes;
 
 	return array;

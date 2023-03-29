@@ -20,6 +20,10 @@ function mbstowcs() int64 external; //(wchar_t *pwc, const char *string, size_t 
 function wcstombs() int64 external; //(char *dest, const wchar_t *string, size_t count)
 function putenv() *int32 external;    //(const char *varname)
 function getenv() *int8 external; //(const char *varname)
+function malloc() *? external; //(size_t size)
+function realloc() *? external; //(void *ptr, size_t size)
+function calloc() *? external; //(size_t num, size_t size)
+
 
 
 /*
@@ -27,8 +31,5 @@ div_t div(long int numerator, long int denominator)
 ldiv_t ldiv(int numerator, int denominator)
 
 
-void *malloc(size_t size)
-void *realloc(void *ptr, size_t size)
 void *bsearch(const void *key, const void *base, size_t num, size_t size, int (*compare) (const void *element1, const void *element2))
-void *calloc(size_t num, size_t size)
 */
