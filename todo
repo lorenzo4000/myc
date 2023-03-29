@@ -7,23 +7,16 @@
 -> append to  dyn. array
 
 .  String type (with literals and stuff)
--> User defined types (structs...) {
-      .  Struct allocation for scratch and arguments
-	  -> Struct copying assignment
-	  -> Struct literals
-   }
-.  External functions (call C/ASM functions from myc)
+.  Struct literals
 .  Misecellaneus types, operators and other stuff
 .  implicit integer literal casts
 .  prepar: build dep. graph and do cycle detection before importing
-.  codegen: fix int32 to int64 casting
-.  codegen_amd64: return > 16 byte types, following systemV ABI
 
--> Command line options:
-	. Debug setting
-	. Options passed to gcc
-	...
 
+.  more complex typechecking {
+	  .  statically typechecked generals
+	  .  passing types as arguments
+   }
 
 .  Detach yourself from C std {
    	  .  make --nocstd option
