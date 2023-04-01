@@ -409,75 +409,66 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			out.Result = _if.Result
 		}
-	case front.AST_OP_SUM:
+
+	// ** unary ops
+	case front.AST_OP_NOT, front.AST_OP_NEG:
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)
 			}
 
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
+			value := children_out[0].Result
 
-			op := GEN_binop(ast.Type, left_value, right_value)
+			op := GEN_uniop(ast.Type, value)
 
 			out.Code.Appendln(op.Code)
 			out.Result = op.Result
 		}
-	case front.AST_OP_SUB:
+
+	// ** binary ops
+	case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD,
+	     front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE,  
+	     front.AST_OP_EQU,  front.AST_OP_NEQ, front.AST_OP_AND,  front.AST_OP_OR:
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)
 			}
 
-			left_value := children_out[0].Result
+			left_value :=  children_out[0].Result
 			right_value := children_out[1].Result
+			if typecheck.ExpressionIsLeftValue(ast.Children[0]) {
+				switch left_value.(type) {
+					case Memory_Reference: {
+						// .. we don't wanna do nasty stuff on the long term memory, so : 
 
-			op := GEN_binop(ast.Type, left_value, right_value)
+						// move it to a new location ~< ~
+						var v Operand
+						reg, full := RegisterScratchAllocate(left_value.Type())
+						if full {
+							v = StackAllocate(left_value.Type()).Reference()
+						} else {
+							v = reg
+						}
+						out.Code.Appendln(GEN_move(left_value, v).Code)
 
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_MUL:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
+						// do the op  ^< ^  ~< ^
+						op := GEN_binop(ast.Type, v, right_value)
+						out.Code.Appendln(op.Code)
+						out.Result = op.Result
+					}
+					default: {
+						op := GEN_binop(ast.Type, left_value, right_value)
+
+						out.Code.Appendln(op.Code)
+						out.Result = op.Result
+					}
+				}
+			} else {
+				op := GEN_binop(ast.Type, left_value, right_value)
+
+				out.Code.Appendln(op.Code)
+				out.Result = op.Result
 			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_DIV:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_MOD:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
 		}
 
 	case front.AST_OP_ASN:
@@ -487,165 +478,10 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left_value := children_out[0].Result
 			right_value := children_out[1].Result
 
-			if true /*ast.Children[0].Type == front.AST_OP_DOT || ast.Children[0].Type == front.AST_OP_INDEX*/ {
-				// we can just move the thing into the thing
-				out.Code.Appendln(children_out[0].Code)
-				out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
-			} /*else {
-				variable_name := ast.Children[0].Data[0].String_value
-				symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
-				if !found {
-					fmt.Println("codegen error: undefined `" + variable_name + "`")
-					return out
-				}
+			out.Code.Appendln(children_out[0].Code)
+			out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
 
-				out.Code.Appendln(GEN_very_generic_move(right_value, symbol.(Codegen_Symbol).Data.Reference()).Code)
-				out.Code.Appendln(children_out[0].Code)
-
-				switch right_value.(type) {
-				case Register:
-					right_value.(Register).Free()
-				}
-			}*/
 			out.Result = left_value
-		}
-	case front.AST_OP_NEG:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			value := children_out[0].Result
-
-			op := GEN_uniop(ast.Type, value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_GRT:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_LES:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_GOE:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_LOE:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_EQU:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_NEQ:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_NOT:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			value := children_out[0].Result
-
-			op := GEN_uniop(ast.Type, value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_AND:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
-		}
-	case front.AST_OP_OR:
-		{
-			for _, child_out := range children_out {
-				out.Code.Appendln(child_out.Code)
-			}
-
-			left_value := children_out[0].Result
-			right_value := children_out[1].Result
-
-			op := GEN_binop(ast.Type, left_value, right_value)
-
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
 		}
 	case front.AST_OP_REFERENCE:
 		{
@@ -742,7 +578,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				if full {
 					out.Code.TextAppendSln(ii("popq", rbx))
 				} else {
-					reg.Free()
+					r.Free()
 				}
 
 			default:
@@ -837,10 +673,6 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				nil,
 				1,
 			}
-
-			//result := Allocate_For_Scratchy(field_type)
-
-			//out.Code.Appendln(GEN_move(field_allocation, result).Code)
 
 			out.Result = field_allocation
 		}

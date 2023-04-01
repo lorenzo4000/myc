@@ -1682,10 +1682,19 @@ func GEN_static_array_index(array_allocation Memory_Reference, index Register) C
 	
 		res.Result = array_index_reference
 	} else {
+		// we need to do the multiplication on the CPU
 		element_size := Asm_Int_Literal{datatype.TYPE_UINT64, int64(element_type.ByteSize()), 10}
-		res.Code.Appendln(GEN_binop(front.AST_OP_MUL, r10, element_size).Code)
+		res.Code.Appendln(GEN_binop(front.AST_OP_MUL, index, element_size).Code)
+		
+		array_index_reference := Memory_Reference{
+			element_type,
+			0, // Offset int64
+			r10,
+			index, //Index Operand
+			1,     // IndexCoefficient Index_Coeff
+		}
 
-		res.Result = r10
+		res.Result = array_index_reference
 	}
 
 	return res
@@ -1703,17 +1712,32 @@ func GEN_dynamic_array_index(array_struct Memory_Reference, index Register, ast 
 
 	// do boundary checking
 
-	// return index + data ??
-	//res.Code.Appendln(GEN_binop(front.AST_OP_SUM, r11, index).Code)
-	array_index_reference := Memory_Reference{
-		datatype_struct.DynamicArrayDataType(array_struct.Type()),
-		0, // Offset int64
-		r11,
-		index, //Index Operand
-		1,     // IndexCoefficient Index_Coeff
-	}
+	element_type := datatype_struct.DynamicArrayDataType(array_struct.Type())
+	if element_type.ByteSize() <= 8 {
+		array_index_reference := Memory_Reference{
+			element_type,
+			0, // Offset int64
+			r11,
+			index, //Index Operand
+			Index_Coeff(element_type.ByteSize()),     // IndexCoefficient Index_Coeff
+		}
+	
+		res.Result = array_index_reference
+	} else {
+		// we need to do the multiplication on the CPU
+		element_size := Asm_Int_Literal{datatype.TYPE_UINT64, int64(element_type.ByteSize()), 10}
+		res.Code.Appendln(GEN_binop(front.AST_OP_MUL, index, element_size).Code)
+		
+		array_index_reference := Memory_Reference{
+			element_type,
+			0, // Offset int64
+			r11,
+			index, //Index Operand
+			1,     // IndexCoefficient Index_Coeff
+		}
 
-	res.Result = array_index_reference
+		res.Result = array_index_reference
+	}
 
 	return res
 }

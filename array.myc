@@ -1,4 +1,4 @@
-//@import "lib/memory.myc"
+@import "lib/memory.myc"
 @import "lib/c/stdio.myc"
 
 struct Test {
@@ -6,30 +6,17 @@ struct Test {
 }
 
 function main() {
-	:test Test;
-	test.a = 10;
-
-	//test.a * 10;
-
-	printf("%d\n", test.a);
-
-
-	:b int64 = 60;
-	b = 40;
-	printf("%d\n", b);
-	/*
 	:static_array [20]int64;
 	
-	for(:i int64 = 0; i < 20; i = i + 1) {
-		static_array[i] = i* 4;
-		static_array[i] * 100;
-	}
-	for(:j int64 = 0; j < 20; j = j + 1) {
-		printf("%d : %d\n", j, static_array[j]);
-	}
-*/
-
-	/*
+	{
+		for(:i int64 = 0; i < 20; i = i + 1) {
+			static_array[i] = i  *  4;
+		}
+		for(:j int64 = 0; j < 20; j = j + 1) {
+			printf("%d : %d\n", j, static_array[j]);
+		}
+	};
+	
 	:dynamic_array []int64 = allocate(1024 * 1024);
 	printf("%d\n", dynamic_array.len / [uint64]64);
 
@@ -40,5 +27,13 @@ function main() {
 	printf("%d\n", dynamic_array.len / [uint64]64);
 
 	printf("%d\n", dynamic_array[0]);
-	*/
+	
+	{
+		for(:i int64 = 0; i < 20; i = i + 1) {
+			dynamic_array[i] = i * 4;
+		}
+		for(:j int64 = 0; j < 20; j = j + 1) {
+			printf("%d : %d\n", j, dynamic_array[j]);
+		}
+	};
 }
