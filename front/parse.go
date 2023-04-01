@@ -1232,6 +1232,7 @@ func (parser *Parser) GetDataType() string {
 
 			if next.Type == TOKEN_INT_LITERAL {
 				data_type += strconv.FormatInt(next.Int_value, 10)
+				parser.Pop()
 			} else
 			if next.Type != ']' {
 				parseExpectErrorAt(next, "int literal or `]`, after `[`")

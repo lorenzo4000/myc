@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/datatype/datatype_array"
 	"mycgo/front"
 
 	"mycgo/back/symbol"
@@ -153,7 +154,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 		symbol.SymbolScopeStackPop()
 
 	case front.AST_DATATYPE:
-		if datatype.IsArrayType(ast.DataType) {
+		if datatype_struct.IsDynamicArrayType(ast.DataType) {
 			_type := ast.DataType.(datatype_struct.StructType)
 			new_dynamic_array_type(_type.Name(), _type.Fields[0].Type.(datatype.PointerType).Pointed_type)
 		}
@@ -296,34 +297,43 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			}
 
 			switch variable_type.(type) {
-			case datatype.PrimitiveType:
-				variable_allc = StackAllocate(variable_type)
+				case datatype.PrimitiveType:
+					variable_allc = StackAllocate(variable_type)
 
-				init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
-				if len(ast.Children) > 2 {
-					out.Code.Appendln(children_out[2].Code)
-					init_value = children_out[2].Result
-				}
+					init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						init_value = children_out[2].Result
+					}
 
-				out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
-			case datatype.PointerType:
-				variable_allc = StackAllocate(variable_type)
+					out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
+				case datatype.PointerType:
+					variable_allc = StackAllocate(variable_type)
 
-				var init_value Operand
-				init_value = Asm_Int_Literal{variable_type, 0, 10}
-				if len(ast.Children) > 2 {
-					out.Code.Appendln(children_out[2].Code)
-					init_value = children_out[2].Result
-				}
+					var init_value Operand
+					init_value = Asm_Int_Literal{variable_type, 0, 10}
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						init_value = children_out[2].Result
+					}
 
-				out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
-			case datatype_struct.StructType:
-				variable_allc = StackAllocate(variable_type)
+					out.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
+				case datatype_struct.StructType:
+					variable_allc = StackAllocate(variable_type)
 
-				if len(ast.Children) > 2 {
-					out.Code.Appendln(children_out[2].Code)
-					out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, variable_allc.Reference()).Code)
-				}
+					// TODO: fill struct with 0s
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, variable_allc.Reference()).Code)
+					}
+				case datatype_array.StaticArrayType: 
+					variable_allc = StackAllocate(variable_type)
+
+					// TODO: fill array with 0s
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, variable_allc.Reference()).Code)
+					}
 			}
 
 			err := symbol.SymbolTableInsertInCurrentScope(variable_name, Codegen_Symbol{variable_type, variable_allc})
@@ -350,12 +360,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				fmt.Println("codegen error: undefined `" + variable_name + "`")
 				return out
 			}
-
-			/*
-				allocation := Allocate_For_Scratchy(sym.Type())
-
-				out.Code.Appendln(GEN_move(sym.(Codegen_Symbol).Data.Reference(), allocation).Code)
-			*/
+				
 			out.Result = sym.(Codegen_Symbol).Data.Reference()
 		}
 	case front.AST_WHILE:
@@ -482,11 +487,11 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left_value := children_out[0].Result
 			right_value := children_out[1].Result
 
-			if ast.Children[0].Type == front.AST_OP_DOT || ast.Children[0].Type == front.AST_OP_INDEX {
+			if true /*ast.Children[0].Type == front.AST_OP_DOT || ast.Children[0].Type == front.AST_OP_INDEX*/ {
 				// we can just move the thing into the thing
 				out.Code.Appendln(children_out[0].Code)
 				out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
-			} else {
+			} /*else {
 				variable_name := ast.Children[0].Data[0].String_value
 				symbol, found := symbol.SymbolTableGetFromCurrentScope(variable_name)
 				if !found {
@@ -501,7 +506,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				case Register:
 					right_value.(Register).Free()
 				}
-			}
+			}*/
 			out.Result = left_value
 		}
 	case front.AST_OP_NEG:
@@ -873,15 +878,26 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
 			switch index.(type) {
-			default:
-				out.Code.Appendln(GEN_move(index, rax).Code)
-				index = rax
-			case Register:
-				break
+				default:
+					out.Code.Appendln(GEN_move(index, rax).Code)
+					index = rax
+				case Register:
+					break
 			}
 
-			array_index := GEN_array_index(array.(Memory_Reference), index.(Register), ast)
+			var array_index Codegen_Out
+			switch array.Type().(type) {
+				case datatype_struct.StructType:
+					array_index = GEN_dynamic_array_index(array.(Memory_Reference), index.(Register), ast)
+				case datatype_array.StaticArrayType:
+					array_index = GEN_static_array_index(array.(Memory_Reference), index.(Register))
+				default :
+					fmt.Println("codegen error: left value in indexing is not an array")
+					return out
+			}
 
+			fmt.Println(array_index.Code.Text)
+			fmt.Println(array_index.Result.Text())
 			out.Code.Appendln(array_index.Code)
 			out.Result = array_index.Result
 		}

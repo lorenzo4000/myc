@@ -1,37 +1,56 @@
 package datatype_array
 
 import (
+	"strconv"
 	"mycgo/back/datatype"
-	"mycgo/back/datatype/datatype_struct"
 )
 
-//type DynamicArrayType datatype_struct.StructType
-//type StaticArrayType datatype.PointerType
-
-/*
-func (_type DynamicArrayType) Name() string {
-	return _type.Name_
+type StaticArrayType struct {
+	ElementType datatype.DataType
+	Length uint64
 }
 
-func (_type DynamicArrayType) BitSize() uint32 {
-	return datatype.PTR_SIZE + 64
-}
-func (_type DynamicArrayType) ByteSize() uint32 {
-	return _type.BitSize() / 8
+func (typ StaticArrayType) Name() string {
+	return "[" + strconv.FormatUint(typ.Length, 10) + "]" + typ.ElementType.Name()
 }
 
-func (_type DynamicArrayType) Equals(t datatype.DataType) bool {
-	return datatype_struct.StructType(_type).Equals(t)
+func (typ StaticArrayType) ByteSize() uint32 {
+	return uint32(typ.Length) * typ.ElementType.ByteSize()
 }
-*/
-func ArrayDataType(_type datatype.DataType) datatype.DataType {
-	if !datatype.IsArrayType(_type) {
-		return nil
+
+func (typ StaticArrayType) BitSize() uint32 {
+	return typ.ByteSize() * 8
+}
+
+func (typ StaticArrayType) Equals(t datatype.DataType) bool {
+	switch t.(type) {
+		case StaticArrayType:
+			if typ.ElementType == datatype.TYPE_GENERIC || t.(StaticArrayType).ElementType == datatype.TYPE_GENERIC {
+				return true
+			}
 	}
 
-	_type_struct := _type.(datatype_struct.StructType)
-	array_data := _type_struct.Fields[0].Type.(datatype.PointerType)
-	array_data_pointed_type := array_data.Pointed_type
+	if typ.Name() != t.Name() || typ.ByteSize() != t.ByteSize() {
+		return false
+	}
+	
+	switch t.(type) {
+		case StaticArrayType: return true
+	}
+	return false
+}
 
-	return array_data_pointed_type
+func IsStaticArrayType(_type datatype.DataType) bool {
+	name := _type.Name()
+	if len(name) <= 0 {
+		return false
+	}
+
+	if _type.Name()[0] == '[' {
+		switch _type.(type) {
+			case StaticArrayType : return true
+			default : return false
+		}
+	}
+	return false
 }

@@ -84,13 +84,13 @@ func TypeFromName(type_name string) datatype.DataType {
 		if len(size_literal) <= 0 {
 			return new_dynamic_array_type(type_name, type_of_array)
 		} else {
-			_, err := strconv.ParseInt(size_literal, 0, 64)
+			size, err := strconv.ParseInt(size_literal, 0, 64)
 			if err != nil {
 				fmt.Println(err)
 				return nil
 			}
 			
-			//TODO: static array stuff
+			return datatype_array.StaticArrayType{type_of_array, uint64(size)}
 		}
 	}
 
@@ -772,12 +772,15 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_INDEX: {
 			left := ast.Children[0]
 
-			if !datatype.IsArrayType(left.DataType) {
+			if datatype_struct.IsDynamicArrayType(left.DataType) {
+				ast.DataType = datatype_struct.DynamicArrayDataType(left.DataType)
+			} else
+			if datatype_array.IsStaticArrayType(left.DataType) {
+				ast.DataType = left.DataType.(datatype_array.StaticArrayType).ElementType
+			} else {
 				typeErrorAt(ast, "left value in indexing is not an array")
 				return nil
 			}
-
-			ast.DataType = datatype_array.ArrayDataType(left.DataType)
 		}
 
 		default: ast.DataType = datatype.TYPE_UNDEFINED

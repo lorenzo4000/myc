@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"mycgo/back/datatype"
-	"mycgo/back/datatype/datatype_array"
 	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/datatype/datatype_array"
 	"mycgo/back/symbol"
 	"mycgo/front"
 	"strconv"
@@ -1662,8 +1662,37 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	return res
 }
 
+func GEN_static_array_index(array_allocation Memory_Reference, index Register) Codegen_Out {
+	res := Codegen_Out{}
+
+	array_type := array_allocation.Type().(datatype_array.StaticArrayType)
+	element_type := array_type.ElementType
+
+	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
+	res.Code.TextAppendSln(ii("leaq", array_allocation, r10))
+
+	if element_type.ByteSize() <= 8 {
+		array_index_reference := Memory_Reference{
+			element_type,
+			0, // Offset int64
+			r10,
+			index, //Index Operand
+			Index_Coeff(element_type.ByteSize()),     // IndexCoefficient Index_Coeff
+		}
+	
+		res.Result = array_index_reference
+	} else {
+		element_size := Asm_Int_Literal{datatype.TYPE_UINT64, int64(element_type.ByteSize()), 10}
+		res.Code.Appendln(GEN_binop(front.AST_OP_MUL, r10, element_size).Code)
+
+		res.Result = r10
+	}
+
+	return res
+}
+
 // this uses R10 and R11 !!
-func GEN_array_index(array_struct Memory_Reference, index Register, ast *front.Ast_Node) Codegen_Out {
+func GEN_dynamic_array_index(array_struct Memory_Reference, index Register, ast *front.Ast_Node) Codegen_Out {
 	res := Codegen_Out{}
 
 	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
@@ -1677,7 +1706,7 @@ func GEN_array_index(array_struct Memory_Reference, index Register, ast *front.A
 	// return index + data ??
 	//res.Code.Appendln(GEN_binop(front.AST_OP_SUM, r11, index).Code)
 	array_index_reference := Memory_Reference{
-		datatype_array.ArrayDataType(array_struct.Type()),
+		datatype_struct.DynamicArrayDataType(array_struct.Type()),
 		0, // Offset int64
 		r11,
 		index, //Index Operand
