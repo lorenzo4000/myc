@@ -1,126 +1,41 @@
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000008, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %r10
-popq %rbp
-
+leaq -8200(%rbp, 1), %r10
 
 
 0(%r10, %rax, 8)
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000008, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %r10
-popq %rbp
-
+leaq -8200(%rbp, 1), %r10
 
 
 0(%r10, %rax, 8)
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000061, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %r10
-popq %rbp
-
+leaq -16445(%rbp, 1), %r10
 
 
 0(%r10, %rax, 8)
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000154, %rax
+movq -16530(%rbp, 1), %r10
 
 
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r10
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000162, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r11
-popq %rbp
-
+movq -16538(%rbp, 1), %r11
 
 
 
 
 0(%r11, %rax, 8)
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000154, %rax
+movq -16530(%rbp, 1), %r10
 
 
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r10
-popq %rbp
+movq -16538(%rbp, 1), %r11
 
 
 
-pushq %rbp
 
-pushq %rax
-
-movabsq $-16000000162, %rax
+0(%r11, %rax, 8)
+leaq -8200(%rbp, 1), %r10
 
 
-addq %rax, %rbp
+0(%r10, %rax, 8)
+movq -16530(%rbp, 1), %r10
 
-popq %rax
 
-
-movq 0(%rbp, 1), %r11
-popq %rbp
-
+movq -16538(%rbp, 1), %r11
 
 
 
@@ -338,14 +253,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-pushq %rax
-
-movabsq $16000000320, %rax
-
-
-subq %rax, %rsp
-
-popq %rax
+subq $16800, %rsp
 
 
 
@@ -356,21 +264,7 @@ movq $0, %rbx
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000016, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -8208(%rbp, 1)
 
 
 
@@ -381,21 +275,7 @@ movq $20, %r12
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000016, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r13
-popq %rbp
-
+movq -8208(%rbp, 1), %r13
 
 
 xorb %r14b, %r14b
@@ -415,21 +295,7 @@ movq $4, %r12
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000016, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r15
-popq %rbp
-
+movq -8208(%rbp, 1), %r15
 
 
 movq %r15, %rax
@@ -444,38 +310,10 @@ movq %rax, %r15
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000016, %rax
+movq -8208(%rbp, 1), %rax
 
 
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000008, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %r10
-popq %rbp
-
+leaq -8200(%rbp, 1), %r10
 
 
 
@@ -489,21 +327,7 @@ movq $1, %r12
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000016, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r13
-popq %rbp
-
+movq -8208(%rbp, 1), %r13
 
 
 addq %r12, %r13
@@ -511,21 +335,7 @@ addq %r12, %r13
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000016, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %r13, 0(%rbp, 1)
-popq %rbp
-
+movq %r13, -8208(%rbp, 1)
 
 
 
@@ -539,21 +349,7 @@ movq $0, %r12
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000024, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %r12, 0(%rbp, 1)
-popq %rbp
-
+movq %r12, -8216(%rbp, 1)
 
 
 
@@ -564,126 +360,42 @@ pushq %rbx
 movq $20, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000032, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -8224(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -8216(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000040, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -8232(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -8233(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000041, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-xorb %bl, 0(%rbp, 1)
-popq %rbp
-
+xorb %bl, -8233(%rbp, 1)
 popq %rbx
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -8224(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000040, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-cmpq %rbx, 0(%rbp, 1)
-popq %rbp
-
+cmpq %rbx, -8232(%rbp, 1)
 popq %rbx
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000041, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-setl 0(%rbp, 1)
-popq %rbp
-
+setl -8233(%rbp, 1)
 
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -8233(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000041, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-andb %bl, 0(%rbp, 1)
-popq %rbp
-
+andb %bl, -8233(%rbp, 1)
 popq %rbx
 
 jz .L5
@@ -692,59 +404,17 @@ jz .L5
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000024, %rax
+movq -8216(%rbp, 1), %rax
 
 
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000008, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %r10
-popq %rbp
-
+leaq -8200(%rbp, 1), %r10
 
 
 
 movq $.L3, %rdi
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000024, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rsi
-popq %rbp
-
+movq -8216(%rbp, 1), %rsi
 
 
 movq 0(%r10, %rax, 8), %rdx
@@ -753,21 +423,7 @@ movq 0(%r10, %rax, 8), %rdx
 
 call printf
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000061, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movl %eax, 0(%rbp, 1)
-popq %rbp
-
+movl %eax, -8253(%rbp, 1)
 
 
 
@@ -778,90 +434,34 @@ pushq %rbx
 movq $1, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000049, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -8241(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -8216(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000057, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -8249(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -8241(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000057, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-addq %rbx, 0(%rbp, 1)
-popq %rbp
-
+addq %rbx, -8249(%rbp, 1)
 popq %rbx
 
 
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -8249(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-8000000024, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -8216(%rbp, 1)
 popq %rbx
 
 
@@ -875,39 +475,11 @@ jmp .L4
 
 
 // copying array
-pushq %rbp
+leaq -8200(%rbp, 1), %rsi
 
-pushq %rax
+leaq -16445(%rbp, 1), %rdi
 
-movabsq $-8000000008, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %rsi
-popq %rbp
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000061, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %rdi
-popq %rbp
-
-
-movabsq $8000000000, %rcx
+movq $8192, %rcx
 
 
 cld
@@ -920,44 +492,16 @@ pushq %rbx
 movq $0, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000069, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16453(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16453(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000077, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16461(%rbp, 1)
 popq %rbx
 
 
@@ -969,126 +513,42 @@ pushq %rbx
 movq $20, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000085, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16469(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16461(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000093, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16477(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -16478(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000094, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-xorb %bl, 0(%rbp, 1)
-popq %rbp
-
+xorb %bl, -16478(%rbp, 1)
 popq %rbx
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16469(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000093, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-cmpq %rbx, 0(%rbp, 1)
-popq %rbp
-
+cmpq %rbx, -16477(%rbp, 1)
 popq %rbx
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000094, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-setl 0(%rbp, 1)
-popq %rbp
-
+setl -16478(%rbp, 1)
 
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -16478(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000094, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-andb %bl, 0(%rbp, 1)
-popq %rbp
-
+andb %bl, -16478(%rbp, 1)
 popq %rbx
 
 jz .L8
@@ -1097,59 +557,17 @@ jz .L8
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000077, %rax
+movq -16461(%rbp, 1), %rax
 
 
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000061, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-leaq 0(%rbp, 1), %r10
-popq %rbp
-
+leaq -16445(%rbp, 1), %r10
 
 
 
 movq $.L6, %rdi
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000077, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rsi
-popq %rbp
-
+movq -16461(%rbp, 1), %rsi
 
 
 movq 0(%r10, %rax, 8), %rdx
@@ -1158,21 +576,7 @@ movq 0(%r10, %rax, 8), %rdx
 
 call printf
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000114, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movl %eax, 0(%rbp, 1)
-popq %rbp
-
+movl %eax, -16498(%rbp, 1)
 
 
 
@@ -1183,90 +587,34 @@ pushq %rbx
 movq $1, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000102, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16486(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16461(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000110, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16494(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16486(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000110, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-addq %rbx, 0(%rbp, 1)
-popq %rbp
-
+addq %rbx, -16494(%rbp, 1)
 popq %rbx
 
 
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16494(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000077, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16461(%rbp, 1)
 popq %rbx
 
 
@@ -1282,436 +630,39 @@ pushq %rbx
 movq $1024, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000122, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16506(%rbp, 1)
 
 popq %rbx
 
 
-pushq %rbx
-movq $1024, %rbx
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000130, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
-
-popq %rbx
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000122, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000130, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-imulq 0(%rbp, 1)
-popq %rbp
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000122, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rax, 0(%rbp, 1)
-popq %rbp
-
-
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000122, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rdi
-popq %rbp
-
+movq -16506(%rbp, 1), %rdi
 
 
 
 call allocate
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000138, %rax
+movq %rdx, -16514(%rbp, 1)
 
 
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rdx, 0(%rbp, 1)
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000146, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rax, 0(%rbp, 1)
-popq %rbp
-
+movq %rax, -16522(%rbp, 1)
 
 
 
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16514(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000154, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16530(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16522(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000162, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
-popq %rbx
-
-
-
-
-
-pushq %rbx
-movq $1024, %rbx
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000170, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
-
-popq %rbx
-
-
-pushq %rbx
-movq $1050, %rbx
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000178, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
-
-popq %rbx
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000170, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000178, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-imulq 0(%rbp, 1)
-popq %rbp
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000170, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rax, 0(%rbp, 1)
-popq %rbp
-
-
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000154, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rsi
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000162, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rdi
-popq %rbp
-
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000170, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rdx
-popq %rbp
-
-
-
-
-call resize
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000186, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rdx, 0(%rbp, 1)
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000194, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rax, 0(%rbp, 1)
-popq %rbp
-
-
-
-
-
-
-
-pushq %rbx
-movq 0(%rbp, 1), %rbx
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000154, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
-popq %rbx
-
-
-pushq %rbx
-movq 0(%rbp, 1), %rbx
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000162, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16538(%rbp, 1)
 popq %rbx
 
 
@@ -1721,44 +672,16 @@ pushq %rbx
 movq $0, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000202, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16546(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16546(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000210, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16554(%rbp, 1)
 popq %rbx
 
 
@@ -1770,126 +693,42 @@ pushq %rbx
 movq $20, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000218, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16562(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16554(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000226, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16570(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -16571(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000227, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-xorb %bl, 0(%rbp, 1)
-popq %rbp
-
+xorb %bl, -16571(%rbp, 1)
 popq %rbx
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16562(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000226, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-cmpq %rbx, 0(%rbp, 1)
-popq %rbp
-
+cmpq %rbx, -16570(%rbp, 1)
 popq %rbx
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000227, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-setl 0(%rbp, 1)
-popq %rbp
-
+setl -16571(%rbp, 1)
 
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -16571(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000227, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-andb %bl, 0(%rbp, 1)
-popq %rbp
-
+andb %bl, -16571(%rbp, 1)
 popq %rbx
 
 jz .L10
@@ -1899,157 +738,45 @@ pushq %rbx
 movq $4, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000251, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16595(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16554(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000259, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16603(%rbp, 1)
 popq %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000259, %rax
+movq -16603(%rbp, 1), %rax
 
 
-addq %rax, %rbp
+imulq -16595(%rbp, 1)
 
-popq %rax
-
-
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000251, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-imulq 0(%rbp, 1)
-popq %rbp
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000259, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rax, 0(%rbp, 1)
-popq %rbp
+movq %rax, -16603(%rbp, 1)
 
 
 
 
 
 
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000210, %rax
+movq -16554(%rbp, 1), %rax
 
 
-addq %rax, %rbp
-
-popq %rax
+movq -16530(%rbp, 1), %r10
 
 
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000154, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r10
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000162, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r11
-popq %rbp
-
+movq -16538(%rbp, 1), %r11
 
 
 
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16603(%rbp, 1), %rbx
 
 
 movq %rbx, 0(%r11, %rax, 8)
@@ -2063,90 +790,34 @@ pushq %rbx
 movq $1, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000235, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16579(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16554(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000243, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16587(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16579(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000243, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-addq %rbx, 0(%rbp, 1)
-popq %rbp
-
+addq %rbx, -16587(%rbp, 1)
 popq %rbx
 
 
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16587(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000210, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16554(%rbp, 1)
 popq %rbx
 
 
@@ -2161,44 +832,16 @@ pushq %rbx
 movq $0, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000267, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16611(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16611(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000275, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16619(%rbp, 1)
 popq %rbx
 
 
@@ -2210,126 +853,42 @@ pushq %rbx
 movq $20, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000283, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16627(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16619(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000291, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16635(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -16636(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000292, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-xorb %bl, 0(%rbp, 1)
-popq %rbp
-
+xorb %bl, -16636(%rbp, 1)
 popq %rbx
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16627(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000291, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-cmpq %rbx, 0(%rbp, 1)
-popq %rbp
-
+cmpq %rbx, -16635(%rbp, 1)
 popq %rbx
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000292, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-setl 0(%rbp, 1)
-popq %rbp
-
+setl -16636(%rbp, 1)
 
 
 
 pushq %rbx
-movb 0(%rbp, 1), %bl
+movb -16636(%rbp, 1), %bl
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000292, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-andb %bl, 0(%rbp, 1)
-popq %rbp
-
+andb %bl, -16636(%rbp, 1)
 popq %rbx
 
 jz .L13
@@ -2338,55 +897,13 @@ jz .L13
 
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000275, %rax
+movq -16619(%rbp, 1), %rax
 
 
-addq %rax, %rbp
-
-popq %rax
+movq -16530(%rbp, 1), %r10
 
 
-movq 0(%rbp, 1), %rax
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000154, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r10
-popq %rbp
-
-
-
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000162, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %r11
-popq %rbp
-
+movq -16538(%rbp, 1), %r11
 
 
 
@@ -2395,21 +912,7 @@ popq %rbp
 movq $.L11, %rdi
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000275, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq 0(%rbp, 1), %rsi
-popq %rbp
-
+movq -16619(%rbp, 1), %rsi
 
 
 movq 0(%r11, %rax, 8), %rdx
@@ -2418,21 +921,7 @@ movq 0(%r11, %rax, 8), %rdx
 
 call printf
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000312, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movl %eax, 0(%rbp, 1)
-popq %rbp
-
+movl %eax, -16656(%rbp, 1)
 
 
 
@@ -2443,90 +932,34 @@ pushq %rbx
 movq $1, %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000300, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16644(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16619(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000308, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16652(%rbp, 1)
 popq %rbx
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16644(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000308, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-addq %rbx, 0(%rbp, 1)
-popq %rbp
-
+addq %rbx, -16652(%rbp, 1)
 popq %rbx
 
 
 
 
 pushq %rbx
-movq 0(%rbp, 1), %rbx
+movq -16652(%rbp, 1), %rbx
 
 
-pushq %rbp
-
-pushq %rax
-
-movabsq $-16000000275, %rax
-
-
-addq %rax, %rbp
-
-popq %rax
-
-
-movq %rbx, 0(%rbp, 1)
-popq %rbp
-
+movq %rbx, -16619(%rbp, 1)
 popq %rbx
 
 
@@ -2535,6 +968,365 @@ popq %rbx
 jmp .L12
 
 .L13:
+
+
+
+
+
+movq $.L14, %rdi
+
+
+movq -16538(%rbp, 1), %rsi
+
+
+
+call printf
+
+movl %eax, -16660(%rbp, 1)
+
+
+
+
+
+
+pushq %rbx
+
+leaq -8200(%rbp, 1), %rbx
+
+movq %rbx, -16668(%rbp, 1)
+
+
+popq %rbx
+
+
+pushq %rbx
+movq -16668(%rbp, 1), %rbx
+
+
+movq %rbx, -16538(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq $8192, %rbx
+
+
+movq %rbx, -16530(%rbp, 1)
+
+popq %rbx
+
+
+
+
+
+movq $.L15, %rdi
+
+
+movq -16538(%rbp, 1), %rsi
+
+
+
+call printf
+
+movl %eax, -16672(%rbp, 1)
+
+
+
+
+pushq %rbx
+movq $0, %rbx
+
+
+movq %rbx, -16680(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+movq -16680(%rbp, 1), %rbx
+
+
+movq %rbx, -16688(%rbp, 1)
+popq %rbx
+
+
+
+
+.L16:
+
+pushq %rbx
+movq $20, %rbx
+
+
+movq %rbx, -16696(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+movq -16688(%rbp, 1), %rbx
+
+
+movq %rbx, -16704(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movb -16705(%rbp, 1), %bl
+
+
+xorb %bl, -16705(%rbp, 1)
+popq %rbx
+
+pushq %rbx
+movq -16696(%rbp, 1), %rbx
+
+
+cmpq %rbx, -16704(%rbp, 1)
+popq %rbx
+
+setl -16705(%rbp, 1)
+
+
+
+pushq %rbx
+movb -16705(%rbp, 1), %bl
+
+
+andb %bl, -16705(%rbp, 1)
+popq %rbx
+
+jz .L17
+
+
+pushq %rbx
+movq $2456, %rbx
+
+
+movq %rbx, -16729(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+movq -16688(%rbp, 1), %rbx
+
+
+movq %rbx, -16737(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -16729(%rbp, 1), %rbx
+
+
+addq %rbx, -16737(%rbp, 1)
+popq %rbx
+
+
+
+
+
+movq -16688(%rbp, 1), %rax
+
+
+leaq -8200(%rbp, 1), %r10
+
+
+
+pushq %rbx
+movq -16737(%rbp, 1), %rbx
+
+
+movq %rbx, 0(%r10, %rax, 8)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+movq $1, %rbx
+
+
+movq %rbx, -16713(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+movq -16688(%rbp, 1), %rbx
+
+
+movq %rbx, -16721(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -16713(%rbp, 1), %rbx
+
+
+addq %rbx, -16721(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+movq -16721(%rbp, 1), %rbx
+
+
+movq %rbx, -16688(%rbp, 1)
+popq %rbx
+
+
+
+
+jmp .L16
+
+.L17:
+
+
+pushq %rbx
+movq $0, %rbx
+
+
+movq %rbx, -16745(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+movq -16745(%rbp, 1), %rbx
+
+
+movq %rbx, -16753(%rbp, 1)
+popq %rbx
+
+
+
+
+.L19:
+
+pushq %rbx
+movq $20, %rbx
+
+
+movq %rbx, -16761(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+movq -16753(%rbp, 1), %rbx
+
+
+movq %rbx, -16769(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movb -16770(%rbp, 1), %bl
+
+
+xorb %bl, -16770(%rbp, 1)
+popq %rbx
+
+pushq %rbx
+movq -16761(%rbp, 1), %rbx
+
+
+cmpq %rbx, -16769(%rbp, 1)
+popq %rbx
+
+setl -16770(%rbp, 1)
+
+
+
+pushq %rbx
+movb -16770(%rbp, 1), %bl
+
+
+andb %bl, -16770(%rbp, 1)
+popq %rbx
+
+jz .L20
+
+
+
+
+
+movq -16753(%rbp, 1), %rax
+
+
+movq -16530(%rbp, 1), %r10
+
+
+movq -16538(%rbp, 1), %r11
+
+
+
+
+
+movq $.L18, %rdi
+
+
+movq -16753(%rbp, 1), %rsi
+
+
+movq 0(%r11, %rax, 8), %rdx
+
+
+
+call printf
+
+movl %eax, -16790(%rbp, 1)
+
+
+
+
+
+
+pushq %rbx
+movq $1, %rbx
+
+
+movq %rbx, -16778(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+movq -16753(%rbp, 1), %rbx
+
+
+movq %rbx, -16786(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq -16778(%rbp, 1), %rbx
+
+
+addq %rbx, -16786(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+movq -16786(%rbp, 1), %rbx
+
+
+movq %rbx, -16753(%rbp, 1)
+popq %rbx
+
+
+
+
+jmp .L19
+
+.L20:
 
 
 
@@ -2550,7 +1342,6 @@ ret
 
 
 .data
-
 
 
 
@@ -2872,40 +1663,121 @@ ret
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .L11: .string "%d : %d\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L14: .string "old .data -> %d\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L15: .string "new .data -> %d\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L18: .string "asdas %d : %d\n"
 
 
 

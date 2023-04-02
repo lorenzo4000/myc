@@ -541,9 +541,17 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if !left_type.Equals(right_type) {
+				switch right_type.(type) {
+					case datatype_array.StaticArrayType : 
+						if datatype_struct.IsDynamicArrayType(left_type) {
+							goto asn_fine
+						}
+				}
+
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
+			asn_fine:
 			ast.DataType = left_type
 		}
 		case front.AST_OP_NEG: {

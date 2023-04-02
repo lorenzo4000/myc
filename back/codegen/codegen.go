@@ -478,6 +478,56 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left_value := children_out[0].Result
 			right_value := children_out[1].Result
 
+			/*
+			switch right_value.Type().(type) {
+				case datatype_array.StaticArrayType : 
+					if datatype_struct.IsDynamicArrayType(left_value.Type()) {
+						// TODO: change this when i have struct literals
+						array_size := right_value.Type().(datatype_array.StaticArrayType).Length * 
+									  right_value.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
+						array_data := right_value
+
+						// get struct field references (data, len)
+						s := left_value.(Memory_Reference)
+
+						struct_type := s.Type().(datatype_struct.StructType)
+
+						struct_allocation := s
+						struct_start := struct_allocation.Start
+						struct_offset := struct_allocation.Offset
+						
+						{
+							field_offset := struct_offset + int64(struct_type.Fields[0].Offset)
+							field_allocation := Memory_Reference{
+								datatype.PointerType{right_value.Type().(datatype_array.StaticArrayType).ElementType},
+								field_offset,
+								struct_start,
+								nil,
+								1,
+							}
+							array_reference := GEN_reference_from_mem(array_data.(Memory_Reference))
+							out.Code.Appendln(array_reference.Code)
+
+							out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
+						}
+
+						{
+							field_offset := struct_offset + int64(struct_type.Fields[1].Offset)
+							field_allocation := Memory_Reference{
+								datatype.TYPE_UINT64,
+								field_offset,
+								struct_start,
+								nil,
+								1,
+							}
+							out.Code.Appendln(GEN_store(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
+						}
+
+						goto asn_done
+					}
+			}
+			*/
+
 			out.Code.Appendln(children_out[0].Code)
 			out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
 
