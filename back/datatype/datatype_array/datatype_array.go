@@ -23,13 +23,6 @@ func (typ StaticArrayType) BitSize() uint64 {
 }
 
 func (typ StaticArrayType) Equals(t datatype.DataType) bool {
-	switch t.(type) {
-		case StaticArrayType:
-			if typ.ElementType == datatype.TYPE_GENERIC || t.(StaticArrayType).ElementType == datatype.TYPE_GENERIC {
-				return true
-			}
-	}
-
 	if typ.Name() != t.Name() || typ.ByteSize() != t.ByteSize() {
 		return false
 	}

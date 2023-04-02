@@ -2,9 +2,6 @@
 @import "lib/c/stdio.myc"
 
 function sum(:in []int64) int64 {
-	printf("heeeyyLELLEEBNNN  : %d, %d\n", in.data, in.len);
-	
-
 	:res int64 = 0;
 	:length int64 = [int64]in.len / 8;
 
@@ -18,41 +15,11 @@ function sum(:in []int64) int64 {
 
 function main() {
 	:static_array [20]int64;
-
-	{
-		for(:i int64 = 0; i < 20; i = i + 1) {
-			static_array[i] = i  *  4;
-		}
-		for(:j int64 = 0; j < 20; j = j + 1) {
-			printf("%d : %d\n", j, static_array[j]);
-		}
-	};
-
-	// copy assignment
-	:stat [20]int64 = static_array;
-	{
-		for(:j int64 = 0; j < 20; j = j + 1) {
-			printf("%d : %d\n", j, stat[j]);
-		}
-	};
-
-	
-	:dynamic_array []int64 = allocate(20 * 8);
-	{
-		for(:i int64 = 0; i < 20; i = i + 1) {
-			dynamic_array[i] = i * 4;
-		}
-		for(:j int64 = 0; j < 20; j = j + 1) {
-			printf("%d : %d\n", j, dynamic_array[j]);
-		}
-	};
-	printf("old .data -> %d\n", dynamic_array.data);
-
 	
 	// reference assignment (copy pointer and length)
+	:dynamic_array []int64;
 	dynamic_array = static_array;
 	
-
 	printf("new .data -> %d\n", dynamic_array.data);
 	{
 		for(:i int64 = 0; i < 20; i = i + 1) {
@@ -62,5 +29,6 @@ function main() {
 			printf("asdas %d : %d\n", j, dynamic_array[j]);
 		}
 	};
-	printf("sum(array) = %d\n", sum(static_array));
+	printf("sum(static_array) = %d\n", sum(static_array));
+	printf("sum(dynamic_array) = %d\n", sum(dynamic_array));
 }

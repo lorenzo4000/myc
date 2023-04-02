@@ -154,6 +154,57 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 	}
 }
 
+func Compatible(source datatype.DataType, destination datatype.DataType) bool {
+	if source.Equals(destination) == true {
+		return true
+	}
+
+	switch source.(type) {
+		case datatype.PointerType:
+			sp := source.(datatype.PointerType)
+			switch destination.(type) {
+				case datatype.PointerType:
+					dp := destination.(datatype.PointerType)
+					if sp.Pointed_type == datatype.TYPE_GENERIC || dp.Pointed_type == datatype.TYPE_GENERIC {
+						return true
+					}
+			}
+
+		case datatype_struct.StructType:
+			ss := source.(datatype_struct.StructType)
+			switch destination.(type) {
+				case datatype_struct.StructType:
+					ds := destination.(datatype_struct.StructType)
+					if datatype_struct.IsDynamicArrayType(source) && datatype_struct.IsDynamicArrayType(destination) {
+						source_array_type := ss.Fields[0].Type
+						destination_array_type   := ds.Fields[0].Type
+						source_array_pointer_type := source_array_type.(datatype.PointerType).Pointed_type
+						destination_array_pointer_type  := destination_array_type.(datatype.PointerType).Pointed_type
+
+						if source_array_pointer_type == datatype.TYPE_GENERIC || 
+							destination_array_pointer_type == datatype.TYPE_GENERIC {
+							return true
+						}
+					}
+			}
+		case datatype_array.StaticArrayType:
+			sa := source.(datatype_array.StaticArrayType)
+			switch destination.(type) {
+				case datatype_array.StaticArrayType:
+					da := destination.(datatype_array.StaticArrayType)
+					if sa.ElementType == datatype.TYPE_GENERIC || da.ElementType == datatype.TYPE_GENERIC {
+						return true
+					}
+				case datatype_struct.StructType : 
+					if datatype_struct.IsDynamicArrayType(destination) {
+						return true
+					}
+			}
+	}
+
+	return false
+}
+
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if (ast.Type == front.AST_BODY &&
 	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)) 	|| 
@@ -254,7 +305,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				body := ast.Children[3]
 				body_type := body.DataType
 
-				if !return_type.Equals(body_type) {
+				if !Compatible(body_type, return_type) {
 					ret_typ := return_type.Name()
 					bod_typ := body_type.Name()
 					typeErrorAt(ast, "function should return `%s`, but returns `%s`", ret_typ, bod_typ)
@@ -277,7 +328,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return_type := ast.Children[0].DataType
 				function_return_type := current_function_ast.Children[2].DataType
 				
-				if !function_return_type.Equals(return_type) {
+				if !Compatible(return_type, function_return_type) {
 						typeErrorAt(
 							ast,
 							"incompatible return type and declared function type: `%s` and `%s`",  
@@ -291,7 +342,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				   current_function_body_ast.DataType.Equals(datatype.TYPE_NONE) {
 					current_function_body_ast.DataType = return_type
 				} else {
-					if !current_function_body_ast.DataType.Equals(return_type) {
+					if !Compatible(return_type, current_function_body_ast.DataType) {
 						typeErrorAt(
 							ast,
 							"function can't return two incompatible types `%s` and `%s`",  
@@ -331,7 +382,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					}
 
 					if ast.DataType != nil && !ast.DataType.Equals(datatype.TYPE_NONE) {
-						if !ast.DataType.Equals(last_child.DataType) {
+						if !Compatible(last_child.DataType, ast.DataType) {
 							typeErrorAt(
 								ast,
 								"function can't return two incompatible types `%s` and `%s`",  
@@ -411,7 +462,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			variable_type := ast.Children[1].DataType
 			if len(ast.Children) >= 3 {
 				initialization_type := ast.Children[2].DataType
-				if !variable_type.Equals(initialization_type) {
+				if !Compatible(initialization_type, variable_type) {
 					typeExpectErrorAt(ast, variable_type, initialization_type)
 					return nil
 				}
@@ -477,7 +528,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					if ast.Children[2].Flags & front.ASTO_ALWAYS_RETURNS != 0 {
 						ast.DataType = if_type
 					} else
-					if !if_type.Equals(else_type) {
+					if !Compatible(else_type, if_type) {
 						typeErrorAt(ast, "incompatible types `%s` (if body) and `%s` (else body)", if_type.Name(), else_type.Name())
 						return nil
 					} else {
@@ -491,7 +542,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_SUM: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -500,7 +551,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_SUB: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -509,7 +560,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_MUL: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -518,7 +569,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_DIV: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -527,7 +578,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_MOD: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -540,18 +591,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
-				switch right_type.(type) {
-					case datatype_array.StaticArrayType : 
-						if datatype_struct.IsDynamicArrayType(left_type) {
-							goto asn_fine
-						}
-				}
-
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
-			asn_fine:
 			ast.DataType = left_type
 		}
 		case front.AST_OP_NEG: {
@@ -561,7 +604,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_GRT: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -570,7 +613,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_LES: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -579,7 +622,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_GOE: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -588,7 +631,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_LOE: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -597,7 +640,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_EQU: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -606,7 +649,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_NEQ: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -623,7 +666,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_AND: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -636,7 +679,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_OR: {
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
-			if !left_type.Equals(right_type) {
+			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
 				return nil
 			}
@@ -763,7 +806,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 			for i, value := range(values) {
 				field := struct_type.Fields[i]
-				if !field.Type.Equals(value.DataType) {
+				if !Compatible(value.DataType, field.Type) {
 					typeErrorAt(
 						ast,
 						"value of type `%s` is incompatible with struct field `%s` of type `%s`",  

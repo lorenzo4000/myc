@@ -78,18 +78,6 @@ func IsDynamicArrayType(_type datatype.DataType) bool {
 
 
 func (_struct StructType) Equals(_type datatype.DataType) bool {
-	if IsDynamicArrayType(_struct) && IsDynamicArrayType(_type) {
-		_struct_array_type := _struct.Fields[0].Type
-		_type_array_type   := _type.(StructType).Fields[0].Type
-		_struct_array_pointer_type := _struct_array_type.(datatype.PointerType).Pointed_type
-		_type_array_pointer_type  := _type_array_type.(datatype.PointerType).Pointed_type
-
-		if _struct_array_pointer_type == datatype.TYPE_GENERIC || 
-		   _type_array_pointer_type == datatype.TYPE_GENERIC {
-			return true
-		}
-	}
-
 	if _struct.Name_ != _type.Name() || _struct.Size_ != _type.ByteSize() {
 		return false
 	}
