@@ -3,6 +3,7 @@ package codegen
 import (
 	"fmt"
 	"log"
+//	"math"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/datatype/datatype_array"
@@ -364,15 +365,19 @@ func (mem Memory_Reference) Text() string {
 	if mem.Start == nil {
 		return ""
 	}
+	
+	res := ""
 	if mem.Index == nil {
-		return strconv.FormatInt(mem.Offset, 10) + "(" +
+		res += strconv.FormatInt(mem.Offset, 10) + "(" +
 			mem.Start.Text() + ", " +
 			strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
+	} else {
+		res += strconv.FormatInt(mem.Offset, 10) + "(" +
+			mem.Start.(Register).Text() + ", " +
+			mem.Index.(Register).Text() + ", " +
+			strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
 	}
-	return strconv.FormatInt(mem.Offset, 10) + "(" +
-		mem.Start.(Register).Text() + ", " +
-		mem.Index.(Register).Text() + ", " +
-		strconv.FormatInt(int64(mem.IndexCoefficient), 10) + ")"
+	return res
 }
 
 func (mem Memory_Reference) LiteralValue() Operand {
@@ -385,15 +390,15 @@ func (mem Memory_Reference) Dereference() Operand {
 // === Stack ===
 
 type Stack_Region struct {
-	rbp_offset uint32
+	rbp_offset uint64
 	datatype   datatype.DataType
 
-	reserved uint32
+	reserved uint64
 }
 
-var CurrentReservedStack uint32 = 0
+var CurrentReservedStack uint64 = 0
 
-func StackReserveBytes(bytes uint32) uint32 {
+func StackReserveBytes(bytes uint64) uint64 {
 	if bytes%16 != 0 {
 		bytes += 16 - (bytes & 0xF)
 	}
@@ -414,11 +419,11 @@ func StackUnreserveAll() {
 	CurrentReservedStack = 0
 }
 
-var CurrentAllocatedStack uint32 = 0
+var CurrentAllocatedStack uint64 = 0
 
 func StackAllocate(_type datatype.DataType) Stack_Region {
-	size := uint32(_type.ByteSize())
-	reserved := uint32(0)
+	size := uint64(_type.ByteSize())
+	reserved := uint64(0)
 
 	for CurrentAllocatedStack+size > CurrentReservedStack {
 		StackReserve16Bytes()
@@ -448,7 +453,7 @@ func StackDeallocateCurrentRegion() *Stack_Region {
 
 	current_region := &StackRegions[i-1]
 
-	CurrentAllocatedStack -= current_region.datatype.ByteSize()
+	CurrentAllocatedStack -= uint64(current_region.datatype.ByteSize())
 	CurrentReservedStack -= current_region.reserved
 
 	StackRegions = StackRegions[:i-1]
@@ -464,16 +469,36 @@ func (stack Stack_Region) Reference() Memory_Reference {
 // === Instruction ===
 
 func ii(op string, oprnds ...Operand) string {
+	instruction := ""
+	pre_memory_reference_code := make([]string, len(oprnds))
+
 	cnt := 0
-	for _, oprnd := range oprnds {
+	for i, oprnd := range oprnds {
 		switch oprnd.(type) {
-		case Memory_Reference:
-			cnt++
-		}
+			case Memory_Reference:
+				mem := oprnd.(Memory_Reference)
+				off := uint64(mem.Offset)
+				if mem.Offset < 0 {
+					off = off ^ 0xFFFFFFFFFFFFFFFF
+				}
+				if (off >> 32) > 0 {
+					pre_memory_reference_code[i] += ii("pushq", mem.Start) + "\n"
+
+					// add the offset manually (on the CPU)
+					pre_memory_reference_code[i] += GEN_binop(front.AST_OP_SUM, 
+						mem.Start,
+						Asm_Int_Literal{datatype.TYPE_UINT64, mem.Offset, 10},
+					).Code.Text + "\n"
+
+					mem.Offset = 0
+				}
+				oprnds[i] = mem
+
+				cnt++
+			}
 	}
 
 	if cnt >= 2 {
-		var instruction string = ""
 		var allocation Operand
 
 		reg, full := RegisterScratchAllocate(oprnds[0].Type())
@@ -488,7 +513,26 @@ func ii(op string, oprnds ...Operand) string {
 
 		instruction += GEN_move(oprnds[0], allocation).Code.Text + "\n"
 		oprnds[0] = allocation
+
+		// OOhhh good im gonna wrtie a master piece of code now
+		for i, oprnd := range oprnds { 
+			switch oprnd.(type) {
+				case Memory_Reference:
+					instruction += pre_memory_reference_code[i]
+			}
+		}
+
 		instruction += Instruction(op, oprnds...) + "\n"
+	
+		for i, oprnd := range oprnds { 
+			switch oprnd.(type) {
+				case Memory_Reference:
+					if len(pre_memory_reference_code[i]) > 0 {
+						mem := oprnd.(Memory_Reference)
+						instruction += ii("popq", mem.Start) + "\n"
+					}
+			}
+		}
 
 		if full {
 			rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
@@ -499,7 +543,21 @@ func ii(op string, oprnds ...Operand) string {
 		return instruction
 	}
 
-	return Instruction(op, oprnds...)
+	// OOhhh good im gonna wrtie a master piece of code now
+	for i, _ := range oprnds { 
+		if len(pre_memory_reference_code[i]) > 0 {
+			instruction += pre_memory_reference_code[i]
+		}
+	}
+	instruction += Instruction(op, oprnds...) + "\n"
+
+	for i, oprnd := range oprnds { 
+		if len(pre_memory_reference_code[i]) > 0 {
+			mem := oprnd.(Memory_Reference)
+			instruction += ii("popq", mem.Start) + "\n"
+		}
+	}
+	return instruction
 }
 
 // === GEN_* ===
@@ -580,7 +638,7 @@ func GEN_function_prologue(f *front.Ast_Node) Codegen_Out {
 
 	if CurrentReservedStack > 0 {
 		// allocate used stack
-		res.Code.TextAppendSln((ii("subq", Asm_Int_Literal{datatype.TYPE_INT64, int64(CurrentReservedStack), 10}, rsp)))
+		res.Code.Appendln((GEN_binop(front.AST_OP_SUB, rsp, Asm_Int_Literal{datatype.TYPE_INT64, int64(CurrentReservedStack), 10}).Code))
 	}
 
 	return res
@@ -614,7 +672,7 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 			return_regs := []Register{rdx, rax}
 			res.Code.Appendln(GEN_loadstruct(body_result.(Memory_Reference), return_regs).Code)
 		} else if body_type.ByteSize() > 16 {
-
+			// TODO
 		}
 	}
 
@@ -642,10 +700,19 @@ func GEN_load(v Operand, r Register) Codegen_Out {
 	switch v.Type().BitSize() {
 	case 64:
 		switch v.(type) {
-		case Asm_Int_Literal:
-			res.Code.TextAppendSln(ii("movabsq", v, r))
-		default:
-			res.Code.TextAppendSln(ii("movq", v, r))
+			case Asm_Int_Literal:
+				signed_value := v.(Asm_Int_Literal).Value
+				value := uint64(signed_value)
+				if signed_value < 0 {
+					value = value ^ 0xFFFFFFFFFFFFFFFF
+				}
+				if (value >> 32) > 0 {
+					res.Code.TextAppendSln(ii("movabsq", v, r))
+				} else {
+					res.Code.TextAppendSln(ii("movq", v, r))
+				}
+			default:
+				res.Code.TextAppendSln(ii("movq", v, r))
 		}
 	case 32:
 		res.Code.TextAppendSln(ii("movl", v, r))
@@ -809,7 +876,7 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 	struct_type := d.Type().(datatype_struct.StructType)
 	nfields := len(s)
 
-	fields_size := uint32(0)
+	fields_size := uint64(0)
 	for _, f := range s {
 		fields_size += f.Type().ByteSize()
 	}
@@ -864,20 +931,79 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 
 }
 
+func GEN_arraycopy(s Memory_Reference, d Memory_Reference) Codegen_Out {
+	res := Codegen_Out{}
+	
+	// copy element by element ?
+	// do dynamic loop ?
+	// or just generate lots of `mov`s ?
+	// maybe duff device ?
+	res.Code.TextAppendSln("// copying array")
+
+	array_type := s.Type().(datatype_array.StaticArrayType)
+	element_type := array_type.ElementType
+
+	/*
+	// use rax for index
+	// NOTE: be careful with this I guess
+	rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+	res.Code.TextAppendSln(ii("xorq", rax, rax)) // initialize index
+	for i := uint64(0); i < array_type.Length; i++ {
+		source      := GEN_static_array_index(s, rax)
+		res.Code.Appendln(source.Code)
+		// put it in a new thing
+		var source_result Operand
+		reg, full := RegisterScratchAllocate(element_type)
+		if full {
+			source_result = StackAllocate(element_type).Reference()
+		} else {
+			source_result = reg
+		}
+		res.Code.Appendln(GEN_very_generic_move(source_result, destination_result).Code)
+
+		destination := GEN_static_array_index(d, rax)
+		res.Code.Appendln(destination.Code)
+		destination_result := destination.Result
+
+		res.Code.Appendln(GEN_very_generic_move(source_result, destination_result).Code)
+		res.Code.TextAppendSln(ii("incq", rax)) // update index
+	}
+	*/
+
+	array_size := array_type.Length * uint64(element_type.ByteSize())
+
+	rsi, _ := REGISTER_RSI.GetRegister(datatype.TYPE_UINT64)
+	rdi, _ := REGISTER_RDI.GetRegister(datatype.TYPE_UINT64)
+	rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
+
+	res.Code.TextAppendSln(ii("leaq", s, rsi))
+	res.Code.TextAppendSln(ii("leaq", d, rdi))
+	res.Code.Appendln(GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, rcx).Code)
+
+	res.Code.TextAppendSln(ii("cld")) // clear direction flag
+	res.Code.TextAppendSln(ii("rep movsb"))
+	return res
+}
+
 func GEN_very_generic_move(s Operand, d any) Codegen_Out {
 	switch s.Type().(type) {
-	case datatype_struct.StructType:
-		struct_allocation := s.(Memory_Reference)
-		switch d.(type) {
-		case Register:
-			return GEN_loadstruct(struct_allocation, []Register{d.(Register)})
-		case Memory_Reference:
-			return GEN_storestruct(struct_allocation, d.(Memory_Reference))
-		case []Register:
-			return GEN_loadstruct(struct_allocation, d.([]Register))
-		}
-	default:
-		return GEN_move(s, d.(Operand))
+		case datatype_struct.StructType:
+			struct_allocation := s.(Memory_Reference)
+			switch d.(type) {
+				case Register:
+					return GEN_loadstruct(struct_allocation, []Register{d.(Register)})
+				case Memory_Reference:
+					return GEN_storestruct(struct_allocation, d.(Memory_Reference))
+				case []Register:
+					return GEN_loadstruct(struct_allocation, d.([]Register))
+			}
+		case datatype_array.StaticArrayType:
+			array_source := s.(Memory_Reference)
+			array_destination := d.(Memory_Reference)
+			return GEN_arraycopy(array_source, array_destination)
+			
+		default:
+			return GEN_move(s, d.(Operand))
 	}
 
 	return Codegen_Out{}
@@ -1376,6 +1502,20 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	var allocation Operand
 
 	data_size := l.Type().BitSize()
+	rax, _ := REGISTER_RAX.GetRegister(r.Type())
+	rax_pushed := false
+	switch r.(type) {
+		case Asm_Int_Literal: {
+			if (uint64(r.(Asm_Int_Literal).Value) >> 32) > 0 {
+				// this is buggy !
+				res.Code.TextAppendSln(ii("pushq", rax))
+				rax_pushed = true
+
+				res.Code.Appendln(GEN_load(r, rax).Code)
+				r = rax
+			}
+		}
+	}
 
 	switch t {
 	case front.AST_OP_SUM:
@@ -1654,8 +1794,11 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	}
 
 	switch r.(type) {
-	case Register:
-		r.(Register).Free()
+		case Register:
+			if rax_pushed {
+				res.Code.TextAppendSln(ii("popq", rax))
+			}
+			r.(Register).Free()
 	}
 
 	res.Result = allocation

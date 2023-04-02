@@ -44,7 +44,7 @@ func (typ PrimitiveType) Name() string {
 	return ""
 }
 
-func (typ PrimitiveType) BitSize() uint32 {
+func (typ PrimitiveType) BitSize() uint64 {
 	switch typ {
 		case TYPE_INT64: return 64
 		case TYPE_INT32: return 32
@@ -64,7 +64,7 @@ func (typ PrimitiveType) BitSize() uint32 {
 	return 0
 }
 
-func (typ PrimitiveType) ByteSize() uint32 {
+func (typ PrimitiveType) ByteSize() uint64 {
 	return typ.BitSize() / 8
 }
 

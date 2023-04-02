@@ -708,7 +708,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				field_name := field.Children[0].Data[0].String_value
 				field_type := field.DataType
 
-				field_size := uint32(field_type.ByteSize())
+				field_size := uint64(field_type.ByteSize())
 
 				padding := (0b100 - ((field_size - 1) & 0b11)) - 1
 

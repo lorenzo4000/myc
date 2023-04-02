@@ -14,11 +14,11 @@ func (typ StaticArrayType) Name() string {
 	return "[" + strconv.FormatUint(typ.Length, 10) + "]" + typ.ElementType.Name()
 }
 
-func (typ StaticArrayType) ByteSize() uint32 {
-	return uint32(typ.Length) * typ.ElementType.ByteSize()
+func (typ StaticArrayType) ByteSize() uint64 {
+	return uint64(typ.Length) * typ.ElementType.ByteSize()
 }
 
-func (typ StaticArrayType) BitSize() uint32 {
+func (typ StaticArrayType) BitSize() uint64 {
 	return typ.ByteSize() * 8
 }
 

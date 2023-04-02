@@ -9,12 +9,12 @@ type StructField struct {
 	Name string
 	Type datatype.DataType
 
-	Offset uint32
+	Offset uint64
 }
 
 type StructType struct {
 	Name_ string
-	Size_ uint32
+	Size_ uint64
 
 	Scope  symbol.Symbol_Scope_Id
 	Fields []StructField
@@ -24,11 +24,11 @@ func (_struct StructType) Name() string {
 	return _struct.Name_
 }
 
-func (_struct StructType) BitSize() uint32 {
+func (_struct StructType) BitSize() uint64 {
 	return _struct.Size_ * 8
 }
 
-func (_struct StructType) ByteSize() uint32 {
+func (_struct StructType) ByteSize() uint64 {
 	return _struct.Size_
 }
 

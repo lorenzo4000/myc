@@ -6,8 +6,8 @@ struct Test {
 }
 
 function main() {
-	:static_array [20]int64;
-	
+	:static_array [1000000000]int64;
+
 	{
 		for(:i int64 = 0; i < 20; i = i + 1) {
 			static_array[i] = i  *  4;
@@ -16,18 +16,18 @@ function main() {
 			printf("%d : %d\n", j, static_array[j]);
 		}
 	};
+
+	// copy assignment
+	:stat [1000000000]int64 = static_array;
+	{
+		for(:j int64 = 0; j < 20; j = j + 1) {
+			printf("%d : %d\n", j, stat[j]);
+		}
+	};
+
 	
 	:dynamic_array []int64 = allocate(1024 * 1024);
-	printf("%d\n", dynamic_array.len / [uint64]64);
-
-	// indexing (with runtime boundary checking. maybe at some point in the future i will implement this...)
-	dynamic_array[0] = 64;
-
 	dynamic_array = resize(dynamic_array, 1024 * 1050); 
-	printf("%d\n", dynamic_array.len / [uint64]64);
-
-	printf("%d\n", dynamic_array[0]);
-	
 	{
 		for(:i int64 = 0; i < 20; i = i + 1) {
 			dynamic_array[i] = i * 4;
