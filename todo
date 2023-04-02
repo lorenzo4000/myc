@@ -1,3 +1,10 @@
+-> typecheck arguments when calling {
+	-> store parameters in function *_symbol
+	-> compare types and number of arguments during typechecking 
+}
+
+-> static array as function parameter
+
 -> static and dynamic array declaration syntax
 .  literal array syntax
 -> typecheck array
