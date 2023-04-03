@@ -931,7 +931,7 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 
 }
 
-func GEN_arraycopy(s Memory_Reference, d Memory_Reference) Codegen_Out {
+func GEN_arraycopy(s Memory_Reference, d any) Codegen_Out {
 	res := Codegen_Out{}
 	
 	// copy element by element ?
@@ -971,19 +971,128 @@ func GEN_arraycopy(s Memory_Reference, d Memory_Reference) Codegen_Out {
 	*/
 
 	array_size := array_type.Length * uint64(element_type.ByteSize())
+	switch d.(type) {
+		case Memory_Reference: 
+			destination := d.(Memory_Reference)
+			rsi, _ := REGISTER_RSI.GetRegister(datatype.TYPE_UINT64)
+			rdi, _ := REGISTER_RDI.GetRegister(datatype.TYPE_UINT64)
+			rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
 
-	rsi, _ := REGISTER_RSI.GetRegister(datatype.TYPE_UINT64)
-	rdi, _ := REGISTER_RDI.GetRegister(datatype.TYPE_UINT64)
-	rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
+			res.Code.TextAppendSln(ii("leaq", s, rsi))
+			res.Code.TextAppendSln(ii("leaq", destination, rdi))
+			res.Code.Appendln(GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, rcx).Code)
 
-	res.Code.TextAppendSln(ii("leaq", s, rsi))
-	res.Code.TextAppendSln(ii("leaq", d, rdi))
-	res.Code.Appendln(GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, rcx).Code)
+			res.Code.TextAppendSln(ii("cld")) // clear direction flag
+			res.Code.TextAppendSln(ii("rep movsb"))
+		case []Register:
+			destination := d.([]Register)
 
-	res.Code.TextAppendSln(ii("cld")) // clear direction flag
-	res.Code.TextAppendSln(ii("rep movsb"))
+			// TODO: actually get registers and compare sizes !!!
+			if array_size > uint64(len(destination) * 8) {
+				fmt.Println("codegen error: can't copy the array - the destination is to smal! ~ i'm really sorry >< <")
+			}
+
+			// TODO: actually get number of elements and do stuff !!!
+			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+
+			res.Code.TextAppendSln(ii("xorq", rax, rax))
+			index_a := GEN_static_array_index(s, rax)
+			res.Code.Appendln(index_a.Code)
+			res.Code.Appendln(GEN_very_generic_move(index_a.Result, destination[0]).Code)
+
+			res.Code.TextAppendSln(ii("incq", rax))
+			index_b := GEN_static_array_index(s, rax)
+			res.Code.Appendln(index_b.Code)
+			res.Code.Appendln(GEN_very_generic_move(index_b.Result, destination[1]).Code)
+	}
+
 	return res
 }
+func GEN_arrayreference(s Memory_Reference, d any) Codegen_Out {
+	array_source := s
+	switch d.(type) {
+		case Register:
+			fmt.Println("codegen error:  can't move array reference - destination to smal")
+			return Codegen_Out{}
+		case Memory_Reference:
+			array_destination := d.(Memory_Reference)
+
+			if datatype_struct.IsDynamicArrayType(array_destination.Type()) {
+				out := Codegen_Out{}
+
+				// TODO: change this when i have struct literals
+				array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
+							  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
+				array_data := array_source
+
+				// get struct field references (data, len)
+				s := array_destination
+
+				struct_type := s.Type().(datatype_struct.StructType)
+
+				struct_allocation := s
+				struct_start := struct_allocation.Start
+				struct_offset := struct_allocation.Offset
+				
+				{
+					field_offset := struct_offset + int64(struct_type.Fields[0].Offset)
+					field_allocation := Memory_Reference{
+						datatype.PointerType{array_source.Type().(datatype_array.StaticArrayType).ElementType},
+						field_offset,
+						struct_start,
+						nil,
+						1,
+					}
+					array_reference := GEN_reference_from_mem(array_data)
+					out.Code.Appendln(array_reference.Code)
+
+					out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
+				}
+
+				{
+					field_offset := struct_offset + int64(struct_type.Fields[1].Offset)
+					field_allocation := Memory_Reference{
+						datatype.TYPE_UINT64,
+						field_offset,
+						struct_start,
+						nil,
+						1,
+					}
+					out.Code.Appendln(GEN_store(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
+				} 
+				return out
+			}else {
+				fmt.Println("codegen error: static to static array reference is impossible, sorry")
+				return Codegen_Out{}
+			}
+		case []Register:
+			array_destination := d.([]Register)
+
+			//assert array_destination is dynamic array 
+			out := Codegen_Out{}
+
+			// TODO: change this when i have struct literals
+			array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
+						  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
+			array_data := array_source
+
+			{
+				field_allocation := array_destination[1]
+				array_reference := GEN_reference_from_mem(array_data)
+				out.Code.Appendln(array_reference.Code)
+				out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
+			}
+
+			{
+				field_allocation := array_destination[0]
+				out.Code.Appendln(GEN_load(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
+			} 
+			return out
+	}
+	return Codegen_Out{}
+}
+
+
 
 func GEN_very_generic_move(s any, d any) Codegen_Out {
 	switch s.(type) {
@@ -1011,49 +1120,7 @@ func GEN_very_generic_move(s any, d any) Codegen_Out {
 								array_destination := d.(Memory_Reference)
 
 								if datatype_struct.IsDynamicArrayType(array_destination.Type()) {
-									out := Codegen_Out{}
-
-									// TODO: change this when i have struct literals
-									array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
-												  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
-									array_data := array_source
-
-									// get struct field references (data, len)
-									s := array_destination
-
-									struct_type := s.Type().(datatype_struct.StructType)
-
-									struct_allocation := s
-									struct_start := struct_allocation.Start
-									struct_offset := struct_allocation.Offset
-									
-									{
-										field_offset := struct_offset + int64(struct_type.Fields[0].Offset)
-										field_allocation := Memory_Reference{
-											datatype.PointerType{array_source.Type().(datatype_array.StaticArrayType).ElementType},
-											field_offset,
-											struct_start,
-											nil,
-											1,
-										}
-										array_reference := GEN_reference_from_mem(array_data)
-										out.Code.Appendln(array_reference.Code)
-
-										out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
-									}
-
-									{
-										field_offset := struct_offset + int64(struct_type.Fields[1].Offset)
-										field_allocation := Memory_Reference{
-											datatype.TYPE_UINT64,
-											field_offset,
-											struct_start,
-											nil,
-											1,
-										}
-										out.Code.Appendln(GEN_store(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
-									} 
-									return out
+									return GEN_arrayreference(array_source, array_destination)
 								}else {
 									return GEN_arraycopy(array_source, array_destination)
 								}
@@ -1070,7 +1137,6 @@ func GEN_very_generic_move(s any, d any) Codegen_Out {
 
 								{
 									field_allocation := array_destination[1]
-									println("HEYLLAAAA: ", field_allocation.Text())
 									array_reference := GEN_reference_from_mem(array_data)
 									out.Code.Appendln(array_reference.Code)
 									out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
@@ -1078,7 +1144,6 @@ func GEN_very_generic_move(s any, d any) Codegen_Out {
 
 								{
 									field_allocation := array_destination[0]
-									println("HEYLLAAAA: ", field_allocation.Text())
 									out.Code.Appendln(GEN_load(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
 								} 
 								return out
@@ -1126,7 +1191,7 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 		init_value := Asm_Int_Literal{variable_type, 0, 10}
 		res.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
 
-		err := symbol.SymbolTableInsertInCurrentScope(ghost_parameter_name, Codegen_Symbol{variable_type, variable_allc})
+		err := symbol.SymbolTableInsertInCurrentScope(ghost_parameter_name, Codegen_Symbol{variable_type, variable_allc, nil})
 		if err != nil {
 			fmt.Println(err)
 			return res
@@ -1197,47 +1262,75 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 
 	return res
 }
-func GEN_callargs(args []Operand) Codegen_Out {
+func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 	res := Codegen_Out{}
 
+	// TODO: get rid of this!!
+	if len(params) <= 0 {
+		for _, arg := range args {
+			params = append(params, arg.Type())
+		}
+	}
+
 	allocated_regs := 0
-	for _, a := range args {
-		if (a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters)-1)) && !datatype_array.IsStaticArrayType(a.Type()) {
+	for i, a := range args {
+		if (params[i].ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (params[i].ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters)-1)){ 
 			rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
 			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 
 			// We unreserve this in GEN_call. I know this is confusing.
-			allocated_region := StackAllocateAndRemember(a.Type())
+			allocated_region := StackAllocateAndRemember(params[i])
 			res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(allocated_region.reserved), 10}, rsp))
 
 			res.Code.Appendln(GEN_move(rsp, rax).Code)
 
 			stack_region := Memory_Reference{
-				a.Type(),
+				params[i],
 				0,
 				rax,
 				nil,
 				1,
 			}
 
-			println("ASHFHSFSHFSHAFHFHASFHSAFHSAFHSAHFSA, size: ", a.Type().ByteSize())
-			res.Code.Appendln(GEN_very_generic_move(a, stack_region).Code)
-		} else if a.Type().ByteSize() > 8 || datatype_array.IsStaticArrayType(a.Type()) {
+			if datatype_array.IsStaticArrayType(params[i]){
+				if datatype_array.IsStaticArrayType(params[i]){ 
+					res.Code.Appendln(GEN_arraycopy(a.(Memory_Reference), stack_region).Code)
+				} else
+				if datatype_struct.IsDynamicArrayType(params[i]){ 
+					res.Code.Appendln(GEN_arrayreference(a.(Memory_Reference), stack_region).Code)
+				} else {
+					res.Code.Appendln(GEN_very_generic_move(a, stack_region).Code)
+				}
+			} else {
+				res.Code.Appendln(GEN_very_generic_move(a, stack_region).Code)
+			}
+		} else if params[i].ByteSize() > 8 {
 			// TODO: don't just assume it's a struct
 			reg_a, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
 			if full {
-				fmt.Println("codegen error: could not find an argument register for type `" + a.Type().Name() + "`")
+				fmt.Println("codegen error: could not find an argument register for type `" + params[i].Name() + "`")
 				return res
 			}
 			reg_b, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
 			if full {
-				fmt.Println("codegen error: could not find an argument register for type `" + a.Type().Name() + "`")
+				fmt.Println("codegen error: could not find an argument register for type `" + params[i].Name() + "`")
 				return res
 			}
 
 			allocated_regs += 2
 
-			res.Code.Appendln(GEN_very_generic_move(a, []Register{reg_b, reg_a}).Code)
+			if datatype_array.IsStaticArrayType(params[i]){
+				if datatype_array.IsStaticArrayType(params[i]){ 
+					res.Code.Appendln(GEN_arraycopy(a.(Memory_Reference), []Register{reg_b, reg_a}).Code)
+				} else
+				if datatype_struct.IsDynamicArrayType(params[i]){ 
+					res.Code.Appendln(GEN_arrayreference(a.(Memory_Reference), []Register{reg_b, reg_a}).Code)
+				} else {
+					res.Code.Appendln(GEN_very_generic_move(a, []Register{reg_b, reg_a}).Code)
+				}
+			} else {
+				res.Code.Appendln(GEN_very_generic_move(a, []Register{reg_b, reg_a}).Code)
+			}
 		} else {
 			var arg Operand
 			switch a.(type) {
@@ -1296,10 +1389,20 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 		args = new_args
 	}
 
-	call_args := GEN_callargs(args)
+
+	function_name := f.Data[0].String_value
+	declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
+	if !found {
+		fmt.Println("codegen error: undefined function `", function_name, "`")
+		return res
+	}
+
+	function_params := declaration.(Codegen_Symbol).ArgTypes
+
+	call_args := GEN_callargs(args, function_params)
 	res.Code.Appendln(call_args.Code)
 
-	name := LabelGet(f.Data[0].String_value)
+	name := LabelGet(function_name)
 	res.Code.TextAppendSln(ii("call", name))
 
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)

@@ -76,6 +76,8 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 		Codegen_Symbol{
 			datatype.PointerType{_type},
 			Stack_Region{},
+
+			nil,
 		},
 	)
 	symbol.SymbolTableInsertInCurrentScope(
@@ -83,6 +85,8 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 		Codegen_Symbol{
 			datatype.TYPE_UINT64,
 			Stack_Region{},
+
+			nil,
 		},
 	)
 
@@ -160,23 +164,32 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 		}
 
 	case front.AST_FUNCTION_DEFINITION:
-		if ast.Flags&front.ASTO_FUNCTION_EXTERNAL != 0 {
-			break
+		function_name := ast.Children[0].Data[0].String_value
+
+		args := ast.Children[1].Children
+		arg_types := []datatype.DataType{}
+		for _, arg := range(args) {
+			arg_types = append(arg_types, arg.DataType)
 		}
 
-		//_, found := symbol.SymbolTableGetInCurrentScope(function_name)
-		//if found {
-		//	fmt.Println("codegen error: `" + function_name + "` was already declared in this scope")
-		//	return out
-		//}
-		//
-		//var function_symbol Codegen_Symbol
-		//function_symbol.DataType = ast.DataType
-		//err := symbol.SymbolTableInsertInCurrentScope(function_name, function_symbol)
-		//if err != nil {
-		//	fmt.Println(err)
-		//	return out
-		//}
+		_, found := symbol.SymbolTableGetInCurrentScope(function_name)
+		if found {
+			fmt.Println("codegen error: `" + function_name + "` was already declared in this scope")
+			return out
+		}
+		
+		var function_symbol Codegen_Symbol
+		function_symbol.DataType = ast.DataType
+		function_symbol.ArgTypes = arg_types
+		err := symbol.SymbolTableInsertInCurrentScope(function_name, function_symbol)
+		if err != nil {
+			fmt.Println(err)
+			return out
+		}
+
+		if ast.Flags & front.ASTO_FUNCTION_EXTERNAL != 0 {
+			break
+		}
 
 		out.Code.Appendln(GEN_function_prologue(ast).Code)
 
@@ -336,7 +349,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 					}
 			}
 
-			err := symbol.SymbolTableInsertInCurrentScope(variable_name, Codegen_Symbol{variable_type, variable_allc})
+			err := symbol.SymbolTableInsertInCurrentScope(variable_name, Codegen_Symbol{variable_type, variable_allc, nil})
 			if err != nil {
 				fmt.Println(err)
 				return out
@@ -778,8 +791,6 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 					return out
 			}
 
-			fmt.Println(array_index.Code.Text)
-			fmt.Println(array_index.Result.Text())
 			out.Code.Appendln(array_index.Code)
 			out.Result = array_index.Result
 		}

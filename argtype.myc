@@ -1,0 +1,9 @@
+@import "lib/c/stdio.myc"
+
+function printnumber(:arg int32) {
+	printf("%d\n", arg);
+}
+
+function main() {
+	printnumber([int32]65);
+}

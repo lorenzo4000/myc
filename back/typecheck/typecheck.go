@@ -122,11 +122,11 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 	// declare fields in this scope, this feels hackish
 	symbol.SymbolTableInsertInCurrentScope(
 		"data", 
-		TypeCheck_Symbol{datatype.PointerType{ _type }},
+		TypeCheck_Symbol{datatype.PointerType{ _type }, nil},
 	)
 	symbol.SymbolTableInsertInCurrentScope(
 		"len", 
-		TypeCheck_Symbol{datatype.TYPE_UINT64},
+		TypeCheck_Symbol{datatype.TYPE_UINT64, nil},
 	)
 
 	array_type_scope := symbol.SymbolScopeStackCurrent()
@@ -313,7 +313,13 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				}
 			}
 
-			err := symbol.SymbolTableInsertInCurrentScope(function_name, TypeCheck_Symbol{return_type})
+			args := ast.Children[1].Children
+			arg_types := []datatype.DataType{}
+			for _, arg := range(args) {
+				arg_types = append(arg_types, arg.DataType)
+			}
+		
+			err := symbol.SymbolTableInsertInCurrentScope(function_name, TypeCheck_Symbol{return_type, arg_types}) 
 			if err != nil {
 				fmt.Println(err)	
 				return nil
@@ -427,7 +433,16 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			function_name := ast.Data[0].String_value
 			declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
 
-			// TODO: typecheck arguments
+			function_params := declaration.(TypeCheck_Symbol).ArgTypes
+			for i, param := range(function_params) {
+				if i >= len(ast.Children) {
+					break
+				}
+				if !Compatible(ast.Children[i].DataType, param) {
+					typeExpectErrorAt(ast, ast.Children[i].DataType, param)
+					return nil
+				}
+			}
 
 			if !found {
 				typeErrorAt(ast, "undefined `%s`", function_name)
@@ -468,7 +483,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				}
 			}
 
-			err := symbol.SymbolTableInsertInCurrentScope(variable_name, TypeCheck_Symbol{variable_type})
+			err := symbol.SymbolTableInsertInCurrentScope(variable_name, TypeCheck_Symbol{variable_type, nil})
 			if err != nil {
 				fmt.Println(err)	
 				return nil
@@ -745,7 +760,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 			anon_struct_type.Name_ = struct_name
 			
-			struct_type_symbol := TypeCheck_Symbol{anon_struct_type}
+			struct_type_symbol := TypeCheck_Symbol{anon_struct_type, nil}
 			symbol.SymbolTableInsertInCurrentScope(struct_name, struct_type_symbol)
 
 			ast.DataType = anon_struct_type
