@@ -1,23 +1,123 @@
-function getchar() int32 external; //(void);	Reads a single character from stdin.
-function gets() *int8 external; // (char *buffer);	Reads a string from stdin, and stores it in buffer.
-function perror() external;//(const char *string);	Prints an error message to stderr.
-function printf() int32 external;//(const char *format-string, arg-list);	Formats and prints characters and values to stdout.
-function putchar() int32 external;//(c() int32 external;//);	Prints c to stdout.
-function puts() int32 external;//(const char *string);	Prints a string to stdout.
-function remove() int32 external;//(const char *filename);	Deletes the file specified by filename.
-function rename() int32 external;//(const char *oldname, const char *newname);	Renames the specified file.
-function scanf() int32 external;//(const char *format-string, arg-list);	Reads data from stdin into locations given by arg-list.
-function snprintf() int32 external;//(char *outbuf, size_t n, const char*, ...)	Same as sprintf except that the function will stop after n characters have been written to outbuf.
-function sprintf() int32 external;//(char *buffer, const char *format-string, arg-list);	Formats and stores characters and values in buffer.
-function sscanf() int32 external;//(const char *buffer, const char *format, arg-list);	Reads data from buffer into the locations given by arg-list.
-function tmpnam() *int8 external; // (char *string);	Generates a temporary file name.
-function vprintf() int32 external;//(const char *format, va_list arg_ptr);	Formats and prints characters to stdout using a variable number of arguments.
-function vscanf() int32 external;//(const char *format, va_list arg_ptr);	Reads data from stdin into locations given by a variable number of arguments.
-function vsprintf() int32 external;//(char *target-string, const char *format, va_list arg_ptr);	Formats and stores characters in a buffer using a variable number of arguments.
-function vsnprintf() int32 external;//(char *outbuf, size_t n, const char*, va_list);	Same as vsprintf except that the function will stop after n characters have been written to outbuf.
-function vsscanf() int32 external;//(const char*buffer, const char *format, va_list arg_ptr);	Reads data from a buffer into locations given by a variable number of arguments.
-function vswscanf() int32 external;//(const wchar_t *buffer, const wchar_t *format, va_list arg_ptr);	Reads wide data from a buffer into locations given by a variable number of arguments.
-function vwscanf() int32 external;//(const wchar_t *format, va_list arg_ptr);	Reads wide data from stdin into locations given by a variable number of arguments.
+/*
+	(void);
+	Reads a single character from stdin.
+*/
+function getchar() int32 external; 
+
+/*
+	(char *buffer);
+	Reads a string from stdin, and stores it in buffer.
+*/
+function gets() *int8 external; 
+
+/*
+	(const char *string);
+	Prints an error message to stderr.
+*/
+function perror() external;
+
+/*
+	(const char *format-string, arg-list);
+	Formats and prints characters and values to stdout.
+*/
+function printf() int32 external;
+
+/*
+	(int c);
+	Prints c to stdout.
+*/
+function putchar() int32 external;
+
+/*
+	(const char *string);
+	Prints a string to stdout.
+*/
+function puts() int32 external;
+
+/*
+	(const char *filename);
+	Deletes the file specified by filename.
+*/
+function remove() int32 external;
+
+/*
+	(const char *oldname, const char *newname);
+	Renames the specified file.
+*/
+function rename() int32 external;
+
+/*
+	(const char *format-string, arg-list);
+	Reads data from stdin into locations given by arg-list.
+*/
+function scanf() int32 external;
+
+/*
+	(char *outbuf, size_t n, const char*, ...);
+	Same as sprintf except that the function will stop after n characters have been written to outbuf.
+*/
+function snprintf() int32 external;
+
+/*
+	(char *buffer, const char *format-string, arg-list);
+	Formats and stores characters and values in buffer.
+*/
+function sprintf() int32 external;
+
+/*
+	(const char *buffer, const char *format, arg-list);
+	Reads data from buffer into the locations given by arg-list.
+*/
+function sscanf() int32 external;
+
+/*
+	(char *string);
+	Generates a temporary file name.
+*/
+function tmpnam() *int8 external; 
+
+/*
+	(const char *format, va_list arg_ptr);
+	Formats and prints characters to stdout using a variable number of arguments.
+*/
+function vprintf() int32 external;
+
+/*
+	(const char *format, va_list arg_ptr);
+	Reads data from stdin into locations given by a variable number of arguments.
+*/
+function vscanf() int32 external;
+
+/*
+	(char *target-string, const char *format, va_list arg_ptr);
+	Formats and stores characters in a buffer using a variable number of arguments.
+*/
+function vsprintf() int32 external;
+
+/*
+	(char *outbuf, size_t n, const char*, va_list);
+	Same as vsprintf except that the function will stop after n characters have been written to outbuf.
+*/
+function vsnprintf() int32 external;
+
+/*
+	(const char*buffer, const char *format, va_list arg_ptr);
+	Reads data from a buffer into locations given by a variable number of arguments.
+*/
+function vsscanf() int32 external;
+
+/*
+	(const wchar_t *buffer, const wchar_t *format, va_list arg_ptr);
+	Reads wide data from a buffer into locations given by a variable number of arguments.
+*/
+function vswscanf() int32 external;
+
+/*
+	(const wchar_t *format, va_list arg_ptr);
+	Reads wide data from stdin into locations given by a variable number of arguments.
+*/
+function vwscanf() int32 external;
+
 
 
 

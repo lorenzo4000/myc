@@ -1,28 +1,130 @@
-function abort() external;	//(void)
-function abs() int32 external;	//(int n)
-function atexit() int32 external;	//(void (*func)(void))
-function atoi() int32 external;	//(const char *string)
-function atol() int64 external;	//(const char *string)
-function exit() external;	//(int status)
-function free() external;	//(void *ptr)
-function labs() int64 external;	//(int n//)
-function mblen() int32 external;	//(const char *string, size_t n)
-function mbtowc() int32 external;	//(wchar_t *pwc, const char *string, size_t n)
-function qsort() external;	//(void *base, size_t num, size_t width, int(*compare)(const void *element1, const void *element2))
-function rand() int32 external;	//(void)
-function rand_r() int32 external;	//(void)
-function srand() external;	//(int seed)
-function strtoul() uint64 external;	//(const char *string1, char **string2, int base)
-function strtol() int64 external;	//(const char *nptr, char **endptr, int base)
-function system() int32 external;	//(const char *string)
-function wctomb() int32 external;	//(char *string, wchar_t character)
-function mbstowcs() int64 external; //(wchar_t *pwc, const char *string, size_t n)
-function wcstombs() int64 external; //(char *dest, const wchar_t *string, size_t count)
-function putenv() *int32 external;    //(const char *varname)
-function getenv() *int8 external; //(const char *varname)
-function malloc() *? external; //(size_t size)
-function realloc() *? external; //(void *ptr, size_t size)
-function calloc() *? external; //(size_t num, size_t size)
+/*
+	(void)
+*/
+function abort() external;	
+
+/*
+	(int n)
+*/
+function abs() int32 external;	
+
+/*
+	(void (*func)(void))
+*/
+function atexit() int32 external;	
+
+/*
+	(const char *string)
+*/
+function atoi() int32 external;	
+
+/*
+	(const char *string)
+*/
+function atol() int64 external;	
+
+/*
+	(int status)
+*/
+function exit() external;	
+
+/*
+	(void *ptr)
+*/
+function free() external;	
+
+/*
+	)
+*/
+function labs() int64 external;	/*
+	(int n
+*/
+
+/*
+	(const char *string, size_t n)
+*/
+function mblen() int32 external;	
+
+/*
+	(wchar_t *pwc, const char *string, size_t n)
+*/
+function mbtowc() int32 external;	
+
+/*
+	(void *base, size_t num, size_t width, int(*compare)(const void *element1, const void *element2))
+*/
+function qsort() external;	
+
+/*
+	(void)
+*/
+function rand() int32 external;	
+
+/*
+	(void)
+*/
+function rand_r() int32 external;	
+
+/*
+	(int seed)
+*/
+function srand() external;	
+
+/*
+	(const char *string1, char **string2, int base)
+*/
+function strtoul() uint64 external;	
+
+/*
+	(const char *nptr, char **endptr, int base)
+*/
+function strtol() int64 external;	
+
+/*
+	(const char *string)
+*/
+function system() int32 external;	
+
+/*
+	(char *string, wchar_t character)
+*/
+function wctomb() int32 external;	
+
+/*
+	(wchar_t *pwc, const char *string, size_t n)
+*/
+function mbstowcs() int64 external; 
+
+/*
+	(char *dest, const wchar_t *string, size_t count)
+*/
+function wcstombs() int64 external; 
+
+/*
+	(const char *varname)
+*/
+function putenv() *int32 external;    
+
+/*
+	(const char *varname)
+*/
+function getenv() *int8 external; 
+
+/*
+	(size_t size)
+*/
+function malloc() *? external; 
+
+/*
+	(void *ptr, size_t size)
+*/
+function realloc() *? external; 
+
+/*
+	(size_t num, size_t size)
+*/
+function calloc() *? external; 
+
 
 
 

@@ -3,8 +3,6 @@
 	-> compare types and number of arguments during typechecking 
 }
 
--> static array as function parameter
-
 -> static and dynamic array declaration syntax
 .  literal array syntax
 -> typecheck array
@@ -13,11 +11,7 @@
 -> resize dyn. array
 -> append to  dyn. array
 
--> refactor codegen move/copy/reference generic stuff, 
-   tpecifically the register pair thing, that's really really bad!!
-
 .  String type (with literals and stuff)
-.  Struct literals
 .  Misecellaneus types, operators and other stuff
 .  implicit integer literal casts
 .  prepar: build dep. graph and do cycle detection before importing
