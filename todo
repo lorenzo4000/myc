@@ -13,8 +13,8 @@
 -> resize dyn. array
 -> append to  dyn. array
 
-.  refactor codegen move/copy/reference generic stuff, 
-   specifically the register pair thing, that's really really bad!!
+-> refactor codegen move/copy/reference generic stuff, 
+   tpecifically the register pair thing, that's really really bad!!
 
 .  String type (with literals and stuff)
 .  Struct literals

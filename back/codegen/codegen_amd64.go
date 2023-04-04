@@ -38,6 +38,7 @@ type Register struct {
 }
 
 type RegisterPair struct {
+	Datatype datatype.DataType 
 	r1 Register
 	r2 Register
 }
@@ -184,6 +185,8 @@ func (reg Register) Allocated() bool {
 	return false
 }
 
+// register
+//
 func (reg Register) Text() string {
 	return RegistersStr[byte(reg.Class)&REG_KIND_MASKI][reg.Sub]
 }
@@ -197,6 +200,24 @@ func (reg Register) Dereference() Operand {
 }
 
 func (reg Register) Type() datatype.DataType {
+	return reg.Datatype
+}
+
+// registerpair
+//
+func (reg RegisterPair) Text() string {
+	return ""
+}
+
+func (reg RegisterPair) LiteralValue() Operand {
+	return nil
+}
+
+func (reg RegisterPair) Dereference() Operand {
+	return nil
+}
+
+func (reg RegisterPair) Type() datatype.DataType {
 	return reg.Datatype
 }
 
@@ -586,7 +607,7 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 				fmt.Println("codegen error: could not find return register 2 for type `" + return_type.Name() + "`")
 			}
 
-			return_regs := []Register{rdx, rax}
+			return_regs := RegisterPair{return_type, rdx, rax}
 			out.Code.Appendln(GEN_loadstruct(v.(Memory_Reference), return_regs).Code)
 		} else if return_type.ByteSize() > 16 {
 			// fill up the memory pointed by the ghost parameter with the return value~ ^^
@@ -669,7 +690,7 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 				fmt.Println("codegen error: could not find return register 2 for type `" + body_type.Name() + "`")
 			}
 
-			return_regs := []Register{rdx, rax}
+			return_regs := RegisterPair{body_type, rdx, rax}
 			res.Code.Appendln(GEN_loadstruct(body_result.(Memory_Reference), return_regs).Code)
 		} else if body_type.ByteSize() > 16 {
 			// TODO
@@ -770,13 +791,13 @@ func GEN_move(s Operand, d Operand) Codegen_Out {
 	return Codegen_Out{}
 }
 
-func GEN_loadstruct(s Memory_Reference, d []Register) Codegen_Out {
+func GEN_loadstruct(s Memory_Reference, d RegisterPair) Codegen_Out {
 	var res Codegen_Out
 
 	struct_type := s.Type().(datatype_struct.StructType)
 	nfields := len(struct_type.Fields)
 
-	if nfields > len(d) {
+	if nfields > 2 {
 		fmt.Println("codegen error: not enough registers to load struct of type `", struct_type.Name, "`")
 		return res
 	}
@@ -785,12 +806,13 @@ func GEN_loadstruct(s Memory_Reference, d []Register) Codegen_Out {
 	struct_start := struct_allocation.Start
 	struct_offset := struct_allocation.Offset
 
-	for field := nfields - 1; field >= 0; field-- {
+	{
+		field := 1
 		field_type := struct_type.Fields[field].Type
 		field_name := struct_type.Fields[field].Name
 		field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
 
-		field_destination := d[(nfields-field)-1]
+		field_destination := d.r1
 
 		if field_type.ByteSize() > field_destination.Datatype.ByteSize() {
 			fmt.Println(
@@ -813,28 +835,25 @@ func GEN_loadstruct(s Memory_Reference, d []Register) Codegen_Out {
 
 		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), field_destination).Code)
 	}
-
-	return res
-}
-
-func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
-	var res Codegen_Out
-
-	struct_type := s.Type().(datatype_struct.StructType)
-	nfields := len(struct_type.Fields)
-
-	if s.DataType.ByteSize() > d.DataType.ByteSize() {
-		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
-		return res
-	}
-
-	struct_allocation := s
-	struct_start := struct_allocation.Start
-	struct_offset := struct_allocation.Offset
-
-	for field := nfields - 1; field >= 0; field-- {
+	
+	{
+		field := 0
 		field_type := struct_type.Fields[field].Type
+		field_name := struct_type.Fields[field].Name
 		field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+		field_destination := d.r2
+
+		if field_type.ByteSize() > field_destination.Datatype.ByteSize() {
+			fmt.Println(
+				"codegen error: struct field `",
+				field_name,
+				"` (of type `", field_type.Name(),
+				"`) is too big for register of type `",
+				field_destination.Datatype.Name(), "`",
+			)
+			return res
+		}
 
 		field_allocation := Memory_Reference{
 			field_type,
@@ -844,27 +863,7 @@ func GEN_storestruct(s Memory_Reference, d Memory_Reference) Codegen_Out {
 			1,
 		}
 
-		destination := Memory_Reference{
-			field_type,
-			(field_offset - struct_offset) + d.Offset,
-			d.Start,
-			nil,
-			1,
-		}
-
-		//
-		//   in a case like this:
-		//	 	struct {
-		//			struct {
-		//				struct {
-		//					int64
-		//				}
-		//			}
-		//		}
-		//
-		//	 ... we need to find the most primitive value in a rescursive way.
-
-		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), destination).Code)
+		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), field_destination).Code)
 	}
 
 	return res
@@ -931,44 +930,81 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 
 }
 
-func GEN_arraycopy(s Memory_Reference, d any) Codegen_Out {
+func GEN_storestruct_from_regpair(s RegisterPair, d Memory_Reference) Codegen_Out {
+	source := []Operand{s.r1, s.r2}
+	return GEN_storestruct_from_operands(source, d)
+}
+
+func GEN_storestruct_from_memory(s Memory_Reference, d Memory_Reference) Codegen_Out {
+	var res Codegen_Out
+
+	struct_type := s.Type().(datatype_struct.StructType)
+	nfields := len(struct_type.Fields)
+
+	if s.DataType.ByteSize() > d.DataType.ByteSize() {
+		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
+		return res
+	}
+
+	struct_allocation := s
+	struct_start := struct_allocation.Start
+	struct_offset := struct_allocation.Offset
+
+	for field := nfields - 1; field >= 0; field-- {
+		field_type := struct_type.Fields[field].Type
+		field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+		field_allocation := Memory_Reference{
+			field_type,
+			field_offset,
+			struct_start,
+			nil,
+			1,
+		}
+
+		destination := Memory_Reference{
+			field_type,
+			(field_offset - struct_offset) + d.Offset,
+			d.Start,
+			nil,
+			1,
+		}
+
+		//
+		//   in a case like this:
+		//	 	struct {
+		//			struct {
+		//				struct {
+		//					int64
+		//				}
+		//			}
+		//		}
+		//
+		//	 ... we need to find the most primitive value in a rescursive way.
+
+		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), destination).Code)
+	}
+
+	return res
+}
+
+func GEN_storestruct(s Operand, d Memory_Reference) Codegen_Out {
+	switch s.(type) {
+		case RegisterPair: return GEN_storestruct_from_regpair(s.(RegisterPair), d)
+		case Memory_Reference: return GEN_storestruct_from_memory(s.(Memory_Reference), d)
+	}
+	return Codegen_Out{}
+}
+
+
+func GEN_arraycopy(s Memory_Reference, d Operand) Codegen_Out {
 	res := Codegen_Out{}
 	
-	// copy element by element ?
-	// do dynamic loop ?
-	// or just generate lots of `mov`s ?
-	// maybe duff device ?
 	res.Code.TextAppendSln("// copying array")
+	println("copying array!!")
 
 	array_type := s.Type().(datatype_array.StaticArrayType)
 	element_type := array_type.ElementType
-
-	/*
-	// use rax for index
-	// NOTE: be careful with this I guess
-	rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
-	res.Code.TextAppendSln(ii("xorq", rax, rax)) // initialize index
-	for i := uint64(0); i < array_type.Length; i++ {
-		source      := GEN_static_array_index(s, rax)
-		res.Code.Appendln(source.Code)
-		// put it in a new thing
-		var source_result Operand
-		reg, full := RegisterScratchAllocate(element_type)
-		if full {
-			source_result = StackAllocate(element_type).Reference()
-		} else {
-			source_result = reg
-		}
-		res.Code.Appendln(GEN_very_generic_move(source_result, destination_result).Code)
-
-		destination := GEN_static_array_index(d, rax)
-		res.Code.Appendln(destination.Code)
-		destination_result := destination.Result
-
-		res.Code.Appendln(GEN_very_generic_move(source_result, destination_result).Code)
-		res.Code.TextAppendSln(ii("incq", rax)) // update index
-	}
-	*/
 
 	array_size := array_type.Length * uint64(element_type.ByteSize())
 	switch d.(type) {
@@ -984,11 +1020,11 @@ func GEN_arraycopy(s Memory_Reference, d any) Codegen_Out {
 
 			res.Code.TextAppendSln(ii("cld")) // clear direction flag
 			res.Code.TextAppendSln(ii("rep movsb"))
-		case []Register:
-			destination := d.([]Register)
+		case RegisterPair:
+			destination := d.(RegisterPair)
 
 			// TODO: actually get registers and compare sizes !!!
-			if array_size > uint64(len(destination) * 8) {
+			if array_size > destination.Type().ByteSize() {
 				fmt.Println("codegen error: can't copy the array - the destination is to smal! ~ i'm really sorry >< <")
 			}
 
@@ -998,17 +1034,18 @@ func GEN_arraycopy(s Memory_Reference, d any) Codegen_Out {
 			res.Code.TextAppendSln(ii("xorq", rax, rax))
 			index_a := GEN_static_array_index(s, rax)
 			res.Code.Appendln(index_a.Code)
-			res.Code.Appendln(GEN_very_generic_move(index_a.Result, destination[0]).Code)
+			res.Code.Appendln(GEN_very_generic_move(index_a.Result, destination.r1).Code)
 
 			res.Code.TextAppendSln(ii("incq", rax))
 			index_b := GEN_static_array_index(s, rax)
 			res.Code.Appendln(index_b.Code)
-			res.Code.Appendln(GEN_very_generic_move(index_b.Result, destination[1]).Code)
+			res.Code.Appendln(GEN_very_generic_move(index_b.Result, destination.r2).Code)
 	}
 
 	return res
 }
-func GEN_arrayreference(s Memory_Reference, d any) Codegen_Out {
+func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
+	println("referencing array!!")
 	array_source := s
 	switch d.(type) {
 		case Register:
@@ -1065,10 +1102,9 @@ func GEN_arrayreference(s Memory_Reference, d any) Codegen_Out {
 				fmt.Println("codegen error: static to static array reference is impossible, sorry")
 				return Codegen_Out{}
 			}
-		case []Register:
-			array_destination := d.([]Register)
+		case RegisterPair:
+			array_destination := d.(RegisterPair)
 
-			//assert array_destination is dynamic array 
 			out := Codegen_Out{}
 
 			// TODO: change this when i have struct literals
@@ -1077,14 +1113,14 @@ func GEN_arrayreference(s Memory_Reference, d any) Codegen_Out {
 			array_data := array_source
 
 			{
-				field_allocation := array_destination[1]
+				field_allocation := array_destination.r2
 				array_reference := GEN_reference_from_mem(array_data)
 				out.Code.Appendln(array_reference.Code)
 				out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
 			}
 
 			{
-				field_allocation := array_destination[0]
+				field_allocation := array_destination.r1
 				out.Code.Appendln(GEN_load(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
 			} 
 			return out
@@ -1092,22 +1128,20 @@ func GEN_arrayreference(s Memory_Reference, d any) Codegen_Out {
 	return Codegen_Out{}
 }
 
-
-
-func GEN_very_generic_move(s any, d any) Codegen_Out {
+func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 	switch s.(type) {
-		case Operand:
+		default:
 			s_operand := s.(Operand)
 				switch s_operand.Type().(type) {
 					case datatype_struct.StructType:
 						struct_allocation := s_operand.(Memory_Reference)
 						switch d.(type) {
 							case Register:
-								return GEN_loadstruct(struct_allocation, []Register{d.(Register)})
+								return GEN_loadstruct(struct_allocation, RegisterPair{Datatype : d.Type(), r1 : d.(Register)})
 							case Memory_Reference:
 								return GEN_storestruct(struct_allocation, d.(Memory_Reference))
-							case []Register:
-								return GEN_loadstruct(struct_allocation, d.([]Register))
+							case RegisterPair:
+								return GEN_loadstruct(struct_allocation, d.(RegisterPair))
 						}
 
 					case datatype_array.StaticArrayType:
@@ -1124,8 +1158,8 @@ func GEN_very_generic_move(s any, d any) Codegen_Out {
 								}else {
 									return GEN_arraycopy(array_source, array_destination)
 								}
-							case []Register:
-								array_destination := d.([]Register)
+							case RegisterPair:
+								array_destination := d.(RegisterPair)
 
 								//assert array_destination is dynamic array 
 								out := Codegen_Out{}
@@ -1136,24 +1170,24 @@ func GEN_very_generic_move(s any, d any) Codegen_Out {
 								array_data := array_source
 
 								{
-									field_allocation := array_destination[1]
+									field_allocation := array_destination.r2
 									array_reference := GEN_reference_from_mem(array_data)
 									out.Code.Appendln(array_reference.Code)
 									out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
 								}
 
 								{
-									field_allocation := array_destination[0]
+									field_allocation := array_destination.r1
 									out.Code.Appendln(GEN_load(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
 								} 
 								return out
 							}
 					default:
-						return GEN_move(s_operand, d.(Operand))
+						return GEN_move(s_operand, d)
 				}
 
-		case []Operand:
-			return GEN_storestruct_from_operands(s.([]Operand), d.(Memory_Reference))
+		case RegisterPair:
+			return GEN_storestruct_from_regpair(s.(RegisterPair), d.(Memory_Reference))
 			
 	}
 
@@ -1234,7 +1268,7 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 				return res
 			}
 
-			res.Code.Appendln(GEN_very_generic_move([]Operand{reg_a, reg_b}, a.(Memory_Reference)).Code)
+			res.Code.Appendln(GEN_very_generic_move(RegisterPair{a.Type(), reg_a, reg_b}, a.(Memory_Reference)).Code)
 
 			allocated_regs += 2
 		} else {
@@ -1292,18 +1326,7 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 				1,
 			}
 
-			if datatype_array.IsStaticArrayType(params[i]){
-				if datatype_array.IsStaticArrayType(params[i]){ 
-					res.Code.Appendln(GEN_arraycopy(a.(Memory_Reference), stack_region).Code)
-				} else
-				if datatype_struct.IsDynamicArrayType(params[i]){ 
-					res.Code.Appendln(GEN_arrayreference(a.(Memory_Reference), stack_region).Code)
-				} else {
-					res.Code.Appendln(GEN_very_generic_move(a, stack_region).Code)
-				}
-			} else {
-				res.Code.Appendln(GEN_very_generic_move(a, stack_region).Code)
-			}
+			res.Code.Appendln(GEN_very_generic_move(a, stack_region).Code)
 		} else if params[i].ByteSize() > 8 {
 			// TODO: don't just assume it's a struct
 			reg_a, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
@@ -1318,19 +1341,7 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			}
 
 			allocated_regs += 2
-
-			if datatype_array.IsStaticArrayType(params[i]){
-				if datatype_array.IsStaticArrayType(params[i]){ 
-					res.Code.Appendln(GEN_arraycopy(a.(Memory_Reference), []Register{reg_b, reg_a}).Code)
-				} else
-				if datatype_struct.IsDynamicArrayType(params[i]){ 
-					res.Code.Appendln(GEN_arrayreference(a.(Memory_Reference), []Register{reg_b, reg_a}).Code)
-				} else {
-					res.Code.Appendln(GEN_very_generic_move(a, []Register{reg_b, reg_a}).Code)
-				}
-			} else {
-				res.Code.Appendln(GEN_very_generic_move(a, []Register{reg_b, reg_a}).Code)
-			}
+			res.Code.Appendln(GEN_very_generic_move(a, RegisterPair{params[i], reg_b, reg_a}).Code)
 		} else {
 			var arg Operand
 			switch a.(type) {
@@ -1347,7 +1358,6 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			}
 
 			allocated_regs++
-
 			res.Code.Appendln(GEN_load(arg, arg_reg).Code)
 		}
 	}
@@ -1458,8 +1468,8 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 				fmt.Println("codegen error: could not find return register 2 for type `" + f.DataType.Name() + "`")
 			}
 
-			return_regs := []Operand{rax, rdx}
-			res.Code.Appendln(GEN_storestruct_from_operands(return_regs, result.(Memory_Reference)).Code)
+			return_regs := RegisterPair{f.DataType, rax, rdx}
+			res.Code.Appendln(GEN_storestruct_from_regpair(return_regs, result.(Memory_Reference)).Code)
 		} else if f.DataType.ByteSize() > 16 {
 			return_type := datatype.PointerType{f.DataType}
 			reg, full := RegisterScratchAllocate(return_type)
@@ -2073,7 +2083,7 @@ func GEN_dynamic_array_index(array_struct Memory_Reference, index Register, ast 
 	r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64)
 
 	// load array.data, array.len => r10, r11
-	res.Code.Appendln(GEN_loadstruct(array_struct, []Register{r10, r11}).Code)
+	res.Code.Appendln(GEN_loadstruct(array_struct, RegisterPair{array_struct.Type(), r10, r11}).Code)
 
 	// do boundary checking
 
