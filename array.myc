@@ -53,8 +53,9 @@ function main() {
 		10,
 		10,
 		10,
-		10
-	};
+		15,
+	 };
+
 
 	// reference assignment (copy pointer and length)	
 	:dynamic_array []int64;
@@ -66,11 +67,14 @@ function main() {
 		for(:j int64 = 0; j < 20; j = j + 1) {
 			printf("STATIC %d : %d\n", j, static_array[j]);
 		}
+		/*
 		for(:k int64 = 0; k < 20; k = k + 1) {
 			printf("DYNAMIC asdas %d : %d\n", k, dynamic_array[k]);
 		}
+		*/
 	};
-
+	
+	return;
 
 	printf("----------------------------------\n");
 

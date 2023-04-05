@@ -47,9 +47,10 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 		return ExpressionIsLeftValue(exp.Children[0])
 	}
 
-	return exp.Type == front.AST_VARIABLE_NAME  ||
-		   exp.Type == front.AST_OP_DEREFERENCE ||
-		   exp.Type == front.AST_OP_DOT			||
+	return exp.Type == front.AST_VARIABLE_NAME  		  ||
+		   exp.Type == front.AST_OP_DEREFERENCE 		  ||
+		   (exp.Type == front.AST_OP_DOT                  &&
+			!datatype_array.IsStaticArrayType(exp.Children[0].DataType)) ||
 		   exp.Type == front.AST_OP_INDEX
 }
 
@@ -833,8 +834,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					if len(values) != len(struct_type.Fields) {
 						typeErrorAt(
 							ast,
-							"invalid number of fields for struct literal of type `%s`",
+							"invalid number of fields for struct literal of type `%s` : wanted %d and got %d",
 							struct_type.Name(),
+							len(struct_type.Fields),
+							len(values),
 						)
 						return nil
 					}
@@ -861,8 +864,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					if uint64(len(values)) != array_type.Length {
 						typeErrorAt(
 							ast,
-							"invalid number of elements for array literal of type `%s`",
+							"invalid number of elements for array literal of type `%s` : wanted %d and got %d",
 							array_type.Name(),
+							array_type.Length,
+							len(values),
 						)
 						return nil
 					}

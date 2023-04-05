@@ -3,10 +3,6 @@
 }
 -> make an actual distinction between `array.size` and `array.len` !!
 
--> static and dynamic array declaration syntax
--> literal array syntax
--> typecheck array
--> codegen array
 -> allocate dyn. array
 -> resize dyn. array
 -> append to  dyn. array

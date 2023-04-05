@@ -760,7 +760,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 					values := make([]Operand, len(children_out)-1)
 
 					if len(values) != len(struct_type.Fields) {
-						fmt.Println("codgen error: invalid number of fields for struct literal of type `%s`", struct_type.Name())
+						fmt.Println("codegen error: invalid number of fields for struct literal of type `%s` : wanted %d and got %d", struct_type.Name(), len(struct_type.Fields), len(values))
 						return out
 					}
 
@@ -776,7 +776,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 					values := make([]Operand, len(children_out)-1)
 					if len(values) != int(array_type.Length) {
-						fmt.Println("codegen error: invalid number of elements for array literal of type `%s`", array_type.Name())
+						fmt.Println("codegen error: invalid number of elements for array literal of type `%s` : wanted %d and got %d", array_type.Name(), array_type.Length, len(values))
 						return out
 					}
 
