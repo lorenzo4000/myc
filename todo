@@ -1,10 +1,6 @@
 -> typecheck arguments when calling {
-	-> store parameters in function *_symbol
-	-> compare types and number of arguments during typechecking 
+	-> number of arguments during typechecking 
 }
-
--> static array get length and data READ-ONLY!!
-
 -> make an actual distinction between `array.size` and `array.len` !!
 
 -> static and dynamic array declaration syntax
@@ -32,9 +28,6 @@
    }
 
 .  Make codegen.go more target agnostic, and codegen_amd64.go more target specific
-
-. become a more productive programmer
-
 
 -> : wip
 .  : TODO
