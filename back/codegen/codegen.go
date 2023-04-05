@@ -746,28 +746,47 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			}	
 
 		}
-	case front.AST_STRUCT_LITERAL:
+	case front.AST_COMPOSITE_LITERAL:
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)
 			}
 
-			struct_type := ast.DataType.(datatype_struct.StructType)
-			struct_allocation := StackAllocate(struct_type).Reference()
+			switch ast.DataType.(type) {
+				case datatype_struct.StructType:
+					struct_type := ast.DataType.(datatype_struct.StructType)
+					struct_allocation := StackAllocate(struct_type).Reference()
 
-			values := make([]Operand, len(children_out)-1)
+					values := make([]Operand, len(children_out)-1)
 
-			if len(values) != len(struct_type.Fields) {
-				fmt.Println("codegen error: invalid number of fields for struct `%s` definition", struct_type.Name())
-				return out
+					if len(values) != len(struct_type.Fields) {
+						fmt.Println("codgen error: invalid number of fields for struct literal of type `%s`", struct_type.Name())
+						return out
+					}
+
+					for i, _ := range values {
+						values[i] = children_out[i+1].Result
+					}
+
+					out.Code.Appendln(GEN_storestruct_from_operands(values, struct_allocation).Code)
+					out.Result = struct_allocation
+				case datatype_array.StaticArrayType:
+					array_type := ast.DataType.(datatype_array.StaticArrayType)
+					array_allocation := StackAllocate(array_type).Reference()
+
+					values := make([]Operand, len(children_out)-1)
+					if len(values) != int(array_type.Length) {
+						fmt.Println("codegen error: invalid number of elements for array literal of type `%s`", array_type.Name())
+						return out
+					}
+
+					for i, _ := range values {
+						values[i] = children_out[i+1].Result
+					}
+
+					out.Code.Appendln(GEN_arraycopy_from_operands(values, array_allocation).Code)
+					out.Result = array_allocation
 			}
-
-			for i, _ := range values {
-				values[i] = children_out[i+1].Result
-			}
-
-			out.Code.Appendln(GEN_storestruct_from_operands(values, struct_allocation).Code)
-			out.Result = struct_allocation
 		}
 	case front.AST_OP_INDEX:
 		{

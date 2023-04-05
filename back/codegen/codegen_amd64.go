@@ -996,6 +996,54 @@ func GEN_storestruct(s Operand, d Memory_Reference) Codegen_Out {
 	return Codegen_Out{}
 }
 
+func GEN_arraycopy_from_operands(s []Operand, d Operand) Codegen_Out {
+	res := Codegen_Out{}
+	
+	array_type := d.Type().(datatype_array.StaticArrayType)
+	element_type := array_type.ElementType
+	array_size := array_type.Length * uint64(element_type.ByteSize())
+
+	elements_size := uint64(0)
+	for _, e := range s {
+		elements_size += e.Type().ByteSize()
+	}
+	if elements_size > array_size {
+		fmt.Println("codegen error: not enough bytes to store array of type `", array_type.Name(), "`")
+		return res
+	}
+
+	switch d.(type) {
+		case Memory_Reference: 
+			destination := d.(Memory_Reference)
+			for element := len(s) - 1; element >= 0; element-- {
+				e := s[element]
+				element_destination := Memory_Reference{
+					array_type.ElementType,
+					int64(destination.Offset) + int64(element) * int64(array_type.ElementType.ByteSize()),
+					destination.Start,
+					nil,
+					1,
+				}
+				res.Code.Appendln(GEN_very_generic_move(e, element_destination).Code)
+			}
+		case RegisterPair:
+			destination := d.(RegisterPair)
+			{
+				element := 1
+				e := s[element]
+				element_destination := destination.r2
+				res.Code.Appendln(GEN_very_generic_move(e, element_destination).Code)
+			}
+			{
+				element := 0
+				e := s[element]
+				element_destination := destination.r1
+				res.Code.Appendln(GEN_very_generic_move(e, element_destination).Code)
+			}
+	}
+
+	return res
+}
 
 func GEN_arraycopy(s Memory_Reference, d Operand) Codegen_Out {
 	res := Codegen_Out{}

@@ -824,34 +824,71 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 			ast.DataType = ast.Children[1].DataType
 		}
-		case front.AST_STRUCT_LITERAL: {
-			struct_type := ast.Children[0].DataType.(datatype_struct.StructType)
-			values := ast.Children[1:]
+		case front.AST_COMPOSITE_LITERAL: {
+			switch ast.Children[0].DataType.(type) {
+				case datatype_struct.StructType:
+					struct_type := ast.Children[0].DataType.(datatype_struct.StructType)
+					values := ast.Children[1:]
 
-			if len(values) != len(struct_type.Fields) {
-				typeErrorAt(
-					ast,
-					"invalid number of fields for struct `%s` definition",
-					struct_type.Name(),
-				)
-				return nil
-			}
+					if len(values) != len(struct_type.Fields) {
+						typeErrorAt(
+							ast,
+							"invalid number of fields for struct literal of type `%s`",
+							struct_type.Name(),
+						)
+						return nil
+					}
 
-			for i, value := range(values) {
-				field := struct_type.Fields[i]
-				if !Compatible(value.DataType, field.Type) {
+					for i, value := range(values) {
+						field := struct_type.Fields[i]
+						if !Compatible(value.DataType, field.Type) {
+							typeErrorAt(
+								ast,
+								"value of type `%s` is incompatible with struct field `%s` of type `%s`",  
+								value.DataType.Name(),
+								field.Name,
+								field.Type.Name(),
+							)
+							return nil
+						}
+					}
+
+					ast.DataType = struct_type
+				case  datatype_array.StaticArrayType:	
+					array_type := ast.Children[0].DataType.(datatype_array.StaticArrayType)
+					values := ast.Children[1:]
+
+					if uint64(len(values)) != array_type.Length {
+						typeErrorAt(
+							ast,
+							"invalid number of elements for array literal of type `%s`",
+							array_type.Name(),
+						)
+						return nil
+					}
+
+					for _, value := range(values) {
+						if !Compatible(value.DataType, array_type.ElementType) {
+							typeErrorAt(
+								ast,
+								"can't use value of type `%s` as array element of type `%s`",  
+								value.DataType.Name(),
+								array_type.ElementType.Name(),
+							)
+							return nil
+						}
+					}
+
+					ast.DataType = array_type
+
+				default:
 					typeErrorAt(
 						ast,
-						"value of type `%s` is incompatible with struct field `%s` of type `%s`",  
-						value.DataType.Name(),
-						field.Name,
-						field.Type.Name(),
+						"type `%s` is not a valid composite literal type (only structs or static arrays are)",
+						ast.Children[0].DataType.Name(),
 					)
 					return nil
-				}
 			}
-
-			ast.DataType = struct_type
 		}
 		case front.AST_OP_INDEX: {
 			left := ast.Children[0]

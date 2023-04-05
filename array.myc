@@ -25,20 +25,35 @@ function sum_20(:in [20]int64) int64 {
 	return res	;
 }
 
+struct Test {
+	:field int64;
+}
+
 function main() {
-	:static_array [20]int64;
-	
-	printf("%d\n", static_array.len);
+	:static_struct Test = Test{ 54 };
+	printf("%d\n", static_struct.field);
 
-	return;
-
-	{
-		for(:i int64 = 0; i < 20; i = i + 1) {
-			static_array[i] = i;
-		}
-		for(:j int64 = 0; j < 20; j = j + 1) {
-			printf("asdas %d : %d\n", j, static_array[j]);
-		}
+	:static_array [20]int64 = [20]int64{ 
+		10,
+		156,
+		10,
+		10,
+		13455,
+		10,
+		1234,
+		10,
+		10,
+		1240,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10,
+		10
 	};
 
 	// reference assignment (copy pointer and length)	
@@ -48,9 +63,6 @@ function main() {
 	printf("new .data -> %d\n", dynamic_array.data);
 	printf("new .len -> %d\n", dynamic_array.len);
 	{
-		for(:i int64 = 0; i < 20; i = i + 1) {
-			static_array[i] = i  +  2456;
-		}
 		for(:j int64 = 0; j < 20; j = j + 1) {
 			printf("STATIC %d : %d\n", j, static_array[j]);
 		}

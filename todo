@@ -4,7 +4,7 @@
 -> make an actual distinction between `array.size` and `array.len` !!
 
 -> static and dynamic array declaration syntax
-.  literal array syntax
+-> literal array syntax
 -> typecheck array
 -> codegen array
 -> allocate dyn. array

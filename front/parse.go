@@ -12,6 +12,15 @@ func parseExpectErrorAt (token Token, expected string) {
 	parseErrorAt(token, "Expected %s", expected)
 }
 
+func SparseErrorAt (token Token, err string, a ...any) string {
+	formatted_error := fmt.Sprintf(err, a...)
+	return fmt.Sprintf("%d:%d: parse error: %s\n", token.L0, token.C0, formatted_error)
+}
+
+func SparseExpectErrorAt (token Token, expected string) string {
+	return SparseErrorAt(token, "Expected %s", expected)
+}
+
 type Parser struct {
 	Tokens []Token
 	Index int64
@@ -105,17 +114,22 @@ func (parser *Parser) ParseFunctionCall() (*Ast_Node) {
 	return function_call
 }
 
-func (parser *Parser) ParseStructLiteral() (*Ast_Node) {
-	struct_literal := new(Ast_Node)
-	struct_literal.Type = AST_STRUCT_LITERAL
+func (parser *Parser) ParseCompositeLiteral() (*Ast_Node) {
+	cur, _ := parser.Current()
+	println("parsing composite literal on `", cur.Type)
+
+
+	composite_literal := new(Ast_Node)
+	composite_literal.Type = AST_COMPOSITE_LITERAL
 
 	{
-		struct_type := parser.ParseDataType()
-		if struct_type == nil {
+		composite_type := parser.ParseDataType()
+		if composite_type == nil {
 			return nil
 		}
 
-		struct_literal.AddChild(struct_type)
+		println(composite_type.Data[0].String_value)
+		composite_literal.AddChild(composite_type)
 	}
 	
 	{
@@ -129,7 +143,7 @@ func (parser *Parser) ParseStructLiteral() (*Ast_Node) {
 	for !parser.CurrentIs(TOKEN_CLOSING_BRACE) {
 		exp := parser.ParseExpression()
 		if exp != nil {
-			struct_literal.AddChild(exp)
+			composite_literal.AddChild(exp)
 		}
 
 		next, not_comma := parser.PopIf(TOKEN_COMMA)
@@ -149,12 +163,23 @@ func (parser *Parser) ParseStructLiteral() (*Ast_Node) {
 		}
 	}
 
-	return struct_literal
+	return composite_literal
 }
 
 func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	curr, end := parser.Current()
 	if !end {
+		current_index := parser.Index
+
+		_, err := parser.GetDataType()
+		next, end := parser.Current()
+
+		parser.Index = current_index
+
+		if len(err) <= 0 && !end && next.Type == '{' {
+			return parser.ParseCompositeLiteral()
+		}
+
 		switch curr.Type {
 			case TOKEN_IDENTIFIER: 
 				{
@@ -164,7 +189,6 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 							case TOKEN_OPENING_PARENTHESES: 
 								call := parser.ParseFunctionCall()
 								return call
-							case TOKEN_OPENING_BRACE: return parser.ParseStructLiteral()
 							default: return parser.ParseVariableName()
 						}
 					}
@@ -207,31 +231,34 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 			case TOKEN_OPENING_BRACKET:
 				parser.Pop()
 
-				casting_type := parser.ParseDataType()
-				if casting_type == nil {
-					return nil
-				}
-
-				casting := new(Ast_Node)
-				casting.Type = AST_CASTING
-				casting.AddChild(casting_type)
-				
-				{
-					next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
-					if expect {
-						parseExpectErrorAt(next, "`]`")
+				//if cur.Type == TOKEN_IDENTIFIER {
+					// **
+					// type casting
+					casting_type := parser.ParseDataType()
+					if casting_type == nil {
 						return nil
 					}
-				}
-				
-				expression := parser.ParseExpression()
-				if expression == nil {
-					return nil
-				}
 
-				casting.AddChild(expression)
+					casting := new(Ast_Node)
+					casting.Type = AST_CASTING
+					casting.AddChild(casting_type)
+					
+					{
+						next, expect := parser.PopIf(TOKEN_CLOSING_BRACKET)
+						if expect {
+							parseExpectErrorAt(next, "`]`")
+							return nil
+						}
+					}
 
-				return casting
+					expression := parser.ParseExpression()
+					if expression == nil {
+						return nil
+					}
+					casting.AddChild(expression)
+
+					return casting
+				//}
 			case TOKEN_KEYWORD_IF:
 				return parser.ParseIf()
 			case TOKEN_SUB:
@@ -1203,22 +1230,30 @@ func (parser *Parser) ParseReturn() (*Ast_Node) {
 	return ast_return
 }
 
-func (parser *Parser) GetDataType() string {
+// returns (type_name, "") if valid;
+//         ("", error[s])  if not valid;
+// TODO: make this nicer
+func (parser *Parser) GetDataType() (string, string) {
 	cur, end := parser.Current()
 	if end {
-		return ""
+		return "", SparseExpectErrorAt(cur, "datatype, got end of input")
 	}
 	
 	switch cur.Type {
 		case TOKEN_IDENTIFIER: 
 			parser.Pop()
-			return cur.String_value
+			return cur.String_value, ""
 		case TOKEN_MUL:
 			parser.Pop()
 			data_type := string(byte(cur.Type))
-			data_type += parser.GetDataType()
 
-			return data_type
+			pointed_type, err := parser.GetDataType()
+			if len(err) > 0 {
+				return "", err
+			}
+
+			data_type += pointed_type
+			return data_type, ""
 		case '[':
 			parser.Pop()
 
@@ -1226,8 +1261,7 @@ func (parser *Parser) GetDataType() string {
 
 			next, end := parser.Current()
 			if end {
-				parseExpectErrorAt(next, "int literal or `]`, after `[`")
-				return ""
+				return "", SparseExpectErrorAt(next, "int literal or `]`, after `[`")
 			}
 
 			if next.Type == TOKEN_INT_LITERAL {
@@ -1235,24 +1269,23 @@ func (parser *Parser) GetDataType() string {
 				parser.Pop()
 			} else
 			if next.Type != ']' {
-				parseExpectErrorAt(next, "int literal or `]`, after `[`")
-				return ""
+				return "", SparseExpectErrorAt(next, "int literal or `]`, after `[`")
 			}
 
 			closing, expect := parser.PopIf(']')
 			if expect {
-				parseExpectErrorAt(closing, "`]`")
-				return ""
+				return "", SparseExpectErrorAt(closing, "`]`")
 			}
 			data_type += "]"
-			data_type += parser.GetDataType()
+			element_type, _ := parser.GetDataType()
+			data_type += element_type
 
-			return data_type
+			return data_type, ""
 		default:
-			return ""
+			return "",  SparseExpectErrorAt(cur, "datatype")
+
 	}
 }
-
  
 func (parser *Parser) ParseDataType() (*Ast_Node) {
 	datatype := new(Ast_Node)
@@ -1260,8 +1293,8 @@ func (parser *Parser) ParseDataType() (*Ast_Node) {
 
 	datatype.Data    = make([]Token, 1)
 
-	t := parser.GetDataType()
-	if len(t) <= 0 {
+	t, err := parser.GetDataType()
+	if len(err) > 0 {
 		return nil
 	}
 
