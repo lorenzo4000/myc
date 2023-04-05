@@ -27,6 +27,11 @@ function sum_20(:in [20]int64) int64 {
 
 function main() {
 	:static_array [20]int64;
+	
+	printf("%d\n", static_array.len);
+
+	return;
+
 	{
 		for(:i int64 = 0; i < 20; i = i + 1) {
 			static_array[i] = i;

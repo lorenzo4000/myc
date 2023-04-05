@@ -258,6 +258,24 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					return nil
 				case datatype_struct.StructType:
 					current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+				case datatype_array.StaticArrayType:
+					// ** just brutally override this motherfucker!!
+					//current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+			
+					right := ast.Children[1]
+					field_name := ast.Data[0].String_value
+					
+					array_type := left.DataType.(datatype_array.StaticArrayType)
+					switch field_name {
+						case "len": 
+							right.DataType = datatype.TYPE_UINT64
+							ast.DataType = right.DataType
+						case "data":
+							right.DataType = datatype.PointerType{array_type.ElementType}
+							ast.DataType = right.DataType
+						default: typeErrorAt(ast, "static array doesn't have a field named %s", field_name)
+					}
+					return ast
 			}
 		} else {
 			current_dot_scope = -1

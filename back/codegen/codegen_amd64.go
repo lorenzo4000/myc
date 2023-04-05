@@ -1000,9 +1000,6 @@ func GEN_storestruct(s Operand, d Memory_Reference) Codegen_Out {
 func GEN_arraycopy(s Memory_Reference, d Operand) Codegen_Out {
 	res := Codegen_Out{}
 	
-	res.Code.TextAppendSln("// copying array")
-	println("copying array!!")
-
 	array_type := s.Type().(datatype_array.StaticArrayType)
 	element_type := array_type.ElementType
 
@@ -1045,7 +1042,6 @@ func GEN_arraycopy(s Memory_Reference, d Operand) Codegen_Out {
 	return res
 }
 func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
-	println("referencing array!!")
 	array_source := s
 	switch d.(type) {
 		case Register:

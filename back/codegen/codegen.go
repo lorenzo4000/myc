@@ -138,16 +138,39 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left := ast.Children[0]
 
 			switch left.DataType.(type) {
-			default:
-				fmt.Println("codegen error: left value in dot-op is not a struct")
-			case datatype_struct.StructType:
-				current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+				default:
+					fmt.Println("codegen error: left value in dot-op is not a struct")
+				case datatype_struct.StructType:
+					current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+				case datatype_array.StaticArrayType:
+					// ** just brutally override this motherfucker!!
+					//current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+			
+					/*
+					right := ast.Children[1]
+					field_name := ast.Data[0].String_value
+					
+					array_type := left.DataType.(datatype_array.StaticArrayType)
+					switch field_name {
+						case "len": 
+							right.DataType = datatype.TYPE_UINT64
+							ast.DataType = right.DataType
+						case "data":
+							right.DataType = datatype.PointerType{array_type.ElementType}
+							ast.DataType = right.DataType
+						default: typeErrorAt(ast, "static array doesn't have a field named %s", field_name)
+					}
+					return ast
+					*/
+
+					goto break_children_loop
 			}
 		} else {
 			current_dot_scope = -1
 		}
 	}
 
+	break_children_loop:
 	out := Codegen_Out{}
 
 	switch ast.Type {
@@ -662,32 +685,66 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left := ast.Children[0]
 			right := ast.Children[1]
 
-			struct_type := left.DataType.(datatype_struct.StructType)
+			switch left.DataType.(type) {
+				case datatype_struct.StructType:
+					_type := left.DataType.(datatype_struct.StructType)
+					field_type := right.DataType
+					field_name := /*right*/ ast.Data[0].String_value
 
-			field_type := right.DataType
-			field_name := /*right*/ ast.Data[0].String_value
+					field := _type.FindField(field_name)
 
-			field := struct_type.FindField(field_name)
-			if field == nil {
-				fmt.Println("codegen error: undefined `" + field_name + "`")
-				return out
-			}
+					if field == nil {
+						fmt.Println("codegen error: undefined `" + field_name + "`")
+						return out
+					}
 
-			struct_allocation := children_out[0].Result
-			struct_start := struct_allocation.(Memory_Reference).Start
-			struct_offset := struct_allocation.(Memory_Reference).Offset
+					struct_allocation := children_out[0].Result
+					struct_start := struct_allocation.(Memory_Reference).Start
+					struct_offset := struct_allocation.(Memory_Reference).Offset
 
-			field_offset := struct_offset + int64(field.Offset)
+					field_offset := struct_offset + int64(field.Offset)
 
-			field_allocation := Memory_Reference{
-				field_type,
-				field_offset,
-				struct_start,
-				nil,
-				1,
-			}
+					field_allocation := Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						nil,
+						1,
+					}
 
-			out.Result = field_allocation
+					out.Result = field_allocation
+				case datatype_array.StaticArrayType:
+					array_allocation := children_out[0].Result.(Memory_Reference)
+					array_type := array_allocation.Type().(datatype_array.StaticArrayType)
+					array_size := array_type.Length * array_type.ElementType.ByteSize()
+							
+					field_name := ast.Data[0].String_value
+					var result Operand
+					switch field_name {
+						case "data":
+							array_reference := GEN_reference_from_mem(array_allocation)
+							out.Code.Appendln(array_reference.Code)
+							result = array_reference.Result
+						case "len":
+							reg, full := RegisterScratchAllocate(datatype.TYPE_UINT64)
+							if full {
+								result = StackAllocate(datatype.TYPE_UINT64).Reference()
+							} else {
+								result = reg
+							}
+							
+							size_literal := Asm_Int_Literal{
+								datatype.TYPE_UINT64,
+								int64(array_size),
+								10,
+							}
+							out.Code.Appendln(GEN_move(size_literal, result).Code)
+						default: fmt.Println("codegen error: static array doesn't have a field named %s", field_name)
+					}
+
+					out.Result = result
+			}	
+
 		}
 	case front.AST_STRUCT_LITERAL:
 		{

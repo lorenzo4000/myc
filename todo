@@ -3,6 +3,10 @@
 	-> compare types and number of arguments during typechecking 
 }
 
+-> static array get length and data READ-ONLY!!
+
+-> make an actual distinction between `array.size` and `array.len` !!
+
 -> static and dynamic array declaration syntax
 .  literal array syntax
 -> typecheck array
