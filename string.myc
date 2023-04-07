@@ -1,0 +1,6 @@
+@import "lib/c/stdio.myc"
+
+function main() {
+	:str string = "Hello, World!\n";
+	printf("%s\n".data, str.data);
+}

@@ -7,7 +7,7 @@
 -> resize dyn. array
 -> append to  dyn. array
 
-.  String type (with literals and stuff)
+-> String type (with literals and stuff)
 .  Misecellaneus types, operators and other stuff
 .  implicit integer literal casts
 .  prepar: build dep. graph and do cycle detection before importing

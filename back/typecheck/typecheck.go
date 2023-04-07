@@ -8,6 +8,7 @@ import (
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/datatype/datatype_array"
+	"mycgo/back/datatype/datatype_string"
 	"mycgo/back/symbol"
 )
 
@@ -59,6 +60,7 @@ func TypeFromName(type_name string) datatype.DataType {
 		return nil
 	}
 
+	// pointer
 	if type_name[0] == '*' {
 		pointed_type_name := type_name[1:]
 		pointed_type := TypeFromName(pointed_type_name)
@@ -70,6 +72,7 @@ func TypeFromName(type_name string) datatype.DataType {
 		return datatype.PointerType{pointed_type}
 	}
 
+	// array
 	if type_name[0] == '[' {
 		size_literal := ""
 
@@ -95,9 +98,15 @@ func TypeFromName(type_name string) datatype.DataType {
 		}
 	}
 
+	// primitive
 	primitive_type := datatype.PrimitiveTypeFromName(type_name)
 	if primitive_type != datatype.TYPE_UNDEFINED {
 		return primitive_type
+	}
+
+	// string
+	if type_name == "string" {
+		return datatype_string.TYPE_STRING
 	}
 
 	//
@@ -196,11 +205,20 @@ func Compatible(source datatype.DataType, destination datatype.DataType) bool {
 					if sa.ElementType == datatype.TYPE_GENERIC || da.ElementType == datatype.TYPE_GENERIC {
 						return true
 					}
-				case datatype_struct.StructType : 
+				case datatype_struct.StructType: 
 					if datatype_struct.IsDynamicArrayType(destination) {
-						return true
+						ds := destination.(datatype_struct.StructType)
+						destination_array_type := ds.Fields[0].Type
+						destination_array_pointer_type := destination_array_type.(datatype.PointerType).Pointed_type
+						if sa.ElementType == destination_array_pointer_type 	   ||
+						   sa.ElementType == datatype.TYPE_GENERIC 				   || 
+						   destination_array_pointer_type == datatype.TYPE_GENERIC {
+							return true
+						}
 					}
 			}
+		case datatype_string.StaticStringType:
+			return destination.Equals(datatype_string.TYPE_STRING)
 	}
 
 	return false
@@ -255,9 +273,29 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 			switch left.DataType.(type) {
 				default: 
-					typeErrorAt(ast, "left value in dot-op is not a struct")
+					typeErrorAt(ast, "left value in dot-op is not valid")
 					return nil
 				case datatype_struct.StructType:
+					if left.DataType.Equals(datatype_string.TYPE_STRING) {
+						// ** just brutally override this motherfucker!!
+						//current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+				
+						right := ast.Children[1]
+						field_name := ast.Data[0].String_value
+
+						switch field_name {
+							case "len": 
+								right.DataType = datatype.TYPE_UINT64
+								ast.DataType = right.DataType
+							case "data":
+								right.DataType = datatype.PointerType{datatype.TYPE_UINT8}
+								ast.DataType = right.DataType
+							default: 
+								typeErrorAt(ast, "string doesn't have a field named %s", field_name)
+								return nil
+						}
+						return ast
+					}
 					current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
 				case datatype_array.StaticArrayType:
 					// ** just brutally override this motherfucker!!
@@ -274,7 +312,29 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 						case "data":
 							right.DataType = datatype.PointerType{array_type.ElementType}
 							ast.DataType = right.DataType
-						default: typeErrorAt(ast, "static array doesn't have a field named %s", field_name)
+						default: 
+							typeErrorAt(ast, "static array doesn't have a field named %s", field_name)
+							return nil
+					}
+					return ast
+				case datatype_string.StaticStringType:
+					// ** just brutally override this motherfucker!!
+					//current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
+			
+					right := ast.Children[1]
+					field_name := ast.Data[0].String_value
+					
+					array_type := left.DataType.(datatype_string.StaticStringType)
+					switch field_name {
+						case "len": 
+							right.DataType = datatype.TYPE_UINT64
+							ast.DataType = right.DataType
+						case "data":
+							right.DataType = datatype.PointerType{array_type.ElementType}
+							ast.DataType = right.DataType
+						default: 
+							typeErrorAt(ast, "static string doesn't have a field named %s", field_name)
+							return nil
 					}
 					return ast
 			}
@@ -451,6 +511,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_FUNCTION_CALL: {
 			function_name := ast.Data[0].String_value
 			declaration, found := symbol.SymbolTableGetFromCurrentScope(function_name)
+			if !found {
+				typeErrorAt(ast, "undefined `%s`", function_name)
+				return nil
+			}
 
 			function_params := declaration.(TypeCheck_Symbol).ArgTypes
 			for i, param := range(function_params) {
@@ -458,22 +522,21 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					break
 				}
 				if !Compatible(ast.Children[i].DataType, param) {
-					typeExpectErrorAt(ast, ast.Children[i].DataType, param)
+					typeExpectErrorAt(ast, param, ast.Children[i].DataType)
 					return nil
 				}
 			}
 
-			if !found {
-				typeErrorAt(ast, "undefined `%s`", function_name)
-				return nil
-			} else {
-				ast.DataType = declaration.Type()
-			}
+			ast.DataType = declaration.Type()
 		}
 		case front.AST_LITERAL: {
 			switch ast.Data[0].Type {
 				case front.TOKEN_INT_LITERAL: ast.DataType = datatype.TYPE_INT64
 				case front.TOKEN_BOOL_LITERAL: ast.DataType = datatype.TYPE_BOOL
+				case front.TOKEN_STRING_LITERAL: {
+					string_length := len(ast.Data[0].String_value)
+					ast.DataType = datatype_string.NewStaticStringType(uint64(string_length))
+				}
 				default: ast.DataType = datatype.TYPE_UNDEFINED
 			}
 		}

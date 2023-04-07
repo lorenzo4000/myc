@@ -3,10 +3,10 @@ package codegen
 import (
 	"fmt"
 	"log"
-//	"math"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/datatype/datatype_array"
+	"mycgo/back/datatype/datatype_string"
 	"mycgo/back/symbol"
 	"mycgo/front"
 	"strconv"
@@ -718,6 +718,10 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 func GEN_load(v Operand, r Register) Codegen_Out {
 	res := Codegen_Out{}
 
+	switch v.(type) {
+		case Label: v = v.LiteralValue()
+	}
+
 	switch v.Type().BitSize() {
 	case 64:
 		switch v.(type) {
@@ -751,6 +755,10 @@ func GEN_load(v Operand, r Register) Codegen_Out {
 // value -> memory
 func GEN_store(v Operand, m Memory_Reference) Codegen_Out {
 	res := Codegen_Out{}
+	
+	switch v.(type) {
+		case Label: v = v.LiteralValue()
+	}
 
 	rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
 
@@ -833,7 +841,7 @@ func GEN_loadstruct(s Memory_Reference, d RegisterPair) Codegen_Out {
 			1,
 		}
 
-		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), field_destination).Code)
+		res.Code.Appendln(GEN_very_generic_move(field_allocation, field_destination).Code)
 	}
 	
 	{
@@ -863,7 +871,7 @@ func GEN_loadstruct(s Memory_Reference, d RegisterPair) Codegen_Out {
 			1,
 		}
 
-		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), field_destination).Code)
+		res.Code.Appendln(GEN_very_generic_move(field_allocation, field_destination).Code)
 	}
 
 	return res
@@ -982,7 +990,7 @@ func GEN_storestruct_from_memory(s Memory_Reference, d Memory_Reference) Codegen
 		//
 		//	 ... we need to find the most primitive value in a rescursive way.
 
-		res.Code.Appendln(GEN_very_generic_move(field_allocation.LiteralValue(), destination).Code)
+		res.Code.Appendln(GEN_very_generic_move(field_allocation, destination).Code)
 	}
 
 	return res
@@ -1089,6 +1097,8 @@ func GEN_arraycopy(s Memory_Reference, d Operand) Codegen_Out {
 
 	return res
 }
+
+// reference static array/string into dynamic array/string
 func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 	array_source := s
 	switch d.(type) {
@@ -1097,8 +1107,11 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 			return Codegen_Out{}
 		case Memory_Reference:
 			array_destination := d.(Memory_Reference)
-
-			if datatype_struct.IsDynamicArrayType(array_destination.Type()) {
+			if array_destination.Type().Equals(datatype_string.TYPE_STRING) &&
+			   !datatype_array.IsStaticArrayType(array_source.DataType) {
+				array_source.DataType = datatype_array.StaticArrayType(array_source.DataType.(datatype_string.StaticStringType))
+			}
+			if datatype_struct.IsDynamicArrayType(array_destination.Type()) || array_destination.Type().Equals(datatype_string.TYPE_STRING) {
 				out := Codegen_Out{}
 
 				// TODO: change this when i have struct literals
@@ -1142,7 +1155,7 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 					out.Code.Appendln(GEN_store(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
 				} 
 				return out
-			}else {
+			} else {
 				fmt.Println("codegen error: static to static array reference is impossible, sorry")
 				return Codegen_Out{}
 			}
@@ -1197,7 +1210,8 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 							case Memory_Reference:
 								array_destination := d.(Memory_Reference)
 
-								if datatype_struct.IsDynamicArrayType(array_destination.Type()) {
+								if datatype_struct.IsDynamicArrayType(array_destination.Type()) ||
+								   array_destination.Type().Equals(datatype_string.TYPE_STRING)  {
 									return GEN_arrayreference(array_source, array_destination)
 								}else {
 									return GEN_arraycopy(array_source, array_destination)
@@ -1226,6 +1240,30 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 								} 
 								return out
 							}
+					case datatype_string.StaticStringType:	
+						// can only move static string to string
+						if !d.Type().Equals(datatype_string.TYPE_STRING) {
+							fmt.Println("codegen error: can't move static string to `", d.Type().Name(), "`")
+							return Codegen_Out{}
+						}
+						out := Codegen_Out{}
+
+						// static strings are always in the read-only data section, so they are always Labels!
+						string_label := s_operand.(Label)
+
+						rax, _ := REGISTER_RAX.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+						out.Code.Appendln(GEN_move(string_label, rax).Code)
+
+						string_allocation := Memory_Reference{
+							datatype_array.StaticArrayType(s.Type().(datatype_string.StaticStringType)),
+							0,
+							rax,
+							nil,
+							1,
+						}
+
+						out.Code.Appendln(GEN_very_generic_move(string_allocation, d).Code)
+						return out
 					default:
 						return GEN_move(s_operand, d)
 				}
@@ -1317,12 +1355,15 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 			allocated_regs += 2
 		} else {
 			var arg Operand
+			/*
 			switch a.(type) {
 			case Label:
 				arg = a.LiteralValue()
 			default:
 				arg = a
 			}
+			*/
+			arg = a
 
 			arg_reg, full := RegisterArgumentAllocate(arg.Type())
 			if full {
@@ -1344,10 +1385,8 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 	res := Codegen_Out{}
 
 	// TODO: get rid of this!!
-	if len(params) <= 0 {
-		for _, arg := range args {
-			params = append(params, arg.Type())
-		}
+	for i := len(params); i < len(args); i++ {
+		params = append(params, args[i].Type())
 	}
 
 	allocated_regs := 0
@@ -1387,13 +1426,17 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			allocated_regs += 2
 			res.Code.Appendln(GEN_very_generic_move(a, RegisterPair{params[i], reg_b, reg_a}).Code)
 		} else {
+
 			var arg Operand
+			/*
 			switch a.(type) {
 			case Label:
 				arg = a.LiteralValue()
 			default:
 				arg = a
 			}
+			*/
+			arg = a
 
 			arg_reg, full := RegisterArgumentAllocate(arg.Type())
 			if full {

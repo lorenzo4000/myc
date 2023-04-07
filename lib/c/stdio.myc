@@ -20,7 +20,7 @@ function perror() external;
 	(const char *format-string, arg-list);
 	Formats and prints characters and values to stdout.
 */
-function printf() int32 external;
+function printf(:str *uint8) int32 external;
 
 /*
 	(int c);

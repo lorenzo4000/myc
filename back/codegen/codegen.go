@@ -5,6 +5,7 @@ import (
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/datatype/datatype_array"
+	"mycgo/back/datatype/datatype_string"
 	"mycgo/front"
 
 	"mycgo/back/symbol"
@@ -141,8 +142,11 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				default:
 					fmt.Println("codegen error: left value in dot-op is not a struct")
 				case datatype_struct.StructType:
+					if left.DataType.Equals(datatype_string.TYPE_STRING) {
+						goto break_children_loop
+					}
 					current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
-				case datatype_array.StaticArrayType:
+				case datatype_array.StaticArrayType, datatype_string.StaticStringType:
 					// ** just brutally override this motherfucker!!
 					//current_dot_scope = left.DataType.(datatype_struct.StructType).Scope
 			
@@ -276,7 +280,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 		switch ast.Data[0].Type {
 		case front.TOKEN_STRING_LITERAL:
 			label := LabelGen()
-			label.datatype = datatype.TYPE_NONE // TODO: TYPE_STRING
+			label.datatype = ast.DataType
 
 			allocation = label
 
@@ -688,6 +692,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			switch left.DataType.(type) {
 				case datatype_struct.StructType:
 					_type := left.DataType.(datatype_struct.StructType)
+
 					field_type := right.DataType
 					field_name := /*right*/ ast.Data[0].String_value
 
@@ -743,6 +748,37 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 					}
 
 					out.Result = result
+				case datatype_string.StaticStringType:
+					out.Code.Appendln(children_out[0].Code)
+
+					string_allocation := children_out[0].Result.(Label)
+					string_type := string_allocation.Type().(datatype_string.StaticStringType)
+					string_size := string_type.Length * string_type.ElementType.ByteSize()
+							
+					field_name := ast.Data[0].String_value
+					var result Operand
+					switch field_name {
+						case "data":
+							result = Label{datatype.PointerType{datatype.TYPE_UINT8}, string_allocation.Text()}
+						case "len":
+							reg, full := RegisterScratchAllocate(datatype.TYPE_UINT64)
+							if full {
+								result = StackAllocate(datatype.TYPE_UINT64).Reference()
+							} else {
+								result = reg
+							}
+							
+							size_literal := Asm_Int_Literal{
+								datatype.TYPE_UINT64,
+								int64(string_size),
+								10,
+							}
+							out.Code.Appendln(GEN_move(size_literal, result).Code)
+						default: fmt.Println("codegen error: static string doesn't have a field named %s", field_name)
+					}
+
+					out.Result = result
+
 			}	
 
 		}

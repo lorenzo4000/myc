@@ -1,7 +1,6 @@
 @import "utils.myc"
 @import "lib/c/stdio.myc"
 
-
 function print_line(:line Line) bool {
 	if line.length < [uint8]0 {
 		return true;
