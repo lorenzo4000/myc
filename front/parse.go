@@ -465,37 +465,39 @@ func precedence(ast *Ast_Node) uint8 {
 		case AST_OP_REFERENCE:   return 6
 		case AST_OP_DEREFERENCE: return 6
 	
+		case AST_CASTING: return 5
+
 		// mul
-		case AST_OP_MUL:     return 5
-		case AST_OP_DIV:     return 5
-		case AST_OP_MOD:     return 5
-		case AST_OP_BAND:    return 5
-		case AST_OP_NEG:     return 5
-		case AST_OP_BORE:	 return 5
-		case AST_OP_BNOT:    return 5
+		case AST_OP_MUL:     return 4
+		case AST_OP_DIV:     return 4
+		case AST_OP_MOD:     return 4
+		case AST_OP_BAND:    return 4
+		case AST_OP_NEG:     return 4
+		case AST_OP_BORE:	 return 4
+		case AST_OP_BNOT:    return 4
 
 		// sum
-		case AST_OP_SUM:     return 4
-		case AST_OP_SUB:     return 4
-		case AST_OP_BORI:	 return 4
+		case AST_OP_SUM:     return 3
+		case AST_OP_SUB:     return 3
+		case AST_OP_BORI:	 return 3
 
 
-		case AST_OP_ASN:     return 3
+		case AST_OP_ASN:     return 2
 
 
 		// conditions
-		case AST_OP_GRT:     return 2
-		case AST_OP_LES:	 return 2
-		case AST_OP_GOE:	 return 2
-		case AST_OP_LOE:	 return 2
+		case AST_OP_GRT:     return 1
+		case AST_OP_LES:	 return 1
+		case AST_OP_GOE:	 return 1
+		case AST_OP_LOE:	 return 1
 
-		case AST_OP_EQU:     return 2
-		case AST_OP_NEQ:	 return 2
+		case AST_OP_EQU:     return 1
+		case AST_OP_NEQ:	 return 1
 
 		// bool ops
-		case AST_OP_NOT:	 return 1
-		case AST_OP_AND:	 return 1
-		case AST_OP_OR :	 return 1
+		case AST_OP_NOT:	 return 0
+		case AST_OP_AND:	 return 0
+		case AST_OP_OR :	 return 0
 	}
 	return 0xFF
 }
