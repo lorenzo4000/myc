@@ -55,11 +55,31 @@ func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
 		   exp.Type == front.AST_OP_INDEX
 }
 
+func Writable(exp *front.Ast_Node) bool {
+	if !ExpressionIsLeftValue(exp) {
+		return false
+	}
+	if datatype_string.IsStaticStringType(exp.DataType) {
+		return false
+	}
+	if (exp.Type == front.AST_OP_DOT || exp.Type == front.AST_OP_INDEX) &&
+	   exp.Children[0].DataType.Equals(datatype_string.TYPE_STRING) {
+		return false
+	}
+
+	if exp.Type == front.AST_OP_DOT || 
+	   exp.Type == front.AST_OP_INDEX {
+		return Writable(exp.Children[0])
+	}
+
+	return true
+}
+
 func TypeFromName(type_name string) datatype.DataType {
 	if len(type_name) <= 0 {
 		return nil
 	}
-
+	
 	// pointer
 	if type_name[0] == '*' {
 		pointed_type_name := type_name[1:]
@@ -686,6 +706,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
 			}
+			if !Writable(ast.Children[0]) {
+				typeErrorAt(ast, "expression in left side of assignment is not writable")
+				return nil
+			}
+
 			left_type := ast.Children[0].DataType
 			right_type := ast.Children[1].DataType
 			if !Compatible(right_type, left_type) {
@@ -966,6 +991,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			} else
 			if datatype_array.IsStaticArrayType(left.DataType) {
 				ast.DataType = left.DataType.(datatype_array.StaticArrayType).ElementType
+			} else
+			if datatype_string.IsStaticStringType(left.DataType) ||
+			   datatype_string.TYPE_STRING.Equals(left.DataType) {
+				ast.DataType = datatype.TYPE_UINT8
 			} else {
 				typeErrorAt(ast, "left value in indexing is not an array")
 				return nil

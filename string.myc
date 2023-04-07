@@ -1,6 +1,21 @@
 @import "lib/c/stdio.myc"
 
 function main() {
+	// allowed
 	:str string = "Hello, World!\n";
-	printf("%s\n".data, str.data);
+	str = "something else\n";
+
+	printf("%d\n".data, str.len);
+	for(:i uint64 = [uint64]0; i < "Hello, World!".len; i = i + [uint64]1) {
+		printf("%c\n".data, "Hello, World!"[i]);
+	}
+
+
+	// not allowed
+	/*
+		str[3] = 65;
+		str.len = [uint64]61;
+		str.data = "hello".data;
+		"hello".len = [uint64]56;
+	*/
 }

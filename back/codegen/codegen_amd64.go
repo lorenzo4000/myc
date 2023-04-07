@@ -2124,11 +2124,18 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	return res
 }
 
-func GEN_static_array_index(array_allocation Memory_Reference, index Register) Codegen_Out {
+func GEN_static_array_index(array_allocation Operand, index Register) Codegen_Out {
 	res := Codegen_Out{}
 
-	array_type := array_allocation.Type().(datatype_array.StaticArrayType)
-	element_type := array_type.ElementType
+	var element_type datatype.DataType
+	if datatype_string.IsStaticStringType(array_allocation.Type()) {
+		//array_type := array_allocation.Type().(datatype_string.StaticStringType)
+		element_type = datatype.TYPE_UINT8
+	} else
+	if datatype_array.IsStaticArrayType(array_allocation.Type()) {
+		static_array_type := array_allocation.Type().(datatype_array.StaticArrayType)
+		element_type = static_array_type.ElementType
+	}
 
 	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
 	res.Code.TextAppendSln(ii("leaq", array_allocation, r10))
@@ -2174,7 +2181,14 @@ func GEN_dynamic_array_index(array_struct Memory_Reference, index Register, ast 
 
 	// do boundary checking
 
-	element_type := datatype_struct.DynamicArrayDataType(array_struct.Type())
+	var element_type datatype.DataType
+	if datatype_struct.IsDynamicArrayType(array_struct.Type()) {
+		element_type = datatype_struct.DynamicArrayDataType(array_struct.Type())
+	} else
+	if datatype_string.IsStaticStringType(array_struct.Type()) ||
+	   datatype_string.TYPE_STRING.Equals(array_struct.Type()) {
+		element_type = datatype.TYPE_UINT8
+	}
 	if element_type.ByteSize() <= 8 {
 		array_index_reference := Memory_Reference{
 			element_type,

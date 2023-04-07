@@ -848,6 +848,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 					array_index = GEN_dynamic_array_index(array.(Memory_Reference), index.(Register), ast)
 				case datatype_array.StaticArrayType:
 					array_index = GEN_static_array_index(array.(Memory_Reference), index.(Register))
+				case datatype_string.StaticStringType:
+					array_index = GEN_static_array_index(array.(Label), index.(Register))
 				default :
 					fmt.Println("codegen error: left value in indexing is not an array")
 					return out
