@@ -245,12 +245,14 @@ func Compatible(source datatype.DataType, destination datatype.DataType) bool {
 }
 
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
-	if (ast.Type == front.AST_BODY &&
-	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)) 	|| 
-	   (ast.Type == front.AST_FUNCTION_DEFINITION &&
+	if (ast.Type == front.AST_BODY 						&&
+	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)      &&
+	   (ast.Flags & front.ASTO_BODY_FOR == 0)) 			|| 
+	   (ast.Type == front.AST_FUNCTION_DEFINITION 		&&
    	   (ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0)) ||
-	   ast.Type == front.AST_HEAD 				    	||
-	   ast.Type == front.AST_STRUCT_DEFINITION_BODY {
+	    ast.Type == front.AST_FOR						||
+	    ast.Type == front.AST_HEAD 				    	||
+	    ast.Type == front.AST_STRUCT_DEFINITION_BODY {
 		symbol.SymbolScopeStackPush()
 	} 
 		

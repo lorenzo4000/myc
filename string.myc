@@ -4,4 +4,6 @@ function main() {
 	for(:i uint64 = [uint64]0; i < [uint64]"Hello, World!".len; i = i + [uint64]1) {
 		printf("%c\n".data, "Hello, World!"[i]);
 	}
+
+	:i int64 = 3;
 }
