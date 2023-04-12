@@ -20,6 +20,9 @@ type Code struct {
 type Codegen_Out struct {
 	Code   Code
 	Result Operand
+	
+	// additional info
+	PushedRegs map[RegisterClass]Stack_Region // lmao
 }
 
 func (code *Code) TextAppend(appendee Code) {
@@ -124,13 +127,12 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 	if (ast.Type == front.AST_BODY 						&&
 	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)      &&
 	   (ast.Flags & front.ASTO_BODY_FOR == 0)) 			|| 
-	   (ast.Type == front.AST_FUNCTION_DEFINITION 		&&
-   	   (ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0)) ||
+	   (ast.Type == front.AST_FUNCTION_DEFINITION 		/*&& (ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0)*/) ||
 	    ast.Type == front.AST_FOR						||
 	    ast.Type == front.AST_HEAD 				    	||
 	    ast.Type == front.AST_STRUCT_DEFINITION_BODY {
 		symbol.SymbolScopeStackPush()
-	}
+	} 
 
 	var children_out []Codegen_Out
 
@@ -177,7 +179,17 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 	}
 
 	break_children_loop:
-	out := Codegen_Out{}
+	out := Codegen_Out{ PushedRegs: make(map[RegisterClass]Stack_Region, N_REGISTERS)}
+
+	/*
+	for _, child := range children_out {
+		for reg, stk := range child.PushedRegs {
+			mem := stk.Reference()
+			r, _ := reg.GetRegister(mem.Type())
+			out.Code.Appendln(GEN_very_generic_move(stk.Reference(), r).Code)
+		}
+	}
+	*/
 
 	switch ast.Type {
 	case front.AST_HEAD:
@@ -193,6 +205,10 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 		}
 
 	case front.AST_FUNCTION_DEFINITION:
+		if ast.Flags & front.ASTO_FUNCTION_EXTERNAL != 0 {
+			symbol.SymbolScopeStackPop()
+		}
+		
 		function_name := ast.Children[0].Data[0].String_value
 
 		args := ast.Children[1].Children
@@ -453,7 +469,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 		}
 
 	// ** unary ops
-	case front.AST_OP_NOT, front.AST_OP_NEG:
+	case front.AST_OP_NOT, front.AST_OP_NEG, front.AST_OP_BNOT:
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)
@@ -470,7 +486,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 	// ** binary ops
 	case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD,
 	     front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE,  
-	     front.AST_OP_EQU,  front.AST_OP_NEQ, front.AST_OP_AND,  front.AST_OP_OR:
+	     front.AST_OP_EQU,  front.AST_OP_NEQ, front.AST_OP_AND,  front.AST_OP_OR, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI:
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)
@@ -691,6 +707,10 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left := ast.Children[0]
 			right := ast.Children[1]
 
+			if left.Type == front.AST_OP_INDEX {
+				out.Code.Appendln(children_out[0].Code)
+			}
+
 			switch left.DataType.(type) {
 				case datatype_struct.StructType:
 					_type := left.DataType.(datatype_struct.StructType)
@@ -708,6 +728,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 					struct_allocation := children_out[0].Result
 					struct_start := struct_allocation.(Memory_Reference).Start
 					struct_offset := struct_allocation.(Memory_Reference).Offset
+					struct_index  := struct_allocation.(Memory_Reference).Index
+					struct_coeff  := struct_allocation.(Memory_Reference).IndexCoefficient
 
 					field_offset := struct_offset + int64(field.Offset)
 
@@ -715,8 +737,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 						field_type,
 						field_offset,
 						struct_start,
-						nil,
-						1,
+						struct_index,
+						struct_coeff,
 					}
 
 					out.Result = field_allocation
@@ -835,23 +857,14 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			array := children_out[0].Result
 			index := children_out[1].Result
 
-			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
-			switch index.(type) {
-				default:
-					out.Code.Appendln(GEN_move(index, rax).Code)
-					index = rax
-				case Register:
-					break
-			}
-
 			var array_index Codegen_Out
 			switch array.Type().(type) {
 				case datatype_struct.StructType:
-					array_index = GEN_dynamic_array_index(array.(Memory_Reference), index.(Register), ast)
+					array_index = GEN_dynamic_array_index(array.(Memory_Reference), index, ast)
 				case datatype_array.StaticArrayType:
-					array_index = GEN_static_array_index(array.(Memory_Reference), index.(Register))
+					array_index = GEN_static_array_index(array.(Memory_Reference), index)
 				case datatype_string.StaticStringType:
-					array_index = GEN_static_array_index(array.(Label), index.(Register))
+					array_index = GEN_static_array_index(array.(Label), index)
 				default :
 					fmt.Println("codegen error: left value in indexing is not an array")
 					return out
@@ -861,6 +874,5 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			out.Result = array_index.Result
 		}
 	}
-
 	return out
 }

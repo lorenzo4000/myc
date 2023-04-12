@@ -1,0 +1,9 @@
+@import "lib/c/stdio.myc"
+
+function main() {
+	:a int64 = 0xFF00;
+	:b int64 = 0x00FF;
+
+	:x int64 =  ~b;
+	printf("%x\n".data, x);
+}

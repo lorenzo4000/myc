@@ -1,0 +1,10 @@
+@import "lib/c/stdio.myc"
+
+function main() {
+	:impiccato_layout string = ""
+	
+
+
+
+	printf("Hello, World!\n".data);	
+}

@@ -1154,21 +1154,12 @@ func GEN_arraycopy(s Memory_Reference, d Operand) Codegen_Out {
 			rdi, _ := REGISTER_RDI.GetRegister(datatype.TYPE_UINT64)
 			rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
 
-			res.Code.TextAppendSln(ii("pushq", rsi))
-			res.Code.TextAppendSln(ii("pushq", rdi))
-			res.Code.TextAppendSln(ii("pushq", rcx))
-			
-
 			res.Code.TextAppendSln(ii("leaq", s, rsi))
 			res.Code.TextAppendSln(ii("leaq", destination, rdi))
 			res.Code.Appendln(GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, rcx).Code)
 
 			res.Code.TextAppendSln(ii("cld")) // clear direction flag
 			res.Code.TextAppendSln(ii("rep movsb"))
-
-			res.Code.TextAppendSln(ii("popq", rcx))
-			res.Code.TextAppendSln(ii("popq", rdi))
-			res.Code.TextAppendSln(ii("popq", rsi))
 		case RegisterPair:
 			destination := d.(RegisterPair)
 
@@ -1984,7 +1975,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		case 16:
 			res.Code.TextAppendSln(ii("imulw", r, rax))
 		case 8:
-			res.Code.TextAppendSln(ii("imulb", r))
+			res.Code.TextAppendSln(ii("imulb", r, rax))
 		}
 		res.Code.Appendln(GEN_move(rax, l).Code)
 
@@ -2221,6 +2212,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		res.Code.TextAppendSln(ii("orb", r, l))
 
 		allocation = l
+	}
 
 	case front.AST_OP_BAND:
 		switch data_size {
@@ -2237,18 +2229,6 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	case front.AST_OP_BORE:
 		switch data_size {
 		case 64:
-			res.Code.TextAppendSln(ii("xorq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("xorl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("xorw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("xorb", r, l))
-		}
-		allocation = l
-	case front.AST_OP_BORI:
-		switch data_size {
-		case 64:
 			res.Code.TextAppendSln(ii("orq", r, l))
 		case 32:
 			res.Code.TextAppendSln(ii("orl", r, l))
@@ -2257,6 +2237,11 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		case 8:
 			res.Code.TextAppendSln(ii("orb", r, l))
 		}
+		allocation = l
+	}
+	case front.AST_OP_BORI:
+		res.Code.TextAppendSln(ii("orb", r, l))
+
 		allocation = l
 	}
 

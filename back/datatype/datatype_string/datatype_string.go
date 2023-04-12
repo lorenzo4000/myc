@@ -43,7 +43,7 @@ func (typ StaticStringType) Name() string {
 }
 
 func (typ StaticStringType) ByteSize() uint64 {
-	return uint64(typ.Length) * typ.ElementType.ByteSize()
+	return 8 //uint64(typ.Length) * typ.ElementType.ByteSize()
 }
 
 func (typ StaticStringType) BitSize() uint64 {

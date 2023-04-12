@@ -164,24 +164,20 @@ func (parser *Parser) ParseCompositeLiteral() (*Ast_Node) {
 	return composite_literal
 }
 
-func is_obviously_a_datatype(name string) bool {
-	return name[0] == '[' || name[0] == '*'
-}
-
 func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	curr, end := parser.Current()
 	if !end {
 		current_index := parser.Index
 
-		name, err := parser.GetDataType()
+		_, err := parser.GetDataType()
 		next, end := parser.Current()
-		
+
 		parser.Index = current_index
 
-		if len(err) <= 0 && !end && is_obviously_a_datatype(name) && next.Type == '{' {
+		if len(err) <= 0 && !end && next.Type == '{' {
 			return parser.ParseCompositeLiteral()
 		}
-		
+
 		switch curr.Type {
 			case TOKEN_IDENTIFIER: 
 				{
@@ -373,11 +369,6 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 
 		case TOKEN_AND:   operator.Type = AST_OP_AND
 		case TOKEN_OR:    operator.Type = AST_OP_OR
-		
-		case TOKEN_BAND:   operator.Type = AST_OP_BAND
-		case TOKEN_BORI:    operator.Type = AST_OP_BORI
-		case TOKEN_BORE:    operator.Type = AST_OP_BORE
-		case TOKEN_BNOT:   operator.Type = AST_OP_BNOT
 
 		case TOKEN_DOT:   operator.Type = AST_OP_DOT
 		default:          return nil
@@ -386,175 +377,122 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 	return operator
 }
 
-func (parser *Parser) _ParseTailOperator() (*Ast_Node) {
-	operator := new(Ast_Node)
+func (parser *Parser) ParseTailOperator() (operator *Ast_Node, root *Ast_Node, end_of_tunnel int64) {
+	println("parsing tail@!")
+	operator = new(Ast_Node)
 
-	//
-	// ** WHAT are we exactly tho? let's find out 
-	cur, end := parser.Current()
-
-	if end {
-		//
-		// *** we are... nothing~ eyyy~~ ^^
-		// actually this is an error
-		return nil
+	if parser.CurrentIs(';') {
+		end_of_tunnel = parser.Index
+		operator = nil
+		return 
 	}
+		
+	end_of_tunnel = parser.Index
+
+	current_index := parser.Index
+		cur, end := parser.Pop()
+		if end {
+			end_of_tunnel = parser.Index
+			operator = nil
+			return 
+		}
+
+		// recurse forward
+		next_tail := (*Ast_Node)(nil)
+		r := (*Ast_Node)(nil)  
+		next_tail, r, end_of_tunnel = parser.ParseTailOperator()
+
+		println("curr: ", cur.Type)
+
+		if next_tail != nil {
+			next_tail.Children[0] = operator
+			println("next!:")
+			next_tail.Print()
+
+			println("r!:")
+			r.Print()
+
+			if r == nil {
+				operator = nil
+				return
+			}
+			root = r
+		} else {
+			// we are at the end of the tunnel, so save this as the root!
+			// this is wrong
+
+			root = operator
+		}
+	 parser.Index = current_index
 
 	switch cur.Type {
 		case '[': {
 			parser.Pop()
 			index_expression := parser.ParseExpression()
 			if index_expression ==  nil {
-				// this is an error because we need the index!
-				return nil
+				println("ind == nil!")
+				operator = nil
+				root = nil
+				return
 			}
 
 			index_expression = fix_precedence(index_expression)
 			if index_expression ==  nil {
-				// this is an error because we need the index!
-				return nil
+				println("ind = =nil!")
+				operator = nil
+				root = nil
+				return
 			}
 
 			cur, expect := parser.PopIf(']')
 			if expect {
-				// this is an error because we need the closing bracket!
 				parseExpectErrorAt(cur, "`]`")
-				return nil
+				println("got ", cur.Type)
+				operator = nil
+				root = nil
+				return
 			}
 		
+			//right_op := parser.ParseOperator()
+			//if right_op == nil {
+				operator.Type = AST_OP_INDEX
+				operator.NewChild(AST_EXPRESSION)
+				operator.AddChild(index_expression)
+				
+			//}
+			
+			/*
+			right_exp := parser.ParseExpression()
+			if right_exp == nil {
+				return nil
+			}
+
+			right_op.AddChild(index_expression)
+			right_op.AddChild(right_exp)
+
+			right_op = fix_precedence(right_op)
+			
+
 			operator.Type = AST_OP_INDEX
 			operator.NewChild(AST_EXPRESSION)
-			operator.AddChild(index_expression)
-		}
+			operator.AddChild(right_op)
+			*/
 
+		}
 		default: 
-			//
-			// *** if we don't understand what we are, we are very likely something wrong!
-			// so this an error
-			return nil
+			println("edafult! : ", cur.Type)
+
+			operator = nil
+			root = nil
+			return
 	}
 
-	//
-	// ** check if we are the root
-	next, end := parser.Current()
-	if end {
-		return operator
-	} else
-	// see if "next" is something we know;
-	// if it isn't, we are the root!
-	if next.Type != '[' && next.Type != ']' && next.Type != TOKEN_INT_LITERAL {
-		return operator
-	} else {
-		//
-		// *** if we are not the root, we need to go forward to find it!
-		
-		// recurse
-		next_tail := parser._ParseTailOperator()
-		if next_tail == nil {
-			// we received an error, so... 
-			return nil
-		}
+	println("root! : ")
+	root.Print()
 
-		operator.AddChild(next_tail)
-	}
-	
-	return operator
+	return 
 }
 
-func fix_tail(ast *Ast_Node) (*Ast_Node) {
-	//
-	// TODO: make all of this more generic (for more than just index)
-
-	if len(ast.Children) < 3 {
-		return ast
-	}
-
-	rhs := ast.Children[2]
-	if rhs.Type != AST_OP_INDEX {
-		return ast
-	}
-
-	rhs = fix_tail(rhs)
-	ast.Children[2] = rhs
-
-	//
-	// 	*** rearrange ast ***
-	//
-	//		 ** CASE 1 **
-	//
-	//    	array[A][B]
-	//
-	//	   	 	 index
-	//		 	/  |  \
-	//		  exp  A  index
-	//		  		  /   \	
-	//			    exp    B
-	//		 	
-	//		 	index   
-	//		     /   \
-	//		  index   B
-	//		  /	 \  
-	//		exp	  A   
-	//
-
-	//      ** CASE 2 **
-	//      
-	//     array[A][B][C]
-	//   
-	//		 index
-	//		/  |  \
-	//	  exp  A  index (rhs)
-	//     	 	 /  |  \
-	//  	   exp  B  index
-	//   	     	   /   \	
-	// 	    	      exp   C
-	//
-	//   this becomes a case 1 when we fix the rhs :
-	//   
-	//		 index (ast)
-	//		/  |  \
-	//	  exp  A  index (rhs) 
-	//   		 /     \ 
-	// 		 index 		C
-	//	    /     \
-	//	  exp      B
-	//
-
-	//
-	//           index
-	//         /      \
-	//		index      C
-	//	    /   \
-	//	 index   B
-	//	 /	 \  
-	// exp	  A   
-	
-
-	// find the empty exp thing
-	iterator := rhs
-	for iterator.Children[0].Type != AST_EXPRESSION {
-		iterator = iterator.Children[0]
-	}
-
-	// found!
-	iterator.Children[0] = ast
-	ast.Children = ast.Children[:2]
-
-	return rhs
-}
-
-func (parser *Parser) ParseTailOperator() (*Ast_Node) {
-	ast := parser._ParseTailOperator()
-	if ast != nil {
-		ast.Print()
-
-		ast = fix_tail(ast)
-		
-		ast.Print()
-	}
-
-	return ast
-}
 
 func (parser *Parser) ParseVariableName() (*Ast_Node) {
 	variable_name := new(Ast_Node)
@@ -589,45 +527,45 @@ func precedence(ast *Ast_Node) uint8 {
 		case AST_EXPRESSION: return precedence(ast.Children[0])
 		case AST_LITERAL:    return 0xFF
 		
-		case AST_OP_DOT:     return 8
+		case AST_OP_DOT:     return 6
 		case AST_OP_INDEX:     return 7
 
-		case AST_OP_REFERENCE:   return 7
-		case AST_OP_DEREFERENCE: return 7
+		case AST_OP_REFERENCE:   return 6
+		case AST_OP_DEREFERENCE: return 6
 	
-		case AST_CASTING: return 6
+		case AST_CASTING: return 5
 
 		// mul
-		case AST_OP_MUL:     return 5
-		case AST_OP_DIV:     return 5
-		case AST_OP_MOD:     return 5
-		case AST_OP_BAND:    return 5
-		case AST_OP_NEG:     return 5
-		case AST_OP_BORE:	 return 5
-		case AST_OP_BNOT:    return 5
+		case AST_OP_MUL:     return 4
+		case AST_OP_DIV:     return 4
+		case AST_OP_MOD:     return 4
+		case AST_OP_BAND:    return 4
+		case AST_OP_NEG:     return 4
+		case AST_OP_BORE:	 return 4
+		case AST_OP_BNOT:    return 4
 
 		// sum
-		case AST_OP_SUM:     return 4
-		case AST_OP_SUB:     return 4
-		case AST_OP_BORI:	 return 4
+		case AST_OP_SUM:     return 3
+		case AST_OP_SUB:     return 3
+		case AST_OP_BORI:	 return 3
 
 
-		case AST_OP_ASN:     return 3
+		case AST_OP_ASN:     return 2
 
 
 		// conditions
-		case AST_OP_GRT:     return 2
-		case AST_OP_LES:	 return 2
-		case AST_OP_GOE:	 return 2
-		case AST_OP_LOE:	 return 2
+		case AST_OP_GRT:     return 1
+		case AST_OP_LES:	 return 1
+		case AST_OP_GOE:	 return 1
+		case AST_OP_LOE:	 return 1
 
-		case AST_OP_EQU:     return 2
-		case AST_OP_NEQ:	 return 2
+		case AST_OP_EQU:     return 1
+		case AST_OP_NEQ:	 return 1
 
 		// bool ops
-		case AST_OP_NOT:	 return 1
-		case AST_OP_AND:	 return 1
-		case AST_OP_OR :	 return 1
+		case AST_OP_NOT:	 return 0
+		case AST_OP_AND:	 return 0
+		case AST_OP_OR :	 return 0
 	}
 	return 0xFF
 }
@@ -645,7 +583,7 @@ func fix_precedence(ast *Ast_Node) *Ast_Node {
 		blw := ast.Children[0]
 		if precedence(blw) < precedence(ast) {
 			ast.Children[0] = blw.Children[0]
-			blw.Children[0] = fix_precedence(ast)
+			blw.Children[0] = ast
 			return blw
 		} 
 	} else 
@@ -654,7 +592,7 @@ func fix_precedence(ast *Ast_Node) *Ast_Node {
 		rhs := ast.Children[1]
 		if precedence(rhs) < precedence(ast) {
 			ast.Children[1] = rhs.Children[0]
-			rhs.Children[0] = fix_precedence(ast)
+			rhs.Children[0] = ast
 			return rhs
 		} 
 	}
@@ -666,13 +604,7 @@ func fix_dot_field_name(ast *Ast_Node) *Ast_Node {
 		return nil
 	}
 
-	println("fix_dot_field_name was called on ")
-	ast.Print()
-
-	field := ast.Children[1]
-	println("type of the cute field: ", field.ToString())
-
-	field_name := field.Data[0].String_value
+	field_name := ast.Children[1].Data[0].String_value
 	if len(field_name) <= 0 {
 		return nil
 	}
@@ -690,8 +622,6 @@ func fix_dot(ast *Ast_Node) *Ast_Node {
 	if ast.Type != AST_OP_DOT {
 		return nil
 	}
-
-	println("fix_dot was called on ", ast.ToString())
 
 	next_dot := ast.Children[1]
 	if next_dot.Type != AST_OP_DOT {
@@ -712,15 +642,11 @@ func fix_dot(ast *Ast_Node) *Ast_Node {
 	//    d x
 
 	//
-
-	println("am i ACTUALLY about to do this?")
 	rhs := ast.Children[1]
 	ast.Children[1] = rhs.Children[1]
 	rhs.Children[1] = rhs.Children[0]
 	rhs.Children[0] = ast.Children[0]
-	ast.Children[0] = fix_precedence(rhs)
-
-	ast = fix_precedence(ast)
+	ast.Children[0] = rhs
 		
 	return fix_dot_field_name(ast)
 }
@@ -730,23 +656,36 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	if left == nil {
 		return nil
 	}
-		
-	tail := parser.ParseTailOperator()
-	if tail != nil {
-		iterator := tail
-		for iterator.Children[0].Type != AST_EXPRESSION {
-			iterator = iterator.Children[0]
-		}
-		iterator.Children[0] = left
-
-		left = tail
-	} 
 
 	operator := parser.ParseOperator()
 	if operator == nil {
+		_, tail, end_of_tunnel := parser.ParseTailOperator()
+		if tail != nil {
+			tail.Children[0] = left
+			left = tail
+			parser.Index = end_of_tunnel
+		}
+		left.Print()
+
+
 		fixed_expression := fix_precedence(left)
 		if fixed_expression ==  nil {
 			return left
+		}
+		return fixed_expression
+	}
+	
+	if operator.Type == AST_OP_INDEX {
+		operator.Children[0] = left
+		fixed_expression := fix_precedence(operator)
+		
+		dot := fixed_expression.Find(AST_OP_DOT)
+		if dot != nil {
+			dot = fix_dot(dot)
+			if dot == nil {
+				cur, _ := parser.Current()
+				parseErrorAt(cur, "invalid field expression after `.`")
+			}
 		}
 		return fixed_expression
 	}
@@ -759,34 +698,18 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 	operator.AddChild(left)
 	operator.AddChild(right)
 	
-	tail = parser.ParseTailOperator()
+	_, tail, end_of_tunnel := parser.ParseTailOperator()
 	if tail != nil {
-		iterator := tail
-		for iterator.Children[0].Type != AST_EXPRESSION {
-			iterator = iterator.Children[0]
-		}
-		iterator.Children[0] = operator
-
+		tail.Children[0] = operator
 		operator = tail
-	} 
-	println("opertatoreee!")
-	operator.Print()
-
-	fixed_expression := fix_precedence(operator)
-	if fixed_expression == nil {
-		return operator
+		parser.Index = end_of_tunnel
 	}
 
-	println("precedenza fixatissimaaaaa!")
-	fixed_expression.Print()
+	fixed_expression := fix_precedence(operator)
 	
 	dot := fixed_expression.Find(AST_OP_DOT)
 	if dot != nil {
-		println("calling fix_fot on ")
-		dot.Print()
 		dot = fix_dot(dot)
-		println("fix_dot returned ")
-		dot.Print()
 		if dot == nil {
 			cur, _ := parser.Current()
 			parseErrorAt(cur, "invalid field expression after `.`")
@@ -1003,8 +926,6 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 		if exp != nil {
 			ast_if.AddChild(exp)
 		}
-		println("parsing the body of the if statement!")
-		exp.Print()
 	}
 
 	{
@@ -1122,6 +1043,7 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 						prev, _ := parser.Peek(-1)
 						if prev.Type != TOKEN_CLOSING_BRACE {
 							cur, end := parser.Current()
+							println(cur.Type)
 							if !end {
 								parseExpectErrorAt(cur, "`;` or `}`")
 								parser.Pop()

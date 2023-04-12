@@ -1,0 +1,43 @@
+@import "lib/c/stdio.myc"
+
+struct A {
+	:cute_field uint64;
+	:ugly_field int32;
+}
+
+function main() {
+	:matrix [26][50]uint64;
+
+	for(:i int64 = 0; i < 26; i = i + 1) {
+		for(:j int64 = 0; j < 50; j = j + 1) {
+			:c uint64 = [uint64]i % [uint64]26 + [uint64]65;
+			matrix[i][j] = c;
+		}
+	}
+
+	for(:i int64 = 0; i < 26; i = i + 1) {
+		for(:j int64 = 0; j < 50; j = j + 1) {
+			putchar([uint8]matrix[i][j]);
+		}
+		putchar([uint8]10);
+	}
+
+/*
+	:matrix [50][50]A;
+
+	for(:i int64 = 0; i < 50; i = i + 1) {
+		for(:j int64 = 0; j < 50; j = j + 1) {
+			printf("%d\n".data, i);
+			matrix[i][j].cute_field = [uint64]i % [uint64]25 + [uint64]65;
+			matrix[i][j].ugly_field = [int32]i;
+		}
+	}
+	
+	for(:i int64 = 0; i < 50; i = i + 1) {
+		for(:j int64 = 0; j < 50; j = j + 1) {
+			printf("%d\n".data, i);
+			printf("%d : %c\n".data, matrix[i][j].ugly_field, matrix[i][j].cute_field);
+		}
+	}
+*/
+}

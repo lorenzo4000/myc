@@ -144,13 +144,24 @@ func main() {
 		fmt.Println(code_combined)
 	}
 
-	out, err := os.CreateTemp("", filenames[0] + "*.s")
-	defer os.Remove(out.Name())
+	asm_out_name := ""
+	for i := 0; i < len(filenames[0]); i++ { 
+		if os.IsPathSeparator(filenames[0][i]) {
+			asm_out_name += "_"
+		} else {
+			asm_out_name += string(filenames[0][i])
+		}
+	}
+	asm_out_name += "*.s"
 
+	out, err := os.CreateTemp("", asm_out_name)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
+	defer os.Remove(out.Name())
+
 
 	out.WriteString(code_combined)
 

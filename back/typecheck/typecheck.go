@@ -195,7 +195,7 @@ func Compatible(source datatype.DataType, destination datatype.DataType) bool {
 			switch destination.(type) {
 				case datatype.PointerType:
 					dp := destination.(datatype.PointerType)
-					if sp.Pointed_type == datatype.TYPE_GENERIC || dp.Pointed_type == datatype.TYPE_GENERIC {
+					if sp.Pointed_type.Equals(datatype.TYPE_GENERIC) || dp.Pointed_type.Equals(datatype.TYPE_GENERIC) {
 						return true
 					}
 			}
@@ -211,8 +211,8 @@ func Compatible(source datatype.DataType, destination datatype.DataType) bool {
 						source_array_pointer_type := source_array_type.(datatype.PointerType).Pointed_type
 						destination_array_pointer_type  := destination_array_type.(datatype.PointerType).Pointed_type
 
-						if source_array_pointer_type == datatype.TYPE_GENERIC || 
-							destination_array_pointer_type == datatype.TYPE_GENERIC {
+						if source_array_pointer_type.Equals(datatype.TYPE_GENERIC)  || 
+							destination_array_pointer_type.Equals(datatype.TYPE_GENERIC) {
 							return true
 						}
 					}
@@ -222,7 +222,7 @@ func Compatible(source datatype.DataType, destination datatype.DataType) bool {
 			switch destination.(type) {
 				case datatype_array.StaticArrayType:
 					da := destination.(datatype_array.StaticArrayType)
-					if sa.ElementType == datatype.TYPE_GENERIC || da.ElementType == datatype.TYPE_GENERIC {
+					if sa.ElementType.Equals(datatype.TYPE_GENERIC) || da.ElementType.Equals(datatype.TYPE_GENERIC) {
 						return true
 					}
 				case datatype_struct.StructType: 
@@ -230,9 +230,9 @@ func Compatible(source datatype.DataType, destination datatype.DataType) bool {
 						ds := destination.(datatype_struct.StructType)
 						destination_array_type := ds.Fields[0].Type
 						destination_array_pointer_type := destination_array_type.(datatype.PointerType).Pointed_type
-						if sa.ElementType == destination_array_pointer_type 	   ||
-						   sa.ElementType == datatype.TYPE_GENERIC 				   || 
-						   destination_array_pointer_type == datatype.TYPE_GENERIC {
+						if sa.ElementType.Equals(destination_array_pointer_type)   ||
+						   sa.ElementType.Equals(datatype.TYPE_GENERIC)			   || 
+						   destination_array_pointer_type.Equals(datatype.TYPE_GENERIC) {
 							return true
 						}
 					}
@@ -248,8 +248,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if (ast.Type == front.AST_BODY 						&&
 	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)      &&
 	   (ast.Flags & front.ASTO_BODY_FOR == 0)) 			|| 
-	   (ast.Type == front.AST_FUNCTION_DEFINITION 		&&
-   	   (ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0)) ||
+	   (ast.Type == front.AST_FUNCTION_DEFINITION 		/*&& (ast.Flags & front.ASTO_FUNCTION_EXTERNAL == 0)*/) ||
 	    ast.Type == front.AST_FOR						||
 	    ast.Type == front.AST_HEAD 				    	||
 	    ast.Type == front.AST_STRUCT_DEFINITION_BODY {
@@ -393,6 +392,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = _type
 		}
 		case front.AST_FUNCTION_DEFINITION: {
+			if ast.Flags & front.ASTO_FUNCTION_EXTERNAL != 0 {
+				symbol.SymbolScopeStackPop()
+			}
+		
 			function_name := ast.Children[0].Data[0].String_value
 			_, found := symbol.SymbolTableGetInCurrentScope(function_name)
 			if found {
@@ -419,7 +422,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			for _, arg := range(args) {
 				arg_types = append(arg_types, arg.DataType)
 			}
-		
+			
 			err := symbol.SymbolTableInsertInCurrentScope(function_name, TypeCheck_Symbol{return_type, arg_types}) 
 			if err != nil {
 				fmt.Println(err)	
@@ -427,6 +430,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 
 			ast.DataType = return_type
+
 		}
 		case front.AST_RETURN: {
 			if len(ast.Children) <= 0 {
@@ -813,6 +817,20 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = datatype.TYPE_BOOL
 		}
+		case front.AST_OP_BAND, front.AST_OP_BORI, front.AST_OP_BORE: {
+			left_type := ast.Children[0].DataType
+			right_type := ast.Children[1].DataType
+			if !Compatible(right_type, left_type) {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", left_type.Name(), right_type.Name())
+				return nil
+			}
+			ast.DataType = left_type
+		}
+		case front.AST_OP_BNOT: {
+			// TODO: do something, maybe
+			ast.DataType = ast.Children[0].DataType
+		}
+
 		case front.AST_OP_REFERENCE: {
 			referenced_expression := ast.Children[0]
 			

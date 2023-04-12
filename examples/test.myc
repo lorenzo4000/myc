@@ -1,4 +1,4 @@
-@import "utils.myc"
+@import "examples/utils.myc"
 @import "lib/c/stdio.myc"
 
 function print_line(:line Line) bool {
@@ -7,9 +7,9 @@ function print_line(:line Line) bool {
 	}
 
 	for (:i uint8 = [uint8]1; i < line.length; i = i + [uint8]1) {
-		printf("%c", line.pixel);
+		printf("%c".data, line.pixel);
 	}
-	printf("\n");
+	printf("\n".data);
 	
 	false
 }
@@ -22,7 +22,7 @@ struct Bytes6 {
 }
 
 function print_bytes6(:bytes Bytes6) {
-	printf("x: %hu, y: %lu\n", bytes.x, bytes.y);
+	printf("x: %hu, y: %lu\n".data, bytes.x, bytes.y);
 }
 
 function test_struct_paddings() {
@@ -51,16 +51,16 @@ struct Bytes40 {
 }
 
 function undefined_function_a(:bytes_a Bytes16, :bytes_b Bytes16) {
-	printf("x: %lld, y: %lld\n", bytes_a.x, bytes_a.y);
-	printf("x: %lld, y: %lld\n", bytes_b.x, bytes_b.y);
+	printf("x: %lld, y: %lld\n".data, bytes_a.x, bytes_a.y);
+	printf("x: %lld, y: %lld\n".data, bytes_b.x, bytes_b.y);
 }
 
 function undefined_function_b(:bytes Bytes24) {
-	printf("x: %lld, y: %lld, z: %lld\n", bytes.x, bytes.y, bytes.z);
+	printf("x: %lld, y: %lld, z: %lld\n".data, bytes.x, bytes.y, bytes.z);
 }
 
 function undefined_function_c(:bytes Bytes40) {
-	printf("x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n",
+	printf("x.x: %lld, x.y: %lld, x.z: %lld\ny.x: %lld, y.y: %lld\n".data,
       bytes.x.x, bytes.x.y, bytes.x.z, bytes.y.x, bytes.y.y);
 }
 
@@ -78,7 +78,7 @@ function test_big_things() {
 	c = a;
 
 	undefined_function_a(a, c);
-	printf("\n\n");
+	printf("\n\n".data);
 	undefined_function_b(b);
 
 	
@@ -97,7 +97,7 @@ function main() {
 	line.length = [uint8]255;
 	line.pixel  = [uint8]65;
 	if print_line(line) != false {
-		printf("error: negative length for the line is illegal\n");
+		printf("error: negative length for the line is illegal\n".data);
 		return;
 	}
 

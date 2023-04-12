@@ -1,0 +1,311 @@
+@import "lib/c/stdio.myc"
+@import "lib/memory.myc"
+
+
+//  ssize_t read(int fd, void *buf, size_t count);
+function read(:fd int32, :buf *?, :count uint64) external;
+
+
+//	#define NCCS 32
+//	struct termios
+//	  {
+//		tcflag_t c_iflag;		/* input mode flags */
+//		tcflag_t c_oflag;		/* output mode flags */
+//		tcflag_t c_cflag;		/* control mode flags */
+//		tcflag_t c_lflag;		/* local mode flags */
+//		cc_t c_line;			/* line discipline */
+//		cc_t c_cc[NCCS];		/* control characters */
+//		speed_t c_ispeed;		/* input speed */
+//		speed_t c_ospeed;		/* output speed */
+//	#define _HAVE_STRUCT_TERMIOS_C_ISPEED 1
+//	#define _HAVE_STRUCT_TERMIOS_C_OSPEED 1
+//	  };
+
+
+struct termios {
+	:c_iflag		uint32;/* input mode flags */
+	:c_oflag		uint32;/* output mode flags */
+	:c_cflag		uint32;/* control mode flags */
+	:c_lflag		uint32;/* local mode flags */
+	:c_line			uint8 ;	/* line discipline */
+	:c_cc		    [32]uint8 ;	/* control characters */
+	:c_ispeed		uint32;/* input speed */
+	:c_ospeed		uint32;/* output speed */
+}
+
+function tcgetattr(:fd int32, :__termios_p *termios) external;
+function tcsetattr(:fd int32, :__optional_actions int32, :__termios_p *termios) external;
+
+function render(:screen [10][30]uint8, :cursor_x uint64, :cursor_y uint64, :rainbow bool) {
+	// clear terminal
+	printf("\033[2J".data);
+
+	:color uint8 = [uint8]0;
+
+	for(:i int64 = 0; i < 10; i = i + 1) {
+		for(:j int64 = 0; j < 30; j = j + 1) {
+			:k uint8 = [uint8]j * [uint8]i % [uint8]6;
+			:v uint8 = [uint8]i % [uint8]6;
+			color = [uint8]46 + k + v * [uint8]6 * [uint8]6;
+
+			printf("color: %hhd".data, color);
+	
+			if rainbow {
+				printf("\033[1m".data);
+				printf("\033[38:5:%hhdm".data, color);
+			}
+
+			if cursor_x == [uint64]j && cursor_y == [uint64]i {
+				// swap background and foreground color
+				printf("\033[7m".data);
+
+				putchar(screen[i][j]);
+			} else {
+				putchar(screen[i][j]);
+			}
+
+			// restore terminal
+			printf("\033[0m".data);
+		}
+		putchar(10);
+	}
+}
+
+function main() {
+	:impiccatos [8][10]string = [8][10]string{
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"            O        |        ",
+			"           /|\\       |        ",
+			"            X        |        ",
+			"           / \\       |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"            O        |        ",
+			"           /|\\       |        ",
+			"            X        |        ",
+			"             \\       |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"            O        |        ",
+			"           /|\\       |        ",
+			"            X        |        ",
+			"                     |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"            O        |        ",
+			"           /|\\       |        ",
+			"                     |        ",
+			"                     |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"            O        |        ",
+			"            |\\       |        ",
+			"                     |        ",
+			"                     |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"            O        |        ",
+			"            |        |        ",
+			"                     |        ",
+			"                     |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"            O        |        ",
+			"                     |        ",
+			"                     |        ",
+			"                     |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+		[10]string{
+			"                              ",
+			"            ---------|        ",
+			"                     |        ",
+			"                     |        ",
+			"                     |        ",
+			"                     |        ",
+			"                  ___|___     ",
+			"                              ",
+			"                              ",
+			"                              ",
+		},
+	};
+
+
+	:win_screen [10]string = [10]string{
+		"\\\\\\\\\\  ===/// ==\\||  ==|   || ",
+		"\\\\\\\\\\\\ ==/||  ==|||  ==|   || ",
+		"\\\\\\\\\\\\\\=/|||  ==|||  ==|   || ",
+		"\\\\\\\\\\\\\\| |||  ==|||  ==|   || ",
+		"-------| \\\\\\ ==/\\\\\\ ===|   || ",
+		"                           || ",
+		"\\\\    ^   ==/// == \\|\\ ==| || ",
+		"\\\\\\ ==/\\ ==/|||  ==||\\\\ =|    ",
+		"\\\\\\\\=/  \\=/ |||  ==|| \\\\=| \\/ ",
+		"\\\\\\\\/    v   \\\\ == /|  \\\\| /\\ ",
+	};
+
+	:screen [10][30]uint8;
+
+	:impiccato_status int64 = 0;
+	:word string = "ciao";
+
+	if word.len > screen[0].len {
+		printf("error: word is too big for the screen width!\n".data);
+		return;
+	}
+	:word_x uint64 = screen[0].len / [uint64]2 - word.len / [uint64]2;
+	:word_y uint64 = [uint64]8;
+
+	:tried_letters [8]uint8;
+	:found []bool = allocate(word.len);
+	:found_count int64 = 0;
+
+	:cursor_x uint64 = word_x;
+	:cursor_y uint64 = word_y;
+
+
+
+	:current_termios termios;
+	tcgetattr([int32]0, &current_termios);
+
+	:new_termios termios = current_termios;
+
+	:ICANON uint32 = [uint32]2;
+	:ECHO uint32 = [uint32]8;
+	:new_flags uint32 = ICANON | ECHO;
+
+    new_termios.c_lflag = new_termios.c_lflag & ~new_flags;  
+    tcsetattr([int32]0, [int32]0, &new_termios);  // Set new terminal attributes
+
+
+	// 0: play;
+	// 1: won;
+	// -1: lost;
+	// 2: quit;
+	:game_status int64 = 0;
+
+	while game_status == 0 {
+		// write impiccato
+		for(:i int64 = 0; i < 10; i = i + 1) {
+			:line string = impiccatos[impiccato_status][i];
+			for(:j int64 = 0; j < 30; j = j + 1) {
+				screen[i][j] = line[j]
+			}
+		}
+
+
+		// write tried letters
+
+
+		// write word centered and hide the non-found characters
+		for(:i int64 = 0; i < [int64]word.len; i = i + 1) {
+			:letter uint8 = word[i];
+			:screen_x int64 = i + [int64]word_x;
+			if found[i] {
+				screen[word_y][screen_x] = letter;
+			} else {
+				screen[word_y][screen_x] = [uint8]35;
+			}
+		}
+
+		// render
+		render(screen, cursor_x, cursor_y, false);
+	
+		// wait input
+		:c uint8;
+		read([int32]0, &c, [uint64]1);
+		
+
+		// game controls 
+		if c == [uint8]113 {
+			game_status = 2; // quit
+		}
+		if c == [uint8]0x43 && word_x + word.len-[uint64]1 > cursor_x {
+			cursor_x = cursor_x + [uint64]1;
+		}
+		if c == [uint8]0x44 && word_x < cursor_x {
+			cursor_x = cursor_x - [uint64]1;
+		}
+		
+		// letter input 
+		if c <= [uint8]122 && c >= [uint8]97 {
+			:index uint64 = cursor_x - word_x;
+			// check input against word
+			if c == word[index] {
+				found[index] = true;
+				found_count = found_count + 1;
+
+				// move the cursor forward
+				if index < word.len-[uint64]1 {
+					cursor_x = cursor_x + [uint64]1;
+				}
+			} else {
+				tried_letters[impiccato_status] = c;
+				impiccato_status = impiccato_status + 1;
+			}
+		}
+		
+		if [uint64]found_count >= word.len {
+			game_status = 1; // win
+		}
+
+		// break the loop
+		if impiccato_status >= 8 {
+			game_status = -1; // lose
+		}
+	}
+
+	if game_status == 1 {
+		for(:i int64 = 0; i < 10; i = i + 1) {
+			:line string = win_screen[i];
+			for(:j int64 = 0; j < 30; j = j + 1) {
+				screen[i][j] = line[j];
+			}
+		}
+	}
+
+	render(screen, [uint64]-1, [uint64]-1, true);
+
+	tcsetattr([int32]0, [int32]0, &current_termios);  // Restore!
+}
