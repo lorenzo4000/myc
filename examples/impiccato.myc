@@ -59,7 +59,7 @@ struct termios {
 function tcgetattr(:fd int32, :__termios_p *termios) external;
 function tcsetattr(:fd int32, :__optional_actions int32, :__termios_p *termios) external;
 
-function render(:screen [10][30]uint8, :cursor_x uint64, :cursor_y uint64, :rainbow bool) {
+function render(:screen [10][30]uint8, :rainbow bool) {
 	// clear terminal
 	printf("\033[2J".data);
 
@@ -85,14 +85,7 @@ function render(:screen [10][30]uint8, :cursor_x uint64, :cursor_y uint64, :rain
 				printf("\033[38:5:%hhdm".data, color);
 			}
 
-			if cursor_x == [uint64]j && cursor_y == [uint64]i {
-				// swap background and foreground color
-				printf("\033[7m".data);
-
-				putchar(screen[i][j]);
-			} else {
-				putchar(screen[i][j]);
-			}
+			putchar(screen[i][j]);
 
 			// restore terminal
 			printf("\033[0m".data);
@@ -256,7 +249,7 @@ function main() {
 	:screen [10][30]uint8;
 
 	:impiccato_status int64 = 0;
-	:word string = "ciao";
+	:word string = "appiccicoso";
 
 	if word.len > screen[0].len {
 		printf("error: word is too big for the screen width!\n".data);
@@ -268,11 +261,6 @@ function main() {
 	:tried_letters [8]uint8;
 	:found []bool = allocate(word.len);
 	:found_count int64 = 0;
-
-	:cursor_x uint64 = word_x;
-	:cursor_y uint64 = word_y;
-
-
 
 	:current_termios termios;
 	tcgetattr([int32]0, &current_termios);
@@ -296,13 +284,15 @@ function main() {
 		for(:i int64 = 0; i < 10; i = i + 1) {
 			:line string = impiccatos[impiccato_status][i];
 			for(:j int64 = 0; j < 30; j = j + 1) {
-				screen[i][j] = line[j]
+				screen[i][j] = line[j];
 			}
 		}
 
-
-		// TODO: write tried letters
-
+		// write tried letters
+		for(:i int64 = 0; i < [int64]8; i = i + 1) {
+			:c uint8 = tried_letters[i];
+			screen[9][i + 15 - 4] = c;
+		}
 
 		// write word centered and hide the non-found characters
 		for(:i int64 = 0; i < [int64]word.len; i = i + 1) {
@@ -316,42 +306,56 @@ function main() {
 		}
 
 		// render
-		render(screen, cursor_x, cursor_y, false);
+		render(screen, false);
 	
 		// wait input
-		:c uint8;
-		read([int32]0, &c, [uint64]1);
-		
+		:buf uint64;
+		read([int32]0, &buf, [uint64]8);
 
 		// game controls 
-		if c == [uint8]113 {
+		if buf == [uint64]27 { // ESC
 			game_status = 2; // quit
 		}
-		if c == [uint8]0x43 && word_x + word.len-[uint64]1 > cursor_x {
-			cursor_x = cursor_x + [uint64]1;
-		}
-		if c == [uint8]0x44 && word_x < cursor_x {
-			cursor_x = cursor_x - [uint64]1;
-		}
+
+		:c uint8 = [uint8]buf;
 		
 		// letter input 
 		if c <= [uint8]122 && c >= [uint8]97 {
-			:index uint64 = cursor_x - word_x;
-			// check input against word
-			if c == word[index] {
-				found[index] = true;
-				found_count = found_count + 1;
+			// *** check input against word *** 
 
-				// move the cursor forward
-				if index < word.len-[uint64]1 {
-					cursor_x = cursor_x + [uint64]1;
+			:current_count int64 = found_count;
+			for(:i int64 = 0; i < [int64]word.len; i = i + 1) { 
+				if c == word[i] && found[i] == false {
+					found[i] = true;
+					found_count = found_count + 1;
 				}
-			} else {
-				tried_letters[impiccato_status] = c;
-				impiccato_status = impiccato_status + 1;
+			}
+
+			if found_count == current_count {
+				:care bool = true;
+				// ** if we already found this letter, we don't care
+				for(:i int64 = 0; i < [int64]word.len; i = i + 1) { 
+					if c == word[i] && found[i] {
+						care = false;
+					}
+				}
+				// ** if we already tried this letter, we don't care
+				for(:i int64 = 0; i < [int64]tried_letters.len; i = i + 1) { 
+					if c == tried_letters[i] {
+						care = false;
+					}
+				}
+
+				if care {
+					// failed
+					tried_letters[impiccato_status] = c;
+					impiccato_status = impiccato_status + 1;
+				}
 			}
 		}
 		
+		// *** update status *** 
+
 		if [uint64]found_count >= word.len {
 			game_status = 1; // win
 		}
@@ -377,7 +381,7 @@ function main() {
 				}
 			}
 
-			render(screen, [uint64]-1, [uint64]-1, true);
+			render(screen, true);
 			
 			// sleep for 1 second
 			poll(&poll_struct, [int32]1, [int32]1000);
@@ -387,7 +391,7 @@ function main() {
 					:c uint8;
 					read([int32]0, &c, [uint64]1);
 
-					if c == [uint8]113 { // 'q'
+					if c == [uint8]27 { // ESC
 						game_status = 2; // quit
 					}
 				} else {
