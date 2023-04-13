@@ -1,0 +1,17 @@
+struct padded {
+    :fd int32;
+    :events int16;
+    :revents int32;
+}
+
+struct not_padded {
+    :fd int32;
+    :events int16;
+    :revents int16;
+}
+
+
+function main() {
+	:a not_padded;	
+	a.revents = [int16]69;
+}

@@ -902,10 +902,24 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				field_type := field.DataType
 
 				field_size := uint64(field_type.ByteSize())
+				field_offset := uint64(_struct.Size_)
 
-				padding := (0b100 - ((field_size - 1) & 0b11)) - 1
+				/*
+					A char (one byte) will be 1-byte aligned.
+					A short (two bytes) will be 2-byte aligned.
+					An int (four bytes) will be 4-byte aligned.
+					A long (eight bytes) will be 8-byte aligned.
+					Any pointer (eight bytes) will be 8-byte aligned.
+				*/
+				align := field_size
 
-				struct_field := datatype_struct.StructField{field_name, field_type, _struct.Size_}
+				if datatype_array.IsStaticArrayType(field_type) {
+					align = field_type.(datatype_array.StaticArrayType).ElementType.ByteSize()
+				}
+
+				padding := (align - (field_offset & uint64(align - 1))) & uint64(align - 1)
+
+				struct_field := datatype_struct.StructField{field_name, field_type, padding + field_offset}
 				_struct.AddField(struct_field)
 				
 				_struct.Size_ += padding
