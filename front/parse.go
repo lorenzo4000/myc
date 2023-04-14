@@ -193,13 +193,20 @@ func (parser *Parser) ParseCompositeLiteral() (*Ast_Node) {
 	return composite_literal
 }
 
-func is_obviously_a_datatype(name string) bool {
-	return name[0] == '[' || name[0] == '*'
-}
-
 func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	curr, end := parser.Current()
 	if !end {
+		current_index := parser.Index
+
+		_, err := parser.GetDataType()
+		next, end := parser.Current()
+
+		parser.Index = current_index
+
+		if len(err) <= 0 && !end && next.Type == '{' {
+			return parser.ParseCompositeLiteral()
+		}
+
 		switch curr.Type {
 			case TOKEN_OPENING_PARENTHESES:
 				parser.Pop()
@@ -224,7 +231,6 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 					if !end {
 						switch next.Type {
 							case '(': return parser.ParseFunctionCall()
-							case '{': return parser.ParseCompositeLiteral()
 							default:  return parser.ParseVariableName()
 						}
 					}

@@ -397,10 +397,11 @@ function main() {
 	}
 
 	while game_status == 1 {
-		:poll_struct pollfd;
-		poll_struct.fd = [int32]0;
-		poll_struct.events = [int16]1;
-		poll_struct.revents = [int16]0;
+		:poll_struct pollfd = pollfd{
+			[int32]0,
+			[int16]1,
+			[int16]0,
+		};
 
 		for(:f int64 = 0; f < 4; f = f + 1) {
 			:win_frame [10]string = win_screen[f];
