@@ -842,12 +842,51 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 		}
 	}
 
+	// ** put implicit parentheses around expression
+	current, _ := parser.Current()
+	parser.Place(Token{
+		'(',
+		current.L0,
+		current.C0 + 1,
+		current.L1,
+		current.C1 + 1,
+		0,
+		"",
+	})
+
+	// search first '{'
+	first_brace := 0
+	for {
+		current, end := parser.Peek(int64(first_brace))
+		if end {
+			parseExpectErrorAt(current, "`{`")
+			return nil
+		}
+
+		if current.Type == '{' {
+			break
+		}
+
+		first_brace++
+	}
+	
+	parser.PlaceAt(parser.Index + int64(first_brace), Token{
+		')',
+		current.L0,
+		current.C0 + 1,
+		current.L1,
+		current.C1 + 1 ,
+		0,
+		"",
+	})
+
 	{
 		exp := parser.ParseExpression()
 		if exp != nil {
 			while.AddChild(exp)
 		}
 	}
+
 
 	{
 		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
@@ -1060,7 +1099,6 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 		first_brace++
 	}
 	
-	// ** put implicit parentheses around expression
 	parser.PlaceAt(parser.Index + int64(first_brace), Token{
 		')',
 		current.L0,
@@ -1164,9 +1202,6 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 			case TOKEN_KEYWORD_FOR: {
 				body.AddChild(parser.ParseFor())
 			}
-			//case TOKEN_KEYWORD_IF: {
-			//	body.AddChild(parser.ParseIf())
-			//}
 			case TOKEN_KEYWORD_RETURN: {
 				ret := parser.ParseReturn()
 				if ret != nil {
