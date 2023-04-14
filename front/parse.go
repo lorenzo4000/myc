@@ -65,6 +65,35 @@ func (parser *Parser) PopIf(expected_type byte) (Token, bool) {
 	return parser.Pop()
 }
 
+func (parser *Parser) PlaceAt(index int64, new_token Token) *Token {
+	_, end := parser.Current()
+	if end {
+		return nil
+	}
+
+	if cap(parser.Tokens) <= len(parser.Tokens) {
+		// reallocate
+		new_tokens := make([]Token, len(parser.Tokens) + 1)
+		copy(parser.Tokens, new_tokens)
+		parser.Tokens = new_tokens
+	} else {
+		parser.Tokens = parser.Tokens[:len(parser.Tokens)+1]
+	}
+		
+	// shift 1 right
+	copy(parser.Tokens[index+1:], parser.Tokens[index:len(parser.Tokens)-1])
+
+	// write new token
+	parser.Tokens[index] = new_token
+
+	return &parser.Tokens[index]
+}
+
+// place token after current
+func (parser *Parser) Place(new_token Token) *Token {
+	return parser.PlaceAt(parser.Index, new_token)
+}
+
 func (parser *Parser) ParseFunctionCall() (*Ast_Node) {
 	function_call := new(Ast_Node)
 	function_call.Type = AST_FUNCTION_CALL
@@ -171,27 +200,32 @@ func is_obviously_a_datatype(name string) bool {
 func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 	curr, end := parser.Current()
 	if !end {
-		current_index := parser.Index
-
-		name, err := parser.GetDataType()
-		next, end := parser.Current()
-		
-		parser.Index = current_index
-
-		if len(err) <= 0 && !end && is_obviously_a_datatype(name) && next.Type == '{' {
-			return parser.ParseCompositeLiteral()
-		}
-		
 		switch curr.Type {
+			case TOKEN_OPENING_PARENTHESES:
+				parser.Pop()
+
+				e := parser.ParseExpression()
+				if e == nil {
+					return nil
+				}
+
+				next, expect := parser.PopIf(TOKEN_CLOSING_PARENTHESES)
+				if expect {
+					parseExpectErrorAt(next, "`}`")
+				}
+				
+				expression := new(Ast_Node)
+				expression.Type = AST_EXPRESSION
+				expression.AddChild(e)
+				return expression
 			case TOKEN_IDENTIFIER: 
 				{
 					next, end := parser.Peek(1)
 					if !end {
 						switch next.Type {
-							case TOKEN_OPENING_PARENTHESES: 
-								call := parser.ParseFunctionCall()
-								return call
-							default: return parser.ParseVariableName()
+							case '(': return parser.ParseFunctionCall()
+							case '{': return parser.ParseCompositeLiteral()
+							default:  return parser.ParseVariableName()
 						}
 					}
 				}
@@ -998,13 +1032,50 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 		}
 	}
 
+	// ** put implicit parentheses around expression
+	current, _ := parser.Current()
+	parser.Place(Token{
+		'(',
+		current.L0,
+		current.C0 + 1,
+		current.L1,
+		current.C1 + 1,
+		0,
+		"",
+	})
+
+	// search first '{'
+	first_brace := 0
+	for {
+		current, end := parser.Peek(int64(first_brace))
+		if end {
+			parseExpectErrorAt(current, "`{`")
+			return nil
+		}
+
+		if current.Type == '{' {
+			break
+		}
+
+		first_brace++
+	}
+	
+	// ** put implicit parentheses around expression
+	parser.PlaceAt(parser.Index + int64(first_brace), Token{
+		')',
+		current.L0,
+		current.C0 + 1,
+		current.L1,
+		current.C1 + 1 ,
+		0,
+		"",
+	})
+	
 	{
 		exp := parser.ParseExpression()
 		if exp != nil {
 			ast_if.AddChild(exp)
 		}
-		println("parsing the body of the if statement!")
-		exp.Print()
 	}
 
 	{
