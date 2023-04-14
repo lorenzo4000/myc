@@ -30,9 +30,6 @@ struct Test {
 }
 
 function main() {
-	:static_struct Test = Test{ 54 };
-	printf("%d\n".data, static_struct.field);
-
 	:static_array [20]int64 = [20]int64{ 
 		10,
 		156,
@@ -58,28 +55,21 @@ function main() {
 
 
 	// reference assignment (copy pointer and length)	
-	:dynamic_array []int64;
-	dynamic_array = static_array;
+	:dynamic_array [20]int64;
 	
-	printf("new .data -> %d\n".data, dynamic_array.data);
-	printf("new .len -> %d\n".data, dynamic_array.len);
-
 	{
 		for(:j int64 = 0; j < 20; j = j + 1) {
 			printf("STATIC %d : %d\n".data, j, static_array[j]);
 		}
-		/*
+		
+		for(:j int64 = 0; j < 20; j = j + 1) {
+			dynamic_array[j] = static_array[j];
+		}
+
 		for(:k int64 = 0; k < 20; k = k + 1) {
 			printf("DYNAMIC asdas %d : %d\n".data, k, dynamic_array[k]);
 		}
-		*/
 	};
 	
 	return;
-
-	printf("----------------------------------\n".data);
-
-	printf("sum(static_array) = %d\n".data, sum(static_array));
-	printf("sum(dynamic_array) = %d\n".data, sum(dynamic_array));
-	printf("sum_20(static_array) = %d\n".data, sum_20(static_array));
 }

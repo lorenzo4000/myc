@@ -2,9 +2,6 @@
 @import "lib/memory.myc"
 
 
-
-
-
 //  struct pollfd {
 //      int   fd;         /* file descriptor */
 //      short events;     /* requested events */
@@ -43,8 +40,6 @@ function sleep(:seconds uint32) external;
 //	#define _HAVE_STRUCT_TERMIOS_C_ISPEED 1
 //	#define _HAVE_STRUCT_TERMIOS_C_OSPEED 1
 //	  };
-
-
 struct termios {
 	:c_iflag		uint32;/* input mode flags */
 	:c_oflag		uint32;/* output mode flags */
@@ -59,15 +54,17 @@ struct termios {
 function tcgetattr(:fd int32, :__termios_p *termios) external;
 function tcsetattr(:fd int32, :__optional_actions int32, :__termios_p *termios) external;
 
-function render(:screen [10][30]uint8, :rainbow bool) {
+function render(:screen [][30]uint8, :rainbow bool) {
 	// clear terminal
 	printf("\033[2J".data);
 
 	:color_k uint8 = [uint8]0;
 	:color_v uint8 = [uint8]0;
 
-	for(:i int64 = 0; i < 10; i = i + 1) {
-		for(:j int64 = 0; j < 30; j = j + 1) {
+
+	:screen_size int64 = [int64]screen.len / 30;
+	for(:i int64 = 0; i < screen_size; i = i + 1) {
+		for(:j int64 = 0; j < [int64]screen[i].len; j = j + 1) {
 			if rainbow {
 				if color_k >= [uint8]6 {
 					color_k = [uint8]0;
@@ -245,11 +242,55 @@ function main() {
 			"\\\\\\\\/    v   \\\\ == /||  \\\\\\|\\ ",
 		},
 	};
+	
+	// ** set "raw" mode!
+	:current_termios termios;
+	tcgetattr([int32]0, &current_termios);
+	
+	:new_termios termios = current_termios;
+	:ICANON uint32 = [uint32]2;
+	:ECHO uint32 = [uint32]8;
+	:new_flags uint32 = ICANON | ECHO;
+    new_termios.c_lflag = new_termios.c_lflag & ~new_flags;  
 
+    tcsetattr([int32]0, [int32]0, &new_termios);  // Set new terminal attributes
+
+
+	//
+	// *** "choosing the word" phase ***
+	:word_input [30]uint8; 
+	:word_len int64 = 0;
+	
+	while word_len > 30 || word_len <= 0 {
+		:buf uint64 = [uint64]0;
+
+		word_len = 0;
+		while buf != [uint64]10 { // ENTER for line end!
+			printf("\033[2J".data);
+			printf("Choose a word and type it, then press enter.\nDon't worry, it's not gonna be visible!\nreading %d/%d\n".data, word_len, word_input.len);
+
+			read([int32]0, &buf, [uint64]8);
+
+			// letter input 
+			if buf <= [uint64]122 && buf >= [uint64]97 {
+				word_input[word_len] = [uint8]buf;
+				word_len = word_len + 1;
+			}
+		}
+	}
+
+	// put word in dynamic array. just as a demonstration that this lagnuage is unusable garbage!!
+	:word []uint8 = allocate([uint64]word_len);
+	for(:i int64 = 0; i < word_len; i = i + 1) {
+		word[i] = word_input[i];
+	}
+
+	//
+	// *** "guessing the word" phase ***
 	:screen [10][30]uint8;
 
 	:impiccato_status int64 = 0;
-	:word string = "appiccicoso";
+	//:word string = "appiccicoso";
 
 	if word.len > screen[0].len {
 		printf("error: word is too big for the screen width!\n".data);
@@ -261,17 +302,6 @@ function main() {
 	:tried_letters [8]uint8;
 	:found []bool = allocate(word.len);
 	:found_count int64 = 0;
-
-	:current_termios termios;
-	tcgetattr([int32]0, &current_termios);
-	
-	:new_termios termios = current_termios;
-	:ICANON uint32 = [uint32]2;
-	:ECHO uint32 = [uint32]8;
-	:new_flags uint32 = ICANON | ECHO;
-    new_termios.c_lflag = new_termios.c_lflag & ~new_flags;  
-
-    tcsetattr([int32]0, [int32]0, &new_termios);  // Set new terminal attributes
 
 	// 0: play;
 	// 1: won;
@@ -325,7 +355,7 @@ function main() {
 
 			:current_count int64 = found_count;
 			for(:i int64 = 0; i < [int64]word.len; i = i + 1) { 
-				if c == word[i] && found[i] == false {
+				if c == word[i] && !found[i] {
 					found[i] = true;
 					found_count = found_count + 1;
 				}

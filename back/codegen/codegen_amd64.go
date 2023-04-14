@@ -2278,7 +2278,6 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 
 	var element_type datatype.DataType
 	if datatype_string.IsStaticStringType(array_allocation.Type()) {
-		//array_type := array_allocation.Type().(datatype_string.StaticStringType)
 		element_type = datatype.TYPE_UINT8
 	} else
 	if datatype_array.IsStaticArrayType(array_allocation.Type()) {
@@ -2295,8 +2294,6 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 	
 	res.Code.TextAppendSln(ii("popq",r10))
 
-	println(element_type.Name())
-	println(element_type.ByteSize())
 	if element_type.ByteSize() <= 8 {
 		array_index_reference := Memory_Reference{
 			element_type,
@@ -2361,15 +2358,24 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 func GEN_dynamic_array_index(array_struct Memory_Reference, index Operand, ast *front.Ast_Node) Codegen_Out {
 	res := Codegen_Out{}
 
-	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
-	r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64)
+	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64) // length or size... idk
+	r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64) // data
+
+	start := StackAllocate(r11.Type()).Reference() // data
 
 	// load array.data, array.len => r10, r11
-	load := GEN_loadstruct(array_struct, RegisterPair{array_struct.Type(), r10, r11})
-	
-	res.Code.Appendln(load.Code)
+	res.Code.TextAppendSln(ii("pushq",r10))
+	res.Code.TextAppendSln(ii("pushq",r11))
 
-	// do boundary checking
+	
+	load := GEN_loadstruct(array_struct, RegisterPair{array_struct.Type(), r10, r11})
+	res.Code.Appendln(load.Code)
+	res.Code.Appendln(GEN_move(r11, start).Code)
+
+	res.Code.TextAppendSln(ii("popq",r11))
+	res.Code.TextAppendSln(ii("popq",r10))
+
+	// TODO: do boundary checking
 
 	var element_type datatype.DataType
 	if datatype_struct.IsDynamicArrayType(array_struct.Type()) {
@@ -2383,7 +2389,7 @@ func GEN_dynamic_array_index(array_struct Memory_Reference, index Operand, ast *
 		array_index_reference := Memory_Reference{
 			element_type,
 			0, // Offset int64
-			r11,
+			start,
 			index, //Index Operand
 			Index_Coeff(element_type.ByteSize()),     // IndexCoefficient Index_Coeff
 		}
@@ -2392,12 +2398,43 @@ func GEN_dynamic_array_index(array_struct Memory_Reference, index Operand, ast *
 	} else {
 		// we need to do the multiplication on the CPU
 		element_size := Asm_Int_Literal{datatype.TYPE_UINT64, int64(element_type.ByteSize()), 10}
-		res.Code.Appendln(GEN_binop(front.AST_OP_MUL, index, element_size).Code)
+
+		// TODO: do the thing for every binop, also check if left is left value!
+		left_value  := index
+		right_value := element_size
+		switch left_value.(type) {
+			case Memory_Reference: {
+				// .. we don't wanna do nasty stuff on the long term memory, so : 
+
+				// move it to a new location ~< ~
+				var v Operand
+				reg, full := RegisterScratchAllocate(left_value.Type())
+				if full {
+					v = StackAllocate(left_value.Type()).Reference()
+				} else {
+					v = reg
+				}
+				res.Code.Appendln(GEN_move(left_value, v).Code)
+
+				// do the op  ^< ^  ~< ^
+				op := GEN_binop(front.AST_OP_MUL, v, right_value)
+				res.Code.Appendln(op.Code)
+				res.Code.TextAppendSln("// mul on the CPU up here ^\n")
+
+				index = op.Result
+			}
+			default: {
+				op := GEN_binop(front.AST_OP_MUL, left_value, right_value)
+				res.Code.Appendln(op.Code)
+
+				index = op.Result
+			}
+		}
 		
 		array_index_reference := Memory_Reference{
 			element_type,
 			0, // Offset int64
-			r11,
+			start,
 			index, //Index Operand
 			1,     // IndexCoefficient Index_Coeff
 		}

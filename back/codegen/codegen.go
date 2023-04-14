@@ -477,10 +477,39 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			value := children_out[0].Result
 
-			op := GEN_uniop(ast.Type, value)
+			if typecheck.ExpressionIsLeftValue(ast.Children[0]) {
+				switch value.(type) {
+					case Memory_Reference: {
+						// .. we don't wanna do nasty stuff on the long term memory, so : 
 
-			out.Code.Appendln(op.Code)
-			out.Result = op.Result
+						// move it to a new location ~< ~
+						var v Operand
+						reg, full := RegisterScratchAllocate(value.Type())
+						if full {
+							v = StackAllocate(value.Type()).Reference()
+						} else {
+							v = reg
+						}
+						out.Code.Appendln(GEN_very_generic_move(value, v).Code)
+
+						// do the op  ^< ^  ~< ^
+						op := GEN_uniop(ast.Type, v)
+						out.Code.Appendln(op.Code)
+						out.Result = op.Result
+					}
+					default: {
+						op := GEN_uniop(ast.Type, value)
+
+						out.Code.Appendln(op.Code)
+						out.Result = op.Result
+					}
+				}
+			} else {
+				op := GEN_uniop(ast.Type, value)
+
+				out.Code.Appendln(op.Code)
+				out.Result = op.Result
+			}
 		}
 
 	// ** binary ops
@@ -507,7 +536,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 						} else {
 							v = reg
 						}
-						out.Code.Appendln(GEN_move(left_value, v).Code)
+						out.Code.Appendln(GEN_very_generic_move(left_value, v).Code)
 
 						// do the op  ^< ^  ~< ^
 						op := GEN_binop(ast.Type, v, right_value)
@@ -536,10 +565,30 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left_value := children_out[0].Result
 			right_value := children_out[1].Result
 
-			out.Code.Appendln(children_out[0].Code)
-			out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
+			switch right_value.(type) {
+				case Memory_Reference: {
+					// move it to a new location ~< ~ just because lmaoooo. this is SO BAAADDDD!!!!
+					var v Operand
+					reg, full := RegisterScratchAllocate(right_value.Type())
+					if full {
+						v = StackAllocate(right_value.Type()).Reference()
+					} else {
+						v = reg
+					}
+					out.Code.Appendln(GEN_very_generic_move(right_value, v).Code)
 
-			out.Result = left_value
+					out.Code.Appendln(children_out[0].Code)
+					out.Code.Appendln(GEN_very_generic_move(v, left_value).Code)
+
+					out.Result = left_value
+				}
+				default: {
+					out.Code.Appendln(children_out[0].Code)
+					out.Code.Appendln(GEN_very_generic_move(right_value, left_value).Code)
+
+					out.Result = left_value
+				}
+			}
 		}
 	case front.AST_OP_REFERENCE:
 		{
