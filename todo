@@ -12,8 +12,7 @@
 	.  maybe at this point i should just format strings by myself, instead of letting the assembler do it... i guess
 }
 
-.  parentheses
-.  goto / break
+-> goto / break
 .  switch
 .  Misecellaneus types, operators and other stuff
 .  implicit integer literal casts

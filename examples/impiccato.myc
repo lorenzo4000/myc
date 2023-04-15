@@ -309,7 +309,7 @@ function main() {
 	// 2: quit;
 	:game_status int64 = 0;
 
-	while game_status == 0 {
+	while /*game_status == 0*/ true {
 		// write impiccato
 		for(:i int64 = 0; i < 10; i = i + 1) {
 			:line string = impiccatos[impiccato_status][i];
@@ -344,7 +344,8 @@ function main() {
 
 		// game controls 
 		if buf == [uint64]27 { // ESC
-			game_status = 2; // quit
+			// game_status = 2; // quit
+			jump game_end;
 		}
 
 		:c uint8 = [uint8]buf;
@@ -387,16 +388,20 @@ function main() {
 		// *** update status *** 
 
 		if [uint64]found_count >= word.len {
-			game_status = 1; // win
+			// game_status = 1; // win
+			jump game_win;
 		}
 
 		// break the loop
 		if impiccato_status >= 8 {
-			game_status = -1; // lose
+			// game_status = -1; // lose
+			jump game_lose;
 		}
 	}
 
-	while game_status == 1 {
+	game_win:
+
+	while /*game_status == 1*/ true {
 		:poll_struct pollfd = pollfd{
 			[int32]0,
 			[int16]1,
@@ -423,7 +428,8 @@ function main() {
 					read([int32]0, &c, [uint64]1);
 
 					if c == [uint8]27 { // ESC
-						game_status = 2; // quit
+						// game_status = 2; // quit
+						jump game_end;
 					}
 				} else {
 					printf("read error from stdin!".data);
@@ -433,6 +439,9 @@ function main() {
 		
 	}
 
+	game_lose:
+	
+	game_end:
 
 	tcsetattr([int32]0, [int32]0, &current_termios);  // Restore!
 }

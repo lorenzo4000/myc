@@ -38,6 +38,10 @@ var print_typed_ast bool
 var print_asm bool
 
 func main() {
+	println(front.TOKEN_KEYWORD_FUNCTION)
+	println(front.TOKEN_GOE)
+	println(front.TOKEN_KEYWORD_JUMP)
+
 	// start from 1 to skip self
 	for i := 1; i < len(os.Args); i++ {
 		arg := os.Args[i]

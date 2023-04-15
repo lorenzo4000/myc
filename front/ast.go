@@ -90,6 +90,10 @@ const (
 	AST_FOR_UPDATE = Ast_Type(iota)
 	AST_IF = Ast_Type(iota)
 
+	AST_JUMP = Ast_Type(iota)
+	
+	AST_LABEL = Ast_Type(iota)
+
 	AST_CASTING = Ast_Type(iota)
 
 
@@ -168,6 +172,10 @@ var ast_type_str = [N_AST]string {
 	"AST_FOR_INIT",
 	"AST_FOR_UPDATE",
 	"AST_IF",
+	
+	"AST_JUMP",
+
+	"AST_LABEL",
 
 	"AST_CASTING",
 }

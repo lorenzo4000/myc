@@ -1,2264 +1,3931 @@
-.text
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.global allocate
-allocate:
-pushq %rbp
-
-movq %rsp, %rbp
-
-subq $32, %rsp
-
-
-
-pushq %rbx
-movq $0, %rbx
-
-
-movq %rbx, -8(%rbp, 1)
-
-popq %rbx
-
-
-movq %rdi, -8(%rbp, 1)
-
-
-
-
-
-
-movq -8(%rbp, 1), %rdi
-
-
-
-call malloc
-
-movq %rax, %rbx
-
-
-
-
-
-movq %rbx, -24(%rbp, 1)
-
-
-
-
-
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -8(%rbp, 1), %r12
-
-
-movq %r12, -16(%rbp, 1)
-
-
-
-
-movq -16(%rbp, 1), %rdx
-
-
-movq -24(%rbp, 1), %rax
-
-
-
-jmp ._allocate
-
-
-
-
-
-._allocate:
-movq %rbp, %rsp
-
-popq %rbp
-
-ret
-
-
-
-.global resize
-resize:
-pushq %rbp
-
-movq %rsp, %rbp
-
-subq $32, %rsp
-
-
-
-
-pushq %rbx
-movq $0, %rbx
-
-
-movq %rbx, -24(%rbp, 1)
-
-popq %rbx
-
-
-movq %rsi, -8(%rbp, 1)
-
-
-movq %rdi, -16(%rbp, 1)
-
-
-
-movq %rdx, -24(%rbp, 1)
-
-
-
-
-
-
-movq -16(%rbp, 1), %rdi
-
-
-movq -24(%rbp, 1), %rsi
-
-
-
-call realloc
-
-movq %rax, %rbx
-
-
-
-
-
-movq %rbx, -16(%rbp, 1)
-
-
-
-
-
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -24(%rbp, 1), %r12
-
-
-movq %r12, -8(%rbp, 1)
-
-
-
-
-movq -8(%rbp, 1), %rdx
-
-
-movq -16(%rbp, 1), %rax
-
-
-
-jmp ._resize
-
-
-
-
-
-._resize:
-movq %rbp, %rsp
-
-popq %rbp
-
-ret
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.global sum
-sum:
-pushq %rbp
-
-movq %rsp, %rbp
-
-subq $64, %rsp
-
-
-
-
-movq %rsi, -16(%rbp, 1)
-
-
-movq %rdi, -24(%rbp, 1)
-
-
-
-
-
-movq $0, %rbx
-
-
-
-movq %rbx, -32(%rbp, 1)
-
-
-
-
-
-movq -16(%rbp, 1), %r12
-
-
-movq $-1, %rax
-
-
-andq %rax, %r12
-
-
-movq $8, %r13
-
-
-
-xorq %rdx, %rdx
-
-xorq %rax, %rax
-
-movq %r12, %rax
-
-
-idivq %r13
-
-movq %rax, %r12
-
-
-
-
-movq %r12, -40(%rbp, 1)
-
-
-
-movq $0, %r13
-
-
-
-movq %r13, -48(%rbp, 1)
-
-
-
-
-.L2:
-
-
-movq -48(%rbp, 1), %r14
-
-
-xorb %r15b, %r15b
-
-cmpq -40(%rbp, 1), %r14
-
-setl %r15b
-
-
-
-andb %r15b, %r15b
-
-jz .L3
-
-
-
-
-
-movq -16(%rbp, 1), %r10
-
-
-movq -24(%rbp, 1), %r11
-
-
-
-
-
-movq $.L1, %rdi
-
-
-// using r10
-// i am trying to move the index to r10, am i going to succeed? ...
-pushq %r10
-movq -48(%rbp, 1), %r10
-
-movq 0(%r11, %r10, 8), %rsi
-popq %r10
-
-
-
-call printf
-
-movl %eax, %r14d
-
-
-
-
-
-
-
-movq -16(%rbp, 1), %r10
-
-
-movq -24(%rbp, 1), %r11
-
-
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -32(%rbp, 1), %rbx
-
-
-movq %rbx, -64(%rbp, 1)
-popq %rbx
-
-
-// using r10
-pushq %rbx
-// hello 
-// i am trying to move the index to r10, am i going to succeed? ...
-movq -48(%rbp, 1), %r10
-
-
- // byee 
-// hello 
-
- // byee 
-movq 0(%r11, %r10, 8), %rbx
-
-
-addq %rbx, -64(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -64(%rbp, 1), %rbx
-
-
-movq %rbx, -32(%rbp, 1)
-popq %rbx
-
-
-
-
-
-movq $1, %r14
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -48(%rbp, 1), %rbx
-
-
-movq %rbx, -56(%rbp, 1)
-popq %rbx
-
-
-addq %r14, -56(%rbp, 1)
-
-
-
-
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -56(%rbp, 1), %r14
-
-
-movq %r14, -48(%rbp, 1)
-
-
-
-
-jmp .L2
-
-.L3:
-
-
-
-movq -32(%rbp, 1), %rax
-
-
-jmp ._sum
-
-
-
-
-
-._sum:
-movq %rbp, %rsp
-
-popq %rbp
-
-ret
-
-
-
-.global sum_20
-sum_20:
-pushq %rbp
-
-movq %rsp, %rbp
-
-subq $224, %rsp
-
-
-
-
-pushq %rsi
-
-pushq %rdi
-
-pushq %rcx
-
-leaq 16(%rbp, 1), %rsi
-
-leaq -160(%rbp, 1), %rdi
-
-movq $160, %rcx
-
-
-cld
-
-rep movsb
-
-popq %rcx
-
-popq %rdi
-
-popq %rsi
-
-
-
-
-movq $0, %rbx
-
-
-
-movq %rbx, -168(%rbp, 1)
-
-
-
-movq $20, %r12
-
-
-
-movq %r12, -176(%rbp, 1)
-
-
-
-movq $0, %r13
-
-
-
-movq %r13, -184(%rbp, 1)
-
-
-
-
-.L5:
-
-
-movq -184(%rbp, 1), %r14
-
-
-xorb %r15b, %r15b
-
-cmpq -176(%rbp, 1), %r14
-
-setl %r15b
-
-
-
-andb %r15b, %r15b
-
-jz .L6
-
-
-
-
-
-pushq %r10
-
-leaq -160(%rbp, 1), %r10
-
-movq %r10, -200(%rbp, 1)
-
-
-popq %r10
-
-
-
-movq $.L4, %rdi
-
-
-// using rax
-// the index is very cute! : -184(%rbp, 1)
-// using r10
-pushq %rax
-movq -200(%rbp, 1), %rax
-
-// i am trying to move the index to r10, am i going to succeed? ...
-pushq %r10
-movq -184(%rbp, 1), %r10
-
-movq 0(%rax, %r10, 8), %rsi
-popq %r10
-popq %rax
-
-
-
-call printf
-
-movl %eax, %r14d
-
-
-
-
-
-
-
-pushq %r10
-
-leaq -160(%rbp, 1), %r10
-
-movq %r10, -208(%rbp, 1)
-
-
-popq %r10
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -168(%rbp, 1), %rbx
-
-
-movq %rbx, -216(%rbp, 1)
-popq %rbx
-
-
-// using rax
-// the index is very cute! : -184(%rbp, 1)
-// using r10
-pushq %rbx
-// hello 
-movq -208(%rbp, 1), %rax
-
-// i am trying to move the index to r10, am i going to succeed? ...
-movq -184(%rbp, 1), %r10
-
-
- // byee 
-// hello 
-
- // byee 
-movq 0(%rax, %r10, 8), %rbx
-
-
-addq %rbx, -216(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -216(%rbp, 1), %rbx
-
-
-movq %rbx, -168(%rbp, 1)
-popq %rbx
-
-
-
-
-
-movq $1, %r14
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -184(%rbp, 1), %rbx
-
-
-movq %rbx, -192(%rbp, 1)
-popq %rbx
-
-
-addq %r14, -192(%rbp, 1)
-
-
-
-
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -192(%rbp, 1), %r14
-
-
-movq %r14, -184(%rbp, 1)
-
-
-
-
-jmp .L5
-
-.L6:
-
-
-
-movq -168(%rbp, 1), %rax
-
-
-jmp ._sum_20
-
-
-
-
-
-._sum_20:
-movq %rbp, %rsp
-
-popq %rbp
-
-ret
-
-
-
-
-.global main
-main:
-pushq %rbp
-
-movq %rsp, %rbp
-
-subq $800, %rsp
-
-
-
-
-
-
-movq $10, %rbx
-
-
-
-movq $156, %r12
-
-
-
-movq $10, %r13
-
-
-
-movq $10, %r14
-
-
-
-movq $13455, %r15
-
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -16(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $1234, %rbx
-
-
-movq %rbx, -24(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -32(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -40(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $1240, %rbx
-
-
-movq %rbx, -48(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -56(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -64(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -72(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -80(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -88(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -96(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -104(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -112(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $10, %rbx
-
-
-movq %rbx, -120(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-movq $15, %rbx
-
-
-movq %rbx, -128(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -128(%rbp, 1), %rbx
-
-
-movq %rbx, -136(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -120(%rbp, 1), %rbx
-
-
-movq %rbx, -144(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -112(%rbp, 1), %rbx
-
-
-movq %rbx, -152(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -104(%rbp, 1), %rbx
-
-
-movq %rbx, -160(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -96(%rbp, 1), %rbx
-
-
-movq %rbx, -168(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -88(%rbp, 1), %rbx
-
-
-movq %rbx, -176(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -80(%rbp, 1), %rbx
-
-
-movq %rbx, -184(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -72(%rbp, 1), %rbx
-
-
-movq %rbx, -192(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -64(%rbp, 1), %rbx
-
-
-movq %rbx, -200(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -56(%rbp, 1), %rbx
-
-
-movq %rbx, -208(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -48(%rbp, 1), %rbx
-
-
-movq %rbx, -216(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -40(%rbp, 1), %rbx
-
-
-movq %rbx, -224(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -32(%rbp, 1), %rbx
-
-
-movq %rbx, -232(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -24(%rbp, 1), %rbx
-
-
-movq %rbx, -240(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -16(%rbp, 1), %rbx
-
-
-movq %rbx, -248(%rbp, 1)
-popq %rbx
-
-
-movq %r15, -256(%rbp, 1)
-
-
-movq %r14, -264(%rbp, 1)
-
-
-movq %r13, -272(%rbp, 1)
-
-
-movq %r12, -280(%rbp, 1)
-
-
-movq %rbx, -288(%rbp, 1)
-
-
-
-
-pushq %rsi
-
-pushq %rdi
-
-pushq %rcx
-
-leaq -288(%rbp, 1), %rsi
-
-leaq -448(%rbp, 1), %rdi
-
-movq $160, %rcx
-
-
-cld
-
-rep movsb
-
-popq %rcx
-
-popq %rdi
-
-popq %rsi
-
-
-
-
-pushq %rbx
-movq $0, %rbx
-
-
-movq %rbx, -616(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -616(%rbp, 1), %rbx
-
-
-movq %rbx, -624(%rbp, 1)
-popq %rbx
-
-
-
-
-.L8:
-
-pushq %rbx
-movq $20, %rbx
-
-
-movq %rbx, -632(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -624(%rbp, 1), %rbx
-
-
-movq %rbx, -640(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -641(%rbp, 1), %bl
-
-
-xorb %bl, -641(%rbp, 1)
-popq %rbx
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -632(%rbp, 1), %rbx
-
-
-cmpq %rbx, -640(%rbp, 1)
-popq %rbx
-
-setl -641(%rbp, 1)
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -641(%rbp, 1), %bl
-
-
-andb %bl, -641(%rbp, 1)
-popq %rbx
-
-jz .L9
-
-
-
-
-
-
-pushq %r10
-
-leaq -448(%rbp, 1), %r10
-
-movq %r10, -665(%rbp, 1)
-
-
-popq %r10
-
-
-
-movq $.L7, %rdi
-
-
-movq -624(%rbp, 1), %rsi
-
-
-// using rax
-// the index is very cute! : -624(%rbp, 1)
-// using r10
-pushq %rax
-movq -665(%rbp, 1), %rax
-
-// i am trying to move the index to r10, am i going to succeed? ...
-pushq %r10
-movq -624(%rbp, 1), %r10
-
-movq 0(%rax, %r10, 8), %rdx
-popq %r10
-popq %rax
-
-
-
-call printf
-
-movl %eax, -669(%rbp, 1)
-
-
-
-
-
-
-pushq %rbx
-movq $1, %rbx
-
-
-movq %rbx, -649(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -624(%rbp, 1), %rbx
-
-
-movq %rbx, -657(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -649(%rbp, 1), %rbx
-
-
-addq %rbx, -657(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -657(%rbp, 1), %rbx
-
-
-movq %rbx, -624(%rbp, 1)
-popq %rbx
-
-
-
-
-jmp .L8
-
-.L9:
-
-
-pushq %rbx
-movq $0, %rbx
-
-
-movq %rbx, -677(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -677(%rbp, 1), %rbx
-
-
-movq %rbx, -685(%rbp, 1)
-popq %rbx
-
-
-
-
-.L10:
-
-pushq %rbx
-movq $20, %rbx
-
-
-movq %rbx, -693(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -685(%rbp, 1), %rbx
-
-
-movq %rbx, -701(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -702(%rbp, 1), %bl
-
-
-xorb %bl, -702(%rbp, 1)
-popq %rbx
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -693(%rbp, 1), %rbx
-
-
-cmpq %rbx, -701(%rbp, 1)
-popq %rbx
-
-setl -702(%rbp, 1)
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -702(%rbp, 1), %bl
-
-
-andb %bl, -702(%rbp, 1)
-popq %rbx
-
-jz .L11
-
-
-
-pushq %r10
-
-leaq -448(%rbp, 1), %r10
-
-movq %r10, -734(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-
-pushq %r10
-
-leaq -608(%rbp, 1), %r10
-
-movq %r10, -726(%rbp, 1)
-
-
-popq %r10
-
-
-
-// using rax
-// the index is very cute! : -685(%rbp, 1)
-// using r10
-// using rax
-// the index is very cute! : -685(%rbp, 1)
-// using r10
-pushq %rbx
-// hello 
-movq -734(%rbp, 1), %rax
-
-// i am trying to move the index to r10, am i going to succeed? ...
-movq -685(%rbp, 1), %r10
-
-movq 0(%rax, %r10, 8), %rbx
-
-
- // byee 
-// hello 
-movq -726(%rbp, 1), %rax
-
-// i am trying to move the index to r10, am i going to succeed? ...
-movq -685(%rbp, 1), %r10
-
-
- // byee 
-
-
-movq %rbx, 0(%rax, %r10, 8)
-popq %rbx
-
-
-
-
-
-pushq %rbx
-movq $1, %rbx
-
-
-movq %rbx, -710(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -685(%rbp, 1), %rbx
-
-
-movq %rbx, -718(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -710(%rbp, 1), %rbx
-
-
-addq %rbx, -718(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -718(%rbp, 1), %rbx
-
-
-movq %rbx, -685(%rbp, 1)
-popq %rbx
-
-
-
-
-jmp .L10
-
-.L11:
-
-
-pushq %rbx
-movq $0, %rbx
-
-
-movq %rbx, -742(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -742(%rbp, 1), %rbx
-
-
-movq %rbx, -750(%rbp, 1)
-popq %rbx
-
-
-
-
-.L13:
-
-pushq %rbx
-movq $20, %rbx
-
-
-movq %rbx, -758(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -750(%rbp, 1), %rbx
-
-
-movq %rbx, -766(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -767(%rbp, 1), %bl
-
-
-xorb %bl, -767(%rbp, 1)
-popq %rbx
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -758(%rbp, 1), %rbx
-
-
-cmpq %rbx, -766(%rbp, 1)
-popq %rbx
-
-setl -767(%rbp, 1)
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -767(%rbp, 1), %bl
-
-
-andb %bl, -767(%rbp, 1)
-popq %rbx
-
-jz .L14
-
-
-
-
-
-
-pushq %r10
-
-leaq -608(%rbp, 1), %r10
-
-movq %r10, -791(%rbp, 1)
-
-
-popq %r10
-
-
-
-movq $.L12, %rdi
-
-
-movq -750(%rbp, 1), %rsi
-
-
-// using rax
-// the index is very cute! : -750(%rbp, 1)
-// using r10
-pushq %rax
-movq -791(%rbp, 1), %rax
-
-// i am trying to move the index to r10, am i going to succeed? ...
-pushq %r10
-movq -750(%rbp, 1), %r10
-
-movq 0(%rax, %r10, 8), %rdx
-popq %r10
-popq %rax
-
-
-
-call printf
-
-movl %eax, -795(%rbp, 1)
-
-
-
-
-
-
-pushq %rbx
-movq $1, %rbx
-
-
-movq %rbx, -775(%rbp, 1)
-
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -750(%rbp, 1), %rbx
-
-
-movq %rbx, -783(%rbp, 1)
-popq %rbx
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -775(%rbp, 1), %rbx
-
-
-addq %rbx, -783(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movq -783(%rbp, 1), %rbx
-
-
-movq %rbx, -750(%rbp, 1)
-popq %rbx
-
-
-
-
-jmp .L13
-
-.L14:
-
-
-
-jmp ._main
-
-
-
-
-
-._main:
-movq %rbp, %rsp
-
-popq %rbp
-
-ret
-
-
-
-
-.data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.L1: .string "heeeyy  : %d\n"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.L4: .string "heeeyy  : %d\n"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.L7: .string "STATIC %d : %d\n"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.L12: .string "DYNAMIC asdas %d : %d\n"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+7168
+2424832
+9216
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+	AST_FUNCTION_CALL : [ int_value = 0, string_value = malloc ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+	AST_FUNCTION_CALL : [ int_value = 0, string_value = malloc ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_OP_ASN : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+		AST_FUNCTION_CALL : [ int_value = 0, string_value = malloc ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+	AST_FUNCTION_CALL : [ int_value = 0, string_value = malloc ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_OP_ASN : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+	AST_FUNCTION_CALL : [ int_value = 0, string_value = realloc ]
+		AST_OP_DOT : [ int_value = 0, string_value = data ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+	AST_FUNCTION_CALL : [ int_value = 0, string_value = realloc ]
+		AST_OP_DOT : [ int_value = 0, string_value = data ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = data ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_OP_ASN : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+		AST_FUNCTION_CALL : [ int_value = 0, string_value = realloc ]
+			AST_OP_DOT : [ int_value = 0, string_value = data ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+	AST_FUNCTION_CALL : [ int_value = 0, string_value = realloc ]
+		AST_OP_DOT : [ int_value = 0, string_value = data ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_OP_ASN : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_DIV : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_DIV : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+	AST_OP_DIV : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_LITERAL : [ int_value = 30, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_DIV : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_size ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_size ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_OP_INDEX : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_OP_INDEX : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 6, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 6, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 4, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 4, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_MUL : 
+	AST_LITERAL : [ int_value = 6, string_value =  ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 6, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_MUL : 
+	AST_LITERAL : [ int_value = 6, string_value =  ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 6, string_value =  ]
+opertatoreee!
+AST_OP_MUL : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_OP_MUL : 
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 6, string_value =  ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 6, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_MUL : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+	AST_OP_MUL : 
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 6, string_value =  ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 6, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_OP_MUL : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+		AST_OP_MUL : 
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+				AST_LITERAL : [ int_value = 6, string_value =  ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+				AST_LITERAL : [ int_value = 6, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_OP_MUL : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+		AST_OP_MUL : 
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+				AST_LITERAL : [ int_value = 6, string_value =  ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+				AST_LITERAL : [ int_value = 6, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_LITERAL : [ int_value = 46, string_value =  ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+		AST_OP_MUL : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+			AST_OP_MUL : 
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+					AST_LITERAL : [ int_value = 6, string_value =  ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+					AST_LITERAL : [ int_value = 6, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_LITERAL : [ int_value = 46, string_value =  ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+		AST_OP_MUL : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+			AST_OP_MUL : 
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+					AST_LITERAL : [ int_value = 6, string_value =  ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+					AST_LITERAL : [ int_value = 6, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[1m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[1m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[1m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[1m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = \033[1m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[38:5:%hhdm ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[38:5:%hhdm ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[38:5:%hhdm ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[38:5:%hhdm ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = \033[38:5:%hhdm ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+AST_OP_INDEX : 
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[0m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[0m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[0m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[0m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = \033[0m ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_BORI : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = ICANON ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = ECHO ]
+precedenza fixatissimaaaaa!
+AST_OP_BORI : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = ICANON ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = ECHO ]
+opertatoreee!
+AST_OP_BAND : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+	AST_OP_BNOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+precedenza fixatissimaaaaa!
+AST_OP_BAND : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+	AST_OP_BNOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_OP_BAND : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+		AST_OP_BNOT : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+precedenza fixatissimaaaaa!
+AST_OP_BAND : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+	AST_OP_BNOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+	AST_OP_BAND : 
+		AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+		AST_OP_BNOT : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+	AST_OP_BAND : 
+		AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+		AST_OP_BNOT : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_OP_ASN : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+		AST_OP_BAND : 
+			AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+			AST_OP_BNOT : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+	AST_OP_BAND : 
+		AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+		AST_OP_BNOT : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+opertatoreee!
+AST_OP_LOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_LOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_OR : 
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+	AST_OP_LOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_OR : 
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+	AST_OP_LOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_GRT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_OP_OR : 
+		AST_LITERAL : [ int_value = 30, string_value =  ]
+		AST_OP_LOE : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+			AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_OR : 
+	AST_OP_GRT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+		AST_LITERAL : [ int_value = 30, string_value =  ]
+	AST_OP_LOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_NEQ : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 10, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_NEQ : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 10, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = Choose a word and type it, then press enter.\nDon't worry, it's not gonna be visible!\nreading %d/%d\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = Choose a word and type it, then press enter.\nDon't worry, it's not gonna be visible!\nreading %d/%d\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = Choose a word and type it, then press enter.\nDon't worry, it's not gonna be visible!\nreading %d/%d\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = Choose a word and type it, then press enter.\nDon't worry, it's not gonna be visible!\nreading %d/%d\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = Choose a word and type it, then press enter.\nDon't worry, it's not gonna be visible!\nreading %d/%d\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 97, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 97, string_value =  ]
+opertatoreee!
+AST_OP_AND : 
+	AST_LITERAL : [ int_value = 122, string_value =  ]
+	AST_OP_GOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 97, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_LITERAL : [ int_value = 122, string_value =  ]
+	AST_OP_GOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 97, string_value =  ]
+opertatoreee!
+AST_OP_LOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+	AST_OP_AND : 
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 122, string_value =  ]
+		AST_OP_GOE : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+				AST_LITERAL : [ int_value = 97, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_OP_LOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 122, string_value =  ]
+	AST_OP_GOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 97, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_GRT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_OP_DOT : [ int_value = 0, string_value = len ]
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_LITERAL : [ int_value = 0, string_value =  ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_GRT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_OP_DOT : [ int_value = 0, string_value = len ]
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_LITERAL : [ int_value = 0, string_value =  ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_OP_GRT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_OP_INDEX : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+				AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_GRT : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_OP_DOT : [ int_value = 0, string_value = len ]
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_LITERAL : [ int_value = 0, string_value =  ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = error: word is too big for the screen width!\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = error: word is too big for the screen width!\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = error: word is too big for the screen width!\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = error: word is too big for the screen width!\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = error: word is too big for the screen width!\n ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_DIV : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 2, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_DIV : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 2, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_OP_DIV : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_DIV : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 2, string_value =  ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_SUB : 
+	AST_LITERAL : [ int_value = 2, string_value =  ]
+	AST_OP_DIV : 
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUB : 
+	AST_LITERAL : [ int_value = 2, string_value =  ]
+	AST_OP_DIV : 
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_DIV : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+	AST_OP_SUB : 
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+		AST_OP_DIV : 
+			AST_OP_DOT : [ int_value = 0, string_value = len ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+				AST_LITERAL : [ int_value = 2, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUB : 
+	AST_OP_DIV : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+	AST_OP_DIV : 
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_OP_SUB : 
+		AST_OP_DIV : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+				AST_LITERAL : [ int_value = 2, string_value =  ]
+		AST_OP_DIV : 
+			AST_OP_DOT : [ int_value = 0, string_value = len ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+				AST_LITERAL : [ int_value = 2, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUB : 
+	AST_OP_DIV : 
+		AST_OP_DOT : 
+			AST_OP_INDEX : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+				AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+	AST_OP_DIV : 
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+			AST_LITERAL : [ int_value = 2, string_value =  ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 10, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 10, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+AST_OP_INDEX : 
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_LITERAL : [ int_value = 8, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_LITERAL : [ int_value = 8, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_SUB : 
+	AST_LITERAL : [ int_value = 15, string_value =  ]
+	AST_LITERAL : [ int_value = 4, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUB : 
+	AST_LITERAL : [ int_value = 15, string_value =  ]
+	AST_LITERAL : [ int_value = 4, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUB : 
+		AST_LITERAL : [ int_value = 15, string_value =  ]
+		AST_LITERAL : [ int_value = 4, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUB : 
+		AST_LITERAL : [ int_value = 15, string_value =  ]
+		AST_LITERAL : [ int_value = 4, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_LITERAL : [ int_value = 9, string_value =  ]
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_OP_SUM : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+			AST_OP_SUB : 
+				AST_LITERAL : [ int_value = 15, string_value =  ]
+				AST_LITERAL : [ int_value = 4, string_value =  ]
+AST_OP_INDEX : 
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_LITERAL : [ int_value = 9, string_value =  ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_OP_SUB : 
+			AST_LITERAL : [ int_value = 15, string_value =  ]
+			AST_LITERAL : [ int_value = 4, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_LITERAL : [ int_value = 9, string_value =  ]
+		AST_OP_SUM : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+			AST_OP_SUB : 
+				AST_LITERAL : [ int_value = 15, string_value =  ]
+				AST_LITERAL : [ int_value = 4, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_LITERAL : [ int_value = 9, string_value =  ]
+		AST_OP_SUM : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+			AST_OP_SUB : 
+				AST_LITERAL : [ int_value = 15, string_value =  ]
+				AST_LITERAL : [ int_value = 4, string_value =  ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_x ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_x ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+AST_OP_INDEX : 
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = letter ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = letter ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+AST_OP_INDEX : 
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 35, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 35, string_value =  ]
+opertatoreee!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 27, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_LITERAL : [ int_value = 27, string_value =  ]
+opertatoreee!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 97, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 97, string_value =  ]
+opertatoreee!
+AST_OP_AND : 
+	AST_LITERAL : [ int_value = 122, string_value =  ]
+	AST_OP_GOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 97, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_LITERAL : [ int_value = 122, string_value =  ]
+	AST_OP_GOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 97, string_value =  ]
+opertatoreee!
+AST_OP_LOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_OP_AND : 
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 122, string_value =  ]
+		AST_OP_GOE : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+				AST_LITERAL : [ int_value = 97, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_OP_LOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 122, string_value =  ]
+	AST_OP_GOE : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_LITERAL : [ int_value = 97, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_AND : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_NOT : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_NOT : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_OP_AND : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_OP_NOT : 
+			AST_OP_INDEX : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_OP_EQU : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_NOT : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value = true ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value = true ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = current_count ]
+precedenza fixatissimaaaaa!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = current_count ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_AND : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_OP_AND : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+precedenza fixatissimaaaaa!
+AST_OP_AND : 
+	AST_OP_EQU : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = care ]
+	AST_LITERAL : [ int_value = 0, string_value = false ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = care ]
+	AST_LITERAL : [ int_value = 0, string_value = false ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+		AST_OP_DOT : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+precedenza fixatissimaaaaa!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = care ]
+	AST_LITERAL : [ int_value = 0, string_value = false ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = care ]
+	AST_LITERAL : [ int_value = 0, string_value = false ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_OP_DOT : [ int_value = 0, string_value = len ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+precedenza fixatissimaaaaa!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+	AST_OP_DOT : [ int_value = 0, string_value = len ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+calling fix_fot on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot was called on  AST_OP_DOT : [ int_value = 0, string_value = len ]
+fix_dot_field_name was called on 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = len ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+opertatoreee!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_LITERAL : [ int_value = 8, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_GOE : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+	AST_LITERAL : [ int_value = 8, string_value =  ]
+parsing label!
+[{0 402 3 402 10 0 game_win}]
+{58 402 11 402 11 0 }
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+	AST_LITERAL : [ int_value = 4, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+	AST_LITERAL : [ int_value = 4, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 10, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 10, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+opertatoreee!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_LES : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 30, string_value =  ]
+opertatoreee!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_SUM : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_SUM : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+		AST_LITERAL : [ int_value = 1, string_value =  ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+AST_OP_INDEX : 
+	AST_OP_INDEX : 
+		AST_EXPRESSION : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+AST_OP_INDEX : 
+	AST_EXPRESSION : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+opertatoreee!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+precedenza fixatissimaaaaa!
+AST_OP_ASN : 
+	AST_OP_INDEX : 
+		AST_OP_INDEX : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+	AST_OP_INDEX : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+opertatoreee!
+AST_OP_NEQ : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_NEQ : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_OP_NEQ : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+			AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_NEQ : 
+	AST_OP_DOT : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = revents ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+opertatoreee!
+AST_OP_NEQ : 
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_NEQ : 
+	AST_LITERAL : [ int_value = 1, string_value =  ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_BAND : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+	AST_OP_NEQ : 
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+			AST_LITERAL : [ int_value = 1, string_value =  ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+			AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_NEQ : 
+	AST_OP_BAND : 
+		AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+			AST_LITERAL : [ int_value = 1, string_value =  ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_OP_NEQ : 
+		AST_OP_BAND : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+			AST_CASTING : 
+				AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+				AST_LITERAL : [ int_value = 1, string_value =  ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+			AST_LITERAL : [ int_value = 0, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_NEQ : 
+	AST_OP_BAND : 
+		AST_OP_DOT : 
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+			AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+		AST_CASTING : 
+			AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+			AST_LITERAL : [ int_value = 1, string_value =  ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+		AST_LITERAL : [ int_value = 0, string_value =  ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = revents ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+opertatoreee!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 27, string_value =  ]
+precedenza fixatissimaaaaa!
+AST_OP_EQU : 
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+	AST_CASTING : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+		AST_LITERAL : [ int_value = 27, string_value =  ]
+opertatoreee!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = read error from stdin! ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+precedenza fixatissimaaaaa!
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = read error from stdin! ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+calling fix_fot on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = read error from stdin! ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot was called on  AST_OP_DOT : 
+fix_dot_field_name was called on 
+AST_OP_DOT : 
+	AST_LITERAL : [ int_value = 0, string_value = read error from stdin! ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+type of the cute field:  AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+fix_dot returned 
+AST_OP_DOT : [ int_value = 0, string_value = data ]
+	AST_LITERAL : [ int_value = 0, string_value = read error from stdin! ]
+	AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+parsing label!
+[{0 442 3 442 11 0 game_lose}]
+{58 442 12 442 12 0 }
+parsing label!
+[{0 444 3 444 10 0 game_end}]
+{58 444 11 444 11 0 }
+AST_HEAD : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = getchar ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = gets ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = *int8 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = perror ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = printf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = str ]
+				AST_DATATYPE : [ int_value = 0, string_value = *uint8 ]
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = putchar ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = puts ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = remove ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = rename ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = scanf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = snprintf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = sprintf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = sscanf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = tmpnam ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = *int8 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = vprintf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = vscanf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = vsprintf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = vsnprintf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = vsscanf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = vswscanf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = vwscanf ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = abort ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = abs ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = atexit ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = atoi ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = atol ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = exit ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = free ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = labs ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = mblen ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = mbtowc ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = qsort ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = rand ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = rand_r ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = srand ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = strtoul ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = strtol ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = system ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = wctomb ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = mbstowcs ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = wcstombs ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = putenv ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = *int32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = getenv ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = *int8 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = malloc ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = *? ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = realloc ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = *? ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = calloc ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : [ int_value = 0, string_value = *? ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = allocate ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = bytes ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_DATATYPE : [ int_value = 0, string_value = []? ]
+		AST_BODY | ASTO_BODY_FUNCTION : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = array ]
+				AST_DATATYPE : [ int_value = 0, string_value = []? ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = data ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+				AST_FUNCTION_CALL : [ int_value = 0, string_value = malloc ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = len ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+			AST_RETURN : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = resize ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = array ]
+				AST_DATATYPE : [ int_value = 0, string_value = []? ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = bytes ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_DATATYPE : [ int_value = 0, string_value = []? ]
+		AST_BODY | ASTO_BODY_FUNCTION : 
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = data ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+				AST_FUNCTION_CALL : [ int_value = 0, string_value = realloc ]
+					AST_OP_DOT : [ int_value = 0, string_value = data ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = len ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = bytes ]
+			AST_RETURN : 
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = array ]
+	AST_STRUCT_DEFINITION : 
+		AST_STRUCT_DEFINITION_NAME : [ int_value = 0, string_value = pollfd ]
+		AST_STRUCT_DEFINITION_BODY : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = fd ]
+				AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = events ]
+				AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = revents ]
+				AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = poll ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = fds ]
+				AST_DATATYPE : [ int_value = 0, string_value = *pollfd ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = nfds ]
+				AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = timeout ]
+				AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = read ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = fd ]
+				AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = buf ]
+				AST_DATATYPE : [ int_value = 0, string_value = *? ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = count ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = sleep ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = seconds ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+		AST_DATATYPE : 
+	AST_STRUCT_DEFINITION : 
+		AST_STRUCT_DEFINITION_NAME : [ int_value = 0, string_value = termios ]
+		AST_STRUCT_DEFINITION_BODY : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_iflag ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_oflag ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_cflag ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_lflag ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_line ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_cc ]
+				AST_DATATYPE : [ int_value = 0, string_value = [32]uint8 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_ispeed ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c_ospeed ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = tcgetattr ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = fd ]
+				AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = __termios_p ]
+				AST_DATATYPE : [ int_value = 0, string_value = *termios ]
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION | ASTO_FUNCTION_EXTERNAL : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = tcsetattr ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = fd ]
+				AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = __optional_actions ]
+				AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = __termios_p ]
+				AST_DATATYPE : [ int_value = 0, string_value = *termios ]
+		AST_DATATYPE : 
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = render ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = screen ]
+				AST_DATATYPE : [ int_value = 0, string_value = [][30]uint8 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = rainbow ]
+				AST_DATATYPE : [ int_value = 0, string_value = bool ]
+		AST_DATATYPE : 
+		AST_BODY | ASTO_BODY_FUNCTION : 
+			AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT : [ int_value = 0, string_value = data ]
+					AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = color_k ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+					AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = color_v ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+					AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = screen_size ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+				AST_OP_DIV : 
+					AST_CASTING : 
+						AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+						AST_OP_DOT : [ int_value = 0, string_value = len ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+					AST_LITERAL : [ int_value = 30, string_value =  ]
+			AST_FOR : 
+				AST_FOR_INIT : 
+					AST_VARIABLE_DEFINITION : 
+						AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+						AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+						AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_OP_LES : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_size ]
+				AST_FOR_UPDATE : 
+					AST_OP_ASN : 
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+						AST_OP_SUM : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_LITERAL : [ int_value = 1, string_value =  ]
+				AST_BODY | ASTO_BODY_FOR : 
+					AST_FOR : 
+						AST_FOR_INIT : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = j ]
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+						AST_OP_LES : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_OP_DOT : [ int_value = 0, string_value = len ]
+									AST_OP_INDEX : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+						AST_FOR_UPDATE : 
+							AST_OP_ASN : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+								AST_OP_SUM : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+									AST_LITERAL : [ int_value = 1, string_value =  ]
+						AST_BODY | ASTO_BODY_FOR : 
+							AST_IF : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = rainbow ]
+								AST_BODY | ASTO_BODY_IF : 
+									AST_IF : 
+										AST_OP_GOE : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+												AST_LITERAL : [ int_value = 6, string_value =  ]
+										AST_BODY | ASTO_BODY_IF : 
+											AST_OP_ASN : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+												AST_CASTING : 
+													AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+													AST_LITERAL : [ int_value = 0, string_value =  ]
+											AST_OP_ASN : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+												AST_OP_SUM : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+													AST_CASTING : 
+														AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+														AST_LITERAL : [ int_value = 1, string_value =  ]
+									AST_IF : 
+										AST_OP_GOE : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+												AST_LITERAL : [ int_value = 4, string_value =  ]
+										AST_BODY | ASTO_BODY_IF : 
+											AST_OP_ASN : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+												AST_CASTING : 
+													AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+													AST_LITERAL : [ int_value = 0, string_value =  ]
+									AST_VARIABLE_DEFINITION : 
+										AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = color ]
+										AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+										AST_OP_SUM : 
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+												AST_LITERAL : [ int_value = 46, string_value =  ]
+											AST_OP_SUM : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+												AST_OP_MUL : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = color_v ]
+													AST_OP_MUL : 
+														AST_CASTING : 
+															AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+															AST_LITERAL : [ int_value = 6, string_value =  ]
+														AST_CASTING : 
+															AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+															AST_LITERAL : [ int_value = 6, string_value =  ]
+									AST_OP_ASN : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+										AST_OP_SUM : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = color_k ]
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+												AST_LITERAL : [ int_value = 1, string_value =  ]
+									AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+										AST_OP_DOT : [ int_value = 0, string_value = data ]
+											AST_LITERAL : [ int_value = 0, string_value = \033[1m ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+									AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+										AST_OP_DOT : [ int_value = 0, string_value = data ]
+											AST_LITERAL : [ int_value = 0, string_value = \033[38:5:%hhdm ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = color ]
+							AST_FUNCTION_CALL : [ int_value = 0, string_value = putchar ]
+								AST_OP_INDEX : 
+									AST_OP_INDEX : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+							AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+								AST_OP_DOT : [ int_value = 0, string_value = data ]
+									AST_LITERAL : [ int_value = 0, string_value = \033[0m ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+					AST_FUNCTION_CALL : [ int_value = 0, string_value = putchar ]
+						AST_LITERAL : [ int_value = 10, string_value =  ]
+	AST_FUNCTION_DEFINITION : 
+		AST_FUNCTION_DEFINITION_NAME : [ int_value = 0, string_value = main ]
+		AST_FUNCTION_DEFINITION_ARGS : 
+		AST_DATATYPE : 
+		AST_BODY | ASTO_BODY_FUNCTION : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = impiccatos ]
+				AST_DATATYPE : [ int_value = 0, string_value = [8][10]string ]
+				AST_COMPOSITE_LITERAL : 
+					AST_DATATYPE : [ int_value = 0, string_value = [8][10]string ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =             O        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =            /|\\       |         ]
+						AST_LITERAL : [ int_value = 0, string_value =             X        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =            / \\       |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =             O        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =            /|\\       |         ]
+						AST_LITERAL : [ int_value = 0, string_value =             X        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =              \\       |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =             O        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =            /|\\       |         ]
+						AST_LITERAL : [ int_value = 0, string_value =             X        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =             O        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =            /|\\       |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =             O        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =             |\\       |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =             O        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =             |        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =             O        |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =             ---------|         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                      |         ]
+						AST_LITERAL : [ int_value = 0, string_value =                   ___|___      ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+						AST_LITERAL : [ int_value = 0, string_value =                                ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = win_screen ]
+				AST_DATATYPE : [ int_value = 0, string_value = [4][10]string ]
+				AST_COMPOSITE_LITERAL : 
+					AST_DATATYPE : [ int_value = 0, string_value = [4][10]string ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\  ===/// ==\\||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\ ==/||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\=/|||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\| |||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = -------| \\\\\\ ==/\\\\\\ ===|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value =                            ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\    ^   ==/// == \\|\\ ==| ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\ ==/\\ ==/|||  ==||\\\\ =|     ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\=/  \\=/ |||  ==|| \\\\=| \\/  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\/    v   \\\\ == /|  \\\\| /\\  ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\  ===/// ==\\||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\ ==/||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\=/|||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\| |||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = -------| \\\\\\ ==/\\\\\\ ===|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value =                            ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\    ^   ==/ == \\|\\ ==| ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\ ==/\\ ==/|  ==||\\\\ =|     ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\=/  \\=/ |  ==|| \\\\=| \\/  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\/    v \\\\ == /|  \\\\| /\\  ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\  ===/// ==\\||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\ ==/||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\=/|||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\| |||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = -------| \\\\\\ ==/\\\\\\ ===|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value =                            ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\    ^   ==//// == \\\\ ==| ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\ ==/\\ ==/|||| ===|\\\\ =|     ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\=/  \\=/ |||| ===| \\\\=| \\/  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\/    v   \\\\\\ == /  \\\\| /\\  ]
+					AST_COMPOSITE_LITERAL : 
+						AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\  ===/// ==\\||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\ ==/||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\=/|||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\\\\\\\| |||  ==|||  ==|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = -------| \\\\\\ ==/\\\\\\ ===|   ||  ]
+						AST_LITERAL : [ int_value = 0, string_value =                            ||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\    ^   ==/// == \\||\\\\ ==||  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\ ==/\\ ==/|||  ==|||\\\\\\ =|   ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\=/  \\=/ |||  ==||| \\\\\\=|/  ]
+						AST_LITERAL : [ int_value = 0, string_value = \\\\\\\\/    v   \\\\ == /||  \\\\\\|\\  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = current_termios ]
+				AST_DATATYPE : [ int_value = 0, string_value = termios ]
+			AST_FUNCTION_CALL : [ int_value = 0, string_value = tcgetattr ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+					AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_OP_REFERENCE : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = current_termios ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = new_termios ]
+				AST_DATATYPE : [ int_value = 0, string_value = termios ]
+				AST_VARIABLE_NAME : [ int_value = 0, string_value = current_termios ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = ICANON ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+					AST_LITERAL : [ int_value = 2, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = ECHO ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+					AST_LITERAL : [ int_value = 8, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = new_flags ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint32 ]
+				AST_OP_BORI : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = ICANON ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = ECHO ]
+			AST_OP_ASN : 
+				AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+				AST_OP_BAND : 
+					AST_OP_DOT : [ int_value = 0, string_value = c_lflag ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = c_lflag ]
+					AST_OP_BNOT : 
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = new_flags ]
+			AST_FUNCTION_CALL : [ int_value = 0, string_value = tcsetattr ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+					AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+					AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_OP_REFERENCE : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = new_termios ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = word_input ]
+				AST_DATATYPE : [ int_value = 0, string_value = [30]uint8 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = word_len ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+				AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_WHILE : 
+				AST_OP_OR : 
+					AST_OP_GRT : 
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+						AST_LITERAL : [ int_value = 30, string_value =  ]
+					AST_OP_LOE : 
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+						AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_BODY | ASTO_BODY_WHILE : 
+					AST_VARIABLE_DEFINITION : 
+						AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = buf ]
+						AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+						AST_CASTING : 
+							AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+							AST_LITERAL : [ int_value = 0, string_value =  ]
+					AST_OP_ASN : 
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+						AST_LITERAL : [ int_value = 0, string_value =  ]
+					AST_WHILE : 
+						AST_OP_NEQ : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+								AST_LITERAL : [ int_value = 10, string_value =  ]
+						AST_BODY | ASTO_BODY_WHILE : 
+							AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+								AST_OP_DOT : [ int_value = 0, string_value = data ]
+									AST_LITERAL : [ int_value = 0, string_value = \033[2J ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+							AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+								AST_OP_DOT : [ int_value = 0, string_value = data ]
+									AST_LITERAL : [ int_value = 0, string_value = Choose a word and type it, then press enter.\nDon't worry, it's not gonna be visible!\nreading %d/%d\n ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+								AST_OP_DOT : [ int_value = 0, string_value = len ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+							AST_FUNCTION_CALL : [ int_value = 0, string_value = read ]
+								AST_CASTING : 
+									AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+									AST_LITERAL : [ int_value = 0, string_value =  ]
+								AST_OP_REFERENCE : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+								AST_CASTING : 
+									AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+									AST_LITERAL : [ int_value = 8, string_value =  ]
+							AST_BODY_RESULT : 
+								AST_IF : 
+									AST_OP_AND : 
+										AST_OP_LOE : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+												AST_LITERAL : [ int_value = 122, string_value =  ]
+										AST_OP_GOE : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+												AST_LITERAL : [ int_value = 97, string_value =  ]
+									AST_BODY | ASTO_BODY_IF : 
+										AST_OP_ASN : 
+											AST_OP_INDEX : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+										AST_OP_ASN : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+											AST_OP_SUM : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+												AST_LITERAL : [ int_value = 1, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = word ]
+				AST_DATATYPE : [ int_value = 0, string_value = []uint8 ]
+				AST_FUNCTION_CALL : [ int_value = 0, string_value = allocate ]
+					AST_CASTING : 
+						AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+			AST_FOR : 
+				AST_FOR_INIT : 
+					AST_VARIABLE_DEFINITION : 
+						AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+						AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+						AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_OP_LES : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = word_len ]
+				AST_FOR_UPDATE : 
+					AST_OP_ASN : 
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+						AST_OP_SUM : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_LITERAL : [ int_value = 1, string_value =  ]
+				AST_BODY | ASTO_BODY_FOR : 
+					AST_OP_ASN : 
+						AST_OP_INDEX : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+						AST_OP_INDEX : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = word_input ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = screen ]
+				AST_DATATYPE : [ int_value = 0, string_value = [10][30]uint8 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = impiccato_status ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+				AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_IF : 
+				AST_OP_GRT : 
+					AST_OP_DOT : [ int_value = 0, string_value = len ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+					AST_OP_DOT : [ int_value = 0, string_value = len ]
+						AST_OP_INDEX : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+							AST_LITERAL : [ int_value = 0, string_value =  ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+				AST_BODY | ASTO_BODY_IF : 
+					AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+						AST_OP_DOT : [ int_value = 0, string_value = data ]
+							AST_LITERAL : [ int_value = 0, string_value = error: word is too big for the screen width!\n ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+					AST_RETURN : 
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = word_x ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+				AST_OP_SUB : 
+					AST_OP_DIV : 
+						AST_OP_DOT : [ int_value = 0, string_value = len ]
+							AST_OP_INDEX : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+						AST_CASTING : 
+							AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+							AST_LITERAL : [ int_value = 2, string_value =  ]
+					AST_OP_DIV : 
+						AST_OP_DOT : [ int_value = 0, string_value = len ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+						AST_CASTING : 
+							AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+							AST_LITERAL : [ int_value = 2, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = word_y ]
+				AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+					AST_LITERAL : [ int_value = 8, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = tried_letters ]
+				AST_DATATYPE : [ int_value = 0, string_value = [8]uint8 ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = found ]
+				AST_DATATYPE : [ int_value = 0, string_value = []bool ]
+				AST_FUNCTION_CALL : [ int_value = 0, string_value = allocate ]
+					AST_OP_DOT : [ int_value = 0, string_value = len ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = found_count ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+				AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_VARIABLE_DEFINITION : 
+				AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = game_status ]
+				AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+				AST_LITERAL : [ int_value = 0, string_value =  ]
+			AST_WHILE : 
+				AST_LITERAL : [ int_value = 1, string_value = true ]
+				AST_BODY | ASTO_BODY_WHILE : 
+					AST_FOR : 
+						AST_FOR_INIT : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+						AST_OP_LES : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_LITERAL : [ int_value = 10, string_value =  ]
+						AST_FOR_UPDATE : 
+							AST_OP_ASN : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+								AST_OP_SUM : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_LITERAL : [ int_value = 1, string_value =  ]
+						AST_BODY | ASTO_BODY_FOR : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = line ]
+								AST_DATATYPE : [ int_value = 0, string_value = string ]
+								AST_OP_INDEX : 
+									AST_OP_INDEX : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccatos ]
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_FOR : 
+								AST_FOR_INIT : 
+									AST_VARIABLE_DEFINITION : 
+										AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = j ]
+										AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+										AST_LITERAL : [ int_value = 0, string_value =  ]
+								AST_OP_LES : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+									AST_LITERAL : [ int_value = 30, string_value =  ]
+								AST_FOR_UPDATE : 
+									AST_OP_ASN : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+										AST_OP_SUM : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+											AST_LITERAL : [ int_value = 1, string_value =  ]
+								AST_BODY | ASTO_BODY_FOR : 
+									AST_OP_ASN : 
+										AST_OP_INDEX : 
+											AST_OP_INDEX : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+										AST_OP_INDEX : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+					AST_FOR : 
+						AST_FOR_INIT : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+						AST_OP_LES : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_LITERAL : [ int_value = 8, string_value =  ]
+						AST_FOR_UPDATE : 
+							AST_OP_ASN : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+								AST_OP_SUM : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_LITERAL : [ int_value = 1, string_value =  ]
+						AST_BODY | ASTO_BODY_FOR : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c ]
+								AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+								AST_OP_INDEX : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_OP_ASN : 
+								AST_OP_INDEX : 
+									AST_OP_INDEX : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+										AST_LITERAL : [ int_value = 9, string_value =  ]
+									AST_OP_SUM : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+										AST_OP_SUB : 
+											AST_LITERAL : [ int_value = 15, string_value =  ]
+											AST_LITERAL : [ int_value = 4, string_value =  ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+					AST_FOR : 
+						AST_FOR_INIT : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+						AST_OP_LES : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_OP_DOT : [ int_value = 0, string_value = len ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+						AST_FOR_UPDATE : 
+							AST_OP_ASN : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+								AST_OP_SUM : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_LITERAL : [ int_value = 1, string_value =  ]
+						AST_BODY | ASTO_BODY_FOR : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = letter ]
+								AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+								AST_OP_INDEX : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = screen_x ]
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_OP_SUM : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_CASTING : 
+										AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = word_x ]
+							AST_BODY_RESULT : 
+								AST_IF : 
+									AST_OP_INDEX : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_BODY | ASTO_BODY_IF : 
+										AST_OP_ASN : 
+											AST_OP_INDEX : 
+												AST_OP_INDEX : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = letter ]
+									AST_BODY | ASTO_BODY_ELSE : 
+										AST_OP_ASN : 
+											AST_OP_INDEX : 
+												AST_OP_INDEX : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = word_y ]
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = screen_x ]
+											AST_CASTING : 
+												AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+												AST_LITERAL : [ int_value = 35, string_value =  ]
+					AST_FUNCTION_CALL : [ int_value = 0, string_value = render ]
+						AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+						AST_LITERAL : [ int_value = 0, string_value = false ]
+					AST_VARIABLE_DEFINITION : 
+						AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = buf ]
+						AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+					AST_FUNCTION_CALL : [ int_value = 0, string_value = read ]
+						AST_CASTING : 
+							AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+							AST_LITERAL : [ int_value = 0, string_value =  ]
+						AST_OP_REFERENCE : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+						AST_CASTING : 
+							AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+							AST_LITERAL : [ int_value = 8, string_value =  ]
+					AST_IF : 
+						AST_OP_EQU : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+								AST_LITERAL : [ int_value = 27, string_value =  ]
+						AST_BODY | ASTO_BODY_IF : 
+							AST_JUMP : [ int_value = 0, string_value = game_end ]
+					AST_VARIABLE_DEFINITION : 
+						AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c ]
+						AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+						AST_CASTING : 
+							AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = buf ]
+					AST_IF : 
+						AST_OP_AND : 
+							AST_OP_LOE : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+								AST_CASTING : 
+									AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+									AST_LITERAL : [ int_value = 122, string_value =  ]
+							AST_OP_GOE : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+								AST_CASTING : 
+									AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+									AST_LITERAL : [ int_value = 97, string_value =  ]
+						AST_BODY | ASTO_BODY_IF : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = current_count ]
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+							AST_FOR : 
+								AST_FOR_INIT : 
+									AST_VARIABLE_DEFINITION : 
+										AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+										AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+										AST_LITERAL : [ int_value = 0, string_value =  ]
+								AST_OP_LES : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_CASTING : 
+										AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+										AST_OP_DOT : [ int_value = 0, string_value = len ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+								AST_FOR_UPDATE : 
+									AST_OP_ASN : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+										AST_OP_SUM : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+											AST_LITERAL : [ int_value = 1, string_value =  ]
+								AST_BODY | ASTO_BODY_FOR : 
+									AST_BODY_RESULT : 
+										AST_IF : 
+											AST_OP_AND : 
+												AST_OP_EQU : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+													AST_OP_INDEX : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+												AST_OP_NOT : 
+													AST_OP_INDEX : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+											AST_BODY | ASTO_BODY_IF : 
+												AST_OP_ASN : 
+													AST_OP_INDEX : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+													AST_LITERAL : [ int_value = 1, string_value = true ]
+												AST_OP_ASN : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+													AST_OP_SUM : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+														AST_LITERAL : [ int_value = 1, string_value =  ]
+							AST_BODY_RESULT : 
+								AST_IF : 
+									AST_OP_EQU : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = current_count ]
+									AST_BODY | ASTO_BODY_IF : 
+										AST_VARIABLE_DEFINITION : 
+											AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = care ]
+											AST_DATATYPE : [ int_value = 0, string_value = bool ]
+											AST_LITERAL : [ int_value = 1, string_value = true ]
+										AST_FOR : 
+											AST_FOR_INIT : 
+												AST_VARIABLE_DEFINITION : 
+													AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+													AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+													AST_LITERAL : [ int_value = 0, string_value =  ]
+											AST_OP_LES : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+												AST_CASTING : 
+													AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+													AST_OP_DOT : [ int_value = 0, string_value = len ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+											AST_FOR_UPDATE : 
+												AST_OP_ASN : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+													AST_OP_SUM : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+														AST_LITERAL : [ int_value = 1, string_value =  ]
+											AST_BODY | ASTO_BODY_FOR : 
+												AST_BODY_RESULT : 
+													AST_IF : 
+														AST_OP_AND : 
+															AST_OP_EQU : 
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+																AST_OP_INDEX : 
+																	AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+																	AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+															AST_OP_INDEX : 
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = found ]
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+														AST_BODY | ASTO_BODY_IF : 
+															AST_OP_ASN : 
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = care ]
+																AST_LITERAL : [ int_value = 0, string_value = false ]
+										AST_FOR : 
+											AST_FOR_INIT : 
+												AST_VARIABLE_DEFINITION : 
+													AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+													AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+													AST_LITERAL : [ int_value = 0, string_value =  ]
+											AST_OP_LES : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+												AST_CASTING : 
+													AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+													AST_OP_DOT : [ int_value = 0, string_value = len ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+											AST_FOR_UPDATE : 
+												AST_OP_ASN : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+													AST_OP_SUM : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+														AST_LITERAL : [ int_value = 1, string_value =  ]
+											AST_BODY | ASTO_BODY_FOR : 
+												AST_BODY_RESULT : 
+													AST_IF : 
+														AST_OP_EQU : 
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+															AST_OP_INDEX : 
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+														AST_BODY | ASTO_BODY_IF : 
+															AST_OP_ASN : 
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = care ]
+																AST_LITERAL : [ int_value = 0, string_value = false ]
+										AST_BODY_RESULT : 
+											AST_IF : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = care ]
+												AST_BODY | ASTO_BODY_IF : 
+													AST_OP_ASN : 
+														AST_OP_INDEX : 
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = tried_letters ]
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+													AST_OP_ASN : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+														AST_OP_SUM : 
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+															AST_LITERAL : [ int_value = 1, string_value =  ]
+					AST_IF : 
+						AST_OP_GOE : 
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = found_count ]
+							AST_OP_DOT : [ int_value = 0, string_value = len ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = word ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = len ]
+						AST_BODY | ASTO_BODY_IF : 
+							AST_JUMP : [ int_value = 0, string_value = game_win ]
+					AST_BODY_RESULT : 
+						AST_IF : 
+							AST_OP_GOE : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = impiccato_status ]
+								AST_LITERAL : [ int_value = 8, string_value =  ]
+							AST_BODY | ASTO_BODY_IF : 
+								AST_JUMP : [ int_value = 0, string_value = game_lose ]
+			AST_LABEL : [ int_value = 0, string_value = game_win ]
+			AST_WHILE : 
+				AST_LITERAL : [ int_value = 1, string_value = true ]
+				AST_BODY | ASTO_BODY_WHILE : 
+					AST_VARIABLE_DEFINITION : 
+						AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = poll_struct ]
+						AST_DATATYPE : [ int_value = 0, string_value = pollfd ]
+						AST_COMPOSITE_LITERAL : 
+							AST_DATATYPE : [ int_value = 0, string_value = pollfd ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+								AST_LITERAL : [ int_value = 1, string_value =  ]
+							AST_CASTING : 
+								AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+					AST_FOR : 
+						AST_FOR_INIT : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = f ]
+								AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+								AST_LITERAL : [ int_value = 0, string_value =  ]
+						AST_OP_LES : 
+							AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+							AST_LITERAL : [ int_value = 4, string_value =  ]
+						AST_FOR_UPDATE : 
+							AST_OP_ASN : 
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+								AST_OP_SUM : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+									AST_LITERAL : [ int_value = 1, string_value =  ]
+						AST_BODY | ASTO_BODY_FOR : 
+							AST_VARIABLE_DEFINITION : 
+								AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = win_frame ]
+								AST_DATATYPE : [ int_value = 0, string_value = [10]string ]
+								AST_OP_INDEX : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = win_screen ]
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = f ]
+							AST_FOR : 
+								AST_FOR_INIT : 
+									AST_VARIABLE_DEFINITION : 
+										AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = i ]
+										AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+										AST_LITERAL : [ int_value = 0, string_value =  ]
+								AST_OP_LES : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_LITERAL : [ int_value = 10, string_value =  ]
+								AST_FOR_UPDATE : 
+									AST_OP_ASN : 
+										AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+										AST_OP_SUM : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+											AST_LITERAL : [ int_value = 1, string_value =  ]
+								AST_BODY | ASTO_BODY_FOR : 
+									AST_VARIABLE_DEFINITION : 
+										AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = line ]
+										AST_DATATYPE : [ int_value = 0, string_value = string ]
+										AST_OP_INDEX : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = win_frame ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+									AST_FOR : 
+										AST_FOR_INIT : 
+											AST_VARIABLE_DEFINITION : 
+												AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = j ]
+												AST_DATATYPE : [ int_value = 0, string_value = int64 ]
+												AST_LITERAL : [ int_value = 0, string_value =  ]
+										AST_OP_LES : 
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+											AST_LITERAL : [ int_value = 30, string_value =  ]
+										AST_FOR_UPDATE : 
+											AST_OP_ASN : 
+												AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+												AST_OP_SUM : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+													AST_LITERAL : [ int_value = 1, string_value =  ]
+										AST_BODY | ASTO_BODY_FOR : 
+											AST_OP_ASN : 
+												AST_OP_INDEX : 
+													AST_OP_INDEX : 
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+														AST_VARIABLE_NAME : [ int_value = 0, string_value = i ]
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+												AST_OP_INDEX : 
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = line ]
+													AST_VARIABLE_NAME : [ int_value = 0, string_value = j ]
+							AST_FUNCTION_CALL : [ int_value = 0, string_value = render ]
+								AST_VARIABLE_NAME : [ int_value = 0, string_value = screen ]
+								AST_LITERAL : [ int_value = 1, string_value = true ]
+							AST_FUNCTION_CALL : [ int_value = 0, string_value = poll ]
+								AST_OP_REFERENCE : 
+									AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+								AST_CASTING : 
+									AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+									AST_LITERAL : [ int_value = 1, string_value =  ]
+								AST_CASTING : 
+									AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+									AST_LITERAL : [ int_value = 1000, string_value =  ]
+							AST_BODY_RESULT : 
+								AST_IF : 
+									AST_OP_NEQ : 
+										AST_OP_DOT : [ int_value = 0, string_value = revents ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+											AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+										AST_CASTING : 
+											AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+											AST_LITERAL : [ int_value = 0, string_value =  ]
+									AST_BODY | ASTO_BODY_IF : 
+										AST_BODY_RESULT : 
+											AST_IF : 
+												AST_OP_NEQ : 
+													AST_OP_BAND : 
+														AST_OP_DOT : [ int_value = 0, string_value = revents ]
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = poll_struct ]
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = revents ]
+														AST_CASTING : 
+															AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+															AST_LITERAL : [ int_value = 1, string_value =  ]
+													AST_CASTING : 
+														AST_DATATYPE : [ int_value = 0, string_value = int16 ]
+														AST_LITERAL : [ int_value = 0, string_value =  ]
+												AST_BODY | ASTO_BODY_IF : 
+													AST_VARIABLE_DEFINITION : 
+														AST_VARIABLE_DEFINITION_NAME : [ int_value = 0, string_value = c ]
+														AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+													AST_FUNCTION_CALL : [ int_value = 0, string_value = read ]
+														AST_CASTING : 
+															AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+															AST_LITERAL : [ int_value = 0, string_value =  ]
+														AST_OP_REFERENCE : 
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+														AST_CASTING : 
+															AST_DATATYPE : [ int_value = 0, string_value = uint64 ]
+															AST_LITERAL : [ int_value = 1, string_value =  ]
+													AST_BODY_RESULT : 
+														AST_IF : 
+															AST_OP_EQU : 
+																AST_VARIABLE_NAME : [ int_value = 0, string_value = c ]
+																AST_CASTING : 
+																	AST_DATATYPE : [ int_value = 0, string_value = uint8 ]
+																	AST_LITERAL : [ int_value = 27, string_value =  ]
+															AST_BODY | ASTO_BODY_IF : 
+																AST_JUMP : [ int_value = 0, string_value = game_end ]
+												AST_BODY | ASTO_BODY_ELSE : 
+													AST_FUNCTION_CALL : [ int_value = 0, string_value = printf ]
+														AST_OP_DOT : [ int_value = 0, string_value = data ]
+															AST_LITERAL : [ int_value = 0, string_value = read error from stdin! ]
+															AST_VARIABLE_NAME : [ int_value = 0, string_value = data ]
+			AST_LABEL : [ int_value = 0, string_value = game_lose ]
+			AST_LABEL : [ int_value = 0, string_value = game_end ]
+			AST_FUNCTION_CALL : [ int_value = 0, string_value = tcsetattr ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+					AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_CASTING : 
+					AST_DATATYPE : [ int_value = 0, string_value = int32 ]
+					AST_LITERAL : [ int_value = 0, string_value =  ]
+				AST_OP_REFERENCE : 
+					AST_VARIABLE_NAME : [ int_value = 0, string_value = current_termios ]

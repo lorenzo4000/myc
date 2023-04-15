@@ -16,7 +16,7 @@ import (
 */
 
 const (
-	directive_IMPORT = N_TOKENS
+	directive_IMPORT = iota << 24
 )
 
 // TRIGGER WARNING: this function is ENTIRELY COPY-PASTED!

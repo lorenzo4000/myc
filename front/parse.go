@@ -33,7 +33,7 @@ func (parser *Parser) Current() (Token, bool) {
 	return parser.Tokens[parser.Index], false
 }
 
-func (parser *Parser) CurrentIs(_type byte) (bool) {
+func (parser *Parser) CurrentIs(_type uint32) (bool) {
 	next, end := parser.Current()
 	return !end && next.Type == _type
 }
@@ -55,7 +55,7 @@ func (parser *Parser) Pop() (Token, bool) {
 	return parser.Tokens[parser.Index-1], false
 }
 
-func (parser *Parser) PopIf(expected_type byte) (Token, bool) {
+func (parser *Parser) PopIf(expected_type uint32) (Token, bool) {
 	if !parser.CurrentIs(expected_type) {
 		// return current without popping
 		current, _ := parser.Current()
@@ -191,6 +191,35 @@ func (parser *Parser) ParseCompositeLiteral() (*Ast_Node) {
 	}
 
 	return composite_literal
+}
+
+func (parser *Parser) ParseLabel() (*Ast_Node) {
+	println("parsing label!")
+
+	label := new(Ast_Node)
+	label.Type = AST_LABEL
+
+	{
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
+		if expect {
+			parseExpectErrorAt(next, "label name")
+		}
+
+		label.Data = []Token{next}
+	}
+
+	fmt.Println(label.Data)
+	
+	{
+		next, expect := parser.PopIf(TOKEN_COLON)
+		if expect {
+			parseExpectErrorAt(next, "`:`")
+		}
+
+		fmt.Println(next)
+	}
+	
+	return label
 }
 
 func (parser *Parser) ParseSubExpression() (*Ast_Node) {
@@ -1180,6 +1209,31 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 	return ast_if
 }
 
+func (parser *Parser) ParseJump() (*Ast_Node) {
+	jump := new(Ast_Node)
+	jump.Type = AST_JUMP
+
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_JUMP)
+		if expect {
+			parseExpectErrorAt(next, "`jump`")
+			return nil
+		}
+	}
+
+	{
+		next, expect := parser.PopIf(TOKEN_IDENTIFIER)
+		if expect {
+			parseExpectErrorAt(next, "name of jump label")
+			return nil
+		}
+
+		jump.Data = []Token{next}
+	}
+
+	return jump
+}
+
 func (parser *Parser) ParseBody() (*Ast_Node) {
 	body := new(Ast_Node)
 	body.Type = AST_BODY
@@ -1219,6 +1273,16 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 					body.AddChild(ret)
 				}
 			}
+			case TOKEN_KEYWORD_JUMP: {
+				body.AddChild(parser.ParseJump())
+			}
+			case TOKEN_IDENTIFIER:
+				next, _ := parser.Peek(1)
+				if next.Type == TOKEN_COLON {
+					body.AddChild(parser.ParseLabel())
+					break
+				}
+				fallthrough
 			default: {
 				exp := parser.ParseExpression()
 				if exp != nil {
@@ -1234,6 +1298,7 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 						prev, _ := parser.Peek(-1)
 						if prev.Type != TOKEN_CLOSING_BRACE {
 							cur, end := parser.Current()
+							fmt.Println(cur)
 							if !end {
 								parseExpectErrorAt(cur, "`;` or `}`")
 								parser.Pop()

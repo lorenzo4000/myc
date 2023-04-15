@@ -922,6 +922,19 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			out.Code.Appendln(array_index.Code)
 			out.Result = array_index.Result
 		}
+	case front.AST_LABEL:
+		{
+			label_name := ast.Data[0].String_value
+			out.Code.TextAppendSln(label_name + ":")
+		}
+	case front.AST_JUMP:
+		{
+			label_name := ast.Data[0].String_value
+			label := LabelGet(label_name)
+
+			out.Code.Appendln(GEN_jump(label).Code)
+		}
+		
 	}
 	return out
 }

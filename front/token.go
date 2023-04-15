@@ -6,24 +6,13 @@ import (
 	"errors"
 )
 
+// (0x04, 0xFF) = cahracter_token; 0xFF00 = keyword_token; 0xFF0000 = multicharacter_token
 const (
-	TOKEN_IDENTIFIER           = iota
-	TOKEN_STRING_LITERAL	  = iota
-	TOKEN_INT_LITERAL	  	  = iota
-	TOKEN_BOOL_LITERAL	  	  = iota
-
-	TOKEN_DIRECTIVE    		  = iota // used by pre-processor, ignored by the parser
-	
-	// keywords
-	TOKEN_KEYWORD_FUNCTION    = iota
-	TOKEN_KEYWORD_STRUCT    = iota
-
-	TOKEN_KEYWORD_RETURN    = iota
-	TOKEN_KEYWORD_WHILE    = iota
-	TOKEN_KEYWORD_FOR    = iota
-	TOKEN_KEYWORD_IF    = iota
-	TOKEN_KEYWORD_ELSE    = iota
-	TOKEN_KEYWORD_EXTERNAL  = iota
+	TOKEN_IDENTIFIER        = 0
+	TOKEN_STRING_LITERAL	= 1 
+	TOKEN_INT_LITERAL	  	= 2 
+	TOKEN_BOOL_LITERAL	  	= 3
+	TOKEN_DIRECTIVE    		= 4 		// used by pre-processor, ignored by the parser
 
 	// characters
 	TOKEN_OPENING_PARENTHESES = '(' 
@@ -45,27 +34,40 @@ const (
 
 	TOKEN_GRT 				  = '>'
 	TOKEN_LES				  = '<'
-	TOKEN_GOE				  = iota
-	TOKEN_LOE				  = iota
-
-	TOKEN_EQU				  = iota
-	TOKEN_NEQ				  = iota
-	
 	TOKEN_NOT				  = '!'
-	TOKEN_AND				  = iota
-	TOKEN_OR				  = iota
-
 	TOKEN_BAND				  = '&'
     TOKEN_BORI				  = '|'
     TOKEN_BORE				  = '^'
     TOKEN_BNOT			      = '~'
 
 	TOKEN_DOT				  = '.'
+	
+	// keywords
+	TOKEN_KEYWORD_FUNCTION  = iota << 8
+	TOKEN_KEYWORD_STRUCT    
+	TOKEN_KEYWORD_RETURN   	
+	TOKEN_KEYWORD_WHILE    	
+	TOKEN_KEYWORD_FOR    	
+	TOKEN_KEYWORD_IF    	
+	TOKEN_KEYWORD_ELSE    	
+	TOKEN_KEYWORD_EXTERNAL  
+	TOKEN_KEYWORD_JUMP 
+	
+	// multi-characters
+	TOKEN_GOE				  = iota << 16
+	TOKEN_LOE				  
 
-	N_TOKENS 				  = iota 
+	TOKEN_EQU				  
+	TOKEN_NEQ				  
+	
+	TOKEN_AND				  
+	TOKEN_OR				  
+
+
+	//N_TOKENS 				  = iota 
 )
 
-var keywordTokenMap = map[string]byte {
+var keywordTokenMap = map[string]uint32 {
 	"function": TOKEN_KEYWORD_FUNCTION,
 	"struct": TOKEN_KEYWORD_STRUCT,
 	"return": TOKEN_KEYWORD_RETURN,
@@ -74,9 +76,12 @@ var keywordTokenMap = map[string]byte {
 	"if": TOKEN_KEYWORD_IF,
 	"else": TOKEN_KEYWORD_ELSE,
 	"external": TOKEN_KEYWORD_EXTERNAL,
+	
+	"jump": TOKEN_KEYWORD_JUMP,
 }
 
-var characterTokenMap = map[byte]byte {
+
+var characterTokenMap = map[byte]uint32 {
 	'(':		TOKEN_OPENING_PARENTHESES,
 	')':		TOKEN_CLOSING_PARENTHESES,
 	'{':		TOKEN_OPENING_BRACE,
@@ -104,7 +109,7 @@ var characterTokenMap = map[byte]byte {
 	'.':		TOKEN_DOT,
 }
 
-var multiCharacterTokenMap = map[string]byte {
+var multiCharacterTokenMap = map[string]uint32 {
 	">=":       TOKEN_GOE,
 	"<=":       TOKEN_LOE,
 	"==":       TOKEN_EQU,
@@ -114,7 +119,7 @@ var multiCharacterTokenMap = map[string]byte {
 }
 
 type Token struct {
-	Type byte
+	Type uint32
 
 	L0 int32
 	C0 int32
