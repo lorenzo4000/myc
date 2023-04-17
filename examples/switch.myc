@@ -1,0 +1,33 @@
+@import "lib/c/stdio.myc"
+
+function foo() int64{
+	if true {
+		return 56;
+	} else {
+		return 32;
+	};
+}
+
+function main()  {
+	:c int64 = 69;
+
+	:r int32 = switch c {
+		case 10: { 
+			return;
+		}
+		case 69: {
+			[int32]560
+		}
+		case 34: {
+			[int32]23
+		}
+		case 12: {
+			[int32]23
+		}
+		case 1: {
+			[int32]23
+		}
+	};
+
+	printf("%d\n".data, r);
+}

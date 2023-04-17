@@ -332,6 +332,8 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 				//}
 			case TOKEN_KEYWORD_IF:
 				return parser.ParseIf()
+			case TOKEN_KEYWORD_SWITCH:
+				return parser.ParseSwitch()
 			case TOKEN_SUB:
 				parser.Pop()
 				
@@ -1092,6 +1094,155 @@ func (parser *Parser) ParseFor() (*Ast_Node) {
 	}
 
 	return _for
+}
+func (parser *Parser) ParseCase() (*Ast_Node) {
+	_case := new(Ast_Node)
+	_case.Type = AST_CASE
+
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_CASE)
+		if expect {
+			parseExpectErrorAt(next, "`case`")
+			return nil
+		}
+	}
+
+	{
+		case_exp := parser.ParseExpression()
+		if case_exp == nil {
+			return nil
+		}
+
+		_case.AddChild(case_exp)
+	}
+
+	{
+		next, expect := parser.PopIf(':')
+		if expect {
+			parseExpectErrorAt(next, "`:`")
+			return nil
+		}
+	}
+
+	{
+		next, expect := parser.PopIf('{')
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+
+	{
+		_case_body := parser.ParseBody()
+		if _case_body == nil {
+			return nil
+		}
+
+		_case_body.Flags |= ASTO_BODY_CASE
+		_case.AddChild(_case_body)
+	}
+
+	{
+		next, expect := parser.PopIf('}')
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
+
+	return _case
+}
+
+func (parser *Parser) ParseSwitch() (*Ast_Node) {
+	_switch := new(Ast_Node)
+	_switch.Type = AST_SWITCH
+
+
+	{
+		next, expect := parser.PopIf(TOKEN_KEYWORD_SWITCH)
+		if expect {
+			parseExpectErrorAt(next, "`switch`")
+			return nil
+		}
+	}
+
+	// ** put implicit parentheses around expression
+	current, _ := parser.Current()
+	parser.Place(Token{
+		'(',
+		current.L0,
+		current.C0 + 1,
+		current.L1,
+		current.C1 + 1,
+		0,
+		"",
+	})
+
+	// search first '{'
+	first_brace := 0
+	for {
+		current, end := parser.Peek(int64(first_brace))
+		if end {
+			parseExpectErrorAt(current, "`{`")
+			return nil
+		}
+
+		if current.Type == '{' {
+			break
+		}
+
+		first_brace++
+	}
+	
+	parser.PlaceAt(parser.Index + int64(first_brace), Token{
+		')',
+		current.L0,
+		current.C0 + 1,
+		current.L1,
+		current.C1 + 1 ,
+		0,
+		"",
+	})
+
+	{
+		switch_exp := parser.ParseExpression()
+		if switch_exp == nil {
+			return nil
+		}
+
+		_switch.AddChild(switch_exp)
+	}
+
+	{
+		next, expect := parser.PopIf('{')
+		if expect {
+			parseExpectErrorAt(next, "`{`")
+			return nil
+		}
+	}
+
+	{
+		for !parser.CurrentIs('}') {
+			_case := parser.ParseCase()
+			if _case == nil {
+				return nil
+			}
+
+			_switch.AddChild(_case)
+		}
+
+	}
+
+	{
+		next, expect := parser.PopIf('}')
+		if expect {
+			parseExpectErrorAt(next, "`}`")
+			return nil
+		}
+	}
+
+
+	return _switch
 }
 
 func (parser *Parser) ParseIf() (*Ast_Node) {

@@ -467,6 +467,37 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			out.Result = _if.Result
 		}
+	case front.AST_SWITCH:
+		{
+			switch_exp := children_out[0]
+
+			cases := ast.Children[1:]
+			cases_exp    := make([]Codegen_Out, len(cases))
+			cases_bodies := make([]Codegen_Out, len(cases))
+			for i, _case := range cases {
+				_case_body := Codegen(_case.Children[1])
+				cases_bodies[i] = _case_body
+				
+				_case_exp  := Codegen(_case.Children[0])
+				if _case_exp.Result == nil {
+					return Codegen_Out{}
+				}
+				cases_exp[i] = _case_exp
+			}
+			_switch := GEN_switch(switch_exp, cases_exp, cases_bodies, ast.DataType)
+			out.Result = _switch.Result
+			out.Code.Appendln(_switch.Code)
+		}
+	case front.AST_CASE:
+		{
+			// we format this above
+			/*
+			out.Code.Appendln(children_out[0].Code)
+			out.Code.Appendln(GEN_binop(front.AST_OP_EQU, Label{ast.Children[0].DataType, "%s"}, children_out[0].Result).Code)
+			out.Code.Appendln(children_out[1].Code)
+			out.Result = children_out[1].Result
+			*/
+		}
 
 	// ** unary ops
 	case front.AST_OP_NOT, front.AST_OP_NEG, front.AST_OP_BNOT:
@@ -934,7 +965,6 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			out.Code.Appendln(GEN_jump(label).Code)
 		}
-		
 	}
 	return out
 }

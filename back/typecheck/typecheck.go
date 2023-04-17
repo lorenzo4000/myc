@@ -434,6 +434,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		case front.AST_RETURN: {
 			if len(ast.Children) <= 0 {
+				ast.Flags |= front.ASTO_ALWAYS_RETURNS
+				current_body_ast.Flags |= front.ASTO_ALWAYS_RETURNS
 				ast.DataType = datatype.TYPE_NONE
 			} else {
 				return_type := ast.Children[0].DataType
@@ -661,6 +663,45 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			} else {
 				ast.DataType = datatype.TYPE_NONE
 			}
+		}
+		case front.AST_SWITCH: {
+			switch_exp := ast.Children[0]
+
+			ast.Flags |= front.ASTO_ALWAYS_RETURNS
+
+			// iterate over cases
+			for i := 1; i < len(ast.Children); i++ {
+				// ** switch/case type-checking
+				switch_case := ast.Children[i]
+				switch_case_exp := switch_case.Children[0]
+
+				if !Compatible(switch_case_exp.DataType, switch_exp.DataType) {
+					typeExpectErrorAt(switch_case, switch_exp.DataType, switch_case_exp.DataType)
+				}
+
+				// ** result types checking 
+				if switch_case.Flags & front.ASTO_ALWAYS_RETURNS == 0 {
+					ast.Flags &= ^front.ASTO_ALWAYS_RETURNS
+
+					if ast.DataType != nil {
+						if !Compatible(switch_case.DataType, ast.DataType) {
+							typeErrorAt(ast, "incompatible types `%s` (case result) and `%s` (switch result based on other cases)", 
+										switch_case.DataType.Name(), ast.DataType.Name())
+							return nil
+						}
+					}
+					ast.DataType = switch_case.DataType
+				}
+			}
+				
+			// if all of the cases return, or there are no cases, type is NONE
+			if ast.Flags & front.ASTO_ALWAYS_RETURNS != 0 {
+				ast.DataType = datatype.TYPE_NONE
+			}	
+		}
+		case front.AST_CASE: {
+			ast.DataType = ast.Children[1].DataType
+			ast.Flags |= ast.Children[1].Flags & front.ASTO_ALWAYS_RETURNS
 		}
 		case front.AST_OP_SUM: {
 			left_type := ast.Children[0].DataType

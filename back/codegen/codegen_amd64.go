@@ -1730,6 +1730,43 @@ func GEN_while(c Codegen_Out, b Codegen_Out) Codegen_Out {
 	return res
 }
 
+func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, _type datatype.DataType) Codegen_Out {
+	println("AAAAAAAAAAAAAAAA:", _type.Name())
+	res := Codegen_Out{}
+
+	var allocation Operand
+	if _type != datatype.TYPE_NONE {
+		reg, full := RegisterScratchAllocate(_type)
+		if full {
+			allocation = StackAllocate(_type).Reference()
+		} else {
+			allocation = reg
+		}
+	}
+	
+	res.Code.Appendln(exp.Code)
+	for i, _case := range(c_exp) {
+		res.Code.Appendln(_case.Code)
+		c := GEN_binop(front.AST_OP_EQU, exp.Result, _case.Result)
+		res.Code.Appendln(c.Code)
+		res.Code.TextAppendSln(ii("andb", c.Result, c.Result))
+
+		case_end := LabelGen()
+		res.Code.TextAppendSln(ii("jz", case_end))
+		
+		res.Code.Appendln(c_body[i].Code)
+	
+		if _type != datatype.TYPE_NONE && c_body[i].Result != nil {
+			res.Code.Appendln(GEN_move(c_body[i].Result, allocation).Code)
+		}
+		
+		res.Code.TextAppendSln(case_end.Text() + ":")
+	}
+
+	res.Result = allocation
+	println(res.Result.Type().Name())
+	return res
+}
 func GEN_if(c Codegen_Out, t Codegen_Out) Codegen_Out {
 	res := Codegen_Out{}
 	if_exit_label := LabelGen()

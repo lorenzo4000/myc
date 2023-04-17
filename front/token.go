@@ -50,7 +50,11 @@ const (
 	TOKEN_KEYWORD_FOR    	
 	TOKEN_KEYWORD_IF    	
 	TOKEN_KEYWORD_ELSE    	
+	TOKEN_KEYWORD_SWITCH
+	TOKEN_KEYWORD_CASE
+
 	TOKEN_KEYWORD_EXTERNAL  
+
 	TOKEN_KEYWORD_JUMP 
 	
 	// multi-characters
@@ -75,6 +79,9 @@ var keywordTokenMap = map[string]uint32 {
 	"for": TOKEN_KEYWORD_FOR,
 	"if": TOKEN_KEYWORD_IF,
 	"else": TOKEN_KEYWORD_ELSE,
+	"switch": TOKEN_KEYWORD_SWITCH,
+	"case": TOKEN_KEYWORD_CASE,
+
 	"external": TOKEN_KEYWORD_EXTERNAL,
 	
 	"jump": TOKEN_KEYWORD_JUMP,
