@@ -305,3 +305,23 @@ func (ast Ast_Node) FindFirstToken() (*Token) {
 	}
 	return ast.Children[0].FindFirstToken()
 }
+
+func (ast Ast_Node) Equals(_ast Ast_Node) bool {
+	if len(ast.Data) != len(_ast.Data) {
+		return false
+	}
+	for i, tok := range ast.Data {
+		if tok.Type 		!= _ast.Data[i].Type         ||
+		   tok.Int_value    != _ast.Data[i].Int_value    ||
+		   tok.String_value != _ast.Data[i].String_value {
+			return false
+		}
+	}
+
+
+	return ast.Type     == _ast.Type  && 
+		   ast.Flags    == _ast.Flags &&
+		   //ast.Data     == _ast.Data  &&
+		   //ast.Children []*Ast_Node;
+		   ast.DataType.Equals(_ast.DataType)
+}

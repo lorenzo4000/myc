@@ -24,7 +24,7 @@ function main()  {
 		case 12: {
 			[int32]23
 		}
-		case 1: {
+		case 2: {
 			[int32]23
 		}
 	};

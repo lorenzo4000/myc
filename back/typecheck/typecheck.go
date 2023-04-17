@@ -677,7 +677,17 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 
 				if !Compatible(switch_case_exp.DataType, switch_exp.DataType) {
 					typeExpectErrorAt(switch_case, switch_exp.DataType, switch_case_exp.DataType)
+					return nil
 				}
+
+				// ** check if duplciate case
+				for j := i+1; j < len(ast.Children); j++ {
+					if switch_case_exp.Equals(*ast.Children[j].Children[0]) {
+						typeErrorAt(ast, "duplicate cases in switch statement")
+						return nil
+					}
+				}
+
 
 				// ** result types checking 
 				if switch_case.Flags & front.ASTO_ALWAYS_RETURNS == 0 {
