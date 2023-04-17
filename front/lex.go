@@ -2,6 +2,7 @@ package front
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func Lex(src string) ([]Token) {
@@ -14,7 +15,7 @@ func Lex(src string) ([]Token) {
 		next_token_str := ""
 		l0 := l1
 		c0 := c1
-		for index < len(src) && src[index] != ' ' && src[index] != '\t' && src[index] != '"' && src[index] != '@' {
+		for index < len(src) && src[index] != ' ' && src[index] != '\t' && src[index] != '"' && src[index] != '\'' && src[index] != '@' {
 			if src[index] == '\n' {
 				l1 += 1
 				c1  = 1
@@ -33,6 +34,62 @@ func Lex(src string) ([]Token) {
 			c1++
 			index++
 		}
+		// char literal
+		if index < len(src) && src[index] == '\'' {
+			c1++
+			index++
+			if index >= len(src) {
+				fmt.Printf("%d:%d: lexical error: Expected character before end of input\n", l1, c1)	
+				break
+			}
+
+			char := src[index]
+			if char == '\\' {
+				escape_char := ""
+
+				for true {
+					if index+1 >= len(src) {
+						break
+					}
+					escape_char += string(src[index])
+
+					if src[index+1] == '\'' {
+						break
+					}
+					c1++
+					index++
+				}
+
+				v, mb, _, err := strconv.UnquoteChar(escape_char, '\'')
+				if err != nil {
+					fmt.Printf("%d:%d: lexical error: %s\n", l1, c1, err)	
+					break
+				}
+
+				if mb {
+					fmt.Printf("%d:%d: lexical error: unsupported wide character in character literal\n", l1, c1)	
+					break
+				}
+				char = byte(v)
+			}
+			next_token := Token{TOKEN_INT_LITERAL, l0, c0, l1, c1, int64(char), ""}
+			res = append(res, next_token)
+
+			c1++
+			index++
+			if index >= len(src) {
+				fmt.Printf("%d:%d: lexical error: Expected `'` before end of input\n", l1, c1)	
+				break
+			}
+			if src[index] != '\'' {
+				fmt.Printf("%d:%d: lexical error: Expected `'` \n", l1, c1)	
+				break
+			}
+			c1++
+			index++
+			continue
+		}
+
 		// string literal
 		if index < len(src) && src[index] == '"' {
 			next_token_str += "\"" // start literal
@@ -55,7 +112,20 @@ func Lex(src string) ([]Token) {
 				fmt.Printf("%d:%d: lexical error: Expected `\"` before end of input\n", l1, c1)	
 			} else {
 				next_token_str += "\""	// close literal	
+				
+				// format
+				var err error
+				next_token_str, err = strconv.Unquote(next_token_str)
+				if err != nil {
+					fmt.Printf("%d:%d: lexical error: %s\n", l1, c1, err)	
+				}
 			}
+			next_token := Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, next_token_str}
+			res = append(res, next_token)
+
+			c1++
+			index++
+			continue
 		}
 
 		// directives

@@ -2,6 +2,7 @@ package codegen
 
 import (
 	"fmt"
+	"strconv"
 	"mycgo/back/datatype"
 	"mycgo/back/datatype/datatype_struct"
 	"mycgo/back/datatype/datatype_array"
@@ -302,7 +303,14 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			allocation = label
 
-			out.Code.DataAppendSln(allocation.Text() + ": .string \"" + ast.Data[0].String_value + "\"")
+			out.Code.DataAppendS(allocation.Text() + ": .byte ")
+
+			for _, c := range(ast.Data[0].String_value) {
+				out.Code.DataAppendS(strconv.FormatUint(uint64(c), 10) + ", ")
+			}
+			
+			// zero-terminate!
+			out.Code.DataAppendSln("0")
 		case front.TOKEN_INT_LITERAL:
 			var full bool
 			reg, full := RegisterScratchAllocate(ast.DataType)

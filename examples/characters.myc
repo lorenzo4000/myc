@@ -1,0 +1,7 @@
+@import "lib/c/stdio.myc"
+
+function main() {
+	printf("\"literal string\"\n".data);
+	putchar('\\');
+	putchar('\n');
+}
