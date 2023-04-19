@@ -88,6 +88,8 @@ const (
 	AST_OP_EBAND = Ast_Type(iota) // "&="
 	AST_OP_EBORI = Ast_Type(iota) // "|="
 	AST_OP_EBORE = Ast_Type(iota) // "^="
+	AST_OP_ESHL  = Ast_Type(iota)
+	AST_OP_ESHR  = Ast_Type(iota)
     
 	AST_OP_INC = Ast_Type(iota)   // "++"
 	AST_OP_DEC = Ast_Type(iota)   // "--"
@@ -188,6 +190,8 @@ var ast_type_str = [N_AST]string {
 	"AST_OP_EBAND",
 	"AST_OP_EBORI",
 	"AST_OP_EBORE",
+	"AST_OP_ESHL",
+	"AST_OP_ESHR",
 
 	"AST_OP_INC",
 	"AST_OP_DEC",

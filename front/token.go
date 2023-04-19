@@ -81,6 +81,8 @@ const (
 
 	TOKEN_SHL
 	TOKEN_SHR
+	TOKEN_ESHL
+	TOKEN_ESHR
 )
 
 var keywordTokenMap = map[string]uint32 {
@@ -151,6 +153,8 @@ var multiCharacterTokenMap = map[string]uint32 {
 
 	"<<":		TOKEN_SHL,
 	">>":		TOKEN_SHR,
+	"<<=":		TOKEN_ESHL,
+	">>=":		TOKEN_ESHR,
 }
 
 type Token struct {

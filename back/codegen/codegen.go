@@ -601,7 +601,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			}
 		}
 	case front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, 
-		 front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE:
+		 front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE, front.AST_OP_ESHL, front.AST_OP_ESHR:
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)

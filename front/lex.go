@@ -234,6 +234,17 @@ func Lex(src string) ([]Token) {
 			}
 		}
 
+		if index < len(src) && (next_token_str == "<<" ||
+								next_token_str == ">>"){
+			if index+1 < len(src) && src[index+1] == '=' {
+				next_token_str += string(src[index+1])
+				c1++
+				index++
+			}
+
+			println(next_token_str)
+		}
+
 		if len(next_token_str) > 0 {
 			next_token, err := GetToken(next_token_str, l0, l1, c0, c1)
 			if err != nil {

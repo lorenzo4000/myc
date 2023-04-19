@@ -447,6 +447,8 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 
 		case TOKEN_SHL:   operator.Type = AST_OP_SHL 
 		case TOKEN_SHR:   operator.Type = AST_OP_SHR 
+		case TOKEN_ESHL:   operator.Type = AST_OP_ESHL 
+		case TOKEN_ESHR:   operator.Type = AST_OP_ESHR 
 	         
 		case TOKEN_ESUM:  operator.Type = AST_OP_ESUM 				// "+="
 		case TOKEN_ESUB:  operator.Type = AST_OP_ESUB 				// "-="

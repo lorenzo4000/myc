@@ -2319,7 +2319,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("orb", r, l))
 		}
 		allocation = l
-	case front.AST_OP_SHL:
+	case front.AST_OP_SHL, front.AST_OP_ESHL:
 		rcx, _ := REGISTER_RCX.GetRegister(r.Type())
 		res.Code.Appendln(GEN_load(r, rcx).Code)
 
@@ -2336,7 +2336,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("shlb", cl, l))
 		}
 		allocation = l
-	case front.AST_OP_SHR:
+	case front.AST_OP_SHR, front.AST_OP_ESHR:
 		rcx, _ := REGISTER_RCX.GetRegister(r.Type())
 		res.Code.Appendln(GEN_load(r, rcx).Code)
 

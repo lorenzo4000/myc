@@ -759,7 +759,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = datatype.TYPE_BOOL
 		}
-		case front.AST_OP_ASN, front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE: { 
+		case front.AST_OP_ASN, front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE, front.AST_OP_ESHL, front.AST_OP_ESHR: { 
 			if !ExpressionIsLeftValue(ast.Children[0]) {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil

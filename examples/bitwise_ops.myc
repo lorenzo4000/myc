@@ -20,6 +20,8 @@ function main() {
 	x &= 30;
 	x |= 30;
 	x ^= 30;
+	x = 1;
+	x <<= 3;
 	printf("x after the operations : %llx\n".data, x);
 
 	printf("%x\n".data, a++);

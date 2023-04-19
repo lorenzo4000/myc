@@ -1,3 +1,6 @@
+<<=
+<<
+>>
 AST_HEAD : 
 	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
 		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = getchar ]
@@ -226,6 +229,12 @@ AST_HEAD :
 			AST_OP_EBORE(int64) : 
 				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
 				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_ASN(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 1, string_value =  ]
+			AST_OP_ESHL(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 3, string_value =  ]
 			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
 				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
 					AST_LITERAL(static_string) : [ int_value = 0, string_value = x after the operations : %llx
@@ -552,6 +561,32 @@ xorq %r15, -249(%rbp, 1)
 
 
 
+movq $1, %r15
+
+
+
+
+movq %r15, -249(%rbp, 1)
+
+
+
+
+pushq %rbx
+movq $3, %rbx
+
+
+movq %rbx, -261(%rbp, 1)
+
+popq %rbx
+
+
+movq -261(%rbp, 1), %rcx
+
+
+shlq %cl, -249(%rbp, 1)
+
+
+
 
 
 
@@ -564,7 +599,7 @@ movq -249(%rbp, 1), %rsi
 
 call printf
 
-movl %eax, %r15d
+movl %eax, -265(%rbp, 1)
 
 
 
@@ -585,7 +620,7 @@ movq -233(%rbp, 1), %rsi
 
 call printf
 
-movl %eax, -257(%rbp, 1)
+movl %eax, -269(%rbp, 1)
 
 
 
@@ -606,16 +641,16 @@ movq -241(%rbp, 1), %rsi
 
 call printf
 
-movl %eax, -261(%rbp, 1)
+movl %eax, -273(%rbp, 1)
 
 
 
 
-movb $1, -262(%rbp, 1)
+movb $1, -274(%rbp, 1)
 
 
 
-movb $0, -263(%rbp, 1)
+movb $0, -275(%rbp, 1)
 
 
 
@@ -626,19 +661,19 @@ pushq %rbx
 // hello 
 
  // byee 
-movb -263(%rbp, 1), %bl
+movb -275(%rbp, 1), %bl
 
 
-andb %bl, -262(%rbp, 1)
+andb %bl, -274(%rbp, 1)
 popq %rbx
 
 
 
-movb $1, -264(%rbp, 1)
+movb $1, -276(%rbp, 1)
 
 
 
-movb $0, -265(%rbp, 1)
+movb $0, -277(%rbp, 1)
 
 
 
@@ -649,10 +684,10 @@ pushq %rbx
 // hello 
 
  // byee 
-movb -265(%rbp, 1), %bl
+movb -277(%rbp, 1), %bl
 
 
-orb %bl, -264(%rbp, 1)
+orb %bl, -276(%rbp, 1)
 popq %rbx
 
 
@@ -663,7 +698,7 @@ pushq %rbx
 movq $255, %rbx
 
 
-movq %rbx, -273(%rbp, 1)
+movq %rbx, -285(%rbp, 1)
 
 popq %rbx
 
@@ -672,28 +707,28 @@ pushq %rbx
 movq $3, %rbx
 
 
-movq %rbx, -281(%rbp, 1)
+movq %rbx, -293(%rbp, 1)
 
 popq %rbx
 
 
-movq -281(%rbp, 1), %rcx
+movq -293(%rbp, 1), %rcx
 
 
-shlq %cl, -273(%rbp, 1)
+shlq %cl, -285(%rbp, 1)
 
 
 
 movq $.L5, %rdi
 
 
-movq -273(%rbp, 1), %rsi
+movq -285(%rbp, 1), %rsi
 
 
 
 call printf
 
-movl %eax, -285(%rbp, 1)
+movl %eax, -297(%rbp, 1)
 
 
 
@@ -704,7 +739,7 @@ pushq %rbx
 movq $240, %rbx
 
 
-movq %rbx, -293(%rbp, 1)
+movq %rbx, -305(%rbp, 1)
 
 popq %rbx
 
@@ -713,28 +748,28 @@ pushq %rbx
 movq $2, %rbx
 
 
-movq %rbx, -301(%rbp, 1)
+movq %rbx, -313(%rbp, 1)
 
 popq %rbx
 
 
-movq -301(%rbp, 1), %rcx
+movq -313(%rbp, 1), %rcx
 
 
-shrq %cl, -293(%rbp, 1)
+shrq %cl, -305(%rbp, 1)
 
 
 
 movq $.L6, %rdi
 
 
-movq -293(%rbp, 1), %rsi
+movq -305(%rbp, 1), %rsi
 
 
 
 call printf
 
-movl %eax, -305(%rbp, 1)
+movl %eax, -317(%rbp, 1)
 
 
 
@@ -814,6 +849,18 @@ ret
 
 
 .L1: .byte 120, 32, 98, 101, 102, 111, 114, 101, 32, 116, 104, 101, 32, 111, 112, 101, 114, 97, 116, 105, 111, 110, 115, 32, 58, 32, 37, 108, 108, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
