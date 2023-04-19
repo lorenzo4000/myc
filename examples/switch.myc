@@ -2,10 +2,10 @@
 
 function foo() int64 {
 	if true {
-		return 56;
+		32456
 	} else {
-		return 32;
-	};
+		456
+	}
 }
 
 function poo() int16 {
@@ -41,4 +41,5 @@ function poo() int16 {
 
 function main() {
 	printf("%hd\n".data, poo());
+	printf("%hd\n".data, foo());
 }

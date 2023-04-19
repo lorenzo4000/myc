@@ -445,6 +445,18 @@ func (parser *Parser) ParseOperator() (*Ast_Node) {
 		case TOKEN_BORE:    operator.Type = AST_OP_BORE
 		case TOKEN_BNOT:   operator.Type = AST_OP_BNOT
 
+		case TOKEN_SHL:   operator.Type = AST_OP_SHL 
+		case TOKEN_SHR:   operator.Type = AST_OP_SHR 
+	         
+		case TOKEN_ESUM:  operator.Type = AST_OP_ESUM 				// "+="
+		case TOKEN_ESUB:  operator.Type = AST_OP_ESUB 				// "-="
+		case TOKEN_EMUL:  operator.Type = AST_OP_EMUL 				// "*="
+		case TOKEN_EDIV:  operator.Type = AST_OP_EDIV 				// "/="
+		case TOKEN_EMOD:  operator.Type = AST_OP_EMOD 				// "%="
+		case TOKEN_EBAND: operator.Type = AST_OP_EBAND 				// "&="
+		case TOKEN_EBORI: operator.Type = AST_OP_EBORI 				// "|="
+		case TOKEN_EBORE: operator.Type = AST_OP_EBORE 				// "^="
+             
 		case TOKEN_DOT:   operator.Type = AST_OP_DOT
 		default:          return nil
 	}
@@ -492,7 +504,16 @@ func (parser *Parser) _ParseTailOperator() (*Ast_Node) {
 			operator.NewChild(AST_EXPRESSION)
 			operator.AddChild(index_expression)
 		}
-
+		case TOKEN_INC: {
+			parser.Pop()
+			operator.Type = AST_OP_INC  				 // "++"
+			operator.NewChild(AST_EXPRESSION)
+		}
+		case TOKEN_DEC: {
+			parser.Pop()
+			operator.Type = AST_OP_DEC  				 // "--"
+			operator.NewChild(AST_EXPRESSION)
+		}
 		default: 
 			//
 			// *** if we don't understand what we are, we are very likely something wrong!
@@ -508,7 +529,11 @@ func (parser *Parser) _ParseTailOperator() (*Ast_Node) {
 	} else
 	// see if "next" is something we know;
 	// if it isn't, we are the root!
-	if next.Type != '[' && next.Type != ']' && next.Type != TOKEN_INT_LITERAL {
+	if next.Type != '[' 			  &&
+	   next.Type != ']' 			  && 
+	   next.Type != TOKEN_INT_LITERAL &&
+	   next.Type != TOKEN_INC		  &&
+	   next.Type != TOKEN_DEC		   {
 		return operator
 	} else {
 		//
@@ -612,11 +637,7 @@ func fix_tail(ast *Ast_Node) (*Ast_Node) {
 func (parser *Parser) ParseTailOperator() (*Ast_Node) {
 	ast := parser._ParseTailOperator()
 	if ast != nil {
-		ast.Print()
-
 		ast = fix_tail(ast)
-		
-		ast.Print()
 	}
 
 	return ast
@@ -732,8 +753,6 @@ func fix_dot_field_name(ast *Ast_Node) *Ast_Node {
 		return nil
 	}
 
-	ast.Print()
-
 	field := ast.Children[1]
 
 	field_name := field.Data[0].String_value
@@ -831,7 +850,6 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 
 		operator = tail
 	} 
-	operator.Print()
 
 	fixed_expression := fix_precedence(operator)
 	if fixed_expression == nil {

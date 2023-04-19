@@ -63,7 +63,7 @@ function render(:screen [][30]uint8, :rainbow bool) {
 
 
 	:screen_size int64 = [int64]screen.len / 30;
-	for(:i int64 = 0; i < screen_size; i = i + 1) {
+	for(:i int64 = 0; i < screen_size; i += 1) {
 		for(:j int64 = 0; j < [int64]screen[i].len; j = j + 1) {
 			if  rainbow {
 				if color_k >= 6 {
@@ -400,7 +400,7 @@ function main() {
 
 	game_win:
 
-	while (/*game_status == 1*/ true) {
+	while /*game_status == 1*/ true {
 		:poll_struct pollfd = pollfd{
 			[int32]0,
 			[int16]1,

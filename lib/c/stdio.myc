@@ -99,25 +99,25 @@ function vsprintf(:target_string *uint8, :format *uint8) int32 external;
 	(char *outbuf, size_t n, const char*, va_list);
 	Same as vsprintf except that the function will stop after n characters have been written to outbuf.
 */
-function vsnprintf() int32 external;
+function vsnprintf(:outbuf *uint8, :n uint64, :str *uint8) int32 external;
 
 /*
 	(const char*buffer, const char *format, va_list arg_ptr);
 	Reads data from a buffer into locations given by a variable number of arguments.
 */
-function vsscanf() int32 external;
+function vsscanf(:buffer *uint8, :format *uint8) int32 external;
 
 /*
 	(const wchar_t *buffer, const wchar_t *format, va_list arg_ptr);
 	Reads wide data from a buffer into locations given by a variable number of arguments.
 */
-function vswscanf() int32 external;
+function vswscanf(:buffer *uint32, :format *uint32) int32 external;
 
 /*
 	(const wchar_t *format, va_list arg_ptr);
 	Reads wide data from stdin into locations given by a variable number of arguments.
 */
-function vwscanf() int32 external;
+function vwscanf(:format *uint32) int32 external;
 
 
 

@@ -1,14 +1,9 @@
--> typecheck arguments when calling {
-	-> number of arguments during typechecking 
+.  typecheck arguments when calling {
+	.. number of arguments during typechecking 
 }
--> make an actual distinction between `array.size` and `array.len` !!
+.  make an actual distinction between `array.size` and `array.len` !!
 
--> allocate dyn. array
--> resize dyn. array
--> append to  dyn. array
-
-.  Misecellaneus types, operators and other stuff
--> implicit integer literal casts
+-> Misecellaneus types, operators and other stuff
 .  prepar: build dep. graph and do cycle detection before importing
 
 .  varargs

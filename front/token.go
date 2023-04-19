@@ -63,12 +63,24 @@ const (
 
 	TOKEN_EQU				  
 	TOKEN_NEQ				  
+
+	TOKEN_ESUM
+    TOKEN_ESUB
+    TOKEN_EMUL
+    TOKEN_EDIV
+    TOKEN_EMOD
+    TOKEN_EBAND
+    TOKEN_EBORI
+    TOKEN_EBORE
+               
+    TOKEN_INC
+    TOKEN_DEC
 	
 	TOKEN_AND				  
 	TOKEN_OR				  
 
-
-	//N_TOKENS 				  = iota 
+	TOKEN_SHL
+	TOKEN_SHR
 )
 
 var keywordTokenMap = map[string]uint32 {
@@ -121,8 +133,24 @@ var multiCharacterTokenMap = map[string]uint32 {
 	"<=":       TOKEN_LOE,
 	"==":       TOKEN_EQU,
 	"!=":       TOKEN_NEQ,
+
+	"+=":       TOKEN_ESUM,
+	"-=":       TOKEN_ESUB,
+	"*=":       TOKEN_EMUL,
+	"/=":       TOKEN_EDIV,
+	"%=":       TOKEN_EMOD,
+	"&=":		TOKEN_EBAND,
+	"|=":		TOKEN_EBORI,
+	"^=":		TOKEN_EBORE,
+
+	"++":       TOKEN_INC,
+	"--":       TOKEN_DEC,
+
 	"&&":		TOKEN_AND,
 	"||":		TOKEN_OR,
+
+	"<<":		TOKEN_SHL,
+	">>":		TOKEN_SHR,
 }
 
 type Token struct {

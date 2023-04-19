@@ -96,7 +96,7 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 				}
 			}
 			// ** binary ops
-			case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI, front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE, front.AST_OP_EQU,  front.AST_OP_NEQ, front.AST_OP_AND,  front.AST_OP_OR, front.AST_OP_ASN: {  
+			case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI, front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE, front.AST_OP_EQU,  front.AST_OP_NEQ, front.AST_OP_AND,  front.AST_OP_OR, front.AST_OP_ASN, front.AST_OP_SHL, front.AST_OP_SHR, front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE : {  
 				if child.DataType == datatype.TYPE_INT_LITERAL {
 					if ast.DataType == datatype.TYPE_INT_LITERAL {
 						ast.DataType = datatype.TYPE_INT64

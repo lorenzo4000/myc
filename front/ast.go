@@ -77,6 +77,21 @@ const (
     AST_OP_BORE = Ast_Type(iota)
     AST_OP_BNOT = Ast_Type(iota)
 
+    AST_OP_SHL = Ast_Type(iota)
+    AST_OP_SHR = Ast_Type(iota)
+	
+	AST_OP_ESUM = Ast_Type(iota)  // "+="
+	AST_OP_ESUB = Ast_Type(iota)  // "-="
+	AST_OP_EMUL = Ast_Type(iota)  // "*="
+	AST_OP_EDIV = Ast_Type(iota)  // "/="
+	AST_OP_EMOD = Ast_Type(iota)  // "%="
+	AST_OP_EBAND = Ast_Type(iota) // "&="
+	AST_OP_EBORI = Ast_Type(iota) // "|="
+	AST_OP_EBORE = Ast_Type(iota) // "^="
+    
+	AST_OP_INC = Ast_Type(iota)   // "++"
+	AST_OP_DEC = Ast_Type(iota)   // "--"
+
 	AST_OP_DOT = Ast_Type(iota)
 	
 	AST_OP_INDEX = Ast_Type(iota)
@@ -161,6 +176,21 @@ var ast_type_str = [N_AST]string {
     "AST_OP_BORI",
     "AST_OP_BORE",
     "AST_OP_BNOT",
+
+	"AST_OP_SHL",
+	"AST_OP_SHR",
+
+	"AST_OP_ESUM",
+	"AST_OP_ESUB",
+	"AST_OP_EMUL",
+	"AST_OP_EDIV",
+	"AST_OP_EMOD",
+	"AST_OP_EBAND",
+	"AST_OP_EBORI",
+	"AST_OP_EBORE",
+
+	"AST_OP_INC",
+	"AST_OP_DEC",
 
 	"AST_OP_DOT",
 	

@@ -27,7 +27,7 @@ const help_message string =
 `
 
 // options
-var filenames []string
+var filename string
 
 var link_objects []string
 
@@ -38,10 +38,6 @@ var print_typed_ast bool
 var print_asm bool
 
 func main() {
-	println(front.TOKEN_KEYWORD_FUNCTION)
-	println(front.TOKEN_GOE)
-	println(front.TOKEN_KEYWORD_JUMP)
-
 	// start from 1 to skip self
 	for i := 1; i < len(os.Args); i++ {
 		arg := os.Args[i]
@@ -76,20 +72,24 @@ func main() {
 			if arg == "--prepared_tokens" {
 				print_prepared_tokens = true
 			} else {
-				fmt.Println("error: unrecognixed option `", arg, "`")
+				fmt.Println("Fatal: unrecognixed option `", arg, "`")
 				return
 			}
 		} else {
-			filenames = append(filenames, arg)
+			if len(filename) > 0 {
+				fmt.Println("Fatal: too many source files were given")
+				return 
+			}
+			filename = arg
 		}
 	}
 
-	if len(filenames) <= 0 {
+	if len(filename) <= 0 {
 		fmt.Println("Fatal: no source file given.")
 		return
 	}
 
-	src_byte, err := ioutil.ReadFile(filenames[0])
+	src_byte, err := ioutil.ReadFile(filename)
 	
 	if err != nil {
 		fmt.Println(err)
@@ -153,11 +153,11 @@ func main() {
 	}
 
 	asm_out_name := ""
-	for i := 0; i < len(filenames[0]); i++ { 
-		if os.IsPathSeparator(filenames[0][i]) {
+	for i := 0; i < len(filename); i++ { 
+		if os.IsPathSeparator(filename[i]) {
 			asm_out_name += "_"
 		} else {
-			asm_out_name += string(filenames[0][i])
+			asm_out_name += string(filename[i])
 		}
 	}
 	asm_out_name += "*.s"
