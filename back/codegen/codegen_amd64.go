@@ -1955,6 +1955,30 @@ func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("notb", v))
 		}
 		allocation = v
+	case front.AST_OP_INC:
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("incq", v))
+		case 32:
+			res.Code.TextAppendSln(ii("incl", v))
+		case 16:
+			res.Code.TextAppendSln(ii("incw", v))
+		case 8:
+			res.Code.TextAppendSln(ii("incb", v))
+		}
+		allocation = v
+	case front.AST_OP_DEC:
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("decq", v))
+		case 32:
+			res.Code.TextAppendSln(ii("decl", v))
+		case 16:
+			res.Code.TextAppendSln(ii("decw", v))
+		case 8:
+			res.Code.TextAppendSln(ii("decb", v))
+		}
+		allocation = v
 	}
 
 	res.Result = allocation
@@ -1985,7 +2009,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	}
 
 	switch t {
-	case front.AST_OP_SUM:
+	case front.AST_OP_SUM, front.AST_OP_ESUM:
 		switch data_size {
 		case 64:
 			res.Code.TextAppendSln(ii("addq", r, l))
@@ -1997,7 +2021,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("addb", r, l))
 		}
 		allocation = l
-	case front.AST_OP_SUB:
+	case front.AST_OP_SUB, front.AST_OP_ESUB:
 		switch data_size {
 		case 64:
 			res.Code.TextAppendSln(ii("subq", r, l))
@@ -2009,7 +2033,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("subb", r, l))
 		}
 		allocation = l
-	case front.AST_OP_MUL:
+	case front.AST_OP_MUL, front.AST_OP_EMUL:
 		rax, _ := REGISTER_RAX.GetRegister(l.Type())
 		res.Code.Appendln(GEN_load(l, rax).Code)
 
@@ -2026,7 +2050,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		res.Code.Appendln(GEN_move(rax, l).Code)
 
 		allocation = l
-	case front.AST_OP_DIV:
+	case front.AST_OP_DIV, front.AST_OP_EDIV:
 		rax, _ := REGISTER_RAX.GetRegister(l.Type())
 		rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
 		rdx_64, _ := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
@@ -2048,7 +2072,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		res.Code.Appendln(GEN_move(rax, l).Code)
 
 		allocation = l
-	case front.AST_OP_MOD:
+	case front.AST_OP_MOD, front.AST_OP_EMOD:
 		rax, _ := REGISTER_RAX.GetRegister(l.Type())
 		rdx, _ := REGISTER_RDX.GetRegister(l.Type())
 		rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
@@ -2259,7 +2283,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 
 		allocation = l
 
-	case front.AST_OP_BAND:
+	case front.AST_OP_BAND, front.AST_OP_EBAND:
 		switch data_size {
 		case 64:
 			res.Code.TextAppendSln(ii("andq", r, l))
@@ -2271,7 +2295,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("andb", r, l))
 		}
 		allocation = l
-	case front.AST_OP_BORE:
+	case front.AST_OP_BORE, front.AST_OP_EBORE:
 		switch data_size {
 		case 64:
 			res.Code.TextAppendSln(ii("xorq", r, l))
@@ -2283,7 +2307,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("xorb", r, l))
 		}
 		allocation = l
-	case front.AST_OP_BORI:
+	case front.AST_OP_BORI, front.AST_OP_EBORI:
 		switch data_size {
 		case 64:
 			res.Code.TextAppendSln(ii("orq", r, l))
@@ -2293,6 +2317,40 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("orw", r, l))
 		case 8:
 			res.Code.TextAppendSln(ii("orb", r, l))
+		}
+		allocation = l
+	case front.AST_OP_SHL:
+		rcx, _ := REGISTER_RCX.GetRegister(r.Type())
+		res.Code.Appendln(GEN_load(r, rcx).Code)
+
+		cl, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT8)
+		
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("shlq", cl, l))
+		case 32:
+			res.Code.TextAppendSln(ii("shll", cl, l))
+		case 16:
+			res.Code.TextAppendSln(ii("shlw", cl, l))
+		case 8:
+			res.Code.TextAppendSln(ii("shlb", cl, l))
+		}
+		allocation = l
+	case front.AST_OP_SHR:
+		rcx, _ := REGISTER_RCX.GetRegister(r.Type())
+		res.Code.Appendln(GEN_load(r, rcx).Code)
+
+		cl, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT8)
+		
+		switch data_size {
+		case 64:
+			res.Code.TextAppendSln(ii("shrq", cl, l))
+		case 32:
+			res.Code.TextAppendSln(ii("shrl", cl, l))
+		case 16:
+			res.Code.TextAppendSln(ii("shrw", cl, l))
+		case 8:
+			res.Code.TextAppendSln(ii("shrb", cl, l))
 		}
 		allocation = l
 	}

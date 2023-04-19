@@ -728,7 +728,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 
 		// ** binary ops
-		case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI, front.AST_OP_SHL, front.AST_OP_SHR, front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE: {
+		case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI, front.AST_OP_SHL, front.AST_OP_SHR: {
 			left_type := &ast.Children[0].DataType
 			right_type := &ast.Children[1].DataType
 			if !Compatible(right_type, left_type) {
@@ -759,7 +759,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = datatype.TYPE_BOOL
 		}
-		case front.AST_OP_ASN: {
+		case front.AST_OP_ASN, front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE: { 
 			if !ExpressionIsLeftValue(ast.Children[0]) {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
@@ -779,10 +779,22 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 
 		// ** unary ops
-		case front.AST_OP_NEG, front.AST_OP_BNOT, front.AST_OP_INC, front.AST_OP_DEC: {
+		case front.AST_OP_NEG, front.AST_OP_BNOT: {
 			// TODO: check if operand is integer signed? maybe...
 			ast.DataType = ast.Children[0].DataType
 		}
+		case front.AST_OP_INC, front.AST_OP_DEC: {
+			if !ExpressionIsLeftValue(ast.Children[0]) {
+				typeErrorAt(ast, "invalid expression in left side of increment/decrement operator")
+				return nil
+			}
+			if !Writable(ast.Children[0]) {
+				typeErrorAt(ast, "expression in left side of increment/decrement operator is not writable")
+				return nil
+			}
+
+			ast.DataType = ast.Children[0].DataType
+		}	
 		case front.AST_OP_NOT: {
 			t := ast.Children[0].DataType
 			if !t.Equals(datatype.TYPE_BOOL) {

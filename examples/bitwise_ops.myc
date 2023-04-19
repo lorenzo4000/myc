@@ -5,28 +5,29 @@ function main() {
 	:b int64 = 0x00FF;
 
 	:x int64 =  ~b;
-	printf("%x\n".data, x);
 
-	10 >= 30;
-	10 <= 30;
-	10 == 30;
-	10 != 30;
+	x >= 30;
+	x <= 30;
+	x == 30;
+	x != 30;
 
-	10 += 30;
-	10 -= 30;
-	10 *= 30;
-	10 /= 30;
-	10 %= 30;
-	10 &= 30;
-	10 |= 30;
-	10 ^= 30;
+	printf("x before the operations : %llx\n".data, x);
+	x += 30;
+	x -= 30;
+	x *= 30;
+	x /= 30;
+	x %= 30;
+	x &= 30;
+	x |= 30;
+	x ^= 30;
+	printf("x after the operations : %llx\n".data, x);
 
-	10++;
-	10--;
+	printf("%x\n".data, a++);
+	printf("%x\n".data, b--);
 
 	true && false;
 	true || false;
 
-	10 << 30;
-	10 >> 30;
+	printf("%llx\n".data, 0xFF << 3);
+	printf("%llx\n".data, 0xF0 >> 2);
 }

@@ -54,7 +54,9 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 						return nil
 					}
 
-					child.DataType = function_params[i]
+					if len(function_params) > i {
+						child.DataType = function_params[i]
+					}
 				}
 			case front.AST_VARIABLE_DEFINITION: {
 				if child.DataType == datatype.TYPE_INT_LITERAL {

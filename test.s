@@ -184,64 +184,90 @@ AST_HEAD :
 				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
 				AST_OP_BNOT(int64) : 
 					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = b ]
+			AST_OP_GOE(bool) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_LOE(bool) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_EQU(bool) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_NEQ(bool) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_LITERAL(static_string) : [ int_value = 0, string_value = x before the operations : %llx
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+			AST_OP_ESUM(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_ESUB(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_EMUL(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_EDIV(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_EMOD(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_EBAND(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_EBORI(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_OP_EBORE(int64) : 
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
+				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_LITERAL(static_string) : [ int_value = 0, string_value = x after the operations : %llx
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
 			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
 				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
 					AST_LITERAL(static_string) : [ int_value = 0, string_value = %x
  ]
 					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
-				AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = x ]
-			AST_OP_GOE(bool) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_LOE(bool) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_EQU(bool) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_NEQ(bool) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_ESUM(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_ESUB(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_EMUL(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_EDIV(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_EMOD(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_EBAND(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_EBORI(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_EBORE(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_INC(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-			AST_OP_DEC(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
+				AST_OP_INC(int64) : 
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = a ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_LITERAL(static_string) : [ int_value = 0, string_value = %x
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+				AST_OP_DEC(int64) : 
+					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = b ]
 			AST_OP_AND(bool) : 
 				AST_LITERAL(bool) : [ int_value = 1, string_value = true ]
 				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
 			AST_OP_OR(bool) : 
 				AST_LITERAL(bool) : [ int_value = 1, string_value = true ]
 				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
-			AST_OP_SHL(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
-			AST_OP_SHR(int64) : 
-				AST_LITERAL(int64) : [ int_value = 10, string_value =  ]
-				AST_LITERAL(int64) : [ int_value = 30, string_value =  ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_LITERAL(static_string) : [ int_value = 0, string_value = %llx
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+				AST_OP_SHL(int64) : 
+					AST_LITERAL(int64) : [ int_value = 255, string_value =  ]
+					AST_LITERAL(int64) : [ int_value = 3, string_value =  ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_LITERAL(static_string) : [ int_value = 0, string_value = %llx
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+				AST_OP_SHR(int64) : 
+					AST_LITERAL(int64) : [ int_value = 240, string_value =  ]
+					AST_LITERAL(int64) : [ int_value = 2, string_value =  ]
 .text
 
 
@@ -269,7 +295,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $464, %rsp
+subq $320, %rsp
 
 
 
@@ -304,6 +330,114 @@ movq %r13, -249(%rbp, 1)
 
 
 
+movq $30, %r14
+
+
+
+movq -249(%rbp, 1), %r15
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movb -250(%rbp, 1), %bl
+
+
+xorb %bl, -250(%rbp, 1)
+popq %rbx
+
+cmpq %r14, %r15
+
+setge -250(%rbp, 1)
+
+
+
+
+movq $30, %r14
+
+
+
+movq -249(%rbp, 1), %r15
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movb -251(%rbp, 1), %bl
+
+
+xorb %bl, -251(%rbp, 1)
+popq %rbx
+
+cmpq %r14, %r15
+
+setle -251(%rbp, 1)
+
+
+
+
+movq $30, %r14
+
+
+
+movq -249(%rbp, 1), %r15
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movb -252(%rbp, 1), %bl
+
+
+xorb %bl, -252(%rbp, 1)
+popq %rbx
+
+cmpq %r14, %r15
+
+sete -252(%rbp, 1)
+
+
+
+
+movq $30, %r14
+
+
+
+movq -249(%rbp, 1), %r15
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movb -253(%rbp, 1), %bl
+
+
+xorb %bl, -253(%rbp, 1)
+popq %rbx
+
+cmpq %r14, %r15
+
+setne -253(%rbp, 1)
+
+
+
+
 
 
 movq $.L1, %rdi
@@ -320,188 +454,287 @@ movl %eax, %r14d
 
 
 
-movq $10, %r15
+
+movq $30, %r15
+
+
+
+addq %r15, -249(%rbp, 1)
+
+
+
+
+movq $30, %r15
+
+
+
+subq %r15, -249(%rbp, 1)
+
+
+
+
+movq $30, %r15
+
+
+
+movq -249(%rbp, 1), %rax
+
+
+imulq %r15, %rax
+
+movq %rax, -249(%rbp, 1)
+
+
+
+
+
+movq $30, %r15
+
+
+
+xorq %rdx, %rdx
+
+xorq %rax, %rax
+
+movq -249(%rbp, 1), %rax
+
+
+idivq %r15
+
+movq %rax, -249(%rbp, 1)
+
+
+
+
+
+movq $30, %r15
+
+
+
+xorq %rdx, %rdx
+
+xorq %rax, %rax
+
+movq -249(%rbp, 1), %rax
+
+
+idivq %r15
+
+movq %rdx, -249(%rbp, 1)
+
+
+
+
+
+movq $30, %r15
+
+
+
+andq %r15, -249(%rbp, 1)
+
+
+
+
+movq $30, %r15
+
+
+
+orq %r15, -249(%rbp, 1)
+
+
+
+
+movq $30, %r15
+
+
+
+xorq %r15, -249(%rbp, 1)
+
+
+
+
+
+
+movq $.L2, %rdi
+
+
+movq -249(%rbp, 1), %rsi
+
+
+
+call printf
+
+movl %eax, %r15d
+
+
+
+
+
+
+
+incq -233(%rbp, 1)
+
+
+
+movq $.L3, %rdi
+
+
+movq -233(%rbp, 1), %rsi
+
+
+
+call printf
+
+movl %eax, -257(%rbp, 1)
+
+
+
+
+
+
+
+decq -241(%rbp, 1)
+
+
+
+movq $.L4, %rdi
+
+
+movq -241(%rbp, 1), %rsi
+
+
+
+call printf
+
+movl %eax, -261(%rbp, 1)
+
+
+
+
+movb $1, -262(%rbp, 1)
+
+
+
+movb $0, -263(%rbp, 1)
 
 
 
 pushq %rbx
-movq $30, %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movb -263(%rbp, 1), %bl
 
 
-movq %rbx, -257(%rbp, 1)
+andb %bl, -262(%rbp, 1)
+popq %rbx
+
+
+
+movb $1, -264(%rbp, 1)
+
+
+
+movb $0, -265(%rbp, 1)
+
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movb -265(%rbp, 1), %bl
+
+
+orb %bl, -264(%rbp, 1)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+movq $255, %rbx
+
+
+movq %rbx, -273(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -258(%rbp, 1), %bl
+movq $3, %rbx
 
 
-xorb %bl, -258(%rbp, 1)
-popq %rbx
-
-cmpq -257(%rbp, 1), %r15
-
-setge -258(%rbp, 1)
-
-
-
-movq $10, %r15
-
-
-
-pushq %rbx
-movq $30, %rbx
-
-
-movq %rbx, -266(%rbp, 1)
+movq %rbx, -281(%rbp, 1)
 
 popq %rbx
 
 
+movq -281(%rbp, 1), %rcx
+
+
+shlq %cl, -273(%rbp, 1)
+
+
+
+movq $.L5, %rdi
+
+
+movq -273(%rbp, 1), %rsi
+
+
+
+call printf
+
+movl %eax, -285(%rbp, 1)
+
+
+
+
+
+
 pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -267(%rbp, 1), %bl
+movq $240, %rbx
 
 
-xorb %bl, -267(%rbp, 1)
-popq %rbx
-
-cmpq -266(%rbp, 1), %r15
-
-setle -267(%rbp, 1)
-
-
-
-movq $10, %r15
-
-
-
-pushq %rbx
-movq $30, %rbx
-
-
-movq %rbx, -275(%rbp, 1)
+movq %rbx, -293(%rbp, 1)
 
 popq %rbx
 
 
 pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -276(%rbp, 1), %bl
+movq $2, %rbx
 
 
-xorb %bl, -276(%rbp, 1)
-popq %rbx
-
-cmpq -275(%rbp, 1), %r15
-
-sete -276(%rbp, 1)
-
-
-
-movq $10, %r15
-
-
-
-pushq %rbx
-movq $30, %rbx
-
-
-movq %rbx, -284(%rbp, 1)
+movq %rbx, -301(%rbp, 1)
 
 popq %rbx
 
 
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -285(%rbp, 1), %bl
+movq -301(%rbp, 1), %rcx
 
 
-xorb %bl, -285(%rbp, 1)
-popq %rbx
-
-cmpq -284(%rbp, 1), %r15
-
-setne -285(%rbp, 1)
+shrq %cl, -293(%rbp, 1)
 
 
 
+movq $.L6, %rdi
+
+
+movq -293(%rbp, 1), %rsi
 
 
 
+call printf
 
-
-
-
-
-
-
-movb $1, -422(%rbp, 1)
-
-
-
-movb $0, -423(%rbp, 1)
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -423(%rbp, 1), %bl
-
-
-andb %bl, -422(%rbp, 1)
-popq %rbx
-
-
-
-movb $1, -424(%rbp, 1)
-
-
-
-movb $0, -425(%rbp, 1)
-
-
-
-pushq %rbx
-// hello 
-
- // byee 
-// hello 
-
- // byee 
-movb -425(%rbp, 1), %bl
-
-
-orb %bl, -424(%rbp, 1)
-popq %rbx
-
+movl %eax, -305(%rbp, 1)
 
 
 
@@ -556,7 +789,31 @@ ret
 
 
 
-.L1: .byte 37, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L1: .byte 120, 32, 98, 101, 102, 111, 114, 101, 32, 116, 104, 101, 32, 111, 112, 101, 114, 97, 116, 105, 111, 110, 115, 32, 58, 32, 37, 108, 108, 120, 10, 0
 
 
 
@@ -601,6 +858,82 @@ ret
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+.L2: .byte 120, 32, 97, 102, 116, 101, 114, 32, 116, 104, 101, 32, 111, 112, 101, 114, 97, 116, 105, 111, 110, 115, 32, 58, 32, 37, 108, 108, 120, 10, 0
+
+
+
+
+
+
+
+
+
+.L3: .byte 37, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+.L4: .byte 37, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L5: .byte 37, 108, 108, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L6: .byte 37, 108, 108, 120, 10, 0
 
 
 

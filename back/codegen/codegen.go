@@ -496,19 +496,9 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			out.Result = _switch.Result
 			out.Code.Appendln(_switch.Code)
 		}
-	case front.AST_CASE:
-		{
-			// we format this above
-			/*
-			out.Code.Appendln(children_out[0].Code)
-			out.Code.Appendln(GEN_binop(front.AST_OP_EQU, Label{ast.Children[0].DataType, "%s"}, children_out[0].Result).Code)
-			out.Code.Appendln(children_out[1].Code)
-			out.Result = children_out[1].Result
-			*/
-		}
 
 	// ** unary ops
-	case front.AST_OP_NOT, front.AST_OP_NEG, front.AST_OP_BNOT:
+	case front.AST_OP_NOT, front.AST_OP_NEG, front.AST_OP_BNOT: 
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)
@@ -550,11 +540,25 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				out.Result = op.Result
 			}
 		}
+	case front.AST_OP_INC, front.AST_OP_DEC: 
+		{
+			for _, child_out := range children_out {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			value := children_out[0].Result
+
+			op := GEN_uniop(ast.Type, value)
+
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
+	}
 
 	// ** binary ops
 	case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD,
 	     front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE,  
-	     front.AST_OP_EQU,  front.AST_OP_NEQ, front.AST_OP_AND,  front.AST_OP_OR, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI:
+	     front.AST_OP_EQU,  front.AST_OP_NEQ, front.AST_OP_AND,  front.AST_OP_OR, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI, 
+		 front.AST_OP_SHL, front.AST_OP_SHR:
 		{
 			for _, child_out := range children_out {
 				out.Code.Appendln(child_out.Code)
@@ -595,6 +599,21 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				out.Code.Appendln(op.Code)
 				out.Result = op.Result
 			}
+		}
+	case front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, 
+		 front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE:
+		{
+			for _, child_out := range children_out {
+				out.Code.Appendln(child_out.Code)
+			}
+
+			left_value :=  children_out[0].Result
+			right_value := children_out[1].Result
+
+			// do the op  ^< ^  ~< ^
+			op := GEN_binop(ast.Type, left_value, right_value)
+			out.Code.Appendln(op.Code)
+			out.Result = op.Result
 		}
 
 	case front.AST_OP_ASN:
