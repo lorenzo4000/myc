@@ -16,6 +16,8 @@ const (
 	TYPE_UINT16  = PrimitiveType(iota)
 	TYPE_UINT8  = PrimitiveType(iota)
 
+	TYPE_INT_LITERAL = PrimitiveType(iota)
+
 	TYPE_BOOL  = PrimitiveType(iota)
 
 	// works only as pointer and array! It's basically C's void type~ ^^;
@@ -35,6 +37,8 @@ func (typ PrimitiveType) Name() string {
 		case TYPE_UINT32: return "uint32"
 		case TYPE_UINT16: return "uint16"
 		case TYPE_UINT8:  return "uint8"
+	
+		case TYPE_INT_LITERAL: return "int_literal"
 
 		case TYPE_BOOL: return "bool"
 		
@@ -56,6 +60,8 @@ func (typ PrimitiveType) BitSize() uint64 {
 		case TYPE_UINT16: return 16
 		case TYPE_UINT8: return 8
 		
+		case TYPE_INT_LITERAL: return 64
+
 		case TYPE_BOOL: return 8
 		
 		case TYPE_GENERIC: return 8
@@ -77,7 +83,9 @@ func (typ PrimitiveType) IsIntegerType() bool {
 		   typ == TYPE_UINT64 ||
 		   typ == TYPE_UINT32 ||
 		   typ == TYPE_UINT16 ||
-		   typ == TYPE_UINT8
+		   typ == TYPE_UINT8  ||
+
+		   typ == TYPE_INT_LITERAL
 }
 
 // true = signed / false = unsigned
@@ -85,7 +93,10 @@ func (typ PrimitiveType) Sign() bool {
 	return typ == TYPE_INT64  ||
 		   typ == TYPE_INT32  ||
 		   typ == TYPE_INT16  ||
-		   typ == TYPE_INT8
+		   typ == TYPE_INT8	  ||
+
+		   typ == TYPE_INT_LITERAL
+
 }
 
 func (typ PrimitiveType) Equals(t DataType) bool {

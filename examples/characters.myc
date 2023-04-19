@@ -1,7 +1,6 @@
 @import "lib/c/stdio.myc"
 
 function main() {
-	printf("\"literal string\"\n".data);
-	putchar('\\');
-	putchar('\n');
+	printf("Hello, World!\n".data);
+	:n uint8 = 'a';
 }

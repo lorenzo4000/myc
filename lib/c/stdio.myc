@@ -8,13 +8,13 @@ function getchar() int32 external;
 	(char *buffer);
 	Reads a string from stdin, and stores it in buffer.
 */
-function gets() *int8 external; 
+function gets(:buffer *uint8) *uint8 external; 
 
 /*
 	(const char *string);
 	Prints an error message to stderr.
 */
-function perror() external;
+function perror(:str *uint8) external;
 
 /*
 	(const char *format-string, arg-list);
@@ -25,74 +25,75 @@ function printf(:str *uint8) int32 external;
 /*
 	(int c);
 	Prints c to stdout.
+	NOTE: c gets casted to unsigned char so i'm declaring it uint8
 */
-function putchar() int32 external;
+function putchar(:c uint8) int32 external;
 
 /*
 	(const char *string);
 	Prints a string to stdout.
 */
-function puts() int32 external;
+function puts(:str *uint8) int32 external;
 
 /*
 	(const char *filename);
 	Deletes the file specified by filename.
 */
-function remove() int32 external;
+function remove(:filename *uint8) int32 external;
 
 /*
 	(const char *oldname, const char *newname);
 	Renames the specified file.
 */
-function rename() int32 external;
+function rename(:oldname *uint8, :newname *uint8) int32 external;
 
 /*
 	(const char *format-string, arg-list);
 	Reads data from stdin into locations given by arg-list.
 */
-function scanf() int32 external;
+function scanf(:format_string *uint8) int32 external;
 
 /*
 	(char *outbuf, size_t n, const char*, ...);
 	Same as sprintf except that the function will stop after n characters have been written to outbuf.
 */
-function snprintf() int32 external;
+function snprintf(:outbuf *uint8, :n uint64, :str *uint8) int32 external;
 
 /*
 	(char *buffer, const char *format-string, arg-list);
 	Formats and stores characters and values in buffer.
 */
-function sprintf() int32 external;
+function sprintf(:buffer *uint8, :format_string *uint8) int32 external;
 
 /*
 	(const char *buffer, const char *format, arg-list);
 	Reads data from buffer into the locations given by arg-list.
 */
-function sscanf() int32 external;
+function sscanf(:buffer *uint8, :format_string *uint8) int32 external;
 
 /*
 	(char *string);
 	Generates a temporary file name.
 */
-function tmpnam() *int8 external; 
+function tmpnam(:str *uint8) *int8 external; 
 
 /*
 	(const char *format, va_list arg_ptr);
 	Formats and prints characters to stdout using a variable number of arguments.
 */
-function vprintf() int32 external;
+function vprintf(:format *uint8) int32 external;
 
 /*
 	(const char *format, va_list arg_ptr);
 	Reads data from stdin into locations given by a variable number of arguments.
 */
-function vscanf() int32 external;
+function vscanf(:format *uint8) int32 external;
 
 /*
 	(char *target-string, const char *format, va_list arg_ptr);
 	Formats and stores characters in a buffer using a variable number of arguments.
 */
-function vsprintf() int32 external;
+function vsprintf(:target_string *uint8, :format *uint8) int32 external;
 
 /*
 	(char *outbuf, size_t n, const char*, va_list);

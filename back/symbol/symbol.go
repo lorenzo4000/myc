@@ -10,31 +10,31 @@ import (
 //
 type Symbol_Scope_Id int32
 
-var symbol_scope_stack []Symbol_Scope_Id
-var current_id Symbol_Scope_Id
+var Symbol_Scope_Stack []Symbol_Scope_Id
+var Current_Id Symbol_Scope_Id
 
 func SymbolScopeStackInit() {
-	symbol_scope_stack = make([]Symbol_Scope_Id, 0)
-	current_id = 0
+	Symbol_Scope_Stack = make([]Symbol_Scope_Id, 0)
+	Current_Id = 0
 }
 
 func SymbolScopeStackCurrent() Symbol_Scope_Id {
-	l := len(symbol_scope_stack)
+	l := len(Symbol_Scope_Stack)
 	if l > 0 {
-		return symbol_scope_stack[l-1]
+		return Symbol_Scope_Stack[l-1]
 	}
 	return -1
 }
 
 func SymbolScopeStackPush() {
-	symbol_scope_stack = append(symbol_scope_stack, current_id)
-	current_id++
+	Symbol_Scope_Stack = append(Symbol_Scope_Stack, Current_Id)
+	Current_Id++
 }
 
 func SymbolScopeStackPop() {
-	l := len(symbol_scope_stack)
+	l := len(Symbol_Scope_Stack)
 	if l > 0 {
-		symbol_scope_stack = symbol_scope_stack[:l-1]
+		Symbol_Scope_Stack = Symbol_Scope_Stack[:l-1]
 	}
 }
 
@@ -79,8 +79,22 @@ func SymbolTableGetInCurrentScope(name string) (Symbol, bool) {
 
 // returns the matching entry in the closest scope
 func SymbolTableGetFromCurrentScope(name string) (Symbol, bool) {
-	for cur := Symbol_Scope_Id(len(symbol_scope_stack)-1); cur >= 0; cur-- {
-		symbol, found := SymbolTableGet(name, symbol_scope_stack[cur])
+	for cur := Symbol_Scope_Id(len(Symbol_Scope_Stack)-1); cur >= 0; cur-- {
+		symbol, found := SymbolTableGet(name, Symbol_Scope_Stack[cur])
+		if found {
+			return symbol, true
+		}
+	}
+	return nil, false
+}
+
+// returns the matching entry in the closest scope to 
+// the deepest one (which is not always the current one)
+// NOTE: The returned Symbol may exist inside a scope 
+// which may no longer exist in the scope stack!
+func SymbolTableGetFromDeepest(name string) (Symbol, bool) {
+	for cur := Current_Id; cur >= 0; cur-- {
+		symbol, found := SymbolTableGet(name, cur)
 		if found {
 			return symbol, true
 		}

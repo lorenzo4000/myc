@@ -319,7 +319,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			} else {
 				allocation = reg
 			}
-			load := GEN_move(Asm_Int_Literal{datatype.TYPE_INT64, ast.Data[0].Int_value, 10}, allocation)
+			load := GEN_move(Asm_Int_Literal{ast.DataType, ast.Data[0].Int_value, 10}, allocation)
 			out.Code.Appendln(load.Code)
 		case front.TOKEN_BOOL_LITERAL:
 			var full bool

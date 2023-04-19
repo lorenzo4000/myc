@@ -74,7 +74,7 @@ func (parser *Parser) PlaceAt(index int64, new_token Token) *Token {
 	if cap(parser.Tokens) <= len(parser.Tokens) {
 		// reallocate
 		new_tokens := make([]Token, len(parser.Tokens) + 1)
-		copy(parser.Tokens, new_tokens)
+		copy(new_tokens, parser.Tokens)
 		parser.Tokens = new_tokens
 	} else {
 		parser.Tokens = parser.Tokens[:len(parser.Tokens)+1]
@@ -194,8 +194,6 @@ func (parser *Parser) ParseCompositeLiteral() (*Ast_Node) {
 }
 
 func (parser *Parser) ParseLabel() (*Ast_Node) {
-	println("parsing label!")
-
 	label := new(Ast_Node)
 	label.Type = AST_LABEL
 
@@ -208,15 +206,11 @@ func (parser *Parser) ParseLabel() (*Ast_Node) {
 		label.Data = []Token{next}
 	}
 
-	fmt.Println(label.Data)
-	
 	{
 		next, expect := parser.PopIf(TOKEN_COLON)
 		if expect {
 			parseExpectErrorAt(next, "`:`")
 		}
-
-		fmt.Println(next)
 	}
 	
 	return label
@@ -247,7 +241,8 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 
 				next, expect := parser.PopIf(TOKEN_CLOSING_PARENTHESES)
 				if expect {
-					parseExpectErrorAt(next, "`}`")
+					parseExpectErrorAt(next, "`)`")
+					return nil
 				}
 				
 				expression := new(Ast_Node)
@@ -737,11 +732,9 @@ func fix_dot_field_name(ast *Ast_Node) *Ast_Node {
 		return nil
 	}
 
-	println("fix_dot_field_name was called on ")
 	ast.Print()
 
 	field := ast.Children[1]
-	println("type of the cute field: ", field.ToString())
 
 	field_name := field.Data[0].String_value
 	if len(field_name) <= 0 {
@@ -762,7 +755,6 @@ func fix_dot(ast *Ast_Node) *Ast_Node {
 		return nil
 	}
 
-	println("fix_dot was called on ", ast.ToString())
 
 	next_dot := ast.Children[1]
 	if next_dot.Type != AST_OP_DOT {
@@ -784,7 +776,6 @@ func fix_dot(ast *Ast_Node) *Ast_Node {
 
 	//
 
-	println("am i ACTUALLY about to do this?")
 	rhs := ast.Children[1]
 	ast.Children[1] = rhs.Children[1]
 	rhs.Children[1] = rhs.Children[0]
@@ -840,7 +831,6 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 
 		operator = tail
 	} 
-	println("opertatoreee!")
 	operator.Print()
 
 	fixed_expression := fix_precedence(operator)
@@ -848,16 +838,9 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 		return operator
 	}
 
-	println("precedenza fixatissimaaaaa!")
-	fixed_expression.Print()
-	
 	dot := fixed_expression.Find(AST_OP_DOT)
 	if dot != nil {
-		println("calling fix_fot on ")
-		dot.Print()
 		dot = fix_dot(dot)
-		println("fix_dot returned ")
-		dot.Print()
 		if dot == nil {
 			cur, _ := parser.Current()
 			parseErrorAt(cur, "invalid field expression after `.`")
@@ -1284,7 +1267,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 
 		first_brace++
 	}
-	
+
 	parser.PlaceAt(parser.Index + int64(first_brace), Token{
 		')',
 		current.L0,
@@ -1294,13 +1277,14 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 		0,
 		"",
 	})
-	
+
 	{
 		exp := parser.ParseExpression()
 		if exp != nil {
 			ast_if.AddChild(exp)
 		}
 	}
+
 
 	{
 		next, expect := parser.PopIf(TOKEN_OPENING_BRACE)
@@ -1449,7 +1433,6 @@ func (parser *Parser) ParseBody() (*Ast_Node) {
 						prev, _ := parser.Peek(-1)
 						if prev.Type != TOKEN_CLOSING_BRACE {
 							cur, end := parser.Current()
-							fmt.Println(cur)
 							if !end {
 								parseExpectErrorAt(cur, "`;` or `}`")
 								parser.Pop()
@@ -1571,7 +1554,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 			function_definition.Children[2] = return_type
 		} else {
 			if next.Type != TOKEN_OPENING_BRACE {
-				parseExpectErrorAt(next, "return type or `{`")
+				parseExpectErrorAt(next, "return type or REPLACE_11")
 				return nil
 			}
 		}

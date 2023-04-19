@@ -1,0 +1,7 @@
+@import "lib/c/stdio.myc"
+
+function main() {
+	if 2 == 2 {
+		printf("Hello, World!\n".data);
+	} 
+}

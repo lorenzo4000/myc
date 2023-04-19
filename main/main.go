@@ -130,7 +130,11 @@ func main() {
 	symbol.SymbolScopeStackInit()
 	symbol.SymbolTableInit()
 	if typecheck.TypeCheck(ast) == nil {
-		fmt.Println("Type Errors: aborting...")
+		fmt.Println("TypeCheck Errors: aborting...")
+		return 
+	}
+	if typecheck.TypeInfere(ast) == nil {
+		fmt.Println("TypeInfere Errors: aborting...")
 		return 
 	}
 	

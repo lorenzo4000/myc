@@ -8,7 +8,7 @@
 -> append to  dyn. array
 
 .  Misecellaneus types, operators and other stuff
-.  implicit integer literal casts
+-> implicit integer literal casts
 .  prepar: build dep. graph and do cycle detection before importing
 
 .  varargs
