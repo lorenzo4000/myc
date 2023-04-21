@@ -1262,7 +1262,6 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 
 			out := Codegen_Out{}
 
-			// TODO: change this when i have struct literals
 			array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
 						  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
 			array_data := array_source
@@ -2010,6 +2009,329 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 
 	switch t {
 	case front.AST_OP_SUM, front.AST_OP_ESUM:
+		if l.Type().Equals(datatype_string.TYPE_STRING) {
+			// allocate result 
+			result := StackAllocate(datatype_string.TYPE_STRING).Reference()
+
+			// get r.data and r.length
+			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+			r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			r_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+			res.Code.Appendln(GEN_very_generic_move(r, r_regs).Code)
+
+			// get l.data and l.length
+			l_data := Operand(nil)
+			l_length := Operand(nil)
+			{
+				struct_type := l.Type().(datatype_struct.StructType)
+				l_ref := l.(Memory_Reference)
+				struct_offset:= l_ref.Offset
+				struct_start := l_ref.Start
+				struct_index := l_ref.Index
+				struct_indexcoeff := l_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// get result.data and result.length
+			res_data := Operand(nil)
+			res_length := Operand(nil)
+			{
+				struct_type := result.Type().(datatype_struct.StructType)
+				res_ref := result
+				struct_offset:= res_ref.Offset
+				struct_start := res_ref.Start
+				struct_index := res_ref.Index
+				struct_indexcoeff := res_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			rdi, _ := REGISTER_RDI.GetRegister(l_length.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, rdi).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
+
+			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, res_data).Code)
+			
+			{
+				/*
+					// copy left into res.data
+					movq l.data, %rsi
+					movq res.data, %rdi
+					movq l.len, %rcx
+					cld
+					rep movsb
+				*/
+				rsi, _ := REGISTER_RSI.GetRegister(r10.Type())
+				rcx, _ := REGISTER_RCX.GetRegister(rax.Type())
+				res.Code.Appendln(GEN_very_generic_move(l_data, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(res_data, rdi).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+			}
+				
+			
+			// TODO: check is l_data_save is freeable and free it!
+
+			{
+				/*
+					// copy right into left.data + left.len
+					movq r.data, %rsi
+
+					movq l.data, %rdi
+					addq l.len, %rdi
+
+					movq r.len, %rcx
+					cld
+					rep movsb
+				*/
+
+				// again, get r.data and r.length
+				rax, _ = REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+				r10, _ = REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+				r_regs = RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+				res.Code.Appendln(GEN_very_generic_move(r, r_regs).Code)
+
+				rcx, _ := REGISTER_RCX.GetRegister(rax.Type())
+				rsi, _ := REGISTER_RSI.GetRegister(r10.Type())
+				res.Code.Appendln(GEN_very_generic_move(r10, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(res_data, rdi).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, l_length).Code)
+				res.Code.Appendln(GEN_very_generic_move(rax, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+			}
+
+			/*
+				// update l.len
+				addq r.len, l.len
+			*/
+
+			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, res_length, rax).Code)
+
+			allocation = result
+			if t == front.AST_OP_ESUM {
+				res.Code.Appendln(GEN_very_generic_move(allocation, l).Code)
+			}
+			break
+		}
+		if r.Type().Equals(datatype_string.TYPE_STRING) {
+			// literally swap them out because i'm lazy!
+			tmp := l
+			l = r
+			r = tmp
+
+			// allocate result 
+			result := StackAllocate(datatype_string.TYPE_STRING).Reference()
+
+			// get r.data and r.length
+			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+			r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			r_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+			res.Code.Appendln(GEN_very_generic_move(r, r_regs).Code)
+
+			// get l.data and l.length
+			l_data := Operand(nil)
+			l_length := Operand(nil)
+			{
+				struct_type := l.Type().(datatype_struct.StructType)
+				l_ref := l.(Memory_Reference)
+				struct_offset:= l_ref.Offset
+				struct_start := l_ref.Start
+				struct_index := l_ref.Index
+				struct_indexcoeff := l_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// get result.data and result.length
+			res_data := Operand(nil)
+			res_length := Operand(nil)
+			{
+				struct_type := result.Type().(datatype_struct.StructType)
+				res_ref := result
+				struct_offset:= res_ref.Offset
+				struct_start := res_ref.Start
+				struct_index := res_ref.Index
+				struct_indexcoeff := res_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			rdi, _ := REGISTER_RDI.GetRegister(l_length.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, rdi).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
+
+			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, res_data).Code)
+			
+			{
+				/*
+					// copy left into res.data
+					movq l.data, %rsi
+					movq res.data, %rdi
+					movq l.len, %rcx
+					cld
+					rep movsb
+				*/
+				rax, _ = REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+				r10, _ = REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+				r_regs = RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+				res.Code.Appendln(GEN_very_generic_move(r, r_regs).Code)
+
+				rsi, _ := REGISTER_RSI.GetRegister(r10.Type())
+				rcx, _ := REGISTER_RCX.GetRegister(rax.Type())
+				res.Code.Appendln(GEN_very_generic_move(l_data, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(res_data, rdi).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, rax).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+			}
+				
+			
+			// TODO: check is l_data_save is freeable and free it!
+
+			{
+				/*
+					// copy right into left.data + left.len
+					movq r.data, %rsi
+
+					movq l.data, %rdi
+					addq l.len, %rdi
+
+					movq r.len, %rcx
+					cld
+					rep movsb
+				*/
+				rcx, _ := REGISTER_RCX.GetRegister(rax.Type())
+				rsi, _ := REGISTER_RSI.GetRegister(r10.Type())
+				res.Code.Appendln(GEN_very_generic_move(r10, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(res_data, rdi).Code)
+				res.Code.Appendln(GEN_very_generic_move(rax, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+			}
+
+			/*
+				// update l.len
+				addq r.len, l.len
+			*/
+
+			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, res_length, rax).Code)
+
+			allocation = result
+			if t == front.AST_OP_ESUM {
+				res.Code.Appendln(GEN_very_generic_move(allocation, l).Code)
+			}
+			break
+		}
 		switch data_size {
 		case 64:
 			res.Code.TextAppendSln(ii("addq", r, l))

@@ -196,7 +196,7 @@ func Compatible(source *datatype.DataType, destination *datatype.DataType) bool 
 		case datatype.PrimitiveType:
 			switch d.(type) {
 				case datatype.PrimitiveType:
-					if s.(datatype.PrimitiveType).IsIntegerType() && d.(datatype.PrimitiveType).IsIntegerType() {
+					if datatype.IsIntegerType(s.(datatype.PrimitiveType)) && datatype.IsIntegerType(d.(datatype.PrimitiveType)) {
 						if s == datatype.TYPE_INT_LITERAL || d == datatype.TYPE_INT_LITERAL {
 							return true
 						}
@@ -731,10 +731,75 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI, front.AST_OP_SHL, front.AST_OP_SHR: {
 			left_type := &ast.Children[0].DataType
 			right_type := &ast.Children[1].DataType
+
+			// *** static string operations done here ***
+			if datatype_string.IsStaticStringType(*left_type) {
+				if ast.Type == front.AST_OP_MUL {
+					if datatype.IsIntegerType(*right_type) && ast.Children[1].Type == front.AST_LITERAL { 
+						// ** static integers (dynamic stuff is done in the codegen!)
+						left_value := ast.Children[1].Data[0].Int_value
+						if left_value < 0 { 
+							typeErrorAt(ast, "can't multiply string times negative number (%d)!", left_value)
+							return nil
+						}
+
+						ast.DataType = datatype_string.NewStaticStringType(
+							datatype_array.StaticArrayType((*left_type).(datatype_string.StaticStringType)).Length * 
+							uint64(ast.Children[1].Data[0].Int_value),
+						)
+
+						// concatenate stuff
+						ast.Data = make([]front.Token, 1)
+						ast.Data[0].String_value = ""
+						for i := 0; i < int(left_value); i++ {
+							ast.Data[0].String_value += ast.Children[0].Data[0].String_value
+						}
+
+						ast.Data[0].Type = front.TOKEN_STRING_LITERAL
+						ast.Type = front.AST_LITERAL
+
+						// kill children
+						ast.Children = nil
+						
+						break
+					}
+				} 
+				if ast.Type == front.AST_OP_SUM {
+					if datatype_string.IsStaticStringType(*right_type) {
+						ast.DataType = datatype_string.NewStaticStringType(
+							datatype_array.StaticArrayType((*left_type).(datatype_string.StaticStringType)).Length +
+							datatype_array.StaticArrayType((*right_type).(datatype_string.StaticStringType)).Length,
+						)
+
+						// concatenate stuff
+						ast.Data = make([]front.Token, 1)
+						ast.Data[0].String_value = ast.Children[0].Data[0].String_value +
+												   ast.Children[1].Data[0].String_value
+						ast.Data[0].Type = front.TOKEN_STRING_LITERAL
+
+						ast.Type = front.AST_LITERAL
+
+						// kill children
+						ast.Children = nil
+						break
+					}
+
+					if (*right_type).Equals(datatype_string.TYPE_STRING) {
+						ast.DataType = datatype_string.TYPE_STRING
+						break
+					}
+				}
+
+				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
+				return nil
+			}
+
+
 			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
 				return nil
 			}
+			
 			ast.DataType = *left_type
 		}
 		case front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE, front.AST_OP_EQU,  front.AST_OP_NEQ: {
@@ -837,8 +902,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				case datatype.PrimitiveType: 
 					switch expression_type.(type) {
 						case datatype.PrimitiveType:
-							if !(casting_type.(datatype.PrimitiveType).IsIntegerType() && 
-								 expression_type.(datatype.PrimitiveType).IsIntegerType()) {
+							if !datatype.IsIntegerType(casting_type) && 
+								datatype.IsIntegerType(expression_type) {
 								typeErrorAt(ast, "cannot cast `%s` to `%s`", expression_type.Name(), casting_type.Name())
 								return nil
 							}

@@ -30,6 +30,13 @@ function main() {
 	true && false;
 	true || false;
 
+	printf(("hello, \n" * 10).data);
+
+	:foo string = "hello!\n" * 2;
+	foo *= 5;
+
+	printf((foo).data);
+
 	printf("%llx\n".data, 0xFF << 3);
 	printf("%llx\n".data, 0xF0 >> 2);
 }

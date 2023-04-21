@@ -74,18 +74,22 @@ func (typ PrimitiveType) ByteSize() uint64 {
 	return typ.BitSize() / 8
 }
 
-func (typ PrimitiveType) IsIntegerType() bool {
-	return typ == TYPE_INT64  ||
-		   typ == TYPE_INT32  ||
-		   typ == TYPE_INT16  ||
-		   typ == TYPE_INT8   || 
+func IsIntegerType(typ DataType) bool {
+	switch typ.(type) {
+		case PrimitiveType:
+			return typ == TYPE_INT64  ||
+				   typ == TYPE_INT32  ||
+				   typ == TYPE_INT16  ||
+				   typ == TYPE_INT8   || 
 
-		   typ == TYPE_UINT64 ||
-		   typ == TYPE_UINT32 ||
-		   typ == TYPE_UINT16 ||
-		   typ == TYPE_UINT8  ||
+				   typ == TYPE_UINT64 ||
+				   typ == TYPE_UINT32 ||
+				   typ == TYPE_UINT16 ||
+				   typ == TYPE_UINT8  ||
 
-		   typ == TYPE_INT_LITERAL
+				   typ == TYPE_INT_LITERAL
+	}
+	return false
 }
 
 // true = signed / false = unsigned

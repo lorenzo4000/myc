@@ -241,8 +241,6 @@ func Lex(src string) ([]Token) {
 				c1++
 				index++
 			}
-
-			println(next_token_str)
 		}
 
 		if len(next_token_str) > 0 {

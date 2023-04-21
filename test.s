@@ -1,6 +1,3 @@
-<<=
-<<
->>
 AST_HEAD : 
 	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
 		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = getchar ]
@@ -263,6 +260,48 @@ AST_HEAD :
 				AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
 			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
 				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_EXPRESSION(static_string) : 
+						AST_LITERAL(static_string) : [ int_value = 0, string_value = hello, 
+hello, 
+hello, 
+hello, 
+hello, 
+hello, 
+hello, 
+hello, 
+hello, 
+hello, 
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+			AST_VARIABLE_DEFINITION(string) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str ]
+				AST_DATATYPE(string) : [ int_value = 0, string_value = string ]
+				AST_LITERAL(static_string) : [ int_value = 0, string_value = world,  ]
+			AST_VARIABLE_DEFINITION(string) : 
+				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = foo ]
+				AST_DATATYPE(string) : [ int_value = 0, string_value = string ]
+				AST_LITERAL(static_string) : [ int_value = 0, string_value = hello! ]
+			AST_OP_ESUM(string) : 
+				AST_VARIABLE_NAME(string) : [ int_value = 0, string_value = str ]
+				AST_VARIABLE_NAME(string) : [ int_value = 0, string_value = foo ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_EXPRESSION(string) : 
+						AST_OP_SUM(string) : 
+							AST_VARIABLE_NAME(string) : [ int_value = 0, string_value = str ]
+							AST_LITERAL(static_string) : [ int_value = 0, string_value = stuff
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
+					AST_EXPRESSION(string) : 
+						AST_OP_SUM(string) : 
+							AST_VARIABLE_NAME(string) : [ int_value = 0, string_value = str ]
+							AST_LITERAL(static_string) : [ int_value = 0, string_value = 
+ ]
+					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
+			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
+				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
 					AST_LITERAL(static_string) : [ int_value = 0, string_value = %llx
  ]
 					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
@@ -304,7 +343,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $320, %rsp
+subq $496, %rsp
 
 
 
@@ -694,11 +733,494 @@ popq %rbx
 
 
 
+movq $.L5, %rdi
+
+
+
+call printf
+
+movl %eax, -281(%rbp, 1)
+
+
+
+
+
+movq $.L6, %rax
+
+
+pushq %rbx
+
+leaq 0(%rax, 1), %rbx
+
+movq %rbx, -305(%rbp, 1)
+
+
+popq %rbx
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -305(%rbp, 1), %rbx
+
+
+movq %rbx, -297(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq $7, %rbx
+
+
+movq %rbx, -289(%rbp, 1)
+
+popq %rbx
+
+
+
+
+
+movq $.L7, %rax
+
+
+pushq %rbx
+
+leaq 0(%rax, 1), %rbx
+
+movq %rbx, -329(%rbp, 1)
+
+
+popq %rbx
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -329(%rbp, 1), %rbx
+
+
+movq %rbx, -321(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+movq $6, %rbx
+
+
+movq %rbx, -313(%rbp, 1)
+
+popq %rbx
+
+
+
+
+
+
+movq -313(%rbp, 1), %rax
+
+
+movq -321(%rbp, 1), %r10
+
+
+
+movq %rax, %rdi
+
+
+addq -289(%rbp, 1), %rdi
+
+
+call malloc
+
+movq %rax, -345(%rbp, 1)
+
+
+movq -297(%rbp, 1), %rsi
+
+
+movq -345(%rbp, 1), %rdi
+
+
+movq -289(%rbp, 1), %rcx
+
+
+cld
+
+rep movsb
+
+movq -313(%rbp, 1), %rax
+
+
+movq -321(%rbp, 1), %r10
+
+
+
+movq %r10, %rsi
+
+
+movq -345(%rbp, 1), %rdi
+
+
+addq -289(%rbp, 1), %rdi
+
+
+movq %rax, %rcx
+
+
+cld
+
+rep movsb
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -289(%rbp, 1), %rbx
+
+
+movq %rbx, -337(%rbp, 1)
+popq %rbx
+
+
+addq %rax, -337(%rbp, 1)
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -337(%rbp, 1), %rbx
+
+
+movq %rbx, -289(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -345(%rbp, 1), %rbx
+
+
+movq %rbx, -297(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -289(%rbp, 1), %rbx
+
+
+movq %rbx, -353(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -297(%rbp, 1), %rbx
+
+
+movq %rbx, -361(%rbp, 1)
+popq %rbx
+
+
+
+movq $.L8, %rax
+
+
+pushq %rbx
+
+leaq 0(%rax, 1), %rbx
+
+movq %rbx, -385(%rbp, 1)
+
+
+popq %rbx
+
+
+movq -385(%rbp, 1), %r10
+
+
+movq $6, %rax
+
+
+
+
+movq %rax, %rdi
+
+
+addq -353(%rbp, 1), %rdi
+
+
+call malloc
+
+movq %rax, -377(%rbp, 1)
+
+
+movq -361(%rbp, 1), %rsi
+
+
+movq -377(%rbp, 1), %rdi
+
+
+movq -353(%rbp, 1), %rcx
+
+
+cld
+
+rep movsb
+
+movq $.L8, %rax
+
+
+pushq %rbx
+
+leaq 0(%rax, 1), %rbx
+
+movq %rbx, -393(%rbp, 1)
+
+
+popq %rbx
+
+
+movq -393(%rbp, 1), %r10
+
+
+movq $6, %rax
+
+
+
+
+movq %r10, %rsi
+
+
+movq -377(%rbp, 1), %rdi
+
+
+addq -353(%rbp, 1), %rdi
+
+
+movq %rax, %rcx
+
+
+cld
+
+rep movsb
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -353(%rbp, 1), %rbx
+
+
+movq %rbx, -369(%rbp, 1)
+popq %rbx
+
+
+addq %rax, -369(%rbp, 1)
+
+
+
+
+
+movq -377(%rbp, 1), %rdi
+
+
+
+call printf
+
+movl %eax, -397(%rbp, 1)
+
+
+
+
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -289(%rbp, 1), %rbx
+
+
+movq %rbx, -405(%rbp, 1)
+popq %rbx
+
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -297(%rbp, 1), %rbx
+
+
+movq %rbx, -413(%rbp, 1)
+popq %rbx
+
+
+
+movq $.L9, %rax
+
+
+pushq %rbx
+
+leaq 0(%rax, 1), %rbx
+
+movq %rbx, -437(%rbp, 1)
+
+
+popq %rbx
+
+
+movq -437(%rbp, 1), %r10
+
+
+movq $1, %rax
+
+
+
+
+movq %rax, %rdi
+
+
+addq -405(%rbp, 1), %rdi
+
+
+call malloc
+
+movq %rax, -429(%rbp, 1)
+
+
+movq -413(%rbp, 1), %rsi
+
+
+movq -429(%rbp, 1), %rdi
+
+
+movq -405(%rbp, 1), %rcx
+
+
+cld
+
+rep movsb
+
+movq $.L9, %rax
+
+
+pushq %rbx
+
+leaq 0(%rax, 1), %rbx
+
+movq %rbx, -445(%rbp, 1)
+
+
+popq %rbx
+
+
+movq -445(%rbp, 1), %r10
+
+
+movq $1, %rax
+
+
+
+
+movq %r10, %rsi
+
+
+movq -429(%rbp, 1), %rdi
+
+
+addq -405(%rbp, 1), %rdi
+
+
+movq %rax, %rcx
+
+
+cld
+
+rep movsb
+
+pushq %rbx
+// hello 
+
+ // byee 
+// hello 
+
+ // byee 
+movq -405(%rbp, 1), %rbx
+
+
+movq %rbx, -421(%rbp, 1)
+popq %rbx
+
+
+addq %rax, -421(%rbp, 1)
+
+
+
+
+
+movq -429(%rbp, 1), %rdi
+
+
+
+call printf
+
+movl %eax, -449(%rbp, 1)
+
+
+
+
+
+
 pushq %rbx
 movq $255, %rbx
 
 
-movq %rbx, -285(%rbp, 1)
+movq %rbx, -457(%rbp, 1)
 
 popq %rbx
 
@@ -707,28 +1229,28 @@ pushq %rbx
 movq $3, %rbx
 
 
-movq %rbx, -293(%rbp, 1)
+movq %rbx, -465(%rbp, 1)
 
 popq %rbx
 
 
-movq -293(%rbp, 1), %rcx
+movq -465(%rbp, 1), %rcx
 
 
-shlq %cl, -285(%rbp, 1)
+shlq %cl, -457(%rbp, 1)
 
 
 
-movq $.L5, %rdi
+movq $.L10, %rdi
 
 
-movq -285(%rbp, 1), %rsi
+movq -457(%rbp, 1), %rsi
 
 
 
 call printf
 
-movl %eax, -297(%rbp, 1)
+movl %eax, -469(%rbp, 1)
 
 
 
@@ -739,7 +1261,7 @@ pushq %rbx
 movq $240, %rbx
 
 
-movq %rbx, -305(%rbp, 1)
+movq %rbx, -477(%rbp, 1)
 
 popq %rbx
 
@@ -748,28 +1270,28 @@ pushq %rbx
 movq $2, %rbx
 
 
-movq %rbx, -313(%rbp, 1)
+movq %rbx, -485(%rbp, 1)
 
 popq %rbx
 
 
-movq -313(%rbp, 1), %rcx
+movq -485(%rbp, 1), %rcx
 
 
-shrq %cl, -305(%rbp, 1)
+shrq %cl, -477(%rbp, 1)
 
 
 
-movq $.L6, %rdi
+movq $.L11, %rdi
 
 
-movq -305(%rbp, 1), %rsi
+movq -477(%rbp, 1), %rsi
 
 
 
 call printf
 
-movl %eax, -317(%rbp, 1)
+movl %eax, -489(%rbp, 1)
 
 
 
@@ -962,7 +1484,26 @@ ret
 
 
 
-.L5: .byte 37, 108, 108, 120, 10, 0
+.L5: .byte 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 104, 101, 108, 108, 111, 44, 32, 10, 0
+
+
+
+
+
+
+
+.L6: .byte 119, 111, 114, 108, 100, 44, 32, 0
+
+
+
+
+
+
+
+
+
+
+.L7: .byte 104, 101, 108, 108, 111, 33, 0
 
 
 
@@ -980,7 +1521,123 @@ ret
 
 
 
-.L6: .byte 37, 108, 108, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L8: .byte 115, 116, 117, 102, 102, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L9: .byte 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L10: .byte 37, 108, 108, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L11: .byte 37, 108, 108, 120, 10, 0
 
 
 

@@ -811,6 +811,10 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 		}
 	case front.AST_OP_DOT:
 		{
+			for _, child := range children_out {
+				out.Code.Appendln(child.Code)
+			}
+
 			left := ast.Children[0]
 			right := ast.Children[1]
 
@@ -880,7 +884,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 					out.Result = result
 				case datatype_string.StaticStringType:
-					out.Code.Appendln(children_out[0].Code)
+					//out.Code.Appendln(children_out[0].Code)
 
 					string_allocation := children_out[0].Result.(Label)
 					string_type := string_allocation.Type().(datatype_string.StaticStringType)
