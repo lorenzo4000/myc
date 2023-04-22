@@ -735,23 +735,28 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			// *** static string operations done here ***
 			if datatype_string.IsStaticStringType(*left_type) {
 				if ast.Type == front.AST_OP_MUL {
-					if datatype.IsIntegerType(*right_type) && ast.Children[1].Type == front.AST_LITERAL { 
+					if datatype.IsIntegerType(*right_type) {
+						if ast.Children[1].Type != front.AST_LITERAL {  
+							// * dynamic stuff is done in the codegen!
+							ast.DataType = datatype_string.TYPE_STRING
+							break
+						}
 						// ** static integers (dynamic stuff is done in the codegen!)
-						left_value := ast.Children[1].Data[0].Int_value
-						if left_value < 0 { 
-							typeErrorAt(ast, "can't multiply string times negative number (%d)!", left_value)
+						right_value := ast.Children[1].Data[0].Int_value
+						if right_value < 0 { 
+							typeErrorAt(ast, "can't multiply string times negative number (%d)!", right_value)
 							return nil
 						}
 
 						ast.DataType = datatype_string.NewStaticStringType(
 							datatype_array.StaticArrayType((*left_type).(datatype_string.StaticStringType)).Length * 
-							uint64(ast.Children[1].Data[0].Int_value),
+							uint64(right_value),
 						)
 
 						// concatenate stuff
 						ast.Data = make([]front.Token, 1)
 						ast.Data[0].String_value = ""
-						for i := 0; i < int(left_value); i++ {
+						for i := 0; i < int(right_value); i++ {
 							ast.Data[0].String_value += ast.Children[0].Data[0].String_value
 						}
 
@@ -793,6 +798,64 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
 				return nil
 			}
+			if datatype_string.IsStaticStringType(*right_type) {
+				if ast.Type == front.AST_OP_MUL {
+					if datatype.IsIntegerType(*left_type) {
+						if ast.Children[0].Type != front.AST_LITERAL {  
+							// * dynamic stuff is done in the codegen!
+							ast.DataType = datatype_string.TYPE_STRING
+							break
+						}
+						// ** static integers 
+						left_value := ast.Children[0].Data[0].Int_value
+						if left_value < 0 { 
+							typeErrorAt(ast, "can't multiply string times negative number (%d)!", left_value)
+							return nil
+						}
+
+						ast.DataType = datatype_string.NewStaticStringType(
+							datatype_array.StaticArrayType((*right_type).(datatype_string.StaticStringType)).Length * 
+							uint64(left_value),
+						)
+
+						// concatenate stuff
+						ast.Data = make([]front.Token, 1)
+						ast.Data[0].String_value = ""
+						for i := 0; i < int(left_value); i++ {
+							ast.Data[0].String_value += ast.Children[1].Data[0].String_value
+						}
+
+						ast.Data[0].Type = front.TOKEN_STRING_LITERAL
+						ast.Type = front.AST_LITERAL
+
+						// kill children
+						ast.Children = nil
+						
+						break
+					}
+				} 
+				if ast.Type != front.AST_OP_SUM {
+					typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
+					return nil
+				}
+			}
+
+			if (*left_type).Equals(datatype_string.TYPE_STRING) {
+				if ast.Type == front.AST_OP_MUL {
+					if datatype.IsIntegerType(*right_type) {
+						ast.DataType = datatype_string.TYPE_STRING
+						break
+					}
+				}
+			}
+			if (*right_type).Equals(datatype_string.TYPE_STRING) {
+				if ast.Type == front.AST_OP_MUL {
+					if datatype.IsIntegerType(*left_type) {
+						ast.DataType = datatype_string.TYPE_STRING
+						break
+					}
+				}
+			}
 
 
 			if !Compatible(right_type, left_type) {
@@ -801,10 +864,52 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			
 			ast.DataType = *left_type
+
+			if !datatype.IsIntegerType(ast.DataType) 			 &&
+			   !datatype_string.IsStaticStringType(ast.DataType) &&
+			   !ast.DataType.Equals(datatype_string.TYPE_STRING) {
+				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
+				return nil
+			   }
+			  
 		}
-		case front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE, front.AST_OP_EQU,  front.AST_OP_NEQ: {
+		case front.AST_OP_GRT, front.AST_OP_LES, front.AST_OP_GOE, front.AST_OP_LOE: {
 			left_type := &ast.Children[0].DataType
 			right_type := &ast.Children[1].DataType
+			if !Compatible(right_type, left_type) {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
+				return nil
+			} 
+
+			if !datatype.IsIntegerType((*left_type)) || !datatype.IsIntegerType((*right_type)) {
+				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
+				return nil
+		    }
+
+			ast.DataType = datatype.TYPE_BOOL
+		}
+		case front.AST_OP_EQU,  front.AST_OP_NEQ: {
+			left_type := &ast.Children[0].DataType
+			right_type := &ast.Children[1].DataType
+
+			// ** static string comparison done here **
+			if datatype_string.IsStaticStringType(*left_type) && 
+			   datatype_string.IsStaticStringType(*right_type) {
+			     eq := ast.Children[0].Data[0].String_value ==
+					   ast.Children[1].Data[0].String_value
+
+				ast.Type = front.AST_LITERAL
+				ast.DataType = datatype.TYPE_BOOL
+				ast.Data = make([]front.Token, 1)
+				ast.Data[0].Type = front.TOKEN_BOOL_LITERAL
+				if eq {
+					ast.Data[0].Int_value = 1
+				} else {
+					ast.Data[0].Int_value = 0
+				}
+				break
+			}
+
 			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
 				return nil
@@ -824,7 +929,64 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = datatype.TYPE_BOOL
 		}
-		case front.AST_OP_ASN, front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EMUL, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE, front.AST_OP_ESHL, front.AST_OP_ESHR: { 
+		case front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE, front.AST_OP_ESHL, front.AST_OP_ESHR: { 
+			if !ExpressionIsLeftValue(ast.Children[0]) {
+				typeErrorAt(ast, "invalid expression in left side of assignment")
+				return nil
+			}
+			if !Writable(ast.Children[0]) {
+				typeErrorAt(ast, "expression in left side of assignment is not writable")
+				return nil
+			}
+
+			left_type := &ast.Children[0].DataType
+			right_type := &ast.Children[1].DataType
+			if !Compatible(right_type, left_type) {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
+				return nil
+			}
+			ast.DataType = *left_type
+
+			if !datatype.IsIntegerType(ast.DataType) &&
+			   (front.AST_OP_ESUM != ast.Type && 
+				ast.DataType.Equals(datatype_string.TYPE_STRING)) {
+				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
+				return nil
+			}
+		}
+
+		case front.AST_OP_EMUL: {
+			if !ExpressionIsLeftValue(ast.Children[0]) {
+				typeErrorAt(ast, "invalid expression in left side of assignment")
+				return nil
+			}
+			if !Writable(ast.Children[0]) {
+				typeErrorAt(ast, "expression in left side of assignment is not writable")
+				return nil
+			}
+
+			left_type := &ast.Children[0].DataType
+			right_type := &ast.Children[1].DataType
+			
+			if (*left_type).Equals(datatype_string.TYPE_STRING) {
+				if datatype.IsIntegerType(*right_type) {
+					ast.DataType = datatype_string.TYPE_STRING
+					break
+				}
+			}
+
+			if !Compatible(right_type, left_type) {
+				typeErrorAt(ast, "incompatible types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
+				return nil
+			}
+			ast.DataType = *left_type
+
+			if !datatype.IsIntegerType(ast.DataType) {
+				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
+				return nil
+			}
+		}
+		case front.AST_OP_ASN: {
 			if !ExpressionIsLeftValue(ast.Children[0]) {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
@@ -847,6 +1009,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_NEG, front.AST_OP_BNOT: {
 			// TODO: check if operand is integer signed? maybe...
 			ast.DataType = ast.Children[0].DataType
+
+			if !datatype.IsIntegerType(ast.DataType) {
+				typeErrorAt(ast, "invalid operation for types `%s`", ast.DataType.Name())
+				return nil
+			}
 		}
 		case front.AST_OP_INC, front.AST_OP_DEC: {
 			if !ExpressionIsLeftValue(ast.Children[0]) {
@@ -859,6 +1026,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 
 			ast.DataType = ast.Children[0].DataType
+			
+			if !datatype.IsIntegerType(ast.DataType) {
+				typeErrorAt(ast, "invalid operation for types `%s`", ast.DataType.Name())
+				return nil
+			}
 		}	
 		case front.AST_OP_NOT: {
 			t := ast.Children[0].DataType

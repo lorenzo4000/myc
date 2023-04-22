@@ -971,7 +971,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			var array_index Codegen_Out
 			switch array.Type().(type) {
 				case datatype_struct.StructType:
-					array_index = GEN_dynamic_array_index(array.(Memory_Reference), index, ast)
+					array_index = GEN_dynamic_array_index(array.(Memory_Reference), index)
 				case datatype_array.StaticArrayType:
 					array_index = GEN_static_array_index(array.(Memory_Reference), index)
 				case datatype_string.StaticStringType:

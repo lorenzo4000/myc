@@ -2,6 +2,9 @@ package typecheck
 
 import (
 	"mycgo/back/datatype"
+	"mycgo/back/datatype/datatype_string"
+	"mycgo/back/datatype/datatype_struct"
+	"mycgo/back/datatype/datatype_array"
 	"mycgo/back/symbol"
 	"mycgo/front"
 )
@@ -107,7 +110,24 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 						child.DataType = ast.Children[i ^ 1].DataType
 						break
 					}
+					if ast.DataType.Equals(datatype_string.TYPE_STRING) {
+						child.DataType = datatype.TYPE_INT64
+						break
+					}
 					child.DataType = ast.DataType
+				}
+			}
+			case front.AST_COMPOSITE_LITERAL: {
+				if i > 1 && child.DataType == datatype.TYPE_INT_LITERAL {
+					switch ast.Children[0].DataType.(type) {
+						case datatype_struct.StructType:
+							struct_type := ast.Children[0].DataType.(datatype_struct.StructType)
+							field := struct_type.Fields[i-1]
+							child.DataType = field.Type
+						case  datatype_array.StaticArrayType:	
+							array_type := ast.Children[0].DataType.(datatype_array.StaticArrayType)
+							child.DataType = array_type
+					}
 				}
 			}
 			default: 

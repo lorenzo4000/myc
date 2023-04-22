@@ -973,8 +973,10 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 		fields_size += f.Type().ByteSize()
 	}
 
+
 	if fields_size > struct_type.ByteSize() {
-		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
+		println("fields: ", fields_size, "struct: ", struct_type.ByteSize())
+		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name(), "`")
 		return res
 	}
 
@@ -1035,7 +1037,7 @@ func GEN_storestruct_from_memory(s Memory_Reference, d Memory_Reference) Codegen
 	nfields := len(struct_type.Fields)
 
 	if s.DataType.ByteSize() > d.DataType.ByteSize() {
-		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name, "`")
+		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name(), "`")
 		return res
 	}
 
@@ -1210,7 +1212,6 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 			if datatype_struct.IsDynamicArrayType(array_destination.Type()) || array_destination.Type().Equals(datatype_string.TYPE_STRING) {
 				out := Codegen_Out{}
 
-				// TODO: change this when i have struct literals
 				array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
 							  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
 				array_data := array_source
@@ -1319,7 +1320,6 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 								//assert array_destination is dynamic array 
 								out := Codegen_Out{}
 
-								// TODO: change this when i have struct literals
 								array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
 											  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
 								array_data := array_source
@@ -1730,7 +1730,6 @@ func GEN_while(c Codegen_Out, b Codegen_Out) Codegen_Out {
 }
 
 func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, _type datatype.DataType) Codegen_Out {
-	println("AAAAAAAAAAAAAAAA:", _type.Name())
 	res := Codegen_Out{}
 
 	var allocation Operand
@@ -1763,7 +1762,6 @@ func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, _typ
 	}
 
 	res.Result = allocation
-	println(res.Result.Type().Name())
 	return res
 }
 func GEN_if(c Codegen_Out, t Codegen_Out) Codegen_Out {
@@ -2098,6 +2096,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			rdi, _ := REGISTER_RDI.GetRegister(l_length.Type())
 			res.Code.Appendln(GEN_very_generic_move(rax, rdi).Code)
 			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("incq", rdi)) // allocate +1 for zero-termination
 			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
 
 			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
@@ -2159,9 +2158,20 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				// update l.len
 				addq r.len, l.len
 			*/
-
+			{
 			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
 			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, res_length, rax).Code)
+
+			res.Code.Appendln(GEN_very_generic_move(res_length, r10).Code)
+			res.Code.TextAppendSln(ii("incq", r10))
+
+			// zero-terminate
+			string_tail := GEN_dynamic_array_index(result, r10)
+			res.Code.Appendln(string_tail.Code)
+			string_tail_reference := string_tail.Result.(Memory_Reference)
+			res.Code.Appendln(GEN_very_generic_move(Asm_Int_Literal{datatype.TYPE_UINT8, 0, 10}, string_tail_reference).Code)
+			}
+
 
 			allocation = result
 			if t == front.AST_OP_ESUM {
@@ -2263,6 +2273,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			rdi, _ := REGISTER_RDI.GetRegister(l_length.Type())
 			res.Code.Appendln(GEN_very_generic_move(rax, rdi).Code)
 			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("incq", rdi)) // allocate +1 for zero-termination
 			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
 
 			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
@@ -2323,8 +2334,19 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 				addq r.len, l.len
 			*/
 
+			{
 			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
 			res.Code.Appendln(GEN_binop(front.AST_OP_SUM, res_length, rax).Code)
+
+			res.Code.Appendln(GEN_very_generic_move(res_length, r10).Code)
+			res.Code.TextAppendSln(ii("incq", r10))
+
+			// zero-terminate
+			string_tail := GEN_dynamic_array_index(result, r10)
+			res.Code.Appendln(string_tail.Code)
+			string_tail_reference := string_tail.Result.(Memory_Reference)
+			res.Code.Appendln(GEN_very_generic_move(Asm_Int_Literal{datatype.TYPE_UINT8, 0, 10}, string_tail_reference).Code)
+			}
 
 			allocation = result
 			if t == front.AST_OP_ESUM {
@@ -2356,6 +2378,628 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		}
 		allocation = l
 	case front.AST_OP_MUL, front.AST_OP_EMUL:
+		if datatype_string.IsStaticStringType(l.Type()) {
+			// allocate result 
+			result := StackAllocate(datatype_string.TYPE_STRING).Reference()
+
+			// get result.data and result.length
+			res_data := Operand(nil)
+			res_length := Operand(nil)
+			{
+				struct_type := result.Type().(datatype_struct.StructType)
+				res_ref := result
+				struct_offset:= res_ref.Offset
+				struct_start := res_ref.Start
+				struct_index := res_ref.Index
+				struct_indexcoeff := res_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// get l.data and l.length
+			var l_data Register
+			var l_length Register
+
+			{
+				rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+				r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+				l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+				res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+				l_data = r10
+				l_length = rax
+			}
+
+			rdi, _ := REGISTER_RDI.GetRegister(r.Type())
+			res.Code.Appendln(GEN_very_generic_move(r, rdi).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("incq", rdi)) // allocate +1 for zero-termination
+			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
+			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, res_data).Code)
+
+			{
+				rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+				r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+				l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+				res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+				l_data = r10
+				l_length = rax
+			}
+
+			{
+				// r11 = counter = 0
+				r11, _ := REGISTER_R11.GetRegister(r.Type())
+				res.Code.TextAppendSln(ii("xorq", r11, r11))
+
+				// make loop
+				copy_loop := LabelGen()
+				copy_loop_end := LabelGen()
+				res.Code.TextAppendSln(copy_loop.Text() + ":")
+
+				res.Code.TextAppendSln(ii("cmpq", r11, r))
+				res.Code.TextAppendSln(ii("jle", copy_loop_end))
+
+				/*
+					// copy left into res.data
+					movq l.data, %rsi
+					movq res.data, %rdi
+					movq l.len, %rcx
+					cld
+					rep movsb
+				*/
+				rsi, _ := REGISTER_RSI.GetRegister(l_data.Type())
+				rcx, _ := REGISTER_RCX.GetRegister(l_length.Type())
+				res.Code.Appendln(GEN_very_generic_move(l_data, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rdi).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, r11).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, res_data).Code)
+
+				{
+					rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+					r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+					l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+					res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+					l_data = r10
+					l_length = rax
+				}
+
+				res.Code.Appendln(GEN_very_generic_move(l_length, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+
+				// increment counter
+				res.Code.TextAppendSln(ii("incq", r11))
+				res.Code.TextAppendSln(ii("jmp", copy_loop))
+				res.Code.TextAppendSln(copy_loop_end.Text() + ":")
+			}
+				
+			
+			// TODO: check is l_data_save is freeable and free it!
+
+			/*
+				// update l.len
+				addq r.len, l.len
+			*/
+			{
+			r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, res_length, r).Code)
+
+			res.Code.Appendln(GEN_very_generic_move(res_length, r10).Code)
+			res.Code.TextAppendSln(ii("incq", r10))
+
+			// zero-terminate
+			string_tail := GEN_dynamic_array_index(result, r10)
+			res.Code.Appendln(string_tail.Code)
+			string_tail_reference := string_tail.Result.(Memory_Reference)
+			res.Code.Appendln(GEN_very_generic_move(Asm_Int_Literal{datatype.TYPE_UINT8, 0, 10}, string_tail_reference).Code)
+			}
+
+
+			allocation = result
+			if t == front.AST_OP_EMUL {
+				res.Code.Appendln(GEN_very_generic_move(allocation, l).Code)
+			}
+			break
+		}
+		if datatype_string.IsStaticStringType(r.Type()) {
+			// shameless
+			tmp := l
+			l = r
+			r = tmp
+
+			// allocate result 
+			result := StackAllocate(datatype_string.TYPE_STRING).Reference()
+
+			// get result.data and result.length
+			res_data := Operand(nil)
+			res_length := Operand(nil)
+			{
+				struct_type := result.Type().(datatype_struct.StructType)
+				res_ref := result
+				struct_offset:= res_ref.Offset
+				struct_start := res_ref.Start
+				struct_index := res_ref.Index
+				struct_indexcoeff := res_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// get l.data and l.length
+			var l_data Register
+			var l_length Register
+
+			{
+				rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+				r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+				l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+				res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+				l_data = r10
+				l_length = rax
+			}
+
+			rdi, _ := REGISTER_RDI.GetRegister(r.Type())
+			res.Code.Appendln(GEN_very_generic_move(r, rdi).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("incq", rdi)) // allocate +1 for zero-termination
+			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
+			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, res_data).Code)
+
+			{
+				rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+				r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+				l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+				res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+				l_data = r10
+				l_length = rax
+			}
+
+			{
+				// r11 = counter = 0
+				r11, _ := REGISTER_R11.GetRegister(r.Type())
+				res.Code.TextAppendSln(ii("xorq", r11, r11))
+
+				// make loop
+				copy_loop := LabelGen()
+				copy_loop_end := LabelGen()
+				res.Code.TextAppendSln(copy_loop.Text() + ":")
+
+				res.Code.TextAppendSln(ii("cmpq", r11, r))
+				res.Code.TextAppendSln(ii("jle", copy_loop_end))
+
+				/*
+					// copy left into res.data
+					movq l.data, %rsi
+					movq res.data, %rdi
+					movq l.len, %rcx
+					cld
+					rep movsb
+				*/
+				rsi, _ := REGISTER_RSI.GetRegister(l_data.Type())
+				rcx, _ := REGISTER_RCX.GetRegister(l_length.Type())
+				res.Code.Appendln(GEN_very_generic_move(l_data, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rdi).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, r11).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, res_data).Code)
+
+				{
+					rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+					r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+					l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rax, r2 : r10}
+					res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+					l_data = r10
+					l_length = rax
+				}
+
+				res.Code.Appendln(GEN_very_generic_move(l_length, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+
+				// increment counter
+				res.Code.TextAppendSln(ii("incq", r11))
+				res.Code.TextAppendSln(ii("jmp", copy_loop))
+				res.Code.TextAppendSln(copy_loop_end.Text() + ":")
+			}
+				
+			
+			// TODO: check is l_data_save is freeable and free it!
+
+			/*
+				// update l.len
+				addq r.len, l.len
+			*/
+
+			{
+			r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, res_length, r).Code)
+
+			res.Code.Appendln(GEN_very_generic_move(res_length, r10).Code)
+			res.Code.TextAppendSln(ii("incq", r10))
+
+			// zero-terminate
+			string_tail := GEN_dynamic_array_index(result, r10)
+			res.Code.Appendln(string_tail.Code)
+			string_tail_reference := string_tail.Result.(Memory_Reference)
+			res.Code.Appendln(GEN_very_generic_move(Asm_Int_Literal{datatype.TYPE_UINT8, 0, 10}, string_tail_reference).Code)
+			}
+
+			allocation = result
+			if t == front.AST_OP_EMUL {
+				res.Code.Appendln(GEN_very_generic_move(allocation, l).Code)
+			}
+			break
+		}
+		if l.Type().Equals(datatype_string.TYPE_STRING) {
+			// allocate result 
+			result := StackAllocate(datatype_string.TYPE_STRING).Reference()
+
+			// get l.data and l.length
+			l_data := Operand(nil)
+			l_length := Operand(nil)
+			{
+				struct_type := l.Type().(datatype_struct.StructType)
+				l_ref := l.(Memory_Reference)
+				struct_offset:= l_ref.Offset
+				struct_start := l_ref.Start
+				struct_index := l_ref.Index
+				struct_indexcoeff := l_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// get result.data and result.length
+			res_data := Operand(nil)
+			res_length := Operand(nil)
+			{
+				struct_type := result.Type().(datatype_struct.StructType)
+				res_ref := result
+				struct_offset:= res_ref.Offset
+				struct_start := res_ref.Start
+				struct_index := res_ref.Index
+				struct_indexcoeff := res_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// allocate length * n
+			rdi, _ := REGISTER_RDI.GetRegister(r.Type())
+			res.Code.Appendln(GEN_very_generic_move(r, rdi).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("incq", rdi)) // allocate +1 for zero-termination
+			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
+
+			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, res_data).Code)
+			
+			{
+				// r10 = counter = 0
+				r10, _ := REGISTER_R10.GetRegister(r.Type())
+				res.Code.TextAppendSln(ii("xorq", r10, r10))
+
+				// make loop
+				copy_loop := LabelGen()
+				copy_loop_end := LabelGen()
+				res.Code.TextAppendSln(copy_loop.Text() + ":")
+
+				res.Code.TextAppendSln(ii("cmpq", r10, r))
+				res.Code.TextAppendSln(ii("jle", copy_loop_end))
+
+				/*
+					// copy left into res.data
+					movq l.data, %rsi
+					movq res.data, %rdi
+					movq l.len, %rcx
+					cld
+					rep movsb
+				*/
+				rsi, _ := REGISTER_RSI.GetRegister(l_data.Type())
+				rcx, _ := REGISTER_RCX.GetRegister(l_length.Type())
+				res.Code.Appendln(GEN_very_generic_move(l_data, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rdi).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, r10).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, res_data).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+
+				// increment counter
+				res.Code.TextAppendSln(ii("incq", r10))
+				res.Code.TextAppendSln(ii("jmp", copy_loop))
+				res.Code.TextAppendSln(copy_loop_end.Text() + ":")
+			}
+				
+			
+			// TODO: check is l_data_save is freeable and free it!
+
+			/*
+				// update l.len
+				addq r.len, l.len
+			*/
+
+			{
+			r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, res_length, r).Code)
+
+			res.Code.Appendln(GEN_very_generic_move(res_length, r10).Code)
+			res.Code.TextAppendSln(ii("incq", r10))
+
+			// zero-terminate
+			string_tail := GEN_dynamic_array_index(result, r10)
+			res.Code.Appendln(string_tail.Code)
+			string_tail_reference := string_tail.Result.(Memory_Reference)
+			res.Code.Appendln(GEN_very_generic_move(Asm_Int_Literal{datatype.TYPE_UINT8, 0, 10}, string_tail_reference).Code)
+			}
+
+			allocation = result
+			if t == front.AST_OP_EMUL {
+				res.Code.Appendln(GEN_very_generic_move(allocation, l).Code)
+			}
+			break
+		}
+		if r.Type().Equals(datatype_string.TYPE_STRING) {
+			// very lazy!
+			tmp := l
+			l = r
+			r = tmp
+
+			// allocate result 
+			result := StackAllocate(datatype_string.TYPE_STRING).Reference()
+
+			// get l.data and l.length
+			l_data := Operand(nil)
+			l_length := Operand(nil)
+			{
+				struct_type := l.Type().(datatype_struct.StructType)
+				l_ref := l.(Memory_Reference)
+				struct_offset:= l_ref.Offset
+				struct_start := l_ref.Start
+				struct_index := l_ref.Index
+				struct_indexcoeff := l_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					l_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// get result.data and result.length
+			res_data := Operand(nil)
+			res_length := Operand(nil)
+			{
+				struct_type := result.Type().(datatype_struct.StructType)
+				res_ref := result
+				struct_offset:= res_ref.Offset
+				struct_start := res_ref.Start
+				struct_index := res_ref.Index
+				struct_indexcoeff := res_ref.IndexCoefficient
+
+				{
+					field := 0
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_data = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+				{
+					field := 1
+					field_type := struct_type.Fields[field].Type
+					field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+					res_length = Memory_Reference{
+						field_type,
+						field_offset,
+						struct_start,
+						struct_index,
+						struct_indexcoeff,
+					}
+				}
+			}
+			// allocate length * n
+			rdi, _ := REGISTER_RDI.GetRegister(r.Type())
+			res.Code.Appendln(GEN_very_generic_move(r, rdi).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, l_length).Code)
+			res.Code.TextAppendSln(ii("incq", rdi)) // allocate +1 for zero-termination
+			res.Code.TextAppendSln(ii("call", Label{nil, "malloc"}))
+
+			rax, _ = REGISTER_RAX.GetRegister(res_data.Type())
+			res.Code.Appendln(GEN_very_generic_move(rax, res_data).Code)
+			
+			{
+				// r10 = counter = 0
+				r10, _ := REGISTER_R10.GetRegister(r.Type())
+				res.Code.TextAppendSln(ii("xorq", r10, r10))
+
+				// make loop
+				copy_loop := LabelGen()
+				copy_loop_end := LabelGen()
+				res.Code.TextAppendSln(copy_loop.Text() + ":")
+
+				res.Code.TextAppendSln(ii("cmpq", r10, r))
+				res.Code.TextAppendSln(ii("jle", copy_loop_end))
+
+				/*
+					// copy left into res.data
+					movq l.data, %rsi
+					movq res.data, %rdi
+					movq l.len, %rcx
+					cld
+					rep movsb
+				*/
+				rsi, _ := REGISTER_RSI.GetRegister(l_data.Type())
+				rcx, _ := REGISTER_RCX.GetRegister(l_length.Type())
+				res.Code.Appendln(GEN_very_generic_move(l_data, rsi).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rdi).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_MUL, rdi, r10).Code)
+				res.Code.Appendln(GEN_binop(front.AST_OP_SUM, rdi, res_data).Code)
+				res.Code.Appendln(GEN_very_generic_move(l_length, rcx).Code)
+				
+				res.Code.TextAppendSln(ii("cld"))
+				res.Code.TextAppendSln(ii("rep movsb"))
+
+				// increment counter
+				res.Code.TextAppendSln(ii("incq", r10))
+				res.Code.TextAppendSln(ii("jmp", copy_loop))
+				res.Code.TextAppendSln(copy_loop_end.Text() + ":")
+			}
+				
+			
+			// TODO: check is l_data_save is freeable and free it!
+
+			/*
+				// update l.len
+				addq r.len, l.len
+			*/
+
+			{
+			r10, _ := REGISTER_R10.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			res.Code.Appendln(GEN_very_generic_move(l_length, res_length).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_MUL, res_length, r).Code)
+
+			res.Code.Appendln(GEN_very_generic_move(res_length, r10).Code)
+			res.Code.TextAppendSln(ii("incq", r10))
+
+			// zero-terminate
+			string_tail := GEN_dynamic_array_index(result, r10)
+			res.Code.Appendln(string_tail.Code)
+			string_tail_reference := string_tail.Result.(Memory_Reference)
+			res.Code.Appendln(GEN_very_generic_move(Asm_Int_Literal{datatype.TYPE_UINT8, 0, 10}, string_tail_reference).Code)
+			}
+
+			allocation = result
+			if t == front.AST_OP_EMUL {
+				res.Code.Appendln(GEN_very_generic_move(allocation, l).Code)
+			}
+			break
+		}
 		rax, _ := REGISTER_RAX.GetRegister(l.Type())
 		res.Code.Appendln(GEN_load(l, rax).Code)
 
@@ -2553,6 +3197,88 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		}
 
 		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+
+		if l.Type().Equals(datatype_string.TYPE_STRING) ||
+		   datatype_string.IsStaticStringType(l.Type()) {
+			// dynamic == dyanamic
+			/*
+				// compare lengths
+				cmpq l.length, r.length
+				jne end
+
+				movq l.data, %rdi
+				movq r.data, %rsi
+				movq l.length, %rcx 
+
+				repq cmpsb
+				
+				end:
+			*/
+			// get l and r
+			rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
+			rdi, _ := REGISTER_RDI.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			r_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rcx, r2 : rdi}
+			res.Code.Appendln(GEN_very_generic_move(r, r_regs).Code)
+
+			r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_UINT64)
+			rsi, _ := REGISTER_RSI.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : r10, r2 : rsi}
+			res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+
+			cmp_end := LabelGen()
+
+			// compare lengths
+			res.Code.TextAppendSln(ii("cmpq", rcx, r10))
+			res.Code.TextAppendSln(ii("jne", cmp_end))
+
+			// compare actual bytes
+			res.Code.TextAppendSln(ii("cld"))
+			res.Code.TextAppendSln(ii("repe cmpsb"))
+			
+			res.Code.TextAppendSln(ii(cmp_end.Text() + ":"))
+			res.Code.TextAppendSln(ii("sete", allocation))
+			break
+		}
+
+		// ** struct equality
+		switch l.Type().(type) {
+			case datatype_struct.StructType: { 
+				res.Code.TextAppendSln(ii("movb $1,", allocation))
+
+				struct_type := l.Type().(datatype_struct.StructType)
+				nfields := len(struct_type.Fields)
+
+				s := l.(Memory_Reference)
+				z := r.(Memory_Reference)
+				for field := 0; field < nfields; field++ {
+					field_type := struct_type.Fields[field].Type
+
+					f := Memory_Reference{
+						field_type,
+						s.Offset + int64(struct_type.Fields[field].Offset),
+						s.Start,
+						s.Index,
+						s.IndexCoefficient,
+					}
+					e := Memory_Reference{
+						field_type,
+						z.Offset + int64(struct_type.Fields[field].Offset),
+						z.Start,
+						z.Index,
+						z.IndexCoefficient,
+					}
+
+					fields_eq := GEN_binop(front.AST_OP_EQU, f, e)
+					res.Code.Appendln(fields_eq.Code)
+					
+					// AND
+					res.Code.Appendln(GEN_binop(front.AST_OP_AND, allocation, fields_eq.Result).Code)
+				}
+
+				goto exit_eq
+			}
+		}
+
 		switch data_size {
 		case 64:
 			res.Code.TextAppendSln(ii("cmpq", r, l))
@@ -2565,6 +3291,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		}
 
 		res.Code.TextAppendSln(ii("sete", allocation))
+		exit_eq:
 		switch l.(type) {
 		case Register:
 			l.(Register).Free()
@@ -2772,7 +3499,7 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 }
 
 // this uses R10 and R11 !!
-func GEN_dynamic_array_index(array_struct Memory_Reference, index Operand, ast *front.Ast_Node) Codegen_Out {
+func GEN_dynamic_array_index(array_struct Memory_Reference, index Operand) Codegen_Out {
 	res := Codegen_Out{}
 
 	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64) // length or size... idk

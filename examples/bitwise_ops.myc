@@ -1,5 +1,19 @@
 @import "lib/c/stdio.myc"
 
+struct A {
+	:a int32;
+	:b int64;
+	:c int32;
+	:d int32;
+	:e int64;
+	:f int64;
+	:g string;
+}
+struct B {
+	:a int32;
+	:b A;
+}
+
 function main() {
 	:a int64 = 0xFF00;
 	:b int64 = 0x00FF;
@@ -30,12 +44,64 @@ function main() {
 	true && false;
 	true || false;
 
-	printf(("hello, \n" * 10).data);
+	printf((x * "hello, \n").data);
 
-	:foo string = "hello!\n" * 2;
-	foo *= 5;
+	// sttring equality
+	:foo string = "helio!";
+	:bar string = "hello!";
 
-	printf((foo).data);
+	if "heilo!" == "hello!" {
+		printf("static is equal to static!\n".data);
+	}
+	if foo == "helio!" {
+		printf("dynamic is equal to static!\n".data);
+	}
+	if bar == foo {
+		printf("dynamic is equal to dynamic!\n".data);
+	}
+
+	// struct equality
+	:baz B = B {
+		1,
+		A{
+			5,
+			9,
+			5,
+			5,
+			9,
+			9,
+			"hey!",
+		},
+	};
+	:quz B = B {
+		1,
+		A{
+			5,
+			9,
+			5,
+			5,
+			9,
+			9,
+			"hey!",
+		},
+	};
+
+	if baz == quz {
+		printf("struct is equal to struct!\n".data);
+	}
+
+	printf("%s   len : %d\n".data, (foo + "hey , ").data, (foo + "hey , ").len);
+	printf("%s   len : %d\n".data, ("hey , " + foo).data, ("hey , " + foo).len);
+	printf("%s   len : %d\n".data, (5 * "hey!").data, (5 * "hey!").len);
+	printf("%s   len : %d\n".data, ("hey!" * 5).data, ("hey!" * 5).len);
+	printf("%s   len : %d\n".data, (foo * 5).data, (foo * 5).len);
+	printf("%s   len : %d\n".data, (5 * foo).data, (5 * foo).len);
+
+
+	//printf("len : %d\n".data, foo.len);
+	for(:i int64 = 0; i < [int64]foo.len; i++) {
+		printf("%hhx".data, foo[i]);
+	}
 
 	printf("%llx\n".data, 0xFF << 3);
 	printf("%llx\n".data, 0xF0 >> 2);
