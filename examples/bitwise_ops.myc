@@ -82,12 +82,12 @@ function main() {
 			5,
 			9,
 			9,
-			"hey!",
+			"hay!",
 		},
 	};
 
-	if baz == quz {
-		printf("struct is equal to struct!\n".data);
+	if baz != quz {
+		printf("struct is not equal to struct!\n".data);
 	}
 
 	printf("%s   len : %d\n".data, (foo + "hey , ").data, (foo + "hey , ").len);

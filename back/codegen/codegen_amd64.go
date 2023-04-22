@@ -3297,32 +3297,10 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			l.(Register).Free()
 		}
 	case front.AST_OP_NEQ:
-		var full bool
-		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-		if full {
-			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-		} else {
-			allocation = reg
-		}
-
-		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("cmpq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("cmpl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("cmpw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("cmpb", r, l))
-		}
-
-		res.Code.TextAppendSln(ii("setne", allocation))
-
-		switch l.(type) {
-		case Register:
-			l.(Register).Free()
-		}
+		eq := GEN_binop(front.AST_OP_EQU, l, r)
+		res.Code.Appendln(eq.Code)
+		res.Code.TextAppendSln(ii("xorb $1,", eq.Result))
+		allocation = eq.Result
 	case front.AST_OP_AND:
 		res.Code.TextAppendSln(ii("andb", r, l))
 
