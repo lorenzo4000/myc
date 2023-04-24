@@ -1,0 +1,19 @@
+@import "lib/c/stdio.myc"
+
+function backtrace(:buffer []*?) int32 external;
+function backtrace_symbols(:buffer []*?) []*uint8 external;
+function backtrace_symbols_fd(:buffer []*?, :fd int32) **uint8 external;
+
+function foo() {
+	:arr [10]uint8;
+	:dyn []uint8 = arr;
+
+	dyn[60];
+	for(:i int64 = 0; i < 15; i++) {
+		printf("dyn[%d] = %hhu\n".data, i, dyn[i]);
+	}
+}
+
+function main() {
+	foo();
+}

@@ -1,6 +1,7 @@
 -> make an actual distinction between `array.size` and `array.len` !!
-		.  array equality
 		.  array boundary checking
+
+.  zero initiate arrays and structs
 
 .  varargs
 		. typecheck arguments when calling {

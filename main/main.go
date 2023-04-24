@@ -146,6 +146,7 @@ func main() {
 	symbol.SymbolScopeStackInit()
 	symbol.SymbolTableInit()
 	code := codegen.Codegen(ast)
+	code.Code.Appendln(codegen.ErrVecs)
 	code_combined := ".text\n" + code.Code.Text + "\n.data\n" + code.Code.Data
 
 	if print_asm {

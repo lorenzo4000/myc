@@ -664,6 +664,26 @@ func ii(op string, oprnds ...Operand) string {
 	return instruction
 }
 
+// === error vectors ===
+var ErrVecs Code = Code{
+Text: 	
+` 
+.global err_oob
+err_oob:
+	// rsi = index; rdx = length
+	movq $err_oob_message, %rdi
+	call printf
+
+	call exit
+`,
+Data:
+`
+err_oob_message: .string "runtime error: index %lld is out of boundaries, with length %lld.\n"
+`,
+}
+
+var ERR_OOB Label = Label{nil, "err_oob"}
+
 // === GEN_* ===
 
 func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
@@ -3613,14 +3633,31 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 	res := Codegen_Out{}
 
 	var element_type datatype.DataType
+	length := uint64(0)
 	if datatype_string.IsStaticStringType(array_allocation.Type()) {
+		static_string := array_allocation.Type().(datatype_string.StaticStringType)
 		element_type = datatype.TYPE_UINT8
+		length = static_string.Length
 	} else
 	if datatype_array.IsStaticArrayType(array_allocation.Type()) {
 		static_array_type := array_allocation.Type().(datatype_array.StaticArrayType)
 		element_type = static_array_type.ElementType
+		length = static_array_type.Length
 	}
 
+	length_literal := Asm_Int_Literal{index.Type(), int64(length), 10}
+	res.Code.TextAppendSln(ii("cmpq", length_literal, index))
+	no_oob_err := LabelGen()
+	res.Code.TextAppendSln(ii("jb", no_oob_err)) // below means fine!
+
+	// above or equal means error
+	rsi, _ := REGISTER_RSI.GetRegister(index.Type())
+	rdx, _ := REGISTER_RDX.GetRegister(length_literal.Type())
+	res.Code.Appendln(GEN_move(index, rsi).Code)   
+	res.Code.Appendln(GEN_move(length_literal, rdx).Code)   
+	res.Code.TextAppendSln(ii("jmp", ERR_OOB))   
+
+	res.Code.TextAppendSln(no_oob_err.Text()+":")
 	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
 	res.Code.TextAppendSln(ii("pushq",r10))
 	res.Code.TextAppendSln(ii("leaq", array_allocation, r10))
@@ -3695,12 +3732,14 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 	res := Codegen_Out{}
 
 	var start Operand
+	var length Operand
 	switch array_struct.(type) {
 		case Memory_Reference:
 			r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64) // length or size... idk
 			r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64) // data
 
-			start = StackAllocate(r11.Type()).Reference() // data
+			start = StackAllocate(r11.Type()).Reference()
+			length = StackAllocate(r10.Type()).Reference()
 
 			// load array.data, array.len => r10, r11
 			res.Code.TextAppendSln(ii("pushq",r10))
@@ -3709,17 +3748,30 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 			load := GEN_loadstruct(array_struct.(Memory_Reference), RegisterPair{array_struct.Type(), r10, r11})
 			res.Code.Appendln(load.Code)
 			res.Code.Appendln(GEN_move(r11, start).Code)
+			res.Code.Appendln(GEN_move(r10, length).Code)
 
 			res.Code.TextAppendSln(ii("popq",r11))
 			res.Code.TextAppendSln(ii("popq",r10))
 		case RegisterPair:
 			start = array_struct.(RegisterPair).r2
+			length = array_struct.(RegisterPair).r1
 		default:
 			fmt.Println("codegen error: invalid operand kind for dynamic array struct")
 			return res
 	}
 			
-	// TODO: do boundary checking
+	res.Code.TextAppendSln(ii("cmpq", length, index))
+	no_oob_err := LabelGen()
+	res.Code.TextAppendSln(ii("jb", no_oob_err)) // below means fine!
+
+	// above or equal means error
+	rsi, _ := REGISTER_RSI.GetRegister(index.Type())
+	rdx, _ := REGISTER_RDX.GetRegister(length.Type())
+	res.Code.Appendln(GEN_move(index, rsi).Code)   
+	res.Code.Appendln(GEN_move(length, rdx).Code)   
+	res.Code.TextAppendSln(ii("jmp", ERR_OOB))   
+	res.Code.TextAppendSln(no_oob_err.Text() + ":")   
+
 
 	var element_type datatype.DataType
 	if datatype_struct.IsDynamicArrayType(array_struct.Type()) {

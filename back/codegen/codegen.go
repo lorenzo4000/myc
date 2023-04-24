@@ -818,10 +818,6 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			left := ast.Children[0]
 			right := ast.Children[1]
 
-			if left.Type == front.AST_OP_INDEX {
-				out.Code.Appendln(children_out[0].Code)
-			}
-
 			switch left.DataType.(type) {
 				case datatype_struct.StructType:
 					_type := left.DataType.(datatype_struct.StructType)
