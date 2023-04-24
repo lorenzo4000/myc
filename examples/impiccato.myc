@@ -62,7 +62,7 @@ function render(:screen [][30]uint8, :rainbow bool) {
 	:color_v uint8 = 0;
 
 
-	:screen_size int64 = [int64]screen.len / 30;
+	:screen_size int64 = [int64]screen.len;
 	for(:i int64 = 0; i < screen_size; i += 1) {
 		for(:j int64 = 0; j < [int64]screen[i].len; j = j + 1) {
 			if  rainbow {

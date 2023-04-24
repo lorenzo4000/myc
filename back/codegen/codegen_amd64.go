@@ -975,7 +975,6 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 
 
 	if fields_size > struct_type.ByteSize() {
-		println("fields: ", fields_size, "struct: ", struct_type.ByteSize())
 		fmt.Println("codegen error: not enough bytes to store struct of type `", struct_type.Name(), "`")
 		return res
 	}
@@ -1149,6 +1148,7 @@ func GEN_arraycopy(s Memory_Reference, d Operand) Codegen_Out {
 	element_type := array_type.ElementType
 
 	array_size := array_type.Length * uint64(element_type.ByteSize())
+
 	switch d.(type) {
 		case Memory_Reference: 
 			destination := d.(Memory_Reference)
@@ -1212,8 +1212,13 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 			if datatype_struct.IsDynamicArrayType(array_destination.Type()) || array_destination.Type().Equals(datatype_string.TYPE_STRING) {
 				out := Codegen_Out{}
 
-				array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
-							  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
+				array_destination_type := datatype_struct.DynamicArrayDataType(array_destination.Type())
+				array_length := array_source.Type().(datatype_array.StaticArrayType).Length
+				if !array_destination.Type().Equals(datatype_string.TYPE_STRING) {
+					if array_destination_type.Equals(datatype.TYPE_GENERIC) {
+						array_length *= array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
+					}
+				}
 				array_data := array_source
 
 				// get struct field references (data, len)
@@ -1251,7 +1256,7 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 						struct_index,
 						struct_indexcoeff,
 					}
-					out.Code.Appendln(GEN_store(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
+					out.Code.Appendln(GEN_store(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_length), 10}, field_allocation).Code)
 				} 
 				return out
 			} else {
@@ -1263,8 +1268,13 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 
 			out := Codegen_Out{}
 
-			array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
-						  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
+			array_destination_type := datatype_struct.DynamicArrayDataType(array_destination.Type())
+			array_length := array_source.Type().(datatype_array.StaticArrayType).Length
+			if !array_destination.Type().Equals(datatype_string.TYPE_STRING) {
+				if array_destination_type.Equals(datatype.TYPE_GENERIC) {
+					array_length *= array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
+				}
+			}
 			array_data := array_source
 
 			{
@@ -1276,7 +1286,7 @@ func GEN_arrayreference(s Memory_Reference, d Operand) Codegen_Out {
 
 			{
 				field_allocation := array_destination.r1
-				out.Code.Appendln(GEN_load(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
+				out.Code.Appendln(GEN_load(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_length), 10}, field_allocation).Code)
 			} 
 			return out
 	}
@@ -1290,14 +1300,97 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 				switch s_operand.Type().(type) {
 					case datatype_struct.StructType:
 						struct_allocation := s_operand.(Memory_Reference)
+						res := Codegen_Out{}
 						switch d.(type) {
 							case Register:
-								return GEN_loadstruct(struct_allocation, RegisterPair{Datatype : d.Type(), r1 : d.(Register)})
+								res.Code.Appendln(GEN_loadstruct(struct_allocation, RegisterPair{Datatype : d.Type(), r1 : d.(Register)}).Code)
 							case Memory_Reference:
-								return GEN_storestruct(struct_allocation, d.(Memory_Reference))
+								res.Code.Appendln(GEN_storestruct(struct_allocation, d.(Memory_Reference)).Code)
 							case RegisterPair:
-								return GEN_loadstruct(struct_allocation, d.(RegisterPair))
+								res.Code.Appendln(GEN_loadstruct(struct_allocation, d.(RegisterPair)).Code)
 						}
+
+						if datatype_struct.IsDynamicArrayType(s.Type()) &&
+						   datatype_struct.DynamicArrayDataType(s.Type()).Equals(datatype.TYPE_GENERIC) {
+							array_destination := d.(Memory_Reference)
+							array_destination_type := datatype_struct.DynamicArrayDataType(array_destination.Type())
+
+							// get destination length
+							array_destination_length := Operand(nil)
+							{
+								struct_type := array_destination.Type().(datatype_struct.StructType)
+								struct_offset:= array_destination.Offset
+								struct_start := array_destination.Start
+								struct_index := array_destination.Index
+								struct_indexcoeff := array_destination.IndexCoefficient
+
+								{
+									field := 1
+									field_type := struct_type.Fields[field].Type
+									field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+									array_destination_length = Memory_Reference{
+										field_type,
+										field_offset,
+										struct_start,
+										struct_index,
+										struct_indexcoeff,
+									}
+								}
+							}
+
+							// divide times destination element type
+							res.Code.Appendln(GEN_binop(
+								front.AST_OP_DIV, array_destination_length, 
+								Asm_Int_Literal{
+									datatype.TYPE_UINT64,
+									int64(array_destination_type.ByteSize()),
+									10,
+								}).Code,
+							)
+						} else 
+						if datatype_struct.IsDynamicArrayType(d.Type()) &&
+						   datatype_struct.DynamicArrayDataType(d.Type()).Equals(datatype.TYPE_GENERIC) {
+							array_destination := d.(Memory_Reference)
+							array_source := s.(Memory_Reference)
+							array_source_type := datatype_struct.DynamicArrayDataType(array_source.Type())
+
+							// get destination length
+							array_destination_length := Operand(nil)
+							{
+								struct_type := array_destination.Type().(datatype_struct.StructType)
+								struct_offset:= array_destination.Offset
+								struct_start := array_destination.Start
+								struct_index := array_destination.Index
+								struct_indexcoeff := array_destination.IndexCoefficient
+
+								{
+									field := 1
+									field_type := struct_type.Fields[field].Type
+									field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+									array_destination_length = Memory_Reference{
+										field_type,
+										field_offset,
+										struct_start,
+										struct_index,
+										struct_indexcoeff,
+									}
+								}
+							}
+
+							// multiply times source element type
+							res.Code.Appendln(GEN_binop(
+								front.AST_OP_MUL, array_destination_length, 
+								Asm_Int_Literal{
+									datatype.TYPE_UINT64,
+									int64(array_source_type.ByteSize()),
+									10,
+								}).Code,
+							)
+						}
+
+						return res
 
 					case datatype_array.StaticArrayType:
 						array_source := s_operand.(Memory_Reference)
@@ -1305,8 +1398,8 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 							case Register:
 								fmt.Println("codegen error:  can't move array reference - destination to smal")
 								return Codegen_Out{}
-							case Memory_Reference:
-								array_destination := d.(Memory_Reference)
+							case Memory_Reference, RegisterPair:
+								array_destination := d
 
 								if datatype_struct.IsDynamicArrayType(array_destination.Type()) ||
 								   array_destination.Type().Equals(datatype_string.TYPE_STRING)  {
@@ -1314,28 +1407,6 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 								}else {
 									return GEN_arraycopy(array_source, array_destination)
 								}
-							case RegisterPair:
-								array_destination := d.(RegisterPair)
-
-								//assert array_destination is dynamic array 
-								out := Codegen_Out{}
-
-								array_size := array_source.Type().(datatype_array.StaticArrayType).Length * 
-											  array_source.Type().(datatype_array.StaticArrayType).ElementType.ByteSize()
-								array_data := array_source
-
-								{
-									field_allocation := array_destination.r2
-									array_reference := GEN_reference_from_mem(array_data)
-									out.Code.Appendln(array_reference.Code)
-									out.Code.Appendln(GEN_move(array_reference.Result, field_allocation).Code)
-								}
-
-								{
-									field_allocation := array_destination.r1
-									out.Code.Appendln(GEN_load(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, field_allocation).Code)
-								} 
-								return out
 							}
 					case datatype_string.StaticStringType:	
 						// can only move static string to string
@@ -3025,6 +3096,23 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
 
 		res.Code.Appendln(GEN_load(l, rax).Code)
+
+		switch r.(type) {
+			case Asm_Int_Literal:
+				var full bool
+				var right Operand
+				reg, full := RegisterScratchAllocate(r.Type())
+				if full {
+					 right = StackAllocate(r.Type()).Reference()
+				} else {
+					 right = reg
+				}
+				
+				res.Code.Appendln(GEN_move(r, right).Code)
+				
+				r = right
+		}
+
 		switch r.Type().BitSize() {
 		case 64:
 			res.Code.TextAppendSln(ii("idivq", r))
@@ -3050,6 +3138,23 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
 
 		res.Code.Appendln(GEN_load(l, rax).Code)
+
+		switch r.(type) {
+			case Asm_Int_Literal:
+				var full bool
+				var right Operand
+				reg, full := RegisterScratchAllocate(r.Type())
+				if full {
+					 right = StackAllocate(r.Type()).Reference()
+				} else {
+					 right = reg
+				}
+				
+				res.Code.Appendln(GEN_move(r, right).Code)
+				
+				r = right
+		}
+
 		switch r.Type().BitSize() {
 		case 64:
 			res.Code.TextAppendSln(ii("idivq", r))
@@ -3198,9 +3303,9 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 
 		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
 
+		// ** string equality
 		if l.Type().Equals(datatype_string.TYPE_STRING) ||
 		   datatype_string.IsStaticStringType(l.Type()) {
-			// dynamic == dyanamic
 			/*
 				// compare lengths
 				cmpq l.length, r.length
@@ -3217,11 +3322,17 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			// get l and r
 			rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
 			rdi, _ := REGISTER_RDI.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_UINT64)
+			rsi, _ := REGISTER_RSI.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
+			res.Code.TextAppendSln(ii("pushq", rcx))
+            res.Code.TextAppendSln(ii("pushq", rdi))
+            res.Code.TextAppendSln(ii("pushq", r10))
+            res.Code.TextAppendSln(ii("pushq", rsi))
+
+
 			r_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : rcx, r2 : rdi}
 			res.Code.Appendln(GEN_very_generic_move(r, r_regs).Code)
 
-			r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_UINT64)
-			rsi, _ := REGISTER_RSI.GetRegister(datatype.PointerType{datatype.TYPE_UINT8})
 			l_regs := RegisterPair{Datatype : datatype_string.TYPE_STRING, r1 : r10, r2 : rsi}
 			res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
 
@@ -3236,6 +3347,11 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			res.Code.TextAppendSln(ii("repe cmpsb"))
 			
 			res.Code.TextAppendSln(ii(cmp_end.Text() + ":"))
+
+            res.Code.TextAppendSln(ii("popq", rsi))
+            res.Code.TextAppendSln(ii("popq", r10))
+            res.Code.TextAppendSln(ii("popq", rdi))
+			res.Code.TextAppendSln(ii("popq", rcx))
 			res.Code.TextAppendSln(ii("sete", allocation))
 			break
 		}
@@ -3277,6 +3393,104 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 
 				goto exit_eq
 			}
+		}
+
+		// ** array equality
+		if datatype_array.IsStaticArrayType(l.Type()) ||
+		   datatype_struct.IsDynamicArrayType(l.Type()) {
+			/*
+				// compare lengths
+				cmpq l.length, r.length
+				jne end
+
+				movq l.data, %rdi
+				movq r.data, %rsi
+				movq l.length, %rcx 
+
+				repq cmpsb
+				
+				end:
+			*/
+			// get l and r
+			l_element_type := datatype.DataType(nil)
+			if datatype_array.IsStaticArrayType(l.Type()) {
+				l_element_type = l.Type().(datatype_array.StaticArrayType).ElementType
+			} else {
+				l_element_type = datatype_struct.DynamicArrayDataType(l.Type())
+			}
+			r_element_type := datatype.DataType(nil)
+			if datatype_array.IsStaticArrayType(r.Type()) {
+				r_element_type = r.Type().(datatype_array.StaticArrayType).ElementType
+			} else {
+				r_element_type = datatype_struct.DynamicArrayDataType(r.Type())
+			}
+
+			r_dynamic := new_dynamic_array_type("[]"+r_element_type.Name(), r_element_type)
+			l_dynamic := new_dynamic_array_type("[]"+l_element_type.Name(), l_element_type)
+
+			r12, _ := REGISTER_R12.GetRegister(datatype.TYPE_UINT64)
+			rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
+			rdi, _ := REGISTER_RDI.GetRegister(datatype.PointerType{r_element_type})
+			r_regs := RegisterPair{Datatype : r_dynamic, r1 : rcx, r2 : rdi}
+			res.Code.Appendln(GEN_very_generic_move(r, r_regs).Code)
+
+			r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_UINT64)
+			rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_UINT64)
+			rsi, _ := REGISTER_RSI.GetRegister(datatype.PointerType{l_element_type})
+			l_regs := RegisterPair{Datatype : l_dynamic, r1 : r10, r2 : rsi}
+			res.Code.Appendln(GEN_very_generic_move(l, l_regs).Code)
+
+			cmp := LabelGen()
+			cmp_end := LabelGen()
+			
+			res.Code.Appendln(GEN_move(rcx, r12).Code)
+
+			// compare lengths
+			res.Code.TextAppendSln(ii("movb $0,", allocation))
+			res.Code.TextAppendSln(ii("cmpq", r12, r10))
+			res.Code.TextAppendSln(ii("jne", cmp_end))
+			
+			// compare actual elements loop
+			res.Code.TextAppendSln(ii("movb $1,", allocation))
+			res.Code.TextAppendSln(ii(cmp.Text() + ":"))
+			res.Code.TextAppendSln(ii("andq", r12, r12))
+			res.Code.TextAppendSln(ii("jz", cmp_end))
+			res.Code.TextAppendSln(ii("decq", r12))
+			
+			res.Code.TextAppendSln(ii("pushq", rdi))
+			res.Code.TextAppendSln(ii("pushq", rsi))
+			res.Code.TextAppendSln(ii("pushq", r12))
+			res.Code.TextAppendSln(ii("pushq", r10))
+			res.Code.TextAppendSln(ii("pushq", rcx))
+			res.Code.TextAppendSln(ii("pushq", rbx))
+			
+			res.Code.Appendln(GEN_move(r12, rbx).Code)
+
+			r_index := GEN_dynamic_array_index(r_regs, r12)
+			r_e := r_index.Result
+			res.Code.Appendln(r_index.Code)
+
+			l_index := GEN_dynamic_array_index(l_regs, rbx)
+			l_e := l_index.Result
+			res.Code.Appendln(l_index.Code)
+
+			eq := GEN_binop(front.AST_OP_EQU, l_e, r_e)
+			res.Code.Appendln(eq.Code)
+
+			res.Code.TextAppendSln(ii("popq", rbx))
+			res.Code.TextAppendSln(ii("popq", rcx))
+			res.Code.TextAppendSln(ii("popq", r10))
+			res.Code.TextAppendSln(ii("popq", r12))
+			res.Code.TextAppendSln(ii("popq", rsi))
+			res.Code.TextAppendSln(ii("popq", rdi))
+					
+			// AND
+			res.Code.Appendln(GEN_binop(front.AST_OP_AND, allocation, eq.Result).Code)
+
+			res.Code.TextAppendSln(ii("jmp", cmp))
+
+			res.Code.TextAppendSln(ii(cmp_end.Text() + ":"))
+			goto exit_eq
 		}
 
 		switch data_size {
@@ -3477,26 +3691,34 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 }
 
 // this uses R10 and R11 !!
-func GEN_dynamic_array_index(array_struct Memory_Reference, index Operand) Codegen_Out {
+func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 	res := Codegen_Out{}
 
-	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64) // length or size... idk
-	r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64) // data
+	var start Operand
+	switch array_struct.(type) {
+		case Memory_Reference:
+			r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64) // length or size... idk
+			r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64) // data
 
-	start := StackAllocate(r11.Type()).Reference() // data
+			start = StackAllocate(r11.Type()).Reference() // data
 
-	// load array.data, array.len => r10, r11
-	res.Code.TextAppendSln(ii("pushq",r10))
-	res.Code.TextAppendSln(ii("pushq",r11))
+			// load array.data, array.len => r10, r11
+			res.Code.TextAppendSln(ii("pushq",r10))
+			res.Code.TextAppendSln(ii("pushq",r11))
 
-	
-	load := GEN_loadstruct(array_struct, RegisterPair{array_struct.Type(), r10, r11})
-	res.Code.Appendln(load.Code)
-	res.Code.Appendln(GEN_move(r11, start).Code)
+			load := GEN_loadstruct(array_struct.(Memory_Reference), RegisterPair{array_struct.Type(), r10, r11})
+			res.Code.Appendln(load.Code)
+			res.Code.Appendln(GEN_move(r11, start).Code)
 
-	res.Code.TextAppendSln(ii("popq",r11))
-	res.Code.TextAppendSln(ii("popq",r10))
-
+			res.Code.TextAppendSln(ii("popq",r11))
+			res.Code.TextAppendSln(ii("popq",r10))
+		case RegisterPair:
+			start = array_struct.(RegisterPair).r2
+		default:
+			fmt.Println("codegen error: invalid operand kind for dynamic array struct")
+			return res
+	}
+			
 	// TODO: do boundary checking
 
 	var element_type datatype.DataType

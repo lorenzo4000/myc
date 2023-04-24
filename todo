@@ -1,21 +1,23 @@
-. typecheck arguments when calling {
-	. number of arguments during typechecking 
-}
 -> make an actual distinction between `array.size` and `array.len` !!
-
-.  Misecellaneus types, operators and other stuff
-.  prepar: build dep. graph and do cycle detection before importing
+		.  array equality
+		.  array boundary checking
 
 .  varargs
-
-.  more complex typechecking {
-	  .  statically typechecked generals
-	  .  passing types as arguments
-   }
+		. typecheck arguments when calling {
+			. number of arguments during typechecking 
+		}
 
 .  Detach yourself from C std {
    	  .  make --nocstd option
    	  .  write linux syscall wrappers
+}
+
+
+.  prepar: build dep. graph and do cycle detection before importing
+
+.  more complex typechecking {
+	  .  statically typechecked generals
+	  .  passing types as arguments
    }
 
 .  Make codegen.go more target agnostic, and codegen_amd64.go more target specific

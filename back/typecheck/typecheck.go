@@ -910,6 +910,40 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				break
 			}
 
+			if (datatype_array.IsStaticArrayType(*left_type) ||
+			    datatype_struct.IsDynamicArrayType(*left_type)) &&
+			   (datatype_array.IsStaticArrayType(*right_type) ||
+			    datatype_struct.IsDynamicArrayType(*right_type)) {
+				l_element_type := datatype.DataType(nil)
+				if datatype_array.IsStaticArrayType((*left_type)) {
+					l_element_type = (*left_type).(datatype_array.StaticArrayType).ElementType
+				} else {
+					l_element_type = datatype_struct.DynamicArrayDataType((*left_type))
+				}
+				r_element_type := datatype.DataType(nil)
+				if datatype_array.IsStaticArrayType((*right_type)) {
+					r_element_type = (*right_type).(datatype_array.StaticArrayType).ElementType
+				} else {
+					r_element_type = datatype_struct.DynamicArrayDataType((*right_type))
+				}
+				if !(l_element_type).Equals(r_element_type) {
+					typeErrorAt(ast, "incompatible array types for comparison: `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
+					return nil
+				}
+
+				// if they are both static also check the lengths
+				if datatype_array.IsStaticArrayType((*right_type)) &&
+				   datatype_array.IsStaticArrayType((*left_type)) {
+					if (*right_type).(datatype_array.StaticArrayType).Length !=
+					   (*left_type).(datatype_array.StaticArrayType).Length {
+						typeErrorAt(ast, "incompatible array types for comparison: `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
+						return nil
+				   }
+				}
+				ast.DataType = datatype.TYPE_BOOL
+				break
+		   }
+
 			if !Compatible(right_type, left_type) {
 				typeErrorAt(ast, "incompatible types `%s` and `%s`", (*left_type).Name(), (*right_type).Name())
 				return nil

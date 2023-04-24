@@ -14,6 +14,11 @@ struct B {
 	:b A;
 }
 
+struct Test {
+	:a string;
+	:b string;
+}
+
 function main() {
 	:a int64 = 0xFF00;
 	:b int64 = 0x00FF;
@@ -44,65 +49,99 @@ function main() {
 	true && false;
 	true || false;
 
-	printf((x * "hello, \n").data);
+	// string equality
+	{
+		:foo string = "helio!";
+		:bar string = "hello!";
 
-	// sttring equality
-	:foo string = "helio!";
-	:bar string = "hello!";
+		if "heilo!" == "hello!" {
+			printf("static is equal to static!\n".data);
+		}
+		if foo == "helio!" {
+			printf("dynamic is equal to static!\n".data);
+		}
+		if bar == foo {
+			printf("dynamic is equal to dynamic!\n".data);
+		}
 
-	if "heilo!" == "hello!" {
-		printf("static is equal to static!\n".data);
-	}
-	if foo == "helio!" {
-		printf("dynamic is equal to static!\n".data);
-	}
-	if bar == foo {
-		printf("dynamic is equal to dynamic!\n".data);
+		// string ops
+		printf((x * "hello, \n").data);
+		printf("%s   len : %d\n".data, (foo + "hey , ").data, (foo + "hey , ").len);
+		printf("%s   len : %d\n".data, ("hey , " + foo).data, ("hey , " + foo).len);
+		printf("%s   len : %d\n".data, (5 * "hey!").data, (5 * "hey!").len);
+		printf("%s   len : %d\n".data, ("hey!" * 5).data, ("hey!" * 5).len);
+		printf("%s   len : %d\n".data, (foo * 5).data, (foo * 5).len);
+		printf("%s   len : %d\n".data, (5 * foo).data, (5 * foo).len);
 	}
 
 	// struct equality
-	:baz B = B {
-		1,
-		A{
-			5,
-			9,
-			5,
-			5,
-			9,
-			9,
-			"hey!",
-		},
-	};
-	:quz B = B {
-		1,
-		A{
-			5,
-			9,
-			5,
-			5,
-			9,
-			9,
-			"hay!",
-		},
-	};
+	{
+		:foo B = B {
+			1,
+			A{
+				5,
+				9,
+				5,
+				5,
+				9,
+				9,
+				"hey!",
+			},
+		};
+		:bar B = B {
+			1,
+			A{
+				5,
+				9,
+				5,
+				5,
+				9,
+				9,
+				"hay!",
+			},
+		};
 
-	if baz != quz {
-		printf("struct is not equal to struct!\n".data);
+		if foo != bar {
+			printf("struct is not equal to struct!\n".data);
+		}
 	}
 
-	printf("%s   len : %d\n".data, (foo + "hey , ").data, (foo + "hey , ").len);
-	printf("%s   len : %d\n".data, ("hey , " + foo).data, ("hey , " + foo).len);
-	printf("%s   len : %d\n".data, (5 * "hey!").data, (5 * "hey!").len);
-	printf("%s   len : %d\n".data, ("hey!" * 5).data, ("hey!" * 5).len);
-	printf("%s   len : %d\n".data, (foo * 5).data, (foo * 5).len);
-	printf("%s   len : %d\n".data, (5 * foo).data, (5 * foo).len);
+	// array equality
+	{
+		:foo [3]Test = [3]Test{
+			Test{
+				"heeelloo",
+				"heeelloo",
+			},
+			Test{
+				"heeelloo",
+				"heeelloo",
+			},
+			Test{
+				"heeelloo",
+				"heeelloo",
+			},
+		};
+	
+		:bar [3]Test = [3]Test{
+			Test{
+				"heeelloo",
+				"heeelloo",
+			},
+			Test{
+				"heeelloo",
+				"heeelloo",
+			},
+			Test{
+				"heeelloo",
+				"heeelloo",
+			},
+		};
 
-
-	//printf("len : %d\n".data, foo.len);
-	for(:i int64 = 0; i < [int64]foo.len; i++) {
-		printf("%hhx".data, foo[i]);
-	}
-
-	printf("%llx\n".data, 0xFF << 3);
-	printf("%llx\n".data, 0xF0 >> 2);
+		if foo == bar {
+			printf("array is equal to array!\n".data);
+		} else {
+			printf("array is not equal to array!\n".data);
+		}
+	};
 }

@@ -118,7 +118,7 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 				}
 			}
 			case front.AST_COMPOSITE_LITERAL: {
-				if i > 1 && child.DataType == datatype.TYPE_INT_LITERAL {
+				if i > 0 && child.DataType == datatype.TYPE_INT_LITERAL {
 					switch ast.Children[0].DataType.(type) {
 						case datatype_struct.StructType:
 							struct_type := ast.Children[0].DataType.(datatype_struct.StructType)
@@ -126,7 +126,7 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 							child.DataType = field.Type
 						case  datatype_array.StaticArrayType:	
 							array_type := ast.Children[0].DataType.(datatype_array.StaticArrayType)
-							child.DataType = array_type
+							child.DataType = array_type.ElementType
 					}
 				}
 			}

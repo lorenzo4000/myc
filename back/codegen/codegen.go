@@ -856,7 +856,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				case datatype_array.StaticArrayType:
 					array_allocation := children_out[0].Result.(Memory_Reference)
 					array_type := array_allocation.Type().(datatype_array.StaticArrayType)
-					array_size := array_type.Length * array_type.ElementType.ByteSize()
+					//array_size := array_type.Length * array_type.ElementType.ByteSize()
 							
 					field_name := ast.Data[0].String_value
 					var result Operand
@@ -875,7 +875,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 							
 							size_literal := Asm_Int_Literal{
 								datatype.TYPE_UINT64,
-								int64(array_size),
+								int64(array_type.Length),
 								10,
 							}
 							out.Code.Appendln(GEN_move(size_literal, result).Code)
@@ -888,7 +888,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 					string_allocation := children_out[0].Result.(Label)
 					string_type := string_allocation.Type().(datatype_string.StaticStringType)
-					string_size := string_type.Length * string_type.ElementType.ByteSize()
+					//string_size := string_type.Length * string_type.ElementType.ByteSize()
 							
 					field_name := ast.Data[0].String_value
 					var result Operand
@@ -905,7 +905,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 							
 							size_literal := Asm_Int_Literal{
 								datatype.TYPE_UINT64,
-								int64(string_size),
+								int64(string_type.Length),
 								10,
 							}
 							out.Code.Appendln(GEN_move(size_literal, result).Code)
