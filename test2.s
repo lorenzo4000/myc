@@ -1,5 +1,28 @@
 .text
-.string "\0foosdfjgdfjgdfjgdjgfjdgjfdgdfgjzfghajkgdxjvnmxcvmsdfjhsghdfshj"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.string "\0foo"
 .global foo
 foo:
 pushq %rbp
@@ -229,6 +252,87 @@ pushq %rbp
 
 movq %rsp, %rbp
 
+subq $48, %rsp
+
+
+
+movl $0, -4(%rbp, 1)
+
+
+
+
+movl %edi, -4(%rbp, 1)
+
+
+movq %rdx, -12(%rbp, 1)
+
+
+movq %rsi, -20(%rbp, 1)
+
+
+
+
+
+
+
+
+movq $1, %rbx
+
+
+
+pushq %r10
+
+pushq %r11
+
+movq -12(%rbp, 1), %r10
+
+
+movq -20(%rbp, 1), %r11
+
+
+
+movq %r11, -28(%rbp, 1)
+
+
+movq %r10, -36(%rbp, 1)
+
+
+popq %r11
+
+popq %r10
+
+cmpq -36(%rbp, 1), %rbx
+
+jb .L7
+
+movq %rbx, %rsi
+
+
+movq -36(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L7:
+
+
+movq $.L6, %rdi
+
+
+// using rax
+// the index is very cute! : %rbx
+pushq %rax
+movq -28(%rbp, 1), %rax
+
+movq 0(%rax, %rbx, 8), %rsi
+popq %rax
+
+
+
+call printf
+
+movl %eax, %r12d
+
 
 
 
@@ -245,6 +349,9 @@ popq %rbp
 
 ret
 
+
+
+ 
 function_name:
 	pushq %rbp
 	movq %rsp, %rbp
@@ -349,6 +456,37 @@ err_oob:
 	call stack_trace
 	call exit
 
+.string "\0_mystart"
+.global _mystart
+_mystart:
+
+	// rdi, rsi: args
+	// (skip argc)
+	leaq 8(%rsp), %rdi
+	xorq %rsi, %rsi
+	_mystart_args_loop:
+	// if NULL end
+	cmpq $0, (%rdi, %rsi, 8)
+	je _mystart_args_loop_end
+	incq %rsi
+	jmp _mystart_args_loop
+	_mystart_args_loop_end:
+
+	// rdx, rcx: envs
+	// (skip null)
+	leaq 8(%rdi, %rsi, 8), %rdx
+	xorq %rcx, %rcx
+	_mystart_envs_loop:
+	cmpq $0, (%rdx, %rcx, 8)
+	je _mystart_envs_loop_end
+	incq %rcx
+	jmp _mystart_envs_loop
+	_mystart_envs_loop_end:
+	
+	call main
+	movq %rax, %rdi
+
+	call exit
 
 .data
 
@@ -451,5 +589,36 @@ err_oob:
 
 
 
+
+.L6: .byte 37, 115, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 err_oob_message: .string "runtime error: index %lld is out of boundaries, with length %lld.\n"
-stack_trace_message: .string "at function `%s`\n"
+stack_trace_message: .string "at function %s\n"
+
+

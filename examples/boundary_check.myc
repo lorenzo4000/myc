@@ -14,6 +14,13 @@ function foo() {
 	}
 }
 
-function main() {
+function main(:args []*uint8, :envs []*uint8) {
+	for(:i int64 = 0; i < [int64](args.len); i++) {
+		printf("args[%d] = %s\n".data, i, args[i]);
+	}
+
+	for(:i int64 = 0; i < [int64](envs.len); i++) {
+		printf("envs[%d] = %s\n".data, i, envs[i]);
+	}
 	foo();
 }

@@ -1,5 +1,28 @@
 .text
-.string "\0foosdfjgdfjgdfjgdjgfjdgjfdgdfgjzfghajkgdxjvnmxcvmsdfjhsghdfshj"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.string "\0foo"
 .global foo
 foo:
 pushq %rbp
@@ -245,6 +268,9 @@ popq %rbp
 
 ret
 
+
+
+ 
 function_name:
 	pushq %rbp
 	movq %rsp, %rbp
@@ -276,11 +302,6 @@ stack_trace:
 	movq %rsp, %rbp
 
 	stack_trace_loop:
-	// check if i am at the bottom of the stack and exit 
-	
-	
-
-
 	// call instruction address 
 	movq 8(%rbp), %rbx
 	
@@ -326,6 +347,10 @@ stack_trace:
 	call printf
 	
 	stack_trace_continue:
+	// if function address is == main, we are at the end! 
+	cmpq %r12d, $main
+	je stack_trace_exit
+
 	// base pointer of caller
 	movq (%rbp), %rbp  
 	jmp stack_trace_loop
@@ -348,6 +373,15 @@ err_oob:
 
 	call stack_trace
 	call exit
+
+
+.string "\0_mystart"
+.global _mystart
+_mystart:
+	call main
+
+	call exit
+	
 
 
 .data
@@ -452,4 +486,6 @@ err_oob:
 
 
 err_oob_message: .string "runtime error: index %lld is out of boundaries, with length %lld.\n"
-stack_trace_message: .string "at function `%s`\n"
+stack_trace_message: .string "at function %s\n"
+
+
