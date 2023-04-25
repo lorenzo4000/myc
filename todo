@@ -1,5 +1,3 @@
-.  zero initiate arrays and structs
-
 .  varargs
 		. typecheck arguments when calling {
 			. number of arguments during typechecking 

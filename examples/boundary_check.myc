@@ -5,16 +5,28 @@ function backtrace_symbols(:buffer []*?) []*uint8 external;
 function backtrace_symbols_fd(:buffer []*?, :fd int32) **uint8 external;
 
 function foo() {
-	:arr [10]uint8;
+	:arr [100]uint8;
 	:dyn []uint8 = arr;
-
-	dyn[60];
-	for(:i int64 = 0; i < 15; i++) {
+	for(:i int64 = 0; i < [int64]dyn.len; i++) {
 		printf("dyn[%d] = %hhu\n".data, i, dyn[i]);
 	}
 }
 
+struct Zero {
+	:a int64;
+	:b int64;
+	:c int64;
+}
+
 function main(:args []*uint8, :envs []*uint8) {
+	:zero Zero;
+
+	printf("a: %lld, b: %lld, c: %lld\n".data, 
+	   zero.a,  zero.b,  zero.c
+	);
+
+	return;
+
 	for(:i int64 = 0; i < [int64](args.len); i++) {
 		printf("args[%d] = %s\n".data, i, args[i]);
 	}

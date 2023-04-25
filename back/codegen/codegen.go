@@ -387,7 +387,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				case datatype_struct.StructType:
 					variable_allc = StackAllocate(variable_type)
 
-					// TODO: fill struct with 0s
+					zero := GEN_structzero(variable_allc.Reference())
+					out.Code.Appendln(zero.Code)
 					if len(ast.Children) > 2 {
 						out.Code.Appendln(children_out[2].Code)
 						out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, variable_allc.Reference()).Code)
@@ -395,7 +396,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				case datatype_array.StaticArrayType: 
 					variable_allc = StackAllocate(variable_type)
 
-					// TODO: fill array with 0s
+					zero := GEN_arrayzero(variable_allc.Reference())
+					out.Code.Appendln(zero.Code)
 					if len(ast.Children) > 2 {
 						out.Code.Appendln(children_out[2].Code)
 						out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, variable_allc.Reference()).Code)

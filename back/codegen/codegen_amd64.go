@@ -1175,7 +1175,6 @@ func GEN_storestruct_from_operands(s []Operand, d Memory_Reference) Codegen_Out 
 	}
 
 	return res
-
 }
 
 func GEN_storestruct_from_regpair(s RegisterPair, d Memory_Reference) Codegen_Out {
@@ -1290,6 +1289,79 @@ func GEN_arraycopy_from_operands(s []Operand, d Operand) Codegen_Out {
 				element_destination := destination.r1
 				res.Code.Appendln(GEN_very_generic_move(e, element_destination).Code)
 			}
+	}
+
+	return res
+}
+
+func GEN_structzero(d Operand) Codegen_Out {
+	res := Codegen_Out{}
+	
+	struct_type := d.Type().(datatype_struct.StructType)
+	struct_size := struct_type.ByteSize()
+
+	switch d.(type) {
+		case Memory_Reference: 
+			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+			rdi, _ := REGISTER_RDI.GetRegister(datatype.TYPE_UINT64)
+			rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
+
+			res.Code.TextAppendSln(ii("pushq", rax))
+			res.Code.TextAppendSln(ii("pushq", rdi))
+			res.Code.TextAppendSln(ii("pushq", rcx))
+			
+			res.Code.TextAppendSln(ii("xorq", rax, rax)) // zero
+			res.Code.TextAppendSln(ii("leaq", d, rdi))
+			res.Code.Appendln(GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(struct_size), 10}, rcx).Code)
+
+			res.Code.TextAppendSln(ii("cld")) // clear direction flag
+			res.Code.TextAppendSln(ii("rep stosb"))
+
+			res.Code.TextAppendSln(ii("popq", rcx))
+			res.Code.TextAppendSln(ii("popq", rdi))
+			res.Code.TextAppendSln(ii("popq", rax))
+		case RegisterPair:
+			destination := d.(RegisterPair)
+			res.Code.Appendln(GEN_binop(front.AST_OP_BORE, destination.r1, destination.r1).Code) // zero
+			res.Code.Appendln(GEN_binop(front.AST_OP_BORE, destination.r2, destination.r2).Code) // zero
+	}
+
+	return res
+}
+
+
+func GEN_arrayzero(d Operand) Codegen_Out {
+	res := Codegen_Out{}
+	
+	array_type := d.Type().(datatype_array.StaticArrayType)
+	element_type := array_type.ElementType
+
+	array_size := array_type.Length * uint64(element_type.ByteSize())
+
+	switch d.(type) {
+		case Memory_Reference: 
+			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+			rdi, _ := REGISTER_RDI.GetRegister(datatype.TYPE_UINT64)
+			rcx, _ := REGISTER_RCX.GetRegister(datatype.TYPE_UINT64)
+
+			res.Code.TextAppendSln(ii("pushq", rax))
+			res.Code.TextAppendSln(ii("pushq", rdi))
+			res.Code.TextAppendSln(ii("pushq", rcx))
+			
+			res.Code.TextAppendSln(ii("xorq", rax, rax)) // zero
+			res.Code.TextAppendSln(ii("leaq", d, rdi))
+			res.Code.Appendln(GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(array_size), 10}, rcx).Code)
+
+			res.Code.TextAppendSln(ii("cld")) // clear direction flag
+			res.Code.TextAppendSln(ii("rep stosb"))
+
+			res.Code.TextAppendSln(ii("popq", rcx))
+			res.Code.TextAppendSln(ii("popq", rdi))
+			res.Code.TextAppendSln(ii("popq", rax))
+		case RegisterPair:
+			destination := d.(RegisterPair)
+			res.Code.Appendln(GEN_binop(front.AST_OP_BORE, destination.r1, destination.r1).Code) // zero
+			res.Code.Appendln(GEN_binop(front.AST_OP_BORE, destination.r2, destination.r2).Code) // zero
 	}
 
 	return res
