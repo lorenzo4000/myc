@@ -1,3 +1,7 @@
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+
 void main() {
-	int a[1073741824];
+	printf("%lld", O_RDONLY);
 }

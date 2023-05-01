@@ -1,0 +1,275 @@
+@import "lib/c/stdio.myc"
+@import "lib/memory.myc"
+
+// time_t time(time_t *_Nullable tloc);
+function time(:tloc int64) int32 external;
+
+//  struct pollfd {
+//      int   fd;         /* file descriptor */
+//      short events;     /* requested events */
+//      short revents;    /* returned events */
+//  };
+struct pollfd {
+	:fd int32;
+	:events int16;
+	:revents int16;
+}
+
+
+//  int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+function poll(:fds *pollfd, :nfds int32, :timeout int32) external;
+
+
+//  ssize_t read(int fd, void *buf, size_t count);
+function read(:fd int32, :buf *?, :count uint64) external;
+
+
+//  unsigned int sleep(unsigned int seconds);
+function sleep(:seconds uint32) external;
+
+
+//	#define NCCS 32
+//	struct termios
+//	  {
+//		tcflag_t c_iflag;		/* input mode flags */
+//		tcflag_t c_oflag;		/* output mode flags */
+//		tcflag_t c_cflag;		/* control mode flags */
+//		tcflag_t c_lflag;		/* local mode flags */
+//		cc_t c_line;			/* line discipline */
+//		cc_t c_cc[NCCS];		/* control characters */
+//		speed_t c_ispeed;		/* input speed */
+//		speed_t c_ospeed;		/* output speed */
+//	#define _HAVE_STRUCT_TERMIOS_C_ISPEED 1
+//	#define _HAVE_STRUCT_TERMIOS_C_OSPEED 1
+//	  };
+struct termios {
+	:c_iflag		uint32;/* input mode flags */
+	:c_oflag		uint32;/* output mode flags */
+	:c_cflag		uint32;/* control mode flags */
+	:c_lflag		uint32;/* local mode flags */
+	:c_line			uint8 ;	/* line discipline */
+	:c_cc		    [32]uint8 ;	/* control characters */
+	:c_ispeed		uint32;/* input speed */
+	:c_ospeed		uint32;/* output speed */
+}
+
+function tcgetattr(:fd int32, :__termios_p *termios) external;
+function tcsetattr(:fd int32, :__optional_actions int32, :__termios_p *termios) external;
+
+function render(:screen [][30]uint8, :rainbow bool) {
+	// clear terminal
+	printf("\033[2J".data);
+
+	:color_k uint8 = 0;
+	:color_v uint8 = 0;
+
+
+	:screen_size int64 = [int64]screen.len;
+	for(:i int64 = 0; i < screen_size; i += 1) {
+		for(:j int64 = 0; j < [int64]screen[i].len; j = j + 1) {
+			if  rainbow {
+				if color_k >= 6 {
+					color_k = 0;
+					color_v = color_v + 1;
+				}
+				if color_v >= 4 {
+					color_v = 0;
+				}
+
+			    :color uint8 = 46 + color_k + color_v * 6 * 6;
+
+				color_k = color_k + 1;
+
+				printf("\033[1m".data);
+				printf("\033[38:5:%hhdm".data, color);
+			}
+
+			putchar(screen[i][j]);
+
+			// restore terminal
+			printf("\033[0m".data);
+		}
+		putchar(10);
+	}
+}
+
+struct V2 {
+	:x int32;
+	:y int32;
+}
+
+struct Snake {
+	:head V2;
+	:length int32;
+
+	// 1: up; 2: down; 3: left: 4: right
+	:dir uint8;
+	:moves [10][30]uint8; 
+}
+
+function main() {
+	:difficulty int32 = 3;
+
+	// ** set "raw" mode!
+	:current_termios termios;
+	tcgetattr(0, &current_termios);
+	
+	:new_termios termios = current_termios;
+	:ICANON uint32 = 2;
+	:ECHO uint32 = 8;
+	:new_flags uint32 = ICANON | ECHO;
+    new_termios.c_lflag = new_termios.c_lflag & ~new_flags;  
+
+    tcsetattr(0, 0, &new_termios);  // Set new terminal attributes
+
+	:screen [10][30]uint8;
+	:snake Snake = Snake{
+		V2{15, 5},
+		5,
+		4,
+		screen,
+	};
+
+	srand(time(0));
+
+	:reward V2 = V2{rand() % 30, rand() % 10};
+	:points int32 = 0;
+
+	// 0: play;
+	// 1: won;
+	// -1: lost;
+	// 2: quit;
+	:game_status int32 = 0;
+		
+	:poll_struct pollfd = pollfd{
+		[int32]0,
+		[int16]1,
+		[int16]0,
+	};
+
+	while /*game_status == 0*/ true {
+		// clear screen and draw borders
+		for(:i int64 = 0; i < [int64]screen.len; i++) {
+			for(:j int64 = 0; j < [int64]screen[i].len; j++) {
+				if i == 0 || i == 9 || 
+				   j == 0 || j == 29 {
+					screen[i][j] = '.';
+				} else {
+					screen[i][j] = ' ';
+				}
+			}
+		}
+		// ** draw reward ** 
+		screen[reward.y][reward.x] = '*';
+
+		// ** draw snake **
+		:x int32 = snake.head.x;
+		:y int32 = snake.head.y;
+		:current_dir uint8 = snake.dir;
+		for(:i int32 = 0; i < snake.length; i++) {
+			// ** check collisions 
+			// with borders
+			if x >= 30 || x < 0 || y >= 10 || y < 0 {
+				jump game_lose;
+			}
+			// with self
+			if screen[y][x] == '@' || screen[y][x] == 'O' {
+				jump game_lose;
+			}
+			
+			// expire moves in tail
+			if i == snake.length - 1 {
+				snake.moves[y][x] = 0;
+			}
+
+			if i == 0 {
+				screen[y][x] = '@';
+			} else {
+				screen[y][x] = 'O';
+			}
+			
+			if snake.moves[y][x] > 0 {
+				current_dir = snake.moves[y][x];
+			}
+			
+			switch current_dir {
+				case 1: {y++}
+				case 2: {y--}
+				case 3: {x++}
+				case 4: {x--}
+			}
+		}
+	
+		// render
+		render(screen, false);
+	
+		// sleep for 1/difficulty second
+		poll(&poll_struct, 1, 1000 / difficulty);
+		if poll_struct.revents != 0 {
+			if poll_struct.revents & 1 != 0 {
+				:c uint64;
+				read(0, &c, 8);
+
+				if c == 27 { // ESC
+					// game_status = 2; // quit
+					jump game_end;
+				}
+
+				// moves 
+				if c == 4283163 {
+					// up
+					if snake.dir != 2 && snake.dir != 1 {
+						snake.moves[snake.head.y][snake.head.x] = snake.dir;
+						snake.dir = 1;
+					}
+				}
+				if c == 4348699 {
+					// down
+					if snake.dir != 2 && snake.dir != 1 {
+						snake.moves[snake.head.y][snake.head.x] = snake.dir;
+						snake.dir = 2;
+					}
+				}
+				if c == 4479771 {
+					// left
+					if snake.dir != 4 && snake.dir != 3 {
+						snake.moves[snake.head.y][snake.head.x] = snake.dir;
+						snake.dir = 3;
+					}
+				}
+				if c == 4414235 {
+					// right
+					if snake.dir != 4 && snake.dir != 3 {
+						snake.moves[snake.head.y][snake.head.x] = snake.dir;
+						snake.dir = 4;
+					}
+				}
+			} else {
+				printf("read error from stdin!".data);
+			}
+		}
+
+		// update snake position
+		switch snake.dir {
+			case 1: {(snake.head.y)--}
+			case 2: {(snake.head.y)++}
+			case 3: {(snake.head.x)--}
+			case 4: {(snake.head.x)++}
+		}
+		
+		// reward
+		if snake.head.x == reward.x && snake.head.y == reward.y {
+			points++;
+			(snake.length)++;
+			reward = V2{rand() % 30, rand() % 10};
+		}	
+	}
+
+	game_lose:
+	printf("You Lost! Points: %d\n".data, points);
+	
+	game_end:
+
+	tcsetattr(0, 0, &current_termios);  // Restore!
+}
+

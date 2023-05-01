@@ -22,6 +22,10 @@ function main() {
 		putchar([uint8]10);
 	}
 
+	:dynamic_matrix [][]uint8;
+
+	dynamic_matrix.len;
+
 /*
 	:matrix [50][50]A;
 

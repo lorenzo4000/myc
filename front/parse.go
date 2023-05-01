@@ -694,6 +694,9 @@ func precedence(ast *Ast_Node) uint8 {
 		case AST_OP_NEG:     return 5
 		case AST_OP_BORE:	 return 5
 		case AST_OP_BNOT:    return 5
+		case AST_OP_SHL:      return 5 
+		case AST_OP_SHR:      return 5 
+ 
 
 		// sum
 		case AST_OP_SUM:     return 4
@@ -702,6 +705,16 @@ func precedence(ast *Ast_Node) uint8 {
 
 
 		case AST_OP_ASN:     return 3
+		case AST_OP_ESHL:     return 3 
+		case AST_OP_ESHR:     return 3 
+		case AST_OP_ESUM:  	 return 3				// "+="
+		case AST_OP_ESUB: 	 return 3				// "-="
+		case AST_OP_EMUL: 	 return 3				// "*="
+		case AST_OP_EDIV: 	 return 3				// "/="
+		case AST_OP_EMOD: 	 return 3				// "%="
+		case AST_OP_EBAND:	 return 3 				// "&="
+		case AST_OP_EBORI:	 return 3 				// "|="
+		case AST_OP_EBORE:	 return 3 				// "^="
 
 
 		// conditions
@@ -827,11 +840,16 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 
 	operator := parser.ParseOperator()
 	if operator == nil {
-		fixed_expression := fix_precedence(left)
-		if fixed_expression ==  nil {
+		if tail == nil {
+			fixed_expression := fix_precedence(left)
+			if fixed_expression ==  nil {
+				return left
+			}
+			return fixed_expression
+		} else {
+			// if its tail we dont fix precedence, i guess
 			return left
 		}
-		return fixed_expression
 	}
 	
 	right := parser.ParseExpression()
@@ -853,7 +871,14 @@ func (parser *Parser) ParseExpression() (*Ast_Node) {
 		operator = tail
 	} 
 
-	fixed_expression := fix_precedence(operator)
+	fixed_expression := (*Ast_Node)(nil)
+	if tail == nil {
+		fixed_expression = fix_precedence(operator)
+	} else {
+		// if its tail we dont fix precedence, i guess
+		fixed_expression = operator
+	}
+
 	if fixed_expression == nil {
 		return operator
 	}

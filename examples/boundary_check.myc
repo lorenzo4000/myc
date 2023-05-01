@@ -25,8 +25,6 @@ function main(:args []*uint8, :envs []*uint8) {
 	   zero.a,  zero.b,  zero.c
 	);
 
-	return;
-
 	for(:i int64 = 0; i < [int64](args.len); i++) {
 		printf("args[%d] = %s\n".data, i, args[i]);
 	}

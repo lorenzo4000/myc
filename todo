@@ -1,13 +1,20 @@
+absolutely do this:
+.  constants 		!!
+.  switch default	!!
+
+
+
+maybe do this if you have time (i don't):
 .  varargs
 		. typecheck arguments when calling {
 			. number of arguments during typechecking 
 		}
 
+
 .  Detach yourself from C std {
    	  .  make --nocstd option
    	  .  write linux syscall wrappers
 }
-
 
 .  prepar: build dep. graph and do cycle detection before importing
 

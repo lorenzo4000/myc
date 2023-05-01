@@ -540,7 +540,9 @@ func ii(op string, oprnds ...Operand) string {
 						}
 
 						// move Start to rax
-						pre_memory_reference_code[i] += GEN_move(mem.Start, rax).Code.Text
+						pre_memory_reference_code[i] += ii("xorq", rax, rax)
+						_rax, _ := REGISTER_RAX.GetRegister(mem.Start.Type())
+						pre_memory_reference_code[i] += GEN_move(mem.Start, _rax).Code.Text
 						instruction += "// using rax\n"
 						if mem.Index != nil {
 							instruction += "// the index is very cute! : " + mem.Index.Text() + "\n"
@@ -558,7 +560,10 @@ func ii(op string, oprnds ...Operand) string {
 						}
 
 						// move Index to r10
-						pre_memory_reference_code[i] += GEN_move(mem.Index, r10).Code.Text
+						pre_memory_reference_code[i] += ii("xorq", r10, r10)
+						_r10, _ := REGISTER_R10.GetRegister(mem.Index.Type())
+
+						pre_memory_reference_code[i] += GEN_move(mem.Index, _r10).Code.Text
 						instruction += "// using r10\n"
 						mem.Index = r10
 				}
@@ -869,7 +874,13 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 				1,
 			}
 
-			out.Code.Appendln(GEN_storestruct(v.(Memory_Reference), ghost_parameter_reference).Code)
+			switch v.Type().(type) {
+				case datatype_struct.StructType:
+					out.Code.Appendln(GEN_storestruct(v.(Memory_Reference), ghost_parameter_reference).Code)
+				case datatype_array.StaticArrayType:
+					out.Code.Appendln(GEN_arraycopy(v.(Memory_Reference), ghost_parameter_reference).Code)
+						
+			}
 		}
 	}
 
@@ -3850,13 +3861,16 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 		element_type = static_array_type.ElementType
 		length = static_array_type.Length
 	}
-
 	length_literal := Asm_Int_Literal{index.Type(), int64(length), 10}
-	res.Code.TextAppendSln(ii("cmpq", length_literal, index))
-	no_oob_err := LabelGen()
-	res.Code.TextAppendSln(ii("jb", no_oob_err)) // below means fine!
 
-	// above or equal means error
+	cmp := GEN_binop(front.AST_OP_GOE, index, length_literal)
+	res.Code.Appendln(cmp.Code)
+	no_oob_err := LabelGen()
+
+	res.Code.TextAppendSln(ii("andb", cmp.Result, cmp.Result))
+	res.Code.TextAppendSln(ii("jz", no_oob_err)) // zero means fine!
+
+	// one means error
 	rsi, _ := REGISTER_RSI.GetRegister(index.Type())
 	rdx, _ := REGISTER_RDX.GetRegister(length_literal.Type())
 	res.Code.Appendln(GEN_move(index, rsi).Code)   
@@ -3885,7 +3899,7 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 		res.Result = array_index_reference
 	} else {
 		// we need to do the multiplication on the CPU
-		element_size := Asm_Int_Literal{datatype.TYPE_UINT64, int64(element_type.ByteSize()), 10}
+		element_size := Asm_Int_Literal{index.Type(), int64(element_type.ByteSize()), 10}
 
 		// TODO: do the thing for every binop, also check if left is left value!
 		left_value  := index
@@ -3945,7 +3959,7 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 			r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64) // data
 
 			start = StackAllocate(r11.Type()).Reference()
-			length = StackAllocate(r10.Type()).Reference()
+			length = StackAllocate(index.Type()).Reference()
 
 			// load array.data, array.len => r10, r11
 			res.Code.TextAppendSln(ii("pushq",r10))
@@ -3953,11 +3967,14 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 
 			load := GEN_loadstruct(array_struct.(Memory_Reference), RegisterPair{array_struct.Type(), r10, r11})
 			res.Code.Appendln(load.Code)
+
 			res.Code.Appendln(GEN_move(r11, start).Code)
-			res.Code.Appendln(GEN_move(r10, length).Code)
+			_r10, _ := REGISTER_R10.GetRegister(index.Type()) 
+			res.Code.Appendln(GEN_move(_r10, length).Code)
 
 			res.Code.TextAppendSln(ii("popq",r11))
 			res.Code.TextAppendSln(ii("popq",r10))
+			
 		case RegisterPair:
 			start = array_struct.(RegisterPair).r2
 			length = array_struct.(RegisterPair).r1
@@ -3966,11 +3983,14 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 			return res
 	}
 			
-	res.Code.TextAppendSln(ii("cmpq", length, index))
+	cmp := GEN_binop(front.AST_OP_GOE, index, length)
+	res.Code.Appendln(cmp.Code)
 	no_oob_err := LabelGen()
-	res.Code.TextAppendSln(ii("jb", no_oob_err)) // below means fine!
 
-	// above or equal means error
+	res.Code.TextAppendSln(ii("andb", cmp.Result, cmp.Result))
+	res.Code.TextAppendSln(ii("jz", no_oob_err)) // zero means fine!
+
+	// one means error
 	rsi, _ := REGISTER_RSI.GetRegister(index.Type())
 	rdx, _ := REGISTER_RDX.GetRegister(length.Type())
 	res.Code.Appendln(GEN_move(index, rsi).Code)   
@@ -3999,7 +4019,7 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 		res.Result = array_index_reference
 	} else {
 		// we need to do the multiplication on the CPU
-		element_size := Asm_Int_Literal{datatype.TYPE_UINT64, int64(element_type.ByteSize()), 10}
+		element_size := Asm_Int_Literal{index.Type(), int64(element_type.ByteSize()), 10}
 
 		// TODO: do the thing for every binop, also check if left is left value!
 		left_value  := index

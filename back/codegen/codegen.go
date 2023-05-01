@@ -75,6 +75,10 @@ var current_dot_scope symbol.Symbol_Scope_Id = -1
 func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struct.StructType {
 	symbol.SymbolScopeStackPush()
 
+	if datatype_struct.IsDynamicArrayType(_type) { 
+		_type = new_dynamic_array_type(_type.Name(), _type.(datatype_struct.StructType).Fields[0].Type.(datatype.PointerType).Pointed_type)
+	}
+
 	// declare fields in this scope, this feels hackish
 	symbol.SymbolTableInsertInCurrentScope(
 		"data",
@@ -96,6 +100,7 @@ func new_dynamic_array_type(name string, _type datatype.DataType) datatype_struc
 	)
 
 	array_type_scope := symbol.SymbolScopeStackCurrent()
+	
 	symbol.SymbolScopeStackPop()
 
 	return datatype_struct.StructType{
@@ -202,7 +207,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 	case front.AST_DATATYPE:
 		if datatype_struct.IsDynamicArrayType(ast.DataType) {
 			_type := ast.DataType.(datatype_struct.StructType)
-			new_dynamic_array_type(_type.Name(), _type.Fields[0].Type.(datatype.PointerType).Pointed_type)
+			element_type := _type.Fields[0].Type.(datatype.PointerType).Pointed_type
+			new_dynamic_array_type(_type.Name(), element_type)
 		}
 
 	case front.AST_FUNCTION_DEFINITION:
@@ -697,6 +703,15 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 				out.Code.Appendln(op.Code)
 				out.Result = allocation
+			case front.AST_OP_INDEX:
+				out.Code.Appendln(children_out[0].Code)
+
+				out.Code.TextAppendSln("// referencing stuff from mem!")
+				println("// referencing stuff from mem!")
+				ref := GEN_reference_from_mem(children_out[0].Result.(Memory_Reference))
+				out.Code.Appendln(ref.Code)
+				
+				out.Result = ref.Result
 			default:
 				goto reference_error
 			}
