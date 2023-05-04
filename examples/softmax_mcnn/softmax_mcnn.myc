@@ -130,8 +130,6 @@ function read_dataset_label(:filename string) []uint8 {
 }
 
 function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
-	printf("matmulling\n".data);
-	
 	:ah uint64 = a.len;
 	if ah <= 0 {
 		return;
@@ -159,15 +157,9 @@ function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
 	for(:i int32 = 0; i < [int32]ah; i++) {
 		for(:j int32 = 0; j < [int32]aw; j++) {
 			for(:k int32 = 0; k < [int32]aw; k++) {
-				:p uint32 = a[i][k] * b[k][j];
-				printf("%u * %u = %u\n".data, a[i][k], b[k][j], p);
-
-				c[i][j] += p;
-				printf("%u\n".data, c[i][j]);
+				c[i][j] += a[k][i] * b[k][j];
 			}
-			printf("%u ".data, c[i][j]);
 		}
-		printf("\n".data);
 	}
 
 	return c;
@@ -205,11 +197,22 @@ function forward(:net [][10]Neuron, :x [28][28]uint32) {
 			printf("\n".data);
 		}
 
-		first_layer_out[n] = matmul(first_layer[n].weights, x);
-		
+		printf("bias: %u\n".data, first_layer[n].bias);
+
+		// ** calculate linear part **
+		// z = wt * x + b
+		:z [28][28]uint32 = matmul(first_layer[n].weights, x);
+
 		for(:r uint32 = 0; r < 28; r++) {
 			for(:c uint32 = 0; c < 28; c++) {
-				printf("%u ".data, first_layer_out[n][r][c]);
+				z[r][c] += first_layer[n].bias;
+			}
+		}
+		
+		printf("result:\n".data);
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				printf("%u ".data, z[r][c]);
 			}
 			printf("\n".data);
 		}
@@ -240,6 +243,7 @@ function main() {
 	for(:i int32 = 0; i < [int32]neural_network[0][0].weights.len; i++) {
 		for(:j int32 = 0; j < [int32](neural_network[0][0].weights[i]).len; j++) {
 			neural_network[0][0].weights[i][j] = 3;
+			neural_network[0][0].bias = 1;
 		}
 	}
 		

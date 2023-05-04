@@ -489,10 +489,10 @@ func (stack Stack_Region) Reference() Memory_Reference {
 
 // === Instruction ===
 
-func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_regs [2]RegisterClass) Codegen_Out {
+func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_regs *[]RegisterClass) Codegen_Out {
 	res := Codegen_Out{}
 	res.Code.TextAppendSln("// mem_reference_to_regs() {\n")
-	res.Code.TextAppendSln("// reserved regs : " + strconv.FormatInt(int64(reserved_regs[0]), 10) + ", " + strconv.FormatInt(int64(reserved_regs[1]), 10))
+	res.Code.TextAppendSln("// reserved regs : " + fmt.Sprintln(*reserved_regs))
 
 	start_register := Operand(nil)
 	index_register := Operand(nil)
@@ -506,14 +506,18 @@ func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_
 	if mem.Start != nil && start_register == nil {
 		var new_start Operand = nil
 		for j, r := range ScratchRegisters {
-			if (reserved_regs[0] == 0xFF || r != reserved_regs[0]) && 
-			   (reserved_regs[1] == 0xFF || r != reserved_regs[1]) && 
-			   (index_register == nil || (index_register != nil && r != index_register.(Register).Class)) {
-					new_start, _ = r.GetRegister(datatype.TYPE_UINT64)
-					(*regs_pushed)[j] = true
-					res.Code.TextAppendSln(ii("pushq", new_start))
-					break
+			for _, reserved := range *reserved_regs {
+				if r == reserved {
+					goto start_continue
+				}
 			}
+			if (index_register == nil || (index_register != nil && r != index_register.(Register).Class)) {
+				new_start, _ = r.GetRegister(datatype.TYPE_UINT64)
+				(*regs_pushed)[j] = true
+				res.Code.TextAppendSln(ii("pushq", new_start))
+				break
+			}
+			start_continue:
 		}
 		
 		if new_start != nil {
@@ -523,19 +527,24 @@ func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_
 			res.Code.Appendln(GEN_move(mem.Start, _new_start).Code)
 			mem.Start = _new_start
 			start_register = mem.Start
+			*reserved_regs = append(*reserved_regs, _new_start.Class)
 		}
 	}
 	if mem.Index != nil && index_register == nil {
 		var new_index Operand = nil
 		for j, r := range ScratchRegisters {
-			if (reserved_regs[0] == 0xFF || r != reserved_regs[0]) && 
-			   (reserved_regs[1] == 0xFF || r != reserved_regs[1]) && 
-			   (start_register 		 == nil || (start_register != nil && r != start_register.(Register).Class      )) {
-					new_index, _ = r.GetRegister(datatype.TYPE_UINT64)
-					(*regs_pushed)[j] = true
-					res.Code.TextAppendSln(ii("pushq", new_index))
-					break
+			for _, reserved := range *reserved_regs {
+				if r == reserved {
+					goto index_continue
+				}
 			}
+			if (start_register  == nil || (start_register != nil && r != start_register.(Register).Class)) {
+				new_index, _ = r.GetRegister(datatype.TYPE_UINT64)
+				(*regs_pushed)[j] = true
+				res.Code.TextAppendSln(ii("pushq", new_index))
+				break
+			}
+			index_continue:
 		}
 		
 		if new_index != nil {
@@ -545,6 +554,7 @@ func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_
 			res.Code.Appendln(GEN_move(mem.Index, _new_index).Code)
 			mem.Index = _new_index
 			index_register = mem.Index
+			*reserved_regs = append(*reserved_regs, _new_index.Class)
 		}
 	}
 
@@ -590,21 +600,21 @@ func ii(op string, oprnds ...Operand) string {
 		}
 	}
 
+	var reserved_regs []RegisterClass
+	if source_register != nil {
+		reserved_regs = append(reserved_regs, source_register.(Register).Class)
+	}
+	if destination_register != nil {
+		reserved_regs = append(reserved_regs, destination_register.(Register).Class)
+	} 
+
 	for i, oprnd := range oprnds {
 		switch oprnd.(type) {
 			case Memory_Reference: 
 				mem := oprnd.(Memory_Reference)
 				off := uint64(mem.Offset)
 
-				reserved_regs := [2]RegisterClass{RegisterClass(byte(0xFF)), RegisterClass(byte(0xFF))}
-				if source_register != nil {
-					reserved_regs[0] = source_register.(Register).Class
-				}
-				if destination_register != nil {
-					reserved_regs[1] = destination_register.(Register).Class
-				}
-
-				to_regs := mem_reference_to_regs(mem, &(regs_pushed[i]), reserved_regs)
+				to_regs := mem_reference_to_regs(mem, &(regs_pushed[i]), &reserved_regs)
 				pre_memory_reference_code[i] += to_regs.Code.Text
 				mem = to_regs.Result.(Memory_Reference)
 
@@ -674,10 +684,21 @@ func ii(op string, oprnds ...Operand) string {
 		
 		instruction += GEN_move(oprnds[0], allocation).Code.Text + "\n"
 		oprnds[0] = allocation
+		if start_pushed[0] != RegisterClass(byte(0xFF)) {
+			sp, _ := start_pushed[0].GetRegister(datatype.TYPE_UINT64)
+			instruction += ii("// pop start \npopq", sp)
+		}
+		for j := len(ScratchRegisters)-1; j >= 0; j-- {
+			if regs_pushed[0][j] {
+				r := ScratchRegisters[j]
+				pushed_reg, _ := r.GetRegister(datatype.TYPE_UINT64)
+				instruction += ii("// pop pushed: \npopq", pushed_reg)
+			}
+		}
 
 		instruction += Instruction(op, oprnds...) + "\n"
 	
-		for i, _ := range oprnds {
+		for i := 1; i < len(oprnds); i++ {
 			if start_pushed[i] != RegisterClass(byte(0xFF)) {
 				sp, _ := start_pushed[i].GetRegister(datatype.TYPE_UINT64)
 				instruction += ii("// pop start \npopq", sp)

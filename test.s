@@ -1,1265 +1,8 @@
+[28][28]uint32
+[28]uint32
 struct    has padding of  0
 struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-[32]uint8
-struct    has padding of  0
-struct    has padding of  3
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-struct    has padding of  0
-[10][30]uint8
-[30]uint8
-struct    has padding of  0
-switch exp type :  uint8  case exp type :  int_literal
-switch exp type :  uint8  case exp type :  int_literal
-switch exp type :  uint8  case exp type :  int_literal
-switch exp type :  uint8  case exp type :  int_literal
-switch exp type :  uint8  case exp type :  int_literal
-switch exp type :  uint8  case exp type :  int_literal
-switch exp type :  uint8  case exp type :  int_literal
-switch exp type :  uint8  case exp type :  int_literal
-AST_HEAD : 
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = getchar ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(*uint8) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = gets ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = perror ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = printf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = putchar ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c ]
-				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = puts ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = remove ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = filename ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = rename ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = oldname ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = newname ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = scanf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format_string ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = snprintf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = outbuf ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-			AST_VARIABLE_DEFINITION(uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = n ]
-				AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = sprintf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format_string ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = sscanf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format_string ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(*int8) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = tmpnam ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(*int8) : [ int_value = 0, string_value = *int8 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vprintf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vscanf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vsprintf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = target_string ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vsnprintf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = outbuf ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-			AST_VARIABLE_DEFINITION(uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = n ]
-				AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vsscanf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vswscanf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer ]
-				AST_DATATYPE(*uint32) : [ int_value = 0, string_value = *uint32 ]
-			AST_VARIABLE_DEFINITION(*uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format ]
-				AST_DATATYPE(*uint32) : [ int_value = 0, string_value = *uint32 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vwscanf ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format ]
-				AST_DATATYPE(*uint32) : [ int_value = 0, string_value = *uint32 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = abort ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = abs ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = atexit ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = atoi ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int64) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = atol ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = exit ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = free ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION(int64) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = labs ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = mblen ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = mbtowc ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = qsort ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = rand ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = rand_r ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = srand ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION(uint64) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = strtoul ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64 ]
-	AST_FUNCTION_DEFINITION(int64) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = strtol ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = system ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = wctomb ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_FUNCTION_DEFINITION(int64) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = mbstowcs ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-	AST_FUNCTION_DEFINITION(int64) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = wcstombs ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-	AST_FUNCTION_DEFINITION(*int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = putenv ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(*int32) : [ int_value = 0, string_value = *int32 ]
-	AST_FUNCTION_DEFINITION(*int8) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = getenv ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(*int8) : [ int_value = 0, string_value = *int8 ]
-	AST_FUNCTION_DEFINITION(*?) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = malloc ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(*?) : [ int_value = 0, string_value = *? ]
-	AST_FUNCTION_DEFINITION(*?) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = realloc ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(*?) : [ int_value = 0, string_value = *? ]
-	AST_FUNCTION_DEFINITION(*?) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = calloc ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(*?) : [ int_value = 0, string_value = *? ]
-	AST_FUNCTION_DEFINITION([]?) : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = allocate ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = bytes ]
-				AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64 ]
-		AST_DATATYPE([]?) : [ int_value = 0, string_value = []? ]
-		AST_BODY([]?) | ASTO_BODY_FUNCTION | ASTO_ALWAYS_RETURNS : 
-			AST_VARIABLE_DEFINITION([]?) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = array ]
-				AST_DATATYPE([]?) : [ int_value = 0, string_value = []? ]
-			AST_OP_ASN(*?) : 
-				AST_OP_DOT(*?) : [ int_value = 0, string_value = data ]
-					AST_VARIABLE_NAME([]?) : [ int_value = 0, string_value = array ]
-					AST_VARIABLE_NAME(*?) : [ int_value = 0, string_value = data ]
-				AST_FUNCTION_CALL(*?) : [ int_value = 0, string_value = malloc ]
-					AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = bytes ]
-			AST_OP_ASN(uint64) : 
-				AST_OP_DOT(uint64) : [ int_value = 0, string_value = len ]
-					AST_VARIABLE_NAME([]?) : [ int_value = 0, string_value = array ]
-					AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = len ]
-				AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = bytes ]
-			AST_RETURN([]?) | ASTO_ALWAYS_RETURNS : 
-				AST_VARIABLE_NAME([]?) : [ int_value = 0, string_value = array ]
-	AST_FUNCTION_DEFINITION([]?) : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = resize ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION([]?) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = array ]
-				AST_DATATYPE([]?) : [ int_value = 0, string_value = []? ]
-			AST_VARIABLE_DEFINITION(uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = bytes ]
-				AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64 ]
-		AST_DATATYPE([]?) : [ int_value = 0, string_value = []? ]
-		AST_BODY([]?) | ASTO_BODY_FUNCTION | ASTO_ALWAYS_RETURNS : 
-			AST_OP_ASN(*?) : 
-				AST_OP_DOT(*?) : [ int_value = 0, string_value = data ]
-					AST_VARIABLE_NAME([]?) : [ int_value = 0, string_value = array ]
-					AST_VARIABLE_NAME(*?) : [ int_value = 0, string_value = data ]
-				AST_FUNCTION_CALL(*?) : [ int_value = 0, string_value = realloc ]
-					AST_OP_DOT(*?) : [ int_value = 0, string_value = data ]
-						AST_VARIABLE_NAME([]?) : [ int_value = 0, string_value = array ]
-						AST_VARIABLE_NAME(*?) : [ int_value = 0, string_value = data ]
-					AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = bytes ]
-			AST_OP_ASN(uint64) : 
-				AST_OP_DOT(uint64) : [ int_value = 0, string_value = len ]
-					AST_VARIABLE_NAME([]?) : [ int_value = 0, string_value = array ]
-					AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = len ]
-				AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = bytes ]
-			AST_RETURN([]?) | ASTO_ALWAYS_RETURNS : 
-				AST_VARIABLE_NAME([]?) : [ int_value = 0, string_value = array ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = time ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(int64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = tloc ]
-				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_STRUCT_DEFINITION(pollfd) : 
-		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = pollfd ]
-		AST_STRUCT_DEFINITION_BODY() : 
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = fd ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(int16) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = events ]
-				AST_DATATYPE(int16) : [ int_value = 0, string_value = int16 ]
-			AST_VARIABLE_DEFINITION(int16) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = revents ]
-				AST_DATATYPE(int16) : [ int_value = 0, string_value = int16 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = poll ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*pollfd) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = fds ]
-				AST_DATATYPE(*pollfd) : [ int_value = 0, string_value = *pollfd ]
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = nfds ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = timeout ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = read ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = fd ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(*?) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buf ]
-				AST_DATATYPE(*?) : [ int_value = 0, string_value = *? ]
-			AST_VARIABLE_DEFINITION(uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = count ]
-				AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64 ]
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = sleep ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = seconds ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-		AST_DATATYPE() : 
-	AST_STRUCT_DEFINITION(termios) : 
-		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = termios ]
-		AST_STRUCT_DEFINITION_BODY() : 
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_iflag ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_oflag ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_cflag ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_lflag ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-			AST_VARIABLE_DEFINITION(uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_line ]
-				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
-			AST_VARIABLE_DEFINITION([32]uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_cc ]
-				AST_DATATYPE([32]uint8) : [ int_value = 0, string_value = [32]uint8 ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_ispeed ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c_ospeed ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = tcgetattr ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = fd ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(*termios) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = __termios_p ]
-				AST_DATATYPE(*termios) : [ int_value = 0, string_value = *termios ]
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = tcsetattr ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = fd ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = __optional_actions ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(*termios) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = __termios_p ]
-				AST_DATATYPE(*termios) : [ int_value = 0, string_value = *termios ]
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION() : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = render ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION([][30]uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = screen ]
-				AST_DATATYPE([][30]uint8) : [ int_value = 0, string_value = [][30]uint8 ]
-			AST_VARIABLE_DEFINITION(bool) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = rainbow ]
-				AST_DATATYPE(bool) : [ int_value = 0, string_value = bool ]
-		AST_DATATYPE() : 
-		AST_BODY() | ASTO_BODY_FUNCTION : 
-			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
-				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
-					AST_LITERAL(static_string) : [ int_value = 0, string_value = [2J ]
-					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
-			AST_VARIABLE_DEFINITION(uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = color_k ]
-				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
-				AST_LITERAL(uint8) : [ int_value = 0, string_value =  ]
-			AST_VARIABLE_DEFINITION(uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = color_v ]
-				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
-				AST_LITERAL(uint8) : [ int_value = 0, string_value =  ]
-			AST_VARIABLE_DEFINITION(int64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = screen_size ]
-				AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-				AST_CASTING(int64) : 
-					AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-					AST_OP_DOT(uint64) : [ int_value = 0, string_value = len ]
-						AST_VARIABLE_NAME([][30]uint8) : [ int_value = 0, string_value = screen ]
-						AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = len ]
-			AST_FOR : 
-				AST_FOR_INIT() : 
-					AST_VARIABLE_DEFINITION(int64) : 
-						AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = i ]
-						AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-						AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-				AST_OP_LES(bool) : 
-					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-					AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = screen_size ]
-				AST_FOR_UPDATE() : 
-					AST_OP_ESUM(int64) : 
-						AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-						AST_LITERAL(int64) : [ int_value = 1, string_value =  ]
-				AST_BODY() | ASTO_BODY_FOR : 
-					AST_FOR : 
-						AST_FOR_INIT() : 
-							AST_VARIABLE_DEFINITION(int64) : 
-								AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = j ]
-								AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-								AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-						AST_OP_LES(bool) : 
-							AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-							AST_CASTING(int64) : 
-								AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-								AST_OP_DOT(uint64) : [ int_value = 0, string_value = len ]
-									AST_OP_INDEX([30]uint8) : 
-										AST_VARIABLE_NAME([][30]uint8) : [ int_value = 0, string_value = screen ]
-										AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-									AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = len ]
-						AST_FOR_UPDATE() : 
-							AST_OP_ASN(int64) : 
-								AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-								AST_OP_SUM(int64) : 
-									AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-									AST_LITERAL(int64) : [ int_value = 1, string_value =  ]
-						AST_BODY() | ASTO_BODY_FOR : 
-							AST_IF() : 
-								AST_VARIABLE_NAME(bool) : [ int_value = 0, string_value = rainbow ]
-								AST_BODY() | ASTO_BODY_IF : 
-									AST_IF() : 
-										AST_OP_GOE(bool) : 
-											AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_k ]
-											AST_LITERAL(uint8) : [ int_value = 6, string_value =  ]
-										AST_BODY() | ASTO_BODY_IF : 
-											AST_OP_ASN(uint8) : 
-												AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_k ]
-												AST_LITERAL(uint8) : [ int_value = 0, string_value =  ]
-											AST_OP_ASN(uint8) : 
-												AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_v ]
-												AST_OP_SUM(uint8) : 
-													AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_v ]
-													AST_LITERAL(uint8) : [ int_value = 1, string_value =  ]
-									AST_IF() : 
-										AST_OP_GOE(bool) : 
-											AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_v ]
-											AST_LITERAL(uint8) : [ int_value = 4, string_value =  ]
-										AST_BODY() | ASTO_BODY_IF : 
-											AST_OP_ASN(uint8) : 
-												AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_v ]
-												AST_LITERAL(uint8) : [ int_value = 0, string_value =  ]
-									AST_VARIABLE_DEFINITION(uint8) : 
-										AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = color ]
-										AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
-										AST_OP_SUM(uint8) : 
-											AST_LITERAL(uint8) : [ int_value = 46, string_value =  ]
-											AST_OP_SUM(uint8) : 
-												AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_k ]
-												AST_OP_MUL(uint8) : 
-													AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_v ]
-													AST_OP_MUL(uint8) : 
-														AST_LITERAL(uint8) : [ int_value = 6, string_value =  ]
-														AST_LITERAL(uint8) : [ int_value = 6, string_value =  ]
-									AST_OP_ASN(uint8) : 
-										AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_k ]
-										AST_OP_SUM(uint8) : 
-											AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color_k ]
-											AST_LITERAL(uint8) : [ int_value = 1, string_value =  ]
-									AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
-										AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
-											AST_LITERAL(static_string) : [ int_value = 0, string_value = [1m ]
-											AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
-									AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
-										AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
-											AST_LITERAL(static_string) : [ int_value = 0, string_value = [38:5:%hhdm ]
-											AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
-										AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = color ]
-							AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = putchar ]
-								AST_OP_INDEX(uint8) : 
-									AST_OP_INDEX([30]uint8) : 
-										AST_VARIABLE_NAME([][30]uint8) : [ int_value = 0, string_value = screen ]
-										AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-									AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-							AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
-								AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
-									AST_LITERAL(static_string) : [ int_value = 0, string_value = [0m ]
-									AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
-					AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = putchar ]
-						AST_LITERAL(uint8) : [ int_value = 10, string_value =  ]
-	AST_STRUCT_DEFINITION(V2) : 
-		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = V2 ]
-		AST_STRUCT_DEFINITION_BODY() : 
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = x ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = y ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-	AST_STRUCT_DEFINITION(Snake) : 
-		AST_STRUCT_DEFINITION_NAME() : [ int_value = 0, string_value = Snake ]
-		AST_STRUCT_DEFINITION_BODY() : 
-			AST_VARIABLE_DEFINITION(V2) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = head ]
-				AST_DATATYPE(V2) : [ int_value = 0, string_value = V2 ]
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = length ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-			AST_VARIABLE_DEFINITION(uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = dir ]
-				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
-			AST_VARIABLE_DEFINITION([10][30]uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = moves ]
-				AST_DATATYPE([10][30]uint8) : [ int_value = 0, string_value = [10][30]uint8 ]
-	AST_FUNCTION_DEFINITION() : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = main ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-		AST_BODY() | ASTO_BODY_FUNCTION : 
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = difficulty ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-				AST_LITERAL(int32) : [ int_value = 3, string_value =  ]
-			AST_VARIABLE_DEFINITION(termios) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = current_termios ]
-				AST_DATATYPE(termios) : [ int_value = 0, string_value = termios ]
-			AST_FUNCTION_CALL() : [ int_value = 0, string_value = tcgetattr ]
-				AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-				AST_OP_REFERENCE(*termios) : 
-					AST_VARIABLE_NAME(termios) : [ int_value = 0, string_value = current_termios ]
-			AST_VARIABLE_DEFINITION(termios) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = new_termios ]
-				AST_DATATYPE(termios) : [ int_value = 0, string_value = termios ]
-				AST_VARIABLE_NAME(termios) : [ int_value = 0, string_value = current_termios ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = ICANON ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-				AST_LITERAL(uint32) : [ int_value = 2, string_value =  ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = ECHO ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-				AST_LITERAL(uint32) : [ int_value = 8, string_value =  ]
-			AST_VARIABLE_DEFINITION(uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = new_flags ]
-				AST_DATATYPE(uint32) : [ int_value = 0, string_value = uint32 ]
-				AST_OP_BORI(uint32) : 
-					AST_VARIABLE_NAME(uint32) : [ int_value = 0, string_value = ICANON ]
-					AST_VARIABLE_NAME(uint32) : [ int_value = 0, string_value = ECHO ]
-			AST_OP_ASN(uint32) : 
-				AST_OP_DOT(uint32) : [ int_value = 0, string_value = c_lflag ]
-					AST_VARIABLE_NAME(termios) : [ int_value = 0, string_value = new_termios ]
-					AST_VARIABLE_NAME(uint32) : [ int_value = 0, string_value = c_lflag ]
-				AST_OP_BAND(uint32) : 
-					AST_OP_DOT(uint32) : [ int_value = 0, string_value = c_lflag ]
-						AST_VARIABLE_NAME(termios) : [ int_value = 0, string_value = new_termios ]
-						AST_VARIABLE_NAME(uint32) : [ int_value = 0, string_value = c_lflag ]
-					AST_OP_BNOT(uint32) : 
-						AST_VARIABLE_NAME(uint32) : [ int_value = 0, string_value = new_flags ]
-			AST_FUNCTION_CALL() : [ int_value = 0, string_value = tcsetattr ]
-				AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-				AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-				AST_OP_REFERENCE(*termios) : 
-					AST_VARIABLE_NAME(termios) : [ int_value = 0, string_value = new_termios ]
-			AST_VARIABLE_DEFINITION([10][30]uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = screen ]
-				AST_DATATYPE([10][30]uint8) : [ int_value = 0, string_value = [10][30]uint8 ]
-			AST_VARIABLE_DEFINITION(Snake) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = snake ]
-				AST_DATATYPE(Snake) : [ int_value = 0, string_value = Snake ]
-				AST_COMPOSITE_LITERAL(Snake) : 
-					AST_DATATYPE(Snake) : [ int_value = 0, string_value = Snake ]
-					AST_COMPOSITE_LITERAL(V2) : 
-						AST_DATATYPE(V2) : [ int_value = 0, string_value = V2 ]
-						AST_LITERAL(int32) : [ int_value = 15, string_value =  ]
-						AST_LITERAL(int32) : [ int_value = 5, string_value =  ]
-					AST_LITERAL(int32) : [ int_value = 5, string_value =  ]
-					AST_LITERAL(uint8) : [ int_value = 4, string_value =  ]
-					AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-			AST_FUNCTION_CALL() : [ int_value = 0, string_value = srand ]
-				AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = time ]
-					AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-			AST_VARIABLE_DEFINITION(V2) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = reward ]
-				AST_DATATYPE(V2) : [ int_value = 0, string_value = V2 ]
-				AST_COMPOSITE_LITERAL(V2) : 
-					AST_DATATYPE(V2) : [ int_value = 0, string_value = V2 ]
-					AST_OP_MOD(int32) : 
-						AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = rand ]
-						AST_LITERAL(int32) : [ int_value = 30, string_value =  ]
-					AST_OP_MOD(int32) : 
-						AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = rand ]
-						AST_LITERAL(int32) : [ int_value = 10, string_value =  ]
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = points ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-				AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-			AST_VARIABLE_DEFINITION(int32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = game_status ]
-				AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-				AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-			AST_VARIABLE_DEFINITION(pollfd) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = poll_struct ]
-				AST_DATATYPE(pollfd) : [ int_value = 0, string_value = pollfd ]
-				AST_COMPOSITE_LITERAL(pollfd) : 
-					AST_DATATYPE(pollfd) : [ int_value = 0, string_value = pollfd ]
-					AST_CASTING(int32) : 
-						AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-						AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-					AST_CASTING(int16) : 
-						AST_DATATYPE(int16) : [ int_value = 0, string_value = int16 ]
-						AST_LITERAL(int64) : [ int_value = 1, string_value =  ]
-					AST_CASTING(int16) : 
-						AST_DATATYPE(int16) : [ int_value = 0, string_value = int16 ]
-						AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-			AST_WHILE : 
-				AST_LITERAL(bool) : [ int_value = 1, string_value = true ]
-				AST_BODY() | ASTO_BODY_WHILE : 
-					AST_FOR : 
-						AST_FOR_INIT() : 
-							AST_VARIABLE_DEFINITION(int64) : 
-								AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = i ]
-								AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-								AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-						AST_OP_LES(bool) : 
-							AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-							AST_CASTING(int64) : 
-								AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-								AST_OP_DOT(uint64) : [ int_value = 0, string_value = len ]
-									AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-									AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = len ]
-						AST_FOR_UPDATE() : 
-							AST_OP_INC(int64) : 
-								AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-						AST_BODY() | ASTO_BODY_FOR : 
-							AST_FOR : 
-								AST_FOR_INIT() : 
-									AST_VARIABLE_DEFINITION(int64) : 
-										AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = j ]
-										AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-										AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-								AST_OP_LES(bool) : 
-									AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-									AST_CASTING(int64) : 
-										AST_DATATYPE(int64) : [ int_value = 0, string_value = int64 ]
-										AST_OP_DOT(uint64) : [ int_value = 0, string_value = len ]
-											AST_OP_INDEX([30]uint8) : 
-												AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-												AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-											AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = len ]
-								AST_FOR_UPDATE() : 
-									AST_OP_INC(int64) : 
-										AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-								AST_BODY() | ASTO_BODY_FOR : 
-									AST_BODY_RESULT() : 
-										AST_IF() : 
-											AST_OP_OR(bool) : 
-												AST_OP_EQU(bool) : 
-													AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-													AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-												AST_OP_OR(bool) : 
-													AST_OP_EQU(bool) : 
-														AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-														AST_LITERAL(int64) : [ int_value = 9, string_value =  ]
-													AST_OP_OR(bool) : 
-														AST_OP_EQU(bool) : 
-															AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-															AST_LITERAL(int64) : [ int_value = 0, string_value =  ]
-														AST_OP_EQU(bool) : 
-															AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-															AST_LITERAL(int64) : [ int_value = 29, string_value =  ]
-											AST_BODY() | ASTO_BODY_IF : 
-												AST_OP_ASN(uint8) : 
-													AST_OP_INDEX(uint8) : 
-														AST_OP_INDEX([30]uint8) : 
-															AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-															AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-														AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-													AST_LITERAL(uint8) : [ int_value = 46, string_value =  ]
-											AST_BODY() | ASTO_BODY_ELSE : 
-												AST_OP_ASN(uint8) : 
-													AST_OP_INDEX(uint8) : 
-														AST_OP_INDEX([30]uint8) : 
-															AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-															AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = i ]
-														AST_VARIABLE_NAME(int64) : [ int_value = 0, string_value = j ]
-													AST_LITERAL(uint8) : [ int_value = 32, string_value =  ]
-					AST_OP_ASN(uint8) : 
-						AST_OP_INDEX(uint8) : 
-							AST_OP_INDEX([30]uint8) : 
-								AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-								AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-									AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = reward ]
-									AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-							AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-								AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = reward ]
-								AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-						AST_LITERAL(uint8) : [ int_value = 42, string_value =  ]
-					AST_VARIABLE_DEFINITION(int32) : 
-						AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = x ]
-						AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-						AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-							AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-								AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-								AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-							AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-					AST_VARIABLE_DEFINITION(int32) : 
-						AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = y ]
-						AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-						AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-							AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-								AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-								AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-							AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-					AST_VARIABLE_DEFINITION(uint8) : 
-						AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = current_dir ]
-						AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8 ]
-						AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-							AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-							AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-					AST_FOR : 
-						AST_FOR_INIT() : 
-							AST_VARIABLE_DEFINITION(int32) : 
-								AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = i ]
-								AST_DATATYPE(int32) : [ int_value = 0, string_value = int32 ]
-								AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-						AST_OP_LES(bool) : 
-							AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = i ]
-							AST_OP_DOT(int32) : [ int_value = 0, string_value = length ]
-								AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-								AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = length ]
-						AST_FOR_UPDATE() : 
-							AST_OP_INC(int32) : 
-								AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = i ]
-						AST_BODY(int32) | ASTO_BODY_FOR : 
-							AST_IF() : 
-								AST_OP_OR(bool) : 
-									AST_OP_GOE(bool) : 
-										AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-										AST_LITERAL(int32) : [ int_value = 30, string_value =  ]
-									AST_OP_OR(bool) : 
-										AST_OP_LES(bool) : 
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-											AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-										AST_OP_OR(bool) : 
-											AST_OP_GOE(bool) : 
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-												AST_LITERAL(int32) : [ int_value = 10, string_value =  ]
-											AST_OP_LES(bool) : 
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-												AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-								AST_BODY() | ASTO_BODY_IF : 
-									AST_JUMP() : [ int_value = 0, string_value = game_lose ]
-							AST_IF() : 
-								AST_OP_OR(bool) : 
-									AST_OP_EQU(bool) : 
-										AST_OP_INDEX(uint8) : 
-											AST_OP_INDEX([30]uint8) : 
-												AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-										AST_LITERAL(uint8) : [ int_value = 64, string_value =  ]
-									AST_OP_EQU(bool) : 
-										AST_OP_INDEX(uint8) : 
-											AST_OP_INDEX([30]uint8) : 
-												AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-										AST_LITERAL(uint8) : [ int_value = 79, string_value =  ]
-								AST_BODY() | ASTO_BODY_IF : 
-									AST_JUMP() : [ int_value = 0, string_value = game_lose ]
-							AST_IF() : 
-								AST_OP_EQU(bool) : 
-									AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = i ]
-									AST_OP_SUB(int32) : 
-										AST_OP_DOT(int32) : [ int_value = 0, string_value = length ]
-											AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = length ]
-										AST_LITERAL(int32) : [ int_value = 1, string_value =  ]
-								AST_BODY() | ASTO_BODY_IF : 
-									AST_OP_ASN(uint8) : 
-										AST_OP_INDEX(uint8) : 
-											AST_OP_INDEX([30]uint8) : 
-												AST_OP_DOT([10][30]uint8) : [ int_value = 0, string_value = moves ]
-													AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-													AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = moves ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-										AST_LITERAL(uint8) : [ int_value = 0, string_value =  ]
-							AST_IF() : 
-								AST_OP_EQU(bool) : 
-									AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = i ]
-									AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-								AST_BODY() | ASTO_BODY_IF : 
-									AST_OP_ASN(uint8) : 
-										AST_OP_INDEX(uint8) : 
-											AST_OP_INDEX([30]uint8) : 
-												AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-										AST_LITERAL(uint8) : [ int_value = 64, string_value =  ]
-								AST_BODY() | ASTO_BODY_ELSE : 
-									AST_OP_ASN(uint8) : 
-										AST_OP_INDEX(uint8) : 
-											AST_OP_INDEX([30]uint8) : 
-												AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-										AST_LITERAL(uint8) : [ int_value = 79, string_value =  ]
-							AST_IF() : 
-								AST_OP_GRT(bool) : 
-									AST_OP_INDEX(uint8) : 
-										AST_OP_INDEX([30]uint8) : 
-											AST_OP_DOT([10][30]uint8) : [ int_value = 0, string_value = moves ]
-												AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-												AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = moves ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-										AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-									AST_LITERAL(uint8) : [ int_value = 0, string_value =  ]
-								AST_BODY() | ASTO_BODY_IF : 
-									AST_OP_ASN(uint8) : 
-										AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = current_dir ]
-										AST_OP_INDEX(uint8) : 
-											AST_OP_INDEX([30]uint8) : 
-												AST_OP_DOT([10][30]uint8) : [ int_value = 0, string_value = moves ]
-													AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-													AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = moves ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-							AST_BODY_RESULT(int32) : 
-								AST_SWITCH(int32) : 
-									AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = current_dir ]
-									AST_CASE(int32) : 
-										AST_LITERAL(uint8) : [ int_value = 1, string_value =  ]
-										AST_BODY(int32) | ASTO_BODY_CASE : 
-											AST_BODY_RESULT(int32) : 
-												AST_OP_INC(int32) : 
-													AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-									AST_CASE(int32) : 
-										AST_LITERAL(uint8) : [ int_value = 2, string_value =  ]
-										AST_BODY(int32) | ASTO_BODY_CASE : 
-											AST_BODY_RESULT(int32) : 
-												AST_OP_DEC(int32) : 
-													AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-									AST_CASE(int32) : 
-										AST_LITERAL(uint8) : [ int_value = 3, string_value =  ]
-										AST_BODY(int32) | ASTO_BODY_CASE : 
-											AST_BODY_RESULT(int32) : 
-												AST_OP_INC(int32) : 
-													AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-									AST_CASE(int32) : 
-										AST_LITERAL(uint8) : [ int_value = 4, string_value =  ]
-										AST_BODY(int32) | ASTO_BODY_CASE : 
-											AST_BODY_RESULT(int32) : 
-												AST_OP_DEC(int32) : 
-													AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-					AST_FUNCTION_CALL() : [ int_value = 0, string_value = render ]
-						AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = screen ]
-						AST_LITERAL(bool) : [ int_value = 0, string_value = false ]
-					AST_FUNCTION_CALL() : [ int_value = 0, string_value = poll ]
-						AST_OP_REFERENCE(*pollfd) : 
-							AST_VARIABLE_NAME(pollfd) : [ int_value = 0, string_value = poll_struct ]
-						AST_LITERAL(int32) : [ int_value = 1, string_value =  ]
-						AST_OP_DIV(int32) : 
-							AST_LITERAL(int32) : [ int_value = 1000, string_value =  ]
-							AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = difficulty ]
-					AST_IF() : 
-						AST_OP_NEQ(bool) : 
-							AST_OP_DOT(int16) : [ int_value = 0, string_value = revents ]
-								AST_VARIABLE_NAME(pollfd) : [ int_value = 0, string_value = poll_struct ]
-								AST_VARIABLE_NAME(int16) : [ int_value = 0, string_value = revents ]
-							AST_LITERAL(int16) : [ int_value = 0, string_value =  ]
-						AST_BODY() | ASTO_BODY_IF : 
-							AST_BODY_RESULT() : 
-								AST_IF() : 
-									AST_OP_NEQ(bool) : 
-										AST_OP_BAND(int16) : 
-											AST_OP_DOT(int16) : [ int_value = 0, string_value = revents ]
-												AST_VARIABLE_NAME(pollfd) : [ int_value = 0, string_value = poll_struct ]
-												AST_VARIABLE_NAME(int16) : [ int_value = 0, string_value = revents ]
-											AST_LITERAL(int16) : [ int_value = 1, string_value =  ]
-										AST_LITERAL(int16) : [ int_value = 0, string_value =  ]
-									AST_BODY() | ASTO_BODY_IF : 
-										AST_VARIABLE_DEFINITION(uint64) : 
-											AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c ]
-											AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64 ]
-										AST_FUNCTION_CALL() : [ int_value = 0, string_value = read ]
-											AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-											AST_OP_REFERENCE(*uint64) : 
-												AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = c ]
-											AST_LITERAL(uint64) : [ int_value = 8, string_value =  ]
-										AST_IF() : 
-											AST_OP_EQU(bool) : 
-												AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = c ]
-												AST_LITERAL(uint64) : [ int_value = 27, string_value =  ]
-											AST_BODY() | ASTO_BODY_IF : 
-												AST_JUMP() : [ int_value = 0, string_value = game_end ]
-										AST_IF() : 
-											AST_OP_EQU(bool) : 
-												AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = c ]
-												AST_LITERAL(uint64) : [ int_value = 4283163, string_value =  ]
-											AST_BODY() | ASTO_BODY_IF : 
-												AST_BODY_RESULT() : 
-													AST_IF() : 
-														AST_OP_AND(bool) : 
-															AST_OP_NEQ(bool) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 2, string_value =  ]
-															AST_OP_NEQ(bool) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 1, string_value =  ]
-														AST_BODY() | ASTO_BODY_IF : 
-															AST_OP_ASN(uint8) : 
-																AST_OP_INDEX(uint8) : 
-																	AST_OP_INDEX([30]uint8) : 
-																		AST_OP_DOT([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																			AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																			AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																		AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-																			AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																				AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																				AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																			AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-																	AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-																		AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																			AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																			AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																		AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-															AST_OP_ASN(uint8) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 1, string_value =  ]
-										AST_IF() : 
-											AST_OP_EQU(bool) : 
-												AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = c ]
-												AST_LITERAL(uint64) : [ int_value = 4348699, string_value =  ]
-											AST_BODY() | ASTO_BODY_IF : 
-												AST_BODY_RESULT() : 
-													AST_IF() : 
-														AST_OP_AND(bool) : 
-															AST_OP_NEQ(bool) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 2, string_value =  ]
-															AST_OP_NEQ(bool) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 1, string_value =  ]
-														AST_BODY() | ASTO_BODY_IF : 
-															AST_OP_ASN(uint8) : 
-																AST_OP_INDEX(uint8) : 
-																	AST_OP_INDEX([30]uint8) : 
-																		AST_OP_DOT([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																			AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																			AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																		AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-																			AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																				AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																				AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																			AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-																	AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-																		AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																			AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																			AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																		AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-															AST_OP_ASN(uint8) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 2, string_value =  ]
-										AST_IF() : 
-											AST_OP_EQU(bool) : 
-												AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = c ]
-												AST_LITERAL(uint64) : [ int_value = 4479771, string_value =  ]
-											AST_BODY() | ASTO_BODY_IF : 
-												AST_BODY_RESULT() : 
-													AST_IF() : 
-														AST_OP_AND(bool) : 
-															AST_OP_NEQ(bool) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 4, string_value =  ]
-															AST_OP_NEQ(bool) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 3, string_value =  ]
-														AST_BODY() | ASTO_BODY_IF : 
-															AST_OP_ASN(uint8) : 
-																AST_OP_INDEX(uint8) : 
-																	AST_OP_INDEX([30]uint8) : 
-																		AST_OP_DOT([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																			AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																			AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																		AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-																			AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																				AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																				AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																			AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-																	AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-																		AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																			AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																			AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																		AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-															AST_OP_ASN(uint8) : 
-																AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																	AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_LITERAL(uint8) : [ int_value = 3, string_value =  ]
-										AST_BODY_RESULT() : 
-											AST_IF() : 
-												AST_OP_EQU(bool) : 
-													AST_VARIABLE_NAME(uint64) : [ int_value = 0, string_value = c ]
-													AST_LITERAL(uint64) : [ int_value = 4414235, string_value =  ]
-												AST_BODY() | ASTO_BODY_IF : 
-													AST_BODY_RESULT() : 
-														AST_IF() : 
-															AST_OP_AND(bool) : 
-																AST_OP_NEQ(bool) : 
-																	AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																		AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																		AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_LITERAL(uint8) : [ int_value = 4, string_value =  ]
-																AST_OP_NEQ(bool) : 
-																	AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																		AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																		AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_LITERAL(uint8) : [ int_value = 3, string_value =  ]
-															AST_BODY() | ASTO_BODY_IF : 
-																AST_OP_ASN(uint8) : 
-																	AST_OP_INDEX(uint8) : 
-																		AST_OP_INDEX([30]uint8) : 
-																			AST_OP_DOT([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																				AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																				AST_VARIABLE_NAME([10][30]uint8) : [ int_value = 0, string_value = moves ]
-																			AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-																				AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																					AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																					AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																				AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-																		AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-																			AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-																				AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																				AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-																			AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-																	AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																		AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																		AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																AST_OP_ASN(uint8) : 
-																	AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-																		AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-																		AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-																	AST_LITERAL(uint8) : [ int_value = 4, string_value =  ]
-									AST_BODY() | ASTO_BODY_ELSE : 
-										AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
-											AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
-												AST_LITERAL(static_string) : [ int_value = 0, string_value = read error from stdin! ]
-												AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
-					AST_SWITCH(int32) : 
-						AST_OP_DOT(uint8) : [ int_value = 0, string_value = dir ]
-							AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-							AST_VARIABLE_NAME(uint8) : [ int_value = 0, string_value = dir ]
-						AST_CASE(int32) : 
-							AST_LITERAL(uint8) : [ int_value = 1, string_value =  ]
-							AST_BODY(int32) | ASTO_BODY_CASE : 
-								AST_BODY_RESULT(int32) : 
-									AST_OP_DEC(int32) : 
-										AST_EXPRESSION(int32) : 
-											AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-												AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-													AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-													AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-						AST_CASE(int32) : 
-							AST_LITERAL(uint8) : [ int_value = 2, string_value =  ]
-							AST_BODY(int32) | ASTO_BODY_CASE : 
-								AST_BODY_RESULT(int32) : 
-									AST_OP_INC(int32) : 
-										AST_EXPRESSION(int32) : 
-											AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-												AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-													AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-													AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-						AST_CASE(int32) : 
-							AST_LITERAL(uint8) : [ int_value = 3, string_value =  ]
-							AST_BODY(int32) | ASTO_BODY_CASE : 
-								AST_BODY_RESULT(int32) : 
-									AST_OP_DEC(int32) : 
-										AST_EXPRESSION(int32) : 
-											AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-												AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-													AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-													AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-						AST_CASE(int32) : 
-							AST_LITERAL(uint8) : [ int_value = 4, string_value =  ]
-							AST_BODY(int32) | ASTO_BODY_CASE : 
-								AST_BODY_RESULT(int32) : 
-									AST_OP_INC(int32) : 
-										AST_EXPRESSION(int32) : 
-											AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-												AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-													AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-													AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-												AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-					AST_BODY_RESULT() : 
-						AST_IF() : 
-							AST_OP_AND(bool) : 
-								AST_OP_EQU(bool) : 
-									AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-										AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-											AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-											AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-										AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-									AST_OP_DOT(int32) : [ int_value = 0, string_value = x ]
-										AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = reward ]
-										AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = x ]
-								AST_OP_EQU(bool) : 
-									AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-										AST_OP_DOT(V2) : [ int_value = 0, string_value = head ]
-											AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-											AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = head ]
-										AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-									AST_OP_DOT(int32) : [ int_value = 0, string_value = y ]
-										AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = reward ]
-										AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = y ]
-							AST_BODY() | ASTO_BODY_IF : 
-								AST_OP_INC(int32) : 
-									AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = points ]
-								AST_OP_INC(int32) : 
-									AST_EXPRESSION(int32) : 
-										AST_OP_DOT(int32) : [ int_value = 0, string_value = length ]
-											AST_VARIABLE_NAME(Snake) : [ int_value = 0, string_value = snake ]
-											AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = length ]
-								AST_OP_ASN(V2) : 
-									AST_VARIABLE_NAME(V2) : [ int_value = 0, string_value = reward ]
-									AST_COMPOSITE_LITERAL(V2) : 
-										AST_DATATYPE(V2) : [ int_value = 0, string_value = V2 ]
-										AST_OP_MOD(int32) : 
-											AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = rand ]
-											AST_LITERAL(int32) : [ int_value = 30, string_value =  ]
-										AST_OP_MOD(int32) : 
-											AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = rand ]
-											AST_LITERAL(int32) : [ int_value = 10, string_value =  ]
-			AST_LABEL() : [ int_value = 0, string_value = game_lose ]
-			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf ]
-				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data ]
-					AST_LITERAL(static_string) : [ int_value = 0, string_value = You Lost! Points: %d
- ]
-					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data ]
-				AST_VARIABLE_NAME(int32) : [ int_value = 0, string_value = points ]
-			AST_LABEL() : [ int_value = 0, string_value = game_end ]
-			AST_FUNCTION_CALL() : [ int_value = 0, string_value = tcsetattr ]
-				AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-				AST_LITERAL(int32) : [ int_value = 0, string_value =  ]
-				AST_OP_REFERENCE(*termios) : 
-					AST_VARIABLE_NAME(termios) : [ int_value = 0, string_value = current_termios ]
+[[false false false false false] [false false false false false] [false false false false false] [false false false false false] [false false false false false] [false false false false false] [false false false false false] [false false false false false] [false false false false false] [false false false false false] [true false false false false] [false false false false false] [false true false false false] [true false false false false] [false true false false false] [false true false false false] [false false false false false] [false false false false false]]
 .text
 
 
@@ -1336,7 +79,8 @@ movq $0, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 42, 255
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
@@ -1350,7 +94,8 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 65, 255
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
@@ -1384,7 +129,8 @@ xorq %rax, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 65
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
@@ -1429,7 +175,8 @@ popq %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 65
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
@@ -1463,7 +210,8 @@ movq %rax, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 42, 255
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
@@ -1477,7 +225,8 @@ movq %rbx, -249(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
@@ -1492,7 +241,8 @@ movq -233(%rbp, 1), %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 76, 255
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
@@ -1506,7 +256,8 @@ movq %r12, -241(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 35
+// reserved regs : [35]
+
 
 //} mem_reference_to_regs()
 
@@ -1518,7 +269,8 @@ movq -241(%rbp, 1), %rdx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 32
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
@@ -1598,7 +350,8 @@ xorq %rax, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 65
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
@@ -1649,7 +402,8 @@ movq $0, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 42, 255
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
@@ -1663,7 +417,8 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 66, 255
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
@@ -1675,7 +430,8 @@ movq %rsi, -8(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 65, 255
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
@@ -1688,7 +444,8 @@ movq %rdi, -16(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 35, 255
+// reserved regs : [35]
+
 
 //} mem_reference_to_regs()
 
@@ -1706,7 +463,8 @@ movq %rdx, -24(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 65
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
@@ -1718,7 +476,8 @@ movq -16(%rbp, 1), %rdi
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
@@ -1752,7 +511,8 @@ movq %rax, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 42, 255
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
@@ -1766,7 +526,8 @@ movq %rbx, -16(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
@@ -1781,7 +542,8 @@ movq -24(%rbp, 1), %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 76, 255
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
@@ -1795,7 +557,8 @@ movq %r12, -8(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 35
+// reserved regs : [35]
+
 
 //} mem_reference_to_regs()
 
@@ -1807,7 +570,8 @@ movq -8(%rbp, 1), %rdx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 32
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
@@ -1846,15 +610,9 @@ ret
 
 
 
-
-
-
-
-
-
-.string "\0render"
-.global render
-render:
+.string "\0flip32"
+.global flip32
+flip32:
 // ii() {
 pushq %rbp
 
@@ -1866,7 +624,450 @@ movq %rsp, %rbp
 // } ii()
 
 // ii() {
-subq $368, %rsp
+subq $48, %rsp
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -40(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl %edi, -40(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+movl $0, %ebx
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl %ebx, -44(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+movl $255, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl $0, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl %r13d, %ecx
+
+// } ii()
+
+
+// ii() {
+shll %cl, %r12d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl -40(%rbp, 1), %r13d
+
+// } ii()
+
+
+// ii() {
+andl %r12d, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl $24, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl %r12d, %ecx
+
+// } ii()
+
+
+// ii() {
+shll %cl, %r13d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+orl %r13d, -44(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+movl $255, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl $8, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl %r13d, %ecx
+
+// } ii()
+
+
+// ii() {
+shll %cl, %r12d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl -40(%rbp, 1), %r13d
+
+// } ii()
+
+
+// ii() {
+andl %r12d, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl $8, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl %r12d, %ecx
+
+// } ii()
+
+
+// ii() {
+shll %cl, %r13d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+orl %r13d, -44(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+movl $255, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl $16, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl %r13d, %ecx
+
+// } ii()
+
+
+// ii() {
+shll %cl, %r12d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl -40(%rbp, 1), %r13d
+
+// } ii()
+
+
+// ii() {
+andl %r12d, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl $8, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl %r12d, %ecx
+
+// } ii()
+
+
+// ii() {
+shrl %cl, %r13d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+orl %r13d, -44(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+movl $255, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl $24, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl %r13d, %ecx
+
+// } ii()
+
+
+// ii() {
+shll %cl, %r12d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl -40(%rbp, 1), %r13d
+
+// } ii()
+
+
+// ii() {
+andl %r12d, %r13d
+
+// } ii()
+
+
+
+// ii() {
+movl $24, %r12d
+
+// } ii()
+
+
+
+// ii() {
+movl %r12d, %ecx
+
+// } ii()
+
+
+// ii() {
+shrl %cl, %r13d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+orl %r13d, -44(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl -44(%rbp, 1), %eax
+
+// } ii()
+
+
+// ii() {
+jmp ._flip32
+
+// } ii()
+
+
+
+
+
+._flip32:
+// ii() {
+movq %rbp, %rsp
+
+// } ii()
+
+// ii() {
+popq %rbp
+
+// } ii()
+
+// ii() {
+ret
+
+// } ii()
+
+
+
+.string "\0read_dataset_image"
+.global read_dataset_image
+read_dataset_image:
+// ii() {
+pushq %rbp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rbp
+
+// } ii()
+
+// ii() {
+subq $480, %rsp
 
 // } ii()
 
@@ -1895,11 +1096,12 @@ xorq %rax, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 65
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
-leaq -157(%rbp, 1), %rdi
+leaq -16(%rbp, 1), %rdi
 
 // } ii()
 
@@ -1939,11 +1141,43 @@ popq %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
-movb $0, -158(%rbp, 1)
+movq %rsi, -8(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq %rdi, -16(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+
+// ii() {
+movl $0, %ebx
+
+// } ii()
+
+
+
+// ii() {
+movl $0, %r12d
 
 // } ii()
 
@@ -1952,23 +1186,64 @@ movb $0, -158(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 66, 255
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
-movq %rsi, -149(%rbp, 1)
+movq -16(%rbp, 1), %rdi
 
 // } ii()
 
 
 // ii() {
+movl %ebx, %esi
+
+// } ii()
+
+
+// ii() {
+movl %r12d, %edx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call open
+
+// } ii()
+
+// ii() {
+movl %eax, %r13d
+
+// } ii()
+
+
+
+
+// ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 65, 255
+// reserved regs : [77]
+
 
 //} mem_reference_to_regs()
 
-movq %rdi, -157(%rbp, 1)
+movl %r13d, -20(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+movl $0, %r14d
 
 // } ii()
 
@@ -1977,14 +1252,141 @@ movq %rdi, -157(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 35, 255
+// reserved regs : [79]
+
 
 //} mem_reference_to_regs()
 
-movb %dl, -158(%rbp, 1)
+movl -20(%rbp, 1), %r15d
 
 // } ii()
 
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -21(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -21(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+cmpl %r14d, %r15d
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setl -21(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -21(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -21(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L2
+
+// } ii()
 
 
 
@@ -1992,6 +1394,19 @@ movb %dl, -158(%rbp, 1)
 
 // ii() {
 movq $.L1, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -16(%rbp, 1), %rsi
 
 // } ii()
 
@@ -2008,7 +1423,7 @@ call printf
 // } ii()
 
 // ii() {
-movl %eax, %ebx
+movl %eax, %r14d
 
 // } ii()
 
@@ -2016,636 +1431,49 @@ movl %eax, %ebx
 
 
 // ii() {
-movb $0, %r12b
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 76, 255
-
-//} mem_reference_to_regs()
-
-movb %r12b, -159(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-movb $0, %r13b
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 77, 255
-
-//} mem_reference_to_regs()
-
-movb %r13b, -160(%rbp, 1)
+jmp ._read_dataset_image
 
 // } ii()
 
 
 
 
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 78
-
-//} mem_reference_to_regs()
-
-movq -149(%rbp, 1), %r14
-
-// } ii()
-
-
-// ii() {
-movq $-1, %rax
-
-// } ii()
-
-
-// ii() {
-andq %rax, %r14
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 78, 255
-
-//} mem_reference_to_regs()
-
-movq %r14, -168(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-movq $0, %r15
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 79, 255
-
-//} mem_reference_to_regs()
-
-movq %r15, -176(%rbp, 1)
-
-// } ii()
-
-
-
-
-.L13:
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -176(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -184(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -185(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -185(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -168(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -184(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setl -185(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -185(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -185(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L14
-
-// } ii()
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -201(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -201(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -209(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L11:
-
-
-
-
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-pushq %r11
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-movq -149(%rbp, 1), %r10
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 72
-
-//} mem_reference_to_regs()
-
-movq -157(%rbp, 1), %r11
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 72, 255
-
-//} mem_reference_to_regs()
-
-movq %r11, -217(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -225(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r11
-
-// } ii()
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -225(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -176(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jl .L2
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -176(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 35
-
-//} mem_reference_to_regs()
-
-movq -225(%rbp, 1), %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
 
 .L2:
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -176(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -233(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
 
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 32
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movq -233(%rbp, 1), %rax
+movl $0, -25(%rbp, 1)
 
 // } ii()
 
 
-// ii() {
-imulq $30, %rax
 
-// } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [79]
+
 
 //} mem_reference_to_regs()
 
-movq %rax, -233(%rbp, 1)
+leaq -25(%rbp, 1), %r15
 
 // } ii()
-
-
-
-// mul on the CPU up here ^
 
 
 
 pushq %rbx
 // ii() {
-movq $30, %rbx
+movq $4, %rbx
 
 // } ii()
 
@@ -2653,11 +1481,12 @@ movq $30, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 42, 255
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq %rbx, -241(%rbp, 1)
+movq %rbx, -33(%rbp, 1)
 
 // } ii()
 
@@ -2665,56 +1494,20 @@ popq %rbx
 
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -241(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -249(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+movl -20(%rbp, 1), %edi
 
 // } ii()
 
 
 // ii() {
-movq $-1, %rax
+movq %r15, %rsi
 
 // } ii()
 
@@ -2722,170 +1515,39 @@ movq $-1, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [35]
+
 
 //} mem_reference_to_regs()
 
-andq %rax, -249(%rbp, 1)
+movq -33(%rbp, 1), %rdx
 
 // } ii()
 
 
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -209(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -257(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -258(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -258(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+xorq %rax, %rax
 
 // } ii()
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -249(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -257(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+call read
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-setl -258(%rbp, 1)
+movq %rax, -41(%rbp, 1)
 
 // } ii()
+
 
 
 
@@ -2901,7 +1563,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -2910,7 +1573,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -2919,16 +1583,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -258(%rbp, 1), %bl
+movq -41(%rbp, 1), %rbx
 
 // } ii()
 
 
-andb %bl, -258(%rbp, 1)
+movq %rbx, -49(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -2937,8 +1602,79 @@ popq %rbx
 
 // } ii()
 
+
+
+
+pushq %rbx
 // ii() {
-jz .L12
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -57(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -65(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
 
 // } ii()
 
@@ -2955,7 +1691,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -2964,7 +1701,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -2973,16 +1711,865 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -158(%rbp, 1), %bl
+movb -66(%rbp, 1), %bl
 
 // } ii()
 
 
-andb %bl, -158(%rbp, 1)
+xorb %bl, -66(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -57(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -65(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -66(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -66(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -66(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L4
+
+// } ii()
+
+
+
+// ii() {
+movq $.L3, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -70(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_image
+
+// } ii()
+
+
+
+
+
+.L4:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -25(%rbp, 1), %edi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call flip32
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -74(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -74(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -78(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -78(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -25(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+movq $.L5, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movl -25(%rbp, 1), %esi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -82(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -86(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+leaq -86(%rbp, 1), %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -94(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -102(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %edi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -94(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -102(%rbp, 1), %rdx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -110(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -110(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -118(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -118(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -49(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -126(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -134(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -135(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -135(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -126(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -134(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -135(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -135(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -135(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -2997,1513 +2584,6 @@ jz .L7
 // } ii()
 
 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $6, -283(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -159(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -284(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -285(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -285(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -283(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -284(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setae -285(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -285(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -285(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L3
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $0, -286(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -286(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -287(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -287(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -159(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $1, -288(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -160(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -289(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -288(%rbp, 1), %bl
-
-// } ii()
-
-
-addb %bl, -289(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -289(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -290(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -290(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -160(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L3:
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $4, -291(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -160(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -292(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -293(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -293(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -291(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -292(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setae -293(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -293(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -293(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L4
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $0, -294(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -294(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -295(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -295(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -160(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L4:
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $46, -296(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $6, -297(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $6, -298(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movb -297(%rbp, 1), %al
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-imulb -298(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movb %al, -297(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -160(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -299(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movb -299(%rbp, 1), %al
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-imulb -297(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movb %al, -299(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -159(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -300(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -299(%rbp, 1), %bl
-
-// } ii()
-
-
-addb %bl, -300(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -300(%rbp, 1), %bl
-
-// } ii()
-
-
-addb %bl, -296(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -296(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -301(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $1, -302(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -159(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -303(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -302(%rbp, 1), %bl
-
-// } ii()
-
-
-addb %bl, -303(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -303(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -304(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -304(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -159(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-// ii() {
-movq $.L5, %rdi
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call printf
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -308(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-
 
 // ii() {
 movq $.L6, %rdi
@@ -4511,18 +2591,6 @@ movq $.L6, %rdi
 // } ii()
 
 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movb -301(%rbp, 1), %sil
-
-// } ii()
-
-
 
 // ii() {
 xorq %rax, %rax
@@ -4537,11 +2605,20 @@ call printf
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movl %eax, -312(%rbp, 1)
+movl %eax, -139(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_image
 
 // } ii()
 
@@ -4553,6 +2630,2685 @@ movl %eax, -312(%rbp, 1)
 
 
 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -86(%rbp, 1), %edi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call flip32
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -143(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -143(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -147(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -147(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -86(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+movq $.L8, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movl -86(%rbp, 1), %esi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -151(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -155(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+leaq -155(%rbp, 1), %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -163(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -171(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %edi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -163(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -171(%rbp, 1), %rdx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -179(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -179(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -187(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -187(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -49(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -195(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -203(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -204(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -204(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -195(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -203(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -204(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -204(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -204(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L10
+
+// } ii()
+
+
+
+// ii() {
+movq $.L9, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -208(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_image
+
+// } ii()
+
+
+
+
+
+.L10:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -155(%rbp, 1), %edi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call flip32
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -212(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -212(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -216(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -216(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -155(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+movq $.L11, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movl -155(%rbp, 1), %esi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -220(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -224(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+leaq -224(%rbp, 1), %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -232(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -240(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %edi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -232(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -240(%rbp, 1), %rdx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -248(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -248(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -256(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -256(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -49(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -264(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -272(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -273(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -273(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -264(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -272(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -273(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -273(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -273(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L13
+
+// } ii()
+
+
+
+// ii() {
+movq $.L12, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -277(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_image
+
+// } ii()
+
+
+
+
+
+.L13:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -224(%rbp, 1), %edi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call flip32
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -281(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -281(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -285(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -285(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -224(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+movq $.L14, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movl -224(%rbp, 1), %esi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -289(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -155(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -293(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl -293(%rbp, 1), %eax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+imull -224(%rbp, 1), %eax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -293(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -86(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -297(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl -297(%rbp, 1), %eax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+imull -293(%rbp, 1), %eax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -297(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -297(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -301(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+movq $.L15, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movl -301(%rbp, 1), %esi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -305(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -345(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -301(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -313(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -313(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq -313(%rbp, 1), %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call allocate
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq %rdx, -321(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -329(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -321(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -337(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -329(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -345(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+xorq %rdx, %rdx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -337(%rbp, 1), %rax
+
+// } ii()
+
+
+pushq %rbx
+// ii() {
+movq $784, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -353(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+idivq -353(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -337(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -357(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -357(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -361(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L19:
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -361(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -365(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -366(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -366(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -86(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -365(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -366(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -366(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -366(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L20
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -361(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -374(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -374(%rbp, 1)
+
+// } ii()
 
 // ii() {
 pushq %r10
@@ -4567,11 +5323,12 @@ pushq %r11
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 71
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-movq -149(%rbp, 1), %r10
+movq -337(%rbp, 1), %r10
 
 // } ii()
 
@@ -4579,11 +5336,12 @@ movq -149(%rbp, 1), %r10
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 72
+// reserved regs : [72]
+
 
 //} mem_reference_to_regs()
 
-movq -157(%rbp, 1), %r11
+movq -345(%rbp, 1), %r11
 
 // } ii()
 
@@ -4592,11 +5350,12 @@ movq -157(%rbp, 1), %r11
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 72, 255
+// reserved regs : [72]
+
 
 //} mem_reference_to_regs()
 
-movq %r11, -320(%rbp, 1)
+movq %r11, -382(%rbp, 1)
 
 // } ii()
 
@@ -4604,11 +5363,12 @@ movq %r11, -320(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 71, 255
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-movq %r10, -328(%rbp, 1)
+movq %r10, -390(%rbp, 1)
 
 // } ii()
 
@@ -4635,7 +5395,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -4644,7 +5405,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -4653,16 +5415,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -328(%rbp, 1), %rbx
+movq -390(%rbp, 1), %rbx
 
 // } ii()
 
 
-cmpq %rbx, -176(%rbp, 1)
+cmpq %rbx, -374(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -4672,18 +5435,19 @@ popq %rbx
 // } ii()
 
 // ii() {
-jl .L8
+jl .L16
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
-movq -176(%rbp, 1), %rsi
+movq -374(%rbp, 1), %rsi
 
 // } ii()
 
@@ -4691,11 +5455,12 @@ movq -176(%rbp, 1), %rsi
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 35
+// reserved regs : [35]
+
 
 //} mem_reference_to_regs()
 
-movq -328(%rbp, 1), %rdx
+movq -390(%rbp, 1), %rdx
 
 // } ii()
 
@@ -4705,7 +5470,7 @@ call err_oob
 
 // } ii()
 
-.L8:
+.L16:
 // ii() {
 // ii() {
 pushq %rbx
@@ -4718,7 +5483,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -4727,7 +5493,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -4736,16 +5503,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -176(%rbp, 1), %rbx
+movq -374(%rbp, 1), %rbx
 
 // } ii()
 
 
-movq %rbx, -336(%rbp, 1)
+movq %rbx, -398(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -4758,28 +5526,30 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 32
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movq -336(%rbp, 1), %rax
+movq -398(%rbp, 1), %rax
 
 // } ii()
 
 
 // ii() {
-imulq $30, %rax
+imulq $784, %rax
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movq %rax, -336(%rbp, 1)
+movq %rax, -398(%rbp, 1)
 
 // } ii()
 
@@ -4789,77 +5559,15 @@ movq %rax, -336(%rbp, 1)
 
 
 
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -209(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L9
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -209(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L9:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
 // ii() {
 pushq %rbx
 
 // } ii()
 
 // ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -320(%rbp, 1), %rbx
-
-// } ii()
-
+// reserved regs : [42]
 
 // ii() {
 pushq %r12
@@ -4874,11 +5582,35 @@ xorq %r12, %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
-movq -336(%rbp, 1), %r12
+movq -382(%rbp, 1), %r12
+
+// } ii()
+
+
+// ii() {
+pushq %r13
+
+// } ii()
+
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movq -398(%rbp, 1), %r13
 
 // } ii()
 
@@ -4886,97 +5618,259 @@ movq -336(%rbp, 1), %r12
 
 //} mem_reference_to_regs()
 
-leaq 0(%rbx, %r12, 1), %r10
+leaq 0(%r12, %r13, 1), %rbx
+// ii() {
+popq %r13
+
+// } ii()
 // ii() {
 popq %r12
 
 // } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -406(%rbp, 1)
+
+// } ii()
+
+
 // ii() {
 popq %rbx
 
 // } ii()
 
-// } ii()
 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -344(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
 
 
 
 // ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
 // ii() {
 pushq %rbx
 
 // } ii()
-
 // ii() {
 xorq %rbx, %rbx
 
 // } ii()
+// hello 
+// mem_reference_to_regs() {
 
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -344(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -209(%rbp, 1), %r12
-
-// } ii()
-
+// reserved regs : [42]
 
 
 //} mem_reference_to_regs()
 
-movb 0(%rbx, %r12, 1), %dil
-// ii() {
-popq %r12
+movq -155(%rbp, 1), %rbx
 
 // } ii()
+
+
+movq %rbx, -414(%rbp, 1)
 // ii() {
 popq %rbx
 
 // } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -414(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -224(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -422(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -422(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -414(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+imulq -422(%rbp, 1), %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -414(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %edi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -406(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -414(%rbp, 1), %rdx
 
 // } ii()
 
@@ -4988,18 +5882,126 @@ xorq %rax, %rax
 // } ii()
 
 // ii() {
-call putchar
+call read
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movl %eax, -348(%rbp, 1)
+movq %rax, -430(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -430(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -438(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -438(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -49(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
 
 // } ii()
 
@@ -5009,7 +6011,417 @@ movl %eax, -348(%rbp, 1)
 
 
 // ii() {
-movq $.L10, %rdi
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -155(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -446(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -446(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -224(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -454(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -454(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -446(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+imulq -454(%rbp, 1), %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -446(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -462(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -463(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -463(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -446(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -462(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -463(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -463(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -463(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L18
+
+// } ii()
+
+
+
+// ii() {
+movq $.L17, %rdi
 
 // } ii()
 
@@ -5028,11 +6440,20 @@ call printf
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movl %eax, -352(%rbp, 1)
+movl %eax, -467(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_image
 
 // } ii()
 
@@ -5040,10 +6461,44 @@ movl %eax, -352(%rbp, 1)
 
 
 
+.L18:
 
-pushq %rbx
+
+
+
 // ii() {
-movq $1, %rbx
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -361(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L19
+
+// } ii()
+
+.L20:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -337(%rbp, 1), %rdx
 
 // } ii()
 
@@ -5051,359 +6506,27 @@ movq $1, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 42, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movq %rbx, -266(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -209(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -274(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -266(%rbp, 1), %rbx
-
-// } ii()
-
-
-addq %rbx, -274(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+movq -345(%rbp, 1), %rax
 
 // } ii()
 
 
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -274(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -282(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -282(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -209(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+jmp ._read_dataset_image
 
 // } ii()
 
 
 
 
-// ii() {
-jmp .L11
 
-// } ii()
-
-.L12:
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $10, -353(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-movb -353(%rbp, 1), %dil
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call putchar
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -357(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-
-pushq %rbx
-// ii() {
-movq $1, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -193(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -193(%rbp, 1), %rbx
-
-// } ii()
-
-
-addq %rbx, -176(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-jmp .L13
-
-// } ii()
-
-.L14:
-
-
-
-._render:
+._read_dataset_image:
 // ii() {
 movq %rbp, %rsp
 
@@ -5421,11 +6544,9 @@ ret
 
 
 
-
-
-.string "\0main"
-.global main
-main:
+.string "\0read_dataset_label"
+.global read_dataset_label
+read_dataset_label:
 // ii() {
 pushq %rbp
 
@@ -5437,29 +6558,7 @@ movq %rsp, %rbp
 // } ii()
 
 // ii() {
-subq $2640, %rsp
-
-// } ii()
-
-
-
-
-
-// ii() {
-movl $3, %ebx
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movl %ebx, -325(%rbp, 1)
+subq $256, %rsp
 
 // } ii()
 
@@ -5488,16 +6587,8580 @@ xorq %rax, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 65
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
-leaq -385(%rbp, 1), %rdi
+leaq -16(%rbp, 1), %rdi
 
 // } ii()
 
 // ii() {
-movq $60, %rcx
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq %rsi, -8(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq %rdi, -16(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+
+// ii() {
+movl $0, %ebx
+
+// } ii()
+
+
+
+// ii() {
+movl $0, %r12d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq -16(%rbp, 1), %rdi
+
+// } ii()
+
+
+// ii() {
+movl %ebx, %esi
+
+// } ii()
+
+
+// ii() {
+movl %r12d, %edx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call open
+
+// } ii()
+
+// ii() {
+movl %eax, %r13d
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl %r13d, -20(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+movl $0, %r14d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [79]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %r15d
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -21(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -21(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+cmpl %r14d, %r15d
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setl -21(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -21(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -21(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L22
+
+// } ii()
+
+
+
+
+
+// ii() {
+movq $.L21, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -16(%rbp, 1), %rsi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+movl %eax, %r14d
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_label
+
+// } ii()
+
+
+
+
+
+.L22:
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -25(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [79]
+
+
+//} mem_reference_to_regs()
+
+leaq -25(%rbp, 1), %r15
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -33(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %edi
+
+// } ii()
+
+
+// ii() {
+movq %r15, %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -33(%rbp, 1), %rdx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -41(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -41(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -49(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -57(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -65(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -66(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -66(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -57(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -65(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -66(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -66(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -66(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L24
+
+// } ii()
+
+
+
+// ii() {
+movq $.L23, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -70(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_label
+
+// } ii()
+
+
+
+
+
+.L24:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -25(%rbp, 1), %edi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call flip32
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -74(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -74(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -78(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -78(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -25(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+movq $.L25, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movl -25(%rbp, 1), %esi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -82(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -86(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+leaq -86(%rbp, 1), %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -94(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -102(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %edi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -94(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -102(%rbp, 1), %rdx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -110(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -110(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -118(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -118(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -49(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -126(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -134(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -135(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -135(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -126(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -134(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -135(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -135(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -135(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L27
+
+// } ii()
+
+
+
+// ii() {
+movq $.L26, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -139(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_label
+
+// } ii()
+
+
+
+
+
+.L27:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -86(%rbp, 1), %edi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call flip32
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -143(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -143(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -147(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -147(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -86(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+movq $.L28, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movl -86(%rbp, 1), %esi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -151(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -191(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -86(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -159(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -159(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq -159(%rbp, 1), %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call allocate
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq %rdx, -167(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -175(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -167(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -183(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -175(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -191(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+xorq %rdx, %rdx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -183(%rbp, 1), %rax
+
+// } ii()
+
+
+pushq %rbx
+// ii() {
+movq $1, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -199(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+idivq -199(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -183(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -86(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -207(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -207(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -20(%rbp, 1), %edi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -191(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -207(%rbp, 1), %rdx
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -215(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -215(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -223(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -223(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -49(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -86(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -231(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -231(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -49(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -239(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -240(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -240(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -231(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -239(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -240(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -240(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -240(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L30
+
+// } ii()
+
+
+
+// ii() {
+movq $.L29, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -244(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp ._read_dataset_label
+
+// } ii()
+
+
+
+
+
+.L30:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -183(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -191(%rbp, 1), %rax
+
+// } ii()
+
+
+
+// ii() {
+jmp ._read_dataset_label
+
+// } ii()
+
+
+
+
+
+._read_dataset_label:
+// ii() {
+movq %rbp, %rsp
+
+// } ii()
+
+// ii() {
+popq %rbp
+
+// } ii()
+
+// ii() {
+ret
+
+// } ii()
+
+
+
+.string "\0matmul"
+.global matmul
+matmul:
+// ii() {
+pushq %rbp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rbp
+
+// } ii()
+
+// ii() {
+subq $9728, %rsp
+
+// } ii()
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -3136(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -6272(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -6280(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq %rdi, -6280(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+leaq 16(%rbp, 1), %rsi
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -3136(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+leaq 3152(%rbp, 1), %rsi
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -6272(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+
+
+
+// ii() {
+movq $28, %rbx
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -6288(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+movq $0, %r12
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movq -6288(%rbp, 1), %r13
+
+// } ii()
+
+
+// ii() {
+xorb %r14b, %r14b
+
+// } ii()
+
+// ii() {
+cmpq %r12, %r13
+
+// } ii()
+
+// ii() {
+setbe %r14b
+
+// } ii()
+
+
+
+// ii() {
+andb %r14b, %r14b
+
+// } ii()
+
+// ii() {
+jz .L31
+
+// } ii()
+
+// ii() {
+jmp ._matmul
+
+// } ii()
+
+
+
+
+
+.L31:
+
+
+
+// ii() {
+movq $0, %r12
+
+// } ii()
+
+
+
+// ii() {
+cmpq $28, %r12
+
+// } ii()
+
+// ii() {
+jl .L32
+
+// } ii()
+
+// ii() {
+movq %r12, %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L32:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -3136(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -6296(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+movq %r12, %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+movq %rax, %r12
+
+// } ii()
+
+
+
+
+
+// ii() {
+movq $28, %r13
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movq %r13, -6304(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+movq $0, %r15
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6304(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -6312(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6313(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -6313(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [79]
+
+
+//} mem_reference_to_regs()
+
+cmpq %r15, -6312(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setbe -6313(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6313(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -6313(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L33
+
+// } ii()
+
+// ii() {
+jmp ._matmul
+
+// } ii()
+
+
+
+
+
+.L33:
+
+
+
+// ii() {
+movq $28, %r15
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [79]
+
+
+//} mem_reference_to_regs()
+
+movq %r15, -6321(%rbp, 1)
+
+// } ii()
+
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -6329(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6321(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -6337(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6338(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -6338(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6329(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -6337(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setbe -6338(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6338(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -6338(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L34
+
+// } ii()
+
+// ii() {
+jmp ._matmul
+
+// } ii()
+
+
+
+
+
+.L34:
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -6346(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -6346(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L35
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -6346(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L35:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -6272(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -6354(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6346(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -6362(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -6362(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -6362(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+// ii() {
+movq $28, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -6370(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6370(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -6378(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -6386(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6378(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -6394(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6395(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -6395(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6386(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -6394(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setbe -6395(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6395(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -6395(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L36
+
+// } ii()
+
+// ii() {
+jmp ._matmul
+
+// } ii()
+
+
+
+
+
+.L36:
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6304(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -6403(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6404(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -6404(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -6321(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -6403(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+sete -6404(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+xorb $1, -6404(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -6404(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -6404(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L37
+
+// } ii()
+
+// ii() {
+jmp ._matmul
+
+// } ii()
+
+
+
+
+
+.L37:
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -9540(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -9544(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9544(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9548(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L48:
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -6288(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9552(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $-1, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9552(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9548(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9556(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -9557(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -9557(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9552(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -9556(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setl -9557(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -9557(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -9557(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L49
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -9561(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9561(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9565(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L46:
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -6304(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9569(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $-1, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9569(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9565(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9573(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -9574(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -9574(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9569(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -9573(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setl -9574(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -9574(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -9574(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L47
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -9578(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9578(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9582(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L44:
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -6304(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9586(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $-1, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9586(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9582(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9590(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -9591(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -9591(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9586(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -9590(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setl -9591(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -9591(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -9591(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L45
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9548(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9599(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9599(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -9599(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L38
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -9599(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L38:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -9540(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -9607(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9599(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -9615(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -9615(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -9615(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9565(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9623(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9623(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -9623(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L39
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -9623(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L39:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9607(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -9615(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -9631(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9582(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9639(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9639(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -9639(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L40
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -9639(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L40:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -3136(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -9647(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9639(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -9655(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -9655(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -9655(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9548(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9663(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9663(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -9663(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L41
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -9663(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L41:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9647(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -9655(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -9671(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9582(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9679(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9679(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -9679(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L42
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -9679(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L42:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -6272(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -9687(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9679(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -9695(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -9695(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -9695(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -9565(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -9703(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -9703(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -9703(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L43
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -9703(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L43:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9687(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -9695(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -9711(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %r13
+
+// } ii()
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9671(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -9663(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : [42 76]
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl 0(%rbx, %r12, 4), %r13d
+
+// } ii()
+
+
+// ii() {
+// pop pushed: 
+popq %r12
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %rbx
+
+// } ii()
+movl %r13d, -9715(%rbp, 1)
+// ii() {
+popq %r13
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl -9715(%rbp, 1), %eax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9711(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -9703(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+imull 0(%rbx, %r12, 4), %eax
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -9715(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %r13
+
+// } ii()
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -9631(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -9623(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl -9715(%rbp, 1), %r13d
+
+// } ii()
+
+
+addl %r13d, 0(%rbx, %r12, 4)
+// ii() {
+// pop pushed: 
+popq %r12
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %rbx
+
+// } ii()
+// ii() {
+popq %r13
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -9582(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L44
+
+// } ii()
+
+.L45:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -9565(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L46
+
+// } ii()
+
+.L47:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -9548(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L48
+
+// } ii()
+
+.L49:
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -6280(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+leaq -9540(%rbp, 1), %rsi
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rax, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+// ii() {
+jmp ._matmul
+
+// } ii()
+
+
+
+
+
+._matmul:
+// ii() {
+movq %rbp, %rsp
+
+// } ii()
+
+// ii() {
+popq %rbp
+
+// } ii()
+
+// ii() {
+ret
+
+// } ii()
+
+
+
+
+.string "\0nn"
+.global nn
+nn:
+// ii() {
+pushq %rbp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rbp
+
+// } ii()
+
+// ii() {
+subq $3184, %rsp
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -3144(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl %edi, -3144(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -3176(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -3144(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+andq %rax, %rbx
+
+// } ii()
+
+
+// ii() {
+movq $10, %r12
+
+// } ii()
+
+
+
+// ii() {
+movq $785, %r13
+
+// } ii()
+
+
+
+// ii() {
+movq $4, %r14
+
+// } ii()
+
+
+
+// ii() {
+movq %r13, %rax
+
+// } ii()
+
+
+// ii() {
+imulq %r14, %rax
+
+// } ii()
+
+// ii() {
+movq %rax, %r13
+
+// } ii()
+
+
+
+
+// ii() {
+movq %r12, %rax
+
+// } ii()
+
+
+// ii() {
+imulq %r13, %rax
+
+// } ii()
+
+// ii() {
+movq %rax, %r12
+
+// } ii()
+
+
+
+
+// ii() {
+movq %rbx, %rax
+
+// } ii()
+
+
+// ii() {
+imulq %r12, %rax
+
+// } ii()
+
+// ii() {
+movq %rax, %rbx
+
+// } ii()
+
+
+
+
+// ii() {
+movq %rbx, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call allocate
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq %rdx, -3152(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -3160(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -3152(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -3168(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -3160(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -3176(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+xorq %rdx, %rdx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -3168(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+movq $31400, %r12
+
+// } ii()
+
+
+// ii() {
+idivq %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -3168(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -3168(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -3176(%rbp, 1), %rax
+
+// } ii()
+
+
+
+// ii() {
+jmp ._nn
+
+// } ii()
+
+
+
+
+
+._nn:
+// ii() {
+movq %rbp, %rsp
+
+// } ii()
+
+// ii() {
+popq %rbp
+
+// } ii()
+
+// ii() {
+ret
+
+// } ii()
+
+
+
+.string "\0forward"
+.global forward
+forward:
+// ii() {
+pushq %rbp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rbp
+
+// } ii()
+
+// ii() {
+subq $72640, %rsp
+
+// } ii()
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -16(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -3152(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq %rsi, -8(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq %rdi, -16(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+leaq 16(%rbp, 1), %rsi
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -3152(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -34568(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $31400, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -8(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -16(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -3160(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -3168(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+cmpq -3168(%rbp, 1), %rbx
+
+// } ii()
+
+// ii() {
+jl .L50
+
+// } ii()
+
+// ii() {
+movq %rbx, %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -3168(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L50:
+// ii() {
+movq %rbx, %rax
+
+// } ii()
+
+
+// ii() {
+imulq $31400, %rax
+
+// } ii()
+
+// ii() {
+movq %rax, %rbx
+
+// } ii()
+
+
+
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -3160(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%r12, %rbx, 1), %rsi
+// ii() {
+popq %r12
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -34568(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $31400, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -65928(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $31360, %rcx
 
 // } ii()
 
@@ -5539,2684 +15202,31 @@ movl $0, %r12d
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 77
+// reserved regs : [76]
 
-//} mem_reference_to_regs()
-
-leaq -385(%rbp, 1), %r13
-
-// } ii()
-
-
-
-// ii() {
-movl %r12d, %edi
-
-// } ii()
-
-
-// ii() {
-movq %r13, %rsi
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call tcgetattr
-
-// } ii()
-
-
-
-// ii() {
-pushq %rax
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-leaq -445(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $60, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep stosb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rax
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -329(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -389(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -333(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -393(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-pushq %rsi
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-leaq -368(%rbp, 1), %rsi
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-leaq -428(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $32, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep movsb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rsi
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -369(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -429(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -373(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -433(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -377(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -437(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -381(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -441(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -385(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -445(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-// ii() {
-movl $2, %r14d
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 78, 255
-
-//} mem_reference_to_regs()
-
-movl %r14d, -449(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-movl $8, %r15d
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 79, 255
-
-//} mem_reference_to_regs()
-
-movl %r15d, -453(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -449(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -457(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -453(%rbp, 1), %ebx
-
-// } ii()
-
-
-orl %ebx, -457(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -457(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -461(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -461(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -465(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-notl -465(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -433(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -469(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -465(%rbp, 1), %ebx
-
-// } ii()
-
-
-andl %ebx, -469(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -469(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -473(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -473(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -433(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -477(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -481(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-leaq -445(%rbp, 1), %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -489(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-movl -477(%rbp, 1), %edi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movl -481(%rbp, 1), %esi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 35
-
-//} mem_reference_to_regs()
-
-movq -489(%rbp, 1), %rdx
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call tcsetattr
-
-// } ii()
-
-
-
-// ii() {
-pushq %rax
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $300, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep stosb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rax
-
-// } ii()
-
-
-
-// ii() {
-pushq %rax
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-leaq -1436(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $313, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep stosb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rax
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $15, -793(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $5, -797(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -797(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -801(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -793(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -805(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $5, -809(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $4, -810(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-pushq %rsi
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %rsi
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-leaq -1110(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $300, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep movsb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rsi
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -810(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -1111(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1115(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -801(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1119(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -805(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1123(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-pushq %rsi
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-leaq -1110(%rbp, 1), %rsi
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-leaq -1423(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $300, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep movsb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rsi
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1111(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -1424(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1115(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1428(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1119(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1432(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1123(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1436(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1444(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-movq -1444(%rbp, 1), %rdi
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call time
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -1448(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-movl -1448(%rbp, 1), %edi
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call srand
-
-// } ii()
-
-
-
-// ii() {
-pushq %rax
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-leaq -1480(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $8, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep stosb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rax
-
-// } ii()
-
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call rand
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -1452(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $30, -1456(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-xorq %rdx, %rdx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movl -1452(%rbp, 1), %eax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-idivl -1456(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 35, 255
-
-//} mem_reference_to_regs()
-
-movl %edx, -1452(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call rand
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -1460(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $10, -1464(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-xorq %rdx, %rdx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movl -1460(%rbp, 1), %eax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-idivl -1464(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 35, 255
-
-//} mem_reference_to_regs()
-
-movl %edx, -1460(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1460(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1468(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
 
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1452(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1472(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1468(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1476(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1472(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1480(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -1484(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1484(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1488(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -1492(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1492(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1496(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-pushq %rax
-
-// } ii()
-
-// ii() {
-pushq %rdi
-
-// } ii()
-
-// ii() {
-pushq %rcx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
 //} mem_reference_to_regs()
-
-leaq -1544(%rbp, 1), %rdi
-
-// } ii()
-
-// ii() {
-movq $8, %rcx
-
-// } ii()
-
-
-// ii() {
-cld
-
-// } ii()
-
-// ii() {
-rep stosb
-
-// } ii()
-
-// ii() {
-popq %rcx
-
-// } ii()
-
-// ii() {
-popq %rdi
-
-// } ii()
-
-// ii() {
-popq %rax
-
-// } ii()
-
-
-
 
-pushq %rbx
-// ii() {
-movq $0, %rbx
+movl %r12d, -65932(%rbp, 1)
 
 // } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
 
-// reserved regs : 42, 255
 
-//} mem_reference_to_regs()
-
-movq %rbx, -1504(%rbp, 1)
 
-// } ii()
 
-popq %rbx
+.L89:
 
 
-// ii() {
-// ii() {
-pushq %rbx
 
-// } ii()
 // ii() {
-xorq %rbx, %rbx
+movq $10, %r13
 
 // } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
 
-movl -1504(%rbp, 1), %ebx
 
-// } ii()
-
 
-movl %ebx, -1508(%rbp, 1)
 // ii() {
-popq %rbx
-
-// } ii()
-
+movl %r13d, %r14d
 
 // } ii()
 
@@ -8228,37 +15238,22 @@ movq $-1, %rax
 
 
 // ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1508(%rbp, 1)
-
-// } ii()
-
+andq %rax, %r14
 
-
-pushq %rbx
-// ii() {
-movq $1, %rbx
-
 // } ii()
 
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 42, 255
+// reserved regs : [79]
 
+
 //} mem_reference_to_regs()
 
-movq %rbx, -1516(%rbp, 1)
+movl -65932(%rbp, 1), %r15d
 
 // } ii()
-
-popq %rbx
 
 
 // ii() {
@@ -8272,106 +15267,19 @@ xorq %rbx, %rbx
 // } ii()
 // hello 
 // mem_reference_to_regs() {
-
-// reserved regs : 255, 255
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
+// reserved regs : []
 
-// reserved regs : 255, 255
 
 //} mem_reference_to_regs()
 
 
  // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movw -1516(%rbp, 1), %bx
-
-// } ii()
-
-
-movw %bx, -1518(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $-1, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1518(%rbp, 1)
-
-// } ii()
-
-
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1526(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
 // hello 
 // mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
 
- // byee 
-// hello 
-// mem_reference_to_regs() {
+// reserved regs : []
 
-// reserved regs : 255, 255
 
 //} mem_reference_to_regs()
 
@@ -8379,92 +15287,44 @@ xorq %rbx, %rbx
  // byee 
 // ii() {
 // mem_reference_to_regs() {
+
+// reserved regs : [42]
 
-// reserved regs : 255, 42
 
 //} mem_reference_to_regs()
 
-movw -1526(%rbp, 1), %bx
+movb -65933(%rbp, 1), %bl
 
 // } ii()
 
 
-movw %bx, -1528(%rbp, 1)
+xorb %bl, -65933(%rbp, 1)
 // ii() {
 popq %rbx
 
 // } ii()
-
-
-// } ii()
-
 
-// ii() {
-movq $-1, %rax
 
 // } ii()
-
 
 // ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
+cmpl %r14d, %r15d
 
-//} mem_reference_to_regs()
-
-andq %rax, -1528(%rbp, 1)
-
 // } ii()
-
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
 // mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
 
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
+// reserved regs : []
 
-// reserved regs : 255, 42
 
 //} mem_reference_to_regs()
 
-movw -1528(%rbp, 1), %bx
+setl -65933(%rbp, 1)
 
 // } ii()
 
 
-movw %bx, -1530(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
 
 // ii() {
 // ii() {
@@ -8478,134 +15338,37 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
 
-// reserved regs : 255, 255
-
 //} mem_reference_to_regs()
 
 
  // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movw -1518(%rbp, 1), %bx
-
-// } ii()
-
-
-movw %bx, -1532(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
 // hello 
 // mem_reference_to_regs() {
-
-// reserved regs : 255, 255
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
+// reserved regs : []
 
-// reserved regs : 255, 255
 
 //} mem_reference_to_regs()
 
 
  // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1508(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1536(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
 // ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [42]
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
 
-// reserved regs : 255, 42
-
 //} mem_reference_to_regs()
 
-movw -1530(%rbp, 1), %bx
+movb -65933(%rbp, 1), %bl
 
 // } ii()
 
 
-movw %bx, -1538(%rbp, 1)
+andb %bl, -65933(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -8613,10959 +15376,16 @@ popq %rbx
 
 
 // } ii()
-
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
+jz .L90
 
 // } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
 
-// reserved regs : 255, 255
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movw -1532(%rbp, 1), %bx
-
-// } ii()
 
-
-movw %bx, -1540(%rbp, 1)
 // ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1536(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1544(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-.L80:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $1, -1545(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1545(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1545(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L81
-
-// } ii()
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1553(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1553(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1561(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L24:
-
-
-
-pushq %rbx
-// ii() {
-movq $10, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1569(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1569(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1577(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $-1, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1577(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1585(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1586(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1586(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1577(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -1585(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setl -1586(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1586(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1586(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L25
-
-// } ii()
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1594(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1594(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1602(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L22:
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -1561(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L15
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L15:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1610(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1618(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -1618(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -1618(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-pushq %rbx
-// ii() {
-movq $30, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1626(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1626(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1634(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $-1, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1634(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1602(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1642(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1643(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1643(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1634(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -1642(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setl -1643(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1643(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1643(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L23
-
-// } ii()
-
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1651(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1659(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1660(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1660(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1651(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -1659(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -1660(%rbp, 1)
-
-// } ii()
-
-
-
-
-pushq %rbx
-// ii() {
-movq $9, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1668(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1676(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1677(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1677(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1668(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -1676(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -1677(%rbp, 1)
-
-// } ii()
-
-
-
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1685(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1602(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1693(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1694(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1694(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1685(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -1693(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -1694(%rbp, 1)
-
-// } ii()
-
-
-
-
-pushq %rbx
-// ii() {
-movq $29, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -1702(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1602(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1710(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1711(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1711(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1702(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -1710(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -1711(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1711(%rbp, 1), %bl
-
-// } ii()
-
-
-orb %bl, -1694(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1694(%rbp, 1), %bl
-
-// } ii()
-
-
-orb %bl, -1677(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1677(%rbp, 1), %bl
-
-// } ii()
-
-
-orb %bl, -1660(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1660(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1660(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L20
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $46, -1736(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1736(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -1737(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -1561(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L16
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L16:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1719(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1727(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -1727(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -1727(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -1602(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L17
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1602(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L17:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1719(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1727(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1735(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1735(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1602(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -1737(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-jmp .L21
-
-// } ii()
-
-
-.L20:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $32, -1762(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1762(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -1763(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -1561(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L18
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L18:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1745(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1561(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1753(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -1753(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -1753(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -1602(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L19
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1602(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L19:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1745(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1753(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1761(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1761(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1602(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -1763(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L21:
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incq -1602(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-jmp .L22
-
-// } ii()
-
-.L23:
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incq -1561(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-jmp .L24
-
-// } ii()
-
-.L25:
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $42, -1804(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1804(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -1805(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1476(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1771(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1771(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -1771(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L26
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1771(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L26:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1779(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1771(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1787(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -1787(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -1787(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1480(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1795(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1795(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -1795(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L27
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1795(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L27:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1779(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1787(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1803(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1803(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1795(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -1805(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1436(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1809(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1432(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1813(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -1814(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -1818(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1818(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1822(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L52:
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1822(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1826(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1827(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1827(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1428(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -1826(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setl -1827(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1827(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1827(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L53
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $30, -1831(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1835(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1836(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1836(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1831(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -1835(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setge -1836(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -1840(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1844(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1845(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1845(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1840(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -1844(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setl -1845(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $10, -1849(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1853(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1854(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1854(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1849(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -1853(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setge -1854(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -1858(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1862(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1863(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1863(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1858(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -1862(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-setl -1863(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1863(%rbp, 1), %bl
-
-// } ii()
-
-
-orb %bl, -1854(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1854(%rbp, 1), %bl
-
-// } ii()
-
-
-orb %bl, -1845(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1845(%rbp, 1), %bl
-
-// } ii()
-
-
-orb %bl, -1836(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1836(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1836(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L28
-
-// } ii()
-
-// ii() {
-jmp game_lose
-
-// } ii()
-
-
-
-
-.L28:
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1871(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1871(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -1871(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L29
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1871(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L29:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1879(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1871(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1887(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -1887(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -1887(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1895(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1895(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -1895(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L30
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1895(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L30:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1879(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1887(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1903(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $64, -1904(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1903(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1895(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb 0(%rbx, %r12, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, -1905(%rbp, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1906(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1906(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1904(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1905(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -1906(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1914(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1914(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -1914(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L31
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1914(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L31:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1922(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1914(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1930(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -1930(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -1930(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1938(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1938(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -1938(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L32
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1938(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L32:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1922(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1930(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1946(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $79, -1947(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1946(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1938(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb 0(%rbx, %r12, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, -1948(%rbp, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1949(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1949(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1947(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1948(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -1949(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1949(%rbp, 1), %bl
-
-// } ii()
-
-
-orb %bl, -1906(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1906(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1906(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L33
-
-// } ii()
-
-// ii() {
-jmp game_lose
-
-// } ii()
-
-
-
-
-.L33:
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $1, -1953(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1428(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1957(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1953(%rbp, 1), %ebx
-
-// } ii()
-
-
-subl %ebx, -1957(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1822(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1961(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1962(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -1962(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1957(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -1961(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -1962(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1962(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -1962(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L36
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $0, -2003(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2003(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2004(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1970(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1970(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -1970(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L34
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1970(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L34:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -1423(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -1978(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1970(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -1986(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -1986(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -1986(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1994(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -1994(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -1994(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L35
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -1994(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L35:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -1978(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1986(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2002(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2002(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -1994(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -2004(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L36:
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -2008(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1822(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2012(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2013(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2013(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -2008(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -2012(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2013(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2013(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2013(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L41
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $64, -2054(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2054(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2055(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2021(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2021(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -2021(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L37
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2021(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L37:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2029(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2021(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2037(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -2037(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -2037(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2045(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2045(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -2045(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L38
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2045(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L38:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2029(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2037(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2053(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2053(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2045(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -2055(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-jmp .L42
-
-// } ii()
-
-
-.L41:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $79, -2096(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2096(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2097(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2063(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2063(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -2063(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L39
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2063(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L39:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2071(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2063(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2079(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -2079(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -2079(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2087(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2087(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -2087(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L40
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2087(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L40:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2071(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2079(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2095(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2095(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2087(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -2097(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L42:
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2105(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2105(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -2105(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L43
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2105(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L43:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -1423(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2113(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2105(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2121(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -2121(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -2121(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2129(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2129(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -2129(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L44
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2129(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L44:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2113(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2121(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2137(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $0, -2138(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2137(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2129(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb 0(%rbx, %r12, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, -2139(%rbp, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2140(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2140(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2138(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2139(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-seta -2140(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2140(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2140(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L47
-
-// } ii()
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2148(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2148(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -2148(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L45
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2148(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L45:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -1423(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2156(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2148(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2164(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -2164(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -2164(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2172(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2172(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -2172(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L46
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2172(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L46:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2156(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2164(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
-
-// } ii()
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2180(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2180(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2172(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb 0(%rbx, %r12, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, -2181(%rbp, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2181(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -1814(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L47:
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $1, -2186(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2194(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2194(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2186(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1814(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2194(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2194(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2194(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L48
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incl -1813(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2193(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-.L48:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $2, -2187(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2195(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2195(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2187(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1814(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2195(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2195(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2195(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L49
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-decl -1813(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1813(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2193(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-.L49:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $3, -2188(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2196(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2196(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2188(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1814(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2196(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2196(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2196(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L50
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incl -1809(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2193(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-.L50:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $4, -2189(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2197(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2197(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2189(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1814(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2197(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2197(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2197(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L51
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-decl -1809(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1809(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2193(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-.L51:
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incl -1822(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-jmp .L52
-
-// } ii()
-
-.L53:
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $0, -2198(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-leaq -789(%rbp, 1), %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2206(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-movq -2206(%rbp, 1), %rdi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rsi
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 35
-
-//} mem_reference_to_regs()
-
-movb -2198(%rbp, 1), %dl
+movq $.L51, %rdi
 
 // } ii()
 
@@ -19577,42 +15397,20 @@ xorq %rax, %rax
 // } ii()
 
 // ii() {
-call render
+call printf
+
+// } ii()
+
+// ii() {
+movl %eax, %r14d
 
 // } ii()
 
 
 
-// ii() {
-pushq %rbx
-
-// } ii()
 
 // ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-leaq -1544(%rbp, 1), %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2214(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %rbx
+movl $0, %r15d
 
 // } ii()
 
@@ -19621,137 +15419,29 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [79]
+
 
 //} mem_reference_to_regs()
 
-movl $1, -2218(%rbp, 1)
+movl %r15d, -65937(%rbp, 1)
 
 // } ii()
 
 
+
+
+.L59:
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movl $1000, -2222(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-xorq %rdx, %rdx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movl -2222(%rbp, 1), %eax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-idivl -325(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -2222(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-movq -2214(%rbp, 1), %rdi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movl -2218(%rbp, 1), %esi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 35
-
-//} mem_reference_to_regs()
-
-movl -2222(%rbp, 1), %edx
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call poll
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movw $0, -2224(%rbp, 1)
+movl $28, -65941(%rbp, 1)
 
 // } ii()
 
@@ -19769,7 +15459,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19778,7 +15469,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19787,16 +15479,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movw -1538(%rbp, 1), %bx
+movl -65937(%rbp, 1), %ebx
 
 // } ii()
 
 
-movw %bx, -2226(%rbp, 1)
+movl %ebx, -65945(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -19818,7 +15511,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19827,7 +15521,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19836,16 +15531,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2227(%rbp, 1), %bl
+movb -65946(%rbp, 1), %bl
 
 // } ii()
 
 
-xorb %bl, -2227(%rbp, 1)
+xorb %bl, -65946(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -19866,7 +15562,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19875,7 +15572,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19884,16 +15582,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movw -2224(%rbp, 1), %bx
+movl -65941(%rbp, 1), %ebx
 
 // } ii()
 
 
-cmpw %bx, -2226(%rbp, 1)
+cmpl %ebx, -65945(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -19905,23 +15604,12 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-sete -2227(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2227(%rbp, 1)
+setb -65946(%rbp, 1)
 
 // } ii()
 
@@ -19939,7 +15627,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19948,7 +15637,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -19957,16 +15647,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2227(%rbp, 1), %bl
+movb -65946(%rbp, 1), %bl
 
 // } ii()
 
 
-andb %bl, -2227(%rbp, 1)
+andb %bl, -65946(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -19976,21 +15667,19 @@ popq %rbx
 // } ii()
 
 // ii() {
-jz .L74
+jz .L60
 
 // } ii()
-
-
-
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movw $1, -2229(%rbp, 1)
+movl $0, -65950(%rbp, 1)
 
 // } ii()
 
@@ -20008,7 +15697,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20017,7 +15707,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20026,65 +15717,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movw -1538(%rbp, 1), %bx
+movl -65950(%rbp, 1), %ebx
 
 // } ii()
 
 
-movw %bx, -2231(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movw -2229(%rbp, 1), %bx
-
-// } ii()
-
-
-andw %bx, -2231(%rbp, 1)
+movl %ebx, -65954(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -20095,14 +15738,18 @@ popq %rbx
 
 
 
+
+.L56:
+
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movw $0, -2233(%rbp, 1)
+movl $28, -65958(%rbp, 1)
 
 // } ii()
 
@@ -20120,7 +15767,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20129,7 +15777,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20138,351 +15787,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2234(%rbp, 1), %bl
+movl -65954(%rbp, 1), %ebx
 
 // } ii()
 
 
-xorb %bl, -2234(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movw -2233(%rbp, 1), %bx
-
-// } ii()
-
-
-cmpw %bx, -2231(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2234(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2234(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2234(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2234(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L72
-
-// } ii()
-
-pushq %rbx
-// ii() {
-movq $0, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2242(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -2246(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-leaq -2242(%rbp, 1), %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2254(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-
-pushq %rbx
-// ii() {
-movq $8, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2262(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 65
-
-//} mem_reference_to_regs()
-
-movl -2246(%rbp, 1), %edi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2254(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 35
-
-//} mem_reference_to_regs()
-
-movq -2262(%rbp, 1), %rdx
-
-// } ii()
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call read
-
-// } ii()
-
-
-
-
-pushq %rbx
-// ii() {
-movq $27, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2270(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2242(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2278(%rbp, 1)
+movl %ebx, -65962(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -20504,7 +15819,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20513,7 +15829,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20522,16 +15839,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2279(%rbp, 1), %bl
+movb -65963(%rbp, 1), %bl
 
 // } ii()
 
 
-xorb %bl, -2279(%rbp, 1)
+xorb %bl, -65963(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -20552,7 +15870,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20561,7 +15880,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20570,16 +15890,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2270(%rbp, 1), %rbx
+movl -65958(%rbp, 1), %ebx
 
 // } ii()
 
 
-cmpq %rbx, -2278(%rbp, 1)
+cmpl %ebx, -65962(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -20591,11 +15912,12 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-sete -2279(%rbp, 1)
+setb -65963(%rbp, 1)
 
 // } ii()
 
@@ -20613,7 +15935,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20622,7 +15945,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -20631,735 +15955,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2279(%rbp, 1), %bl
+movb -65963(%rbp, 1), %bl
 
 // } ii()
 
 
-andb %bl, -2279(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L54
-
-// } ii()
-
-// ii() {
-jmp game_end
-
-// } ii()
-
-
-
-
-.L54:
-
-
-
-pushq %rbx
-// ii() {
-movq $4283163, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2287(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2242(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2295(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2296(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2296(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2287(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -2295(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2296(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2296(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2296(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L58
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $2, -2297(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2298(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2299(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2299(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2297(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2298(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2299(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2299(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $1, -2300(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2301(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2302(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2302(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2300(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2301(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2302(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2302(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2302(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2299(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2299(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2299(%rbp, 1)
+andb %bl, -65963(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -21376,62 +15982,6 @@ jz .L57
 
 
 
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2343(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-
-
-
 
 // ii() {
 // ii() {
@@ -21445,7 +15995,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -21454,7 +16005,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -21463,16 +16015,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -1432(%rbp, 1), %ebx
+movl -65932(%rbp, 1), %ebx
 
 // } ii()
 
 
-movl %ebx, -2310(%rbp, 1)
+movl %ebx, -65971(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -21491,22 +16044,552 @@ movq $4294967295, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-andq %rax, -2310(%rbp, 1)
+andq %rax, -65971(%rbp, 1)
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-cmpq $10, -2310(%rbp, 1)
+cmpq $10, -65971(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L53
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -65971(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $10, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L53:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -34568(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -65979(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -65971(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -65987(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -65987(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3140, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -65987(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -65937(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -65995(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -65995(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -65995(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L54
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -65995(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L54:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -65979(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -65987(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -66003(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -65995(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -66011(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -66011(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -66011(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -65954(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -66019(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -66019(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -66019(%rbp, 1)
 
 // } ii()
 
@@ -21518,17 +16601,18 @@ jl .L55
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
-movq -2310(%rbp, 1), %rsi
+movq -66019(%rbp, 1), %rsi
 
 // } ii()
 
 
 // ii() {
-movq $10, %rdx
+movq $28, %rdx
 
 // } ii()
 
@@ -21547,234 +16631,8 @@ pushq %r10
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 71
+// reserved regs : [71]
 
-//} mem_reference_to_regs()
-
-leaq -1423(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2318(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2310(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2326(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -2326(%rbp, 1), %rax
-
-// } ii()
-
-
-// ii() {
-imulq $30, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -2326(%rbp, 1)
-
-// } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1436(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2334(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2334(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -2334(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L56
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2334(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $30, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L56:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
 // ii() {
 pushq %rbx
 
@@ -21788,11 +16646,12 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2318(%rbp, 1), %rbx
+movq -66003(%rbp, 1), %rbx
 
 // } ii()
 
@@ -21810,11 +16669,12 @@ xorq %r12, %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
-movq -2326(%rbp, 1), %r12
+movq -66011(%rbp, 1), %r12
 
 // } ii()
 
@@ -21837,11 +16697,12 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 71, 255
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-movq %r10, -2342(%rbp, 1)
+movq %r10, -66027(%rbp, 1)
 
 // } ii()
 
@@ -21854,27 +16715,16 @@ popq %r10
 
 
 // ii() {
-// ii() {
-pushq %r13
+movq $.L52, %rdi
 
 // } ii()
+
+
 // ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [66]
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
 // ii() {
 pushq %rbx
 
@@ -21888,11 +16738,12 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2342(%rbp, 1), %rbx
+movq -66027(%rbp, 1), %rbx
 
 // } ii()
 
@@ -21910,11 +16761,12 @@ xorq %r12, %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
-movq -2334(%rbp, 1), %r12
+movq -66019(%rbp, 1), %r12
 
 // } ii()
 
@@ -21922,1464 +16774,172 @@ movq -2334(%rbp, 1), %r12
 
 //} mem_reference_to_regs()
 
-
- // byee 
+movl 0(%rbx, %r12, 4), %esi
 // ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -2343(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
 popq %r12
 
 // } ii()
 // ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $1, -2344(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2344(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2345(%rbp, 1)
-// ii() {
 popq %rbx
 
 // } ii()
 
-
 // } ii()
 
 
 
-
-
 // ii() {
-// ii() {
-pushq %rbx
+xorq %rax, %rax
 
 // } ii()
+
 // ii() {
-xorq %rbx, %rbx
+call printf
 
 // } ii()
-// hello 
-// mem_reference_to_regs() {
 
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movb -2345(%rbp, 1), %bl
+movl %eax, -66031(%rbp, 1)
 
 // } ii()
 
 
-movb %bl, -1424(%rbp, 1)
+
+
+
+
 // ii() {
-popq %rbx
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -65954(%rbp, 1)
 
 // } ii()
 
 
+
+
+// ii() {
+jmp .L56
+
 // } ii()
-
-
-
 
 .L57:
 
 
 
-.L58:
 
-
-
-pushq %rbx
-// ii() {
-movq $4348699, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2353(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2242(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2361(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2362(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2362(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2353(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -2361(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2362(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2362(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2362(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L62
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $2, -2363(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2364(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2365(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2365(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2363(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2364(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2365(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2365(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $1, -2366(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2367(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2368(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2368(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2366(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2367(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2368(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2368(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2368(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2365(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2365(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2365(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L61
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2409(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1432(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2376(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-andq %rax, -2376(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $10, -2376(%rbp, 1)
-
-// } ii()
-
-// ii() {
-jl .L59
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movq -2376(%rbp, 1), %rsi
-
-// } ii()
-
-
-// ii() {
-movq $10, %rdx
-
-// } ii()
-
-
-// ii() {
-call err_oob
-
-// } ii()
-
-.L59:
-// ii() {
-pushq %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 71
-
-//} mem_reference_to_regs()
-
-leaq -1423(%rbp, 1), %r10
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2384(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2376(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2392(%rbp, 1)
 // ii() {
-popq %rbx
-
-// } ii()
-
+movq $.L58, %rdi
 
 // } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movq -2392(%rbp, 1), %rax
 
-// } ii()
 
 
 // ii() {
-imulq $30, %rax
+xorq %rax, %rax
 
 // } ii()
 
 // ii() {
-// mem_reference_to_regs() {
+call printf
 
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movq %rax, -2392(%rbp, 1)
-
 // } ii()
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
 
-// } ii()
 // ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
 // mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
 
- // byee 
-// ii() {
-// mem_reference_to_regs() {
+// reserved regs : [32]
 
-// reserved regs : 255, 42
 
 //} mem_reference_to_regs()
 
-movl -1436(%rbp, 1), %ebx
+movl %eax, -66035(%rbp, 1)
 
 // } ii()
 
 
-movl %ebx, -2400(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-movq $4294967295, %rax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
 
-//} mem_reference_to_regs()
 
-andq %rax, -2400(%rbp, 1)
 
-// } ii()
 
 // ii() {
 // mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-cmpq $30, -2400(%rbp, 1)
-
-// } ii()
 
-// ii() {
-jl .L60
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
+// reserved regs : []
 
-// reserved regs : 255, 66
 
 //} mem_reference_to_regs()
 
-movq -2400(%rbp, 1), %rsi
+incl -65937(%rbp, 1)
 
 // } ii()
 
 
-// ii() {
-movq $30, %rdx
-
-// } ii()
 
 
 // ii() {
-call err_oob
+jmp .L59
 
 // } ii()
 
 .L60:
+
+
+
+
 // ii() {
-pushq %r10
+movq $.L61, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 71
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2384(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2392(%rbp, 1), %r12
-
-// } ii()
-
+// reserved regs : [32]
 
 
 //} mem_reference_to_regs()
 
-leaq 0(%rbx, %r12, 1), %r10
-// ii() {
-popq %r12
-
-// } ii()
-// ii() {
-popq %rbx
+movl %eax, -66039(%rbp, 1)
 
 // } ii()
 
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 71, 255
-
-//} mem_reference_to_regs()
-
-movq %r10, -2408(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %r10
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %r13
-
-// } ii()
-// ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2408(%rbp, 1), %rbx
-
-// } ii()
-
-
-// ii() {
-pushq %r12
-
-// } ii()
-
-// ii() {
-xorq %r12, %r12
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 76
-
-//} mem_reference_to_regs()
-
-movq -2400(%rbp, 1), %r12
-
-// } ii()
-
-
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -2409(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
-popq %r12
-
-// } ii()
-// ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
 
 
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movb $2, -2410(%rbp, 1)
+movl $0, -66043(%rbp, 1)
 
 // } ii()
 
@@ -23397,7 +16957,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23406,7 +16967,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23415,16 +16977,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2410(%rbp, 1), %bl
+movl -66043(%rbp, 1), %ebx
 
 // } ii()
 
 
-movb %bl, -2411(%rbp, 1)
+movl %ebx, -66047(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -23434,6 +16997,21 @@ popq %rbx
 // } ii()
 
 
+
+
+.L68:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -66051(%rbp, 1)
+
+// } ii()
 
 
 
@@ -23449,7 +17027,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23458,7 +17037,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23467,96 +17047,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2411(%rbp, 1), %bl
+movl -66047(%rbp, 1), %ebx
 
 // } ii()
 
 
-movb %bl, -1424(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-.L61:
-
-
-
-.L62:
-
-
-
-pushq %rbx
-// ii() {
-movq $4479771, %rbx
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2419(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2242(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2427(%rbp, 1)
+movl %ebx, -66055(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -23578,7 +17079,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23587,7 +17089,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23596,16 +17099,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2428(%rbp, 1), %bl
+movb -66056(%rbp, 1), %bl
 
 // } ii()
 
 
-xorb %bl, -2428(%rbp, 1)
+xorb %bl, -66056(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -23626,7 +17130,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23635,7 +17140,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23644,16 +17150,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2419(%rbp, 1), %rbx
+movl -66051(%rbp, 1), %ebx
 
 // } ii()
 
 
-cmpq %rbx, -2427(%rbp, 1)
+cmpl %ebx, -66055(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -23665,11 +17172,12 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-sete -2428(%rbp, 1)
+setb -66056(%rbp, 1)
 
 // } ii()
 
@@ -23687,7 +17195,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23696,7 +17205,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23705,16 +17215,325 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2428(%rbp, 1), %bl
+movb -66056(%rbp, 1), %bl
 
 // } ii()
 
 
-andb %bl, -2428(%rbp, 1)
+andb %bl, -66056(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L69
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -66060(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -66060(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -66064(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L65:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -66068(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -66064(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -66072(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -66073(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -66073(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -66068(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -66072(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -66073(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -66073(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -66073(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -23731,18 +17550,6 @@ jz .L66
 
 
 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $4, -2429(%rbp, 1)
-
-// } ii()
-
-
 
 // ii() {
 // ii() {
@@ -23756,7 +17563,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23765,7 +17573,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -23774,535 +17583,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -1424(%rbp, 1), %bl
+movl -66047(%rbp, 1), %ebx
 
 // } ii()
 
 
-movb %bl, -2430(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2431(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2431(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2429(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2430(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2431(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2431(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $3, -2432(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2433(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2434(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2434(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2432(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2433(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2434(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2434(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2434(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2431(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2431(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2431(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L65
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2475(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1432(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2442(%rbp, 1)
+movl %ebx, -66081(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -24321,22 +17612,24 @@ movq $4294967295, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-andq %rax, -2442(%rbp, 1)
+andq %rax, -66081(%rbp, 1)
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-cmpq $10, -2442(%rbp, 1)
+cmpq $28, -66081(%rbp, 1)
 
 // } ii()
 
@@ -24348,17 +17641,18 @@ jl .L63
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
-movq -2442(%rbp, 1), %rsi
+movq -66081(%rbp, 1), %rsi
 
 // } ii()
 
 
 // ii() {
-movq $10, %rdx
+movq $28, %rdx
 
 // } ii()
 
@@ -24377,22 +17671,24 @@ pushq %r10
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 71
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-leaq -1423(%rbp, 1), %r10
+leaq -3152(%rbp, 1), %r10
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 71, 255
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-movq %r10, -2450(%rbp, 1)
+movq %r10, -66089(%rbp, 1)
 
 // } ii()
 
@@ -24414,7 +17710,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -24423,7 +17720,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -24432,16 +17730,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2442(%rbp, 1), %rbx
+movq -66081(%rbp, 1), %rbx
 
 // } ii()
 
 
-movq %rbx, -2458(%rbp, 1)
+movq %rbx, -66097(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -24454,38 +17753,36 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 32
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movq -2458(%rbp, 1), %rax
+movq -66097(%rbp, 1), %rax
 
 // } ii()
 
 
 // ii() {
-imulq $30, %rax
+imulq $112, %rax
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movq %rax, -2458(%rbp, 1)
+movq %rax, -66097(%rbp, 1)
 
 // } ii()
 
 
 
 // mul on the CPU up here ^
-
-
-
-
 
 
 
@@ -24502,7 +17799,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -24511,7 +17809,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -24520,16 +17819,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -1436(%rbp, 1), %ebx
+movl -66064(%rbp, 1), %ebx
 
 // } ii()
 
 
-movl %ebx, -2466(%rbp, 1)
+movl %ebx, -66105(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -24548,22 +17848,24 @@ movq $4294967295, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-andq %rax, -2466(%rbp, 1)
+andq %rax, -66105(%rbp, 1)
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-cmpq $30, -2466(%rbp, 1)
+cmpq $28, -66105(%rbp, 1)
 
 // } ii()
 
@@ -24575,17 +17877,18 @@ jl .L64
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
-movq -2466(%rbp, 1), %rsi
+movq -66105(%rbp, 1), %rsi
 
 // } ii()
 
 
 // ii() {
-movq $30, %rdx
+movq $28, %rdx
 
 // } ii()
 
@@ -24604,7 +17907,8 @@ pushq %r10
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 71
+// reserved regs : [71]
+
 // ii() {
 pushq %rbx
 
@@ -24618,11 +17922,12 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2450(%rbp, 1), %rbx
+movq -66089(%rbp, 1), %rbx
 
 // } ii()
 
@@ -24640,11 +17945,12 @@ xorq %r12, %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
-movq -2458(%rbp, 1), %r12
+movq -66097(%rbp, 1), %r12
 
 // } ii()
 
@@ -24667,11 +17973,12 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 71, 255
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-movq %r10, -2474(%rbp, 1)
+movq %r10, -66113(%rbp, 1)
 
 // } ii()
 
@@ -24684,27 +17991,16 @@ popq %r10
 
 
 // ii() {
-// ii() {
-pushq %r13
+movq $.L62, %rdi
 
 // } ii()
+
+
 // ii() {
-xorq %r13, %r13
-
-// } ii()
-// hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [66]
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
 // ii() {
 pushq %rbx
 
@@ -24718,11 +18014,12 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2474(%rbp, 1), %rbx
+movq -66113(%rbp, 1), %rbx
 
 // } ii()
 
@@ -24740,11 +18037,12 @@ xorq %r12, %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
-movq -2466(%rbp, 1), %r12
+movq -66105(%rbp, 1), %r12
 
 // } ii()
 
@@ -24752,578 +18050,98 @@ movq -2466(%rbp, 1), %r12
 
 //} mem_reference_to_regs()
 
-
- // byee 
+movl 0(%rbx, %r12, 4), %esi
 // ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 77
-
-//} mem_reference_to_regs()
-
-movb -2475(%rbp, 1), %r13b
-
-// } ii()
-
-
-movb %r13b, 0(%rbx, %r12, 1)
-// ii() {
-// pop pushed: 
 popq %r12
 
 // } ii()
 // ii() {
-// pop pushed: 
-popq %rbx
-
-// } ii()
-// ii() {
-popq %r13
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $3, -2476(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2476(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2477(%rbp, 1)
-// ii() {
 popq %rbx
 
 // } ii()
 
-
 // } ii()
 
 
 
-
-
 // ii() {
-// ii() {
-pushq %rbx
+xorq %rax, %rax
 
 // } ii()
+
 // ii() {
-xorq %rbx, %rbx
+call printf
 
 // } ii()
-// hello 
-// mem_reference_to_regs() {
 
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movb -2477(%rbp, 1), %bl
+movl %eax, -66117(%rbp, 1)
 
 // } ii()
 
 
-movb %bl, -1424(%rbp, 1)
+
+
+
+
 // ii() {
-popq %rbx
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -66064(%rbp, 1)
 
 // } ii()
 
 
+
+
+// ii() {
+jmp .L65
+
 // } ii()
-
-
-
-
-.L65:
-
-
 
 .L66:
 
 
 
-pushq %rbx
+
 // ii() {
-movq $4414235, %rbx
+movq $.L67, %rdi
 
 // } ii()
 
 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2485(%rbp, 1)
-
-// } ii()
-
-popq %rbx
-
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2242(%rbp, 1), %rbx
-
-// } ii()
-
-
-movq %rbx, -2493(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2494(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2494(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+xorq %rax, %rax
 
 // } ii()
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movq -2485(%rbp, 1), %rbx
-
-// } ii()
-
-
-cmpq %rbx, -2493(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+call printf
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-sete -2494(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2494(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2494(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L70
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $4, -2495(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2496(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2497(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2497(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2495(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2496(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2497(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2497(%rbp, 1)
+movl %eax, -66121(%rbp, 1)
 
 // } ii()
 
@@ -25335,286 +18153,12 @@ xorb $1, -2497(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movb $3, -2498(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
-
-// } ii()
-
-
-movb %bl, -2499(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2500(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2500(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2498(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -2499(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2500(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-xorb $1, -2500(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2500(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2497(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2497(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2497(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L69
+incl -66047(%rbp, 1)
 
 // } ii()
 
@@ -25622,56 +18166,11 @@ jz .L69
 
 
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -1424(%rbp, 1), %bl
+jmp .L68
 
 // } ii()
 
-
-movb %bl, -2541(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
+.L69:
 
 
 
@@ -25690,7 +18189,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -25699,7 +18199,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -25708,16 +18209,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -1432(%rbp, 1), %ebx
+movl -65932(%rbp, 1), %ebx
 
 // } ii()
 
 
-movl %ebx, -2508(%rbp, 1)
+movl %ebx, -66129(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -25736,38 +18238,41 @@ movq $4294967295, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-andq %rax, -2508(%rbp, 1)
+andq %rax, -66129(%rbp, 1)
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-cmpq $10, -2508(%rbp, 1)
+cmpq $10, -66129(%rbp, 1)
 
 // } ii()
 
 // ii() {
-jl .L67
+jl .L71
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
-movq -2508(%rbp, 1), %rsi
+movq -66129(%rbp, 1), %rsi
 
 // } ii()
 
@@ -25783,7 +18288,7 @@ call err_oob
 
 // } ii()
 
-.L67:
+.L71:
 // ii() {
 pushq %r10
 
@@ -25792,22 +18297,24 @@ pushq %r10
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 71
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-leaq -1423(%rbp, 1), %r10
+leaq -34568(%rbp, 1), %r10
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 71, 255
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-movq %r10, -2516(%rbp, 1)
+movq %r10, -66137(%rbp, 1)
 
 // } ii()
 
@@ -25829,7 +18336,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -25838,7 +18346,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -25847,16 +18356,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2508(%rbp, 1), %rbx
+movq -66129(%rbp, 1), %rbx
 
 // } ii()
 
 
-movq %rbx, -2524(%rbp, 1)
+movq %rbx, -66145(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -25869,28 +18379,30 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 32
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movq -2524(%rbp, 1), %rax
+movq -66145(%rbp, 1), %rax
 
 // } ii()
 
 
 // ii() {
-imulq $30, %rax
+imulq $3140, %rax
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movq %rax, -2524(%rbp, 1)
+movq %rax, -66145(%rbp, 1)
 
 // } ii()
 
@@ -25901,6 +18413,168 @@ movq %rax, -2524(%rbp, 1)
 
 
 
+
+// ii() {
+movq $.L70, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -66137(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -66145(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+movl 3136(%rbx, %r12, 1), %esi
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -66149(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -72453(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
 
 
 
@@ -25917,7 +18591,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -25926,7 +18601,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -25935,16 +18611,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -1436(%rbp, 1), %ebx
+movl -65932(%rbp, 1), %ebx
 
 // } ii()
 
 
-movl %ebx, -2532(%rbp, 1)
+movl %ebx, -66157(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -25963,44 +18640,47 @@ movq $4294967295, %rax
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-andq %rax, -2532(%rbp, 1)
+andq %rax, -66157(%rbp, 1)
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-cmpq $30, -2532(%rbp, 1)
+cmpq $10, -66157(%rbp, 1)
 
 // } ii()
 
 // ii() {
-jl .L68
+jl .L72
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [66]
+
 
 //} mem_reference_to_regs()
 
-movq -2532(%rbp, 1), %rsi
+movq -66157(%rbp, 1), %rsi
 
 // } ii()
 
 
 // ii() {
-movq $30, %rdx
+movq $10, %rdx
 
 // } ii()
 
@@ -26010,7 +18690,7 @@ call err_oob
 
 // } ii()
 
-.L68:
+.L72:
 // ii() {
 pushq %r10
 
@@ -26019,7 +18699,178 @@ pushq %r10
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 71
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -34568(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -66165(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -66157(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -66173(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -66173(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3140, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -66173(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+leaq -69309(%rbp, 1), %rbx
+
+// } ii()
+
+// ii() {
+movq %rbx, %rdi
+
+// } ii()
+
+
+// ii() {
+subq $3136, %rsp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rax
+
+// } ii()
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
 // ii() {
 pushq %rbx
 
@@ -26033,11 +18884,12 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2516(%rbp, 1), %rbx
+movq -66165(%rbp, 1), %rbx
 
 // } ii()
 
@@ -26055,11 +18907,1283 @@ xorq %r12, %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
-movq -2524(%rbp, 1), %r12
+movq -66173(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %rsi
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rax, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+// ii() {
+subq $3136, %rsp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rax
+
+// } ii()
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+leaq -3152(%rbp, 1), %rsi
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rax, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call matmul
+
+// } ii()
+
+// ii() {
+addq $3136, %rsp
+
+// } ii()
+
+// ii() {
+addq $3136, %rsp
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -69317(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+leaq -69309(%rbp, 1), %rsi
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -72453(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -72457(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72457(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72461(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L78:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -72465(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72461(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72469(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72470(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -72470(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72465(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -72469(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -72470(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72470(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -72470(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L79
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -72474(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72474(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72478(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L76:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -72482(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72478(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72486(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72487(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -72487(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72482(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -72486(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -72487(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72487(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -72487(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L77
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72461(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72495(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -72495(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -72495(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L73
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -72495(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L73:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -72453(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -72503(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -72495(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -72511(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -72511(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -72511(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72478(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72519(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -72519(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -72519(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L74
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -72519(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L74:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -72503(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -72511(%rbp, 1), %r12
 
 // } ii()
 
@@ -26082,11 +20206,4537 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 71, 255
+// reserved regs : [71]
+
 
 //} mem_reference_to_regs()
 
-movq %r10, -2540(%rbp, 1)
+movq %r10, -72527(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -65932(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72535(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -72535(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $10, -72535(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L75
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -72535(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $10, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L75:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -34568(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -72543(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -72535(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -72551(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -72551(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3140, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -72551(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %r15
+
+// } ii()
+// ii() {
+xorq %r15, %r15
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -72543(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -72551(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : [42 76]
+
+// ii() {
+pushq %r13
+
+// } ii()
+
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movq -72527(%rbp, 1), %r13
+
+// } ii()
+
+
+// ii() {
+pushq %r14
+
+// } ii()
+
+// ii() {
+xorq %r14, %r14
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [78]
+
+
+//} mem_reference_to_regs()
+
+movq -72519(%rbp, 1), %r14
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [79]
+
+
+//} mem_reference_to_regs()
+
+movl 3136(%rbx, %r12, 1), %r15d
+
+// } ii()
+
+
+// ii() {
+// pop pushed: 
+popq %r12
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %rbx
+
+// } ii()
+addl %r15d, 0(%r13, %r14, 4)
+// ii() {
+// pop pushed: 
+popq %r14
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %r13
+
+// } ii()
+// ii() {
+popq %r15
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -72478(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L76
+
+// } ii()
+
+.L77:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -72461(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L78
+
+// } ii()
+
+.L79:
+
+
+
+
+// ii() {
+movq $.L80, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -72555(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -72559(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72559(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72563(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L87:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -72567(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72563(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72571(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72572(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -72572(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72567(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -72571(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -72572(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72572(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -72572(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L88
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -72576(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72576(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72580(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L84:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -72584(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72580(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72588(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72589(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -72589(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72584(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -72588(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -72589(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -72589(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -72589(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L85
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72563(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72597(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -72597(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -72597(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L82
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -72597(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L82:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+leaq -72453(%rbp, 1), %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -72605(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -72597(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -72613(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -72613(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -72613(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -72580(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -72621(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -72621(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -72621(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L83
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -72621(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L83:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -72605(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -72613(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -72629(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+// ii() {
+movq $.L81, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -72629(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -72621(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+movl 0(%rbx, %r12, 4), %esi
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -72633(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -72580(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L84
+
+// } ii()
+
+.L85:
+
+
+
+
+// ii() {
+movq $.L86, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -72637(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -72563(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L87
+
+// } ii()
+
+.L88:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -65932(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L89
+
+// } ii()
+
+.L90:
+
+
+
+._forward:
+// ii() {
+movq %rbp, %rsp
+
+// } ii()
+
+// ii() {
+popq %rbp
+
+// } ii()
+
+// ii() {
+ret
+
+// } ii()
+
+
+
+.string "\0main"
+.global main
+main:
+// ii() {
+pushq %rbp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rbp
+
+// } ii()
+
+// ii() {
+subq $912, %rsp
+
+// } ii()
+
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -32(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+movq $.L91, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rax, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+movq %rbx, %rdi
+
+// } ii()
+
+
+// ii() {
+movq $47, %rsi
+
+// } ii()
+
+
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read_dataset_image
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq %rdx, -8(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -16(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -8(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -24(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -16(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -32(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -64(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+
+// ii() {
+movq $.L92, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rax, 1), %r12
+
+// } ii()
+
+
+// ii() {
+movq %r12, %rdi
+
+// } ii()
+
+
+// ii() {
+movq $47, %rsi
+
+// } ii()
+
+
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call read_dataset_label
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq %rdx, -40(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -48(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -40(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -56(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -48(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -64(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+
+
+
+
+// ii() {
+movq $.L93, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -24(%rbp, 1), %rsi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+movl %eax, %r13d
+
+// } ii()
+
+
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -112(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+// ii() {
+movq $28, %r14
+
+// } ii()
+
+
+
+// ii() {
+movq $28, %r15
+
+// } ii()
+
+
+
+
+
+
+pushq %rbx
+// ii() {
+movq $4, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -72(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -24(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -80(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -80(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+imulq -72(%rbp, 1), %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -80(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+movq %r15, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+imulq -80(%rbp, 1), %rax
+
+// } ii()
+
+// ii() {
+movq %rax, %r15
+
+// } ii()
+
+
+
+
+// ii() {
+movq %r14, %rax
+
+// } ii()
+
+
+// ii() {
+imulq %r15, %rax
+
+// } ii()
+
+// ii() {
+movq %rax, %r14
+
+// } ii()
+
+
+
+
+// ii() {
+movq %r14, %rdi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call allocate
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq %rdx, -88(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -96(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -88(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -104(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -96(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -112(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+// ii() {
+xorq %rdx, %rdx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -104(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+movq $3136, %r15
+
+// } ii()
+
+
+// ii() {
+idivq %r15
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -104(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+movl $0, %r15d
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [79]
+
+
+//} mem_reference_to_regs()
+
+movl %r15d, -116(%rbp, 1)
+
+// } ii()
+
+
+
+
+.L104:
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -24(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -120(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $-1, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -120(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -116(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -124(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -125(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -125(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -120(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -124(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -125(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -125(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -125(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L105
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -129(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -129(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -133(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L102:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -137(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -133(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -141(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -142(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -142(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -137(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -141(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -142(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -142(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -142(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L103
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -146(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -146(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -150(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L100:
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $28, -154(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -150(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -158(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -159(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -159(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -154(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -158(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -159(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -159(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -159(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L101
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -116(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -239(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -239(%rbp, 1)
+
+// } ii()
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -24(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -32(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -247(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -255(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -255(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -239(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L97
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -239(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -255(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L97:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -239(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -263(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -263(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $784, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -263(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -133(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -271(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -271(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -271(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L98
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -271(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L98:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -247(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -263(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -279(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -271(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -287(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -287(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $28, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -287(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -150(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -295(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -295(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -295(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L99
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -295(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L99:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -279(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -287(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -303(%rbp, 1)
 
 // } ii()
 
@@ -26110,16 +24760,8 @@ xorq %r13, %r13
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
 
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
 // ii() {
 pushq %rbx
 
@@ -26133,11 +24775,12 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movq -2540(%rbp, 1), %rbx
+movq -303(%rbp, 1), %rbx
 
 // } ii()
 
@@ -26155,11 +24798,1016 @@ xorq %r12, %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 76
+// reserved regs : [76]
+
 
 //} mem_reference_to_regs()
 
-movq -2532(%rbp, 1), %r12
+movq -295(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : [42 76]
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl 0(%rbx, %r12, 1), %r13d
+
+// } ii()
+
+
+// ii() {
+// pop pushed: 
+popq %r12
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %rbx
+
+// } ii()
+movl %r13d, -307(%rbp, 1)
+// ii() {
+popq %r13
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $255, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -307(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -307(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -311(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -116(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -167(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -167(%rbp, 1)
+
+// } ii()
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -104(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -112(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -175(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -183(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -183(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -167(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L94
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -167(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -183(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L94:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -167(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -191(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -191(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3136, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -191(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -133(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -199(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -199(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -199(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L95
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -199(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L95:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -175(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -191(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -207(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -199(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -215(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -215(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -215(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -150(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -223(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -223(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -223(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L96
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -223(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L96:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -207(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -215(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -231(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %r13
+
+// } ii()
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -231(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -223(%rbp, 1), %r12
 
 // } ii()
 
@@ -26172,16 +25820,3660 @@ movq -2532(%rbp, 1), %r12
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 77
+// reserved regs : [77]
+
 
 //} mem_reference_to_regs()
 
-movb -2541(%rbp, 1), %r13b
+movl -311(%rbp, 1), %r13d
 
 // } ii()
 
 
-movb %r13b, 0(%rbx, %r12, 1)
+movl %r13d, 0(%rbx, %r12, 4)
+// ii() {
+// pop pushed: 
+popq %r12
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %rbx
+
+// } ii()
+// ii() {
+popq %r13
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -150(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L100
+
+// } ii()
+
+.L101:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -133(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L102
+
+// } ii()
+
+.L103:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -116(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L104
+
+// } ii()
+
+.L105:
+
+
+// ii() {
+pushq %rax
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq -347(%rbp, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $16, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep stosb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $1, -315(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movl -315(%rbp, 1), %edi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call nn
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq %rdx, -323(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -331(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -323(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -339(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -331(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -347(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+
+
+
+
+
+// ii() {
+movq $.L106, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -339(%rbp, 1), %rsi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call printf
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -351(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -355(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -355(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -359(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L120:
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -367(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -339(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -347(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -375(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -383(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -383(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -367(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L107
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -367(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -383(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L107:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -367(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -391(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -391(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $31400, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -391(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -399(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $10, -399(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L108
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -399(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $10, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L108:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -375(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -391(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -407(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -399(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -415(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -415(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3140, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -415(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+pushq %rbx
+// ii() {
+movq $28, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -423(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -423(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -427(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $-1, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -427(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -359(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -431(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -432(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -432(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -427(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -431(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setl -432(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -432(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -432(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L121
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -436(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -436(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -440(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L118:
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -448(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -339(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -347(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -456(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -464(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -464(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -448(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L109
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -448(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -464(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L109:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -448(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -472(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -472(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $31400, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -472(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -480(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $10, -480(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L110
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -480(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $10, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L110:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -456(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -472(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -488(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -480(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -496(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -496(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3140, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -496(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -359(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -504(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -504(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -504(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L111
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -504(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L111:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -488(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -496(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -512(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -504(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -520(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -520(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -520(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+// ii() {
+movq $28, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -528(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -528(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -532(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $-1, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -532(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -440(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -536(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -537(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -537(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -532(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -536(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setl -537(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -537(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -537(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L119
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $3, -637(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -637(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -641(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -545(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -339(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -347(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -553(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -561(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -561(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -545(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L112
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -545(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -561(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L112:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -545(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -569(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -569(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $31400, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -569(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -577(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $10, -577(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L113
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -577(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $10, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L113:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -553(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -569(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -585(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -577(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -593(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -593(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3140, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -593(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -359(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -601(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -601(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -601(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L114
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -601(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L114:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -585(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -593(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -609(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -601(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -617(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -617(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -617(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -440(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -625(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -625(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -625(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L115
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -625(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L115:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -609(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -617(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -633(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %r13
+
+// } ii()
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -633(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -625(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl -641(%rbp, 1), %r13d
+
+// } ii()
+
+
+movl %r13d, 0(%rbx, %r12, 4)
 // ii() {
 // pop pushed: 
 popq %r12
@@ -26205,11 +29497,12 @@ popq %r13
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movb $4, -2542(%rbp, 1)
+movl $1, -701(%rbp, 1)
 
 // } ii()
 
@@ -26227,7 +29520,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26236,7 +29530,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26245,21 +29540,1529 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2542(%rbp, 1), %bl
+movl -701(%rbp, 1), %ebx
 
 // } ii()
 
 
-movb %bl, -2543(%rbp, 1)
+movl %ebx, -705(%rbp, 1)
 // ii() {
 popq %rbx
 
 // } ii()
 
+
+// } ii()
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -649(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -339(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -347(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -657(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -665(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -665(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -649(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L116
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -649(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -665(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L116:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -649(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -673(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -673(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $31400, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -673(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+// ii() {
+movq $0, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -681(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $10, -681(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L117
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -681(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $10, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L117:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -657(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -673(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -689(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -681(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -697(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -697(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3140, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -697(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %r13
+
+// } ii()
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -689(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -697(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movl -705(%rbp, 1), %r13d
+
+// } ii()
+
+
+movl %r13d, 3136(%rbx, %r12, 1)
+// ii() {
+// pop pushed: 
+popq %r12
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %rbx
+
+// } ii()
+// ii() {
+popq %r13
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -440(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L118
+
+// } ii()
+
+.L119:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -359(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L120
+
+// } ii()
+
+.L121:
+
+
+
+
+pushq %rbx
+// ii() {
+movq $5, %rbx
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq %rbx, -713(%rbp, 1)
+
+// } ii()
+
+popq %rbx
+
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -104(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -112(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -721(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -729(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -729(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -713(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L122
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -713(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -729(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L122:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -713(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -737(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -737(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3136, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -737(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -339(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movq -347(%rbp, 1), %rdi
+
+// } ii()
+
+
+
+
+// ii() {
+subq $3136, %rsp
+
+// } ii()
+
+// ii() {
+movq %rsp, %rax
+
+// } ii()
+
+
+// ii() {
+pushq %rsi
+
+// } ii()
+
+// ii() {
+pushq %rdi
+
+// } ii()
+
+// ii() {
+pushq %rcx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -721(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -737(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %rsi
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rax, 1), %rdi
+
+// } ii()
+
+// ii() {
+movq $3136, %rcx
+
+// } ii()
+
+
+// ii() {
+cld
+
+// } ii()
+
+// ii() {
+rep movsb
+
+// } ii()
+
+// ii() {
+popq %rcx
+
+// } ii()
+
+// ii() {
+popq %rdi
+
+// } ii()
+
+// ii() {
+popq %rsi
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call forward
+
+// } ii()
+
+// ii() {
+addq $3136, %rsp
+
+// } ii()
+
+
+
+// ii() {
+jmp ._main
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -741(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -741(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -745(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+.L134:
+
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -24(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -749(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $-1, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -749(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -745(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -753(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -754(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -754(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -749(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -753(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -754(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -754(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -754(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L135
 
 // } ii()
 
@@ -26279,7 +31082,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26288,7 +31092,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26297,16 +31102,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2543(%rbp, 1), %bl
+movl -745(%rbp, 1), %ebx
 
 // } ii()
 
 
-movb %bl, -1424(%rbp, 1)
+movl %ebx, -762(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -26316,27 +31122,256 @@ popq %rbx
 // } ii()
 
 
-
-
-.L69:
-
-
-
-.L70:
-
-
-
 // ii() {
-jmp .L73
+movq $4294967295, %rax
 
 // } ii()
 
 
-.L72:
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -762(%rbp, 1)
+
+// } ii()
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -56(%rbp, 1), %r10
+
+// } ii()
 
 
 // ii() {
-movq $.L71, %rdi
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -64(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -770(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -778(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -778(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -762(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L124
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -762(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -778(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L124:
+
+
+// ii() {
+movq $.L123, %rdi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -770(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -762(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+movb 0(%rbx, %r12, 1), %sil
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
 
 // } ii()
 
@@ -26355,24 +31390,14 @@ call printf
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movl %eax, -2547(%rbp, 1)
+movl %eax, -782(%rbp, 1)
 
 // } ii()
-
-
-
-
-
-.L73:
-
-
-
-.L74:
-
 
 
 
@@ -26380,11 +31405,12 @@ movl %eax, -2547(%rbp, 1)
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movb $1, -2552(%rbp, 1)
+movl $0, -786(%rbp, 1)
 
 // } ii()
 
@@ -26402,7 +31428,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26411,7 +31438,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26420,196 +31448,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2560(%rbp, 1), %bl
+movl -786(%rbp, 1), %ebx
 
 // } ii()
 
 
-xorb %bl, -2560(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2552(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1424(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2560(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2560(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2560(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L75
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-decl -1432(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1432(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2559(%rbp, 1)
+movl %ebx, -790(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -26619,15 +31468,19 @@ popq %rbx
 // } ii()
 
 
-.L75:
+
+
+.L132:
+
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movb $2, -2553(%rbp, 1)
+movl $28, -794(%rbp, 1)
 
 // } ii()
 
@@ -26645,7 +31498,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26654,7 +31508,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -26663,742 +31518,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2561(%rbp, 1), %bl
+movl -790(%rbp, 1), %ebx
 
 // } ii()
 
 
-xorb %bl, -2561(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2553(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1424(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2561(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2561(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2561(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L76
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incl -1432(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1432(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2559(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-.L76:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $3, -2554(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2562(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2562(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2554(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1424(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2562(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2562(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2562(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L77
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-decl -1436(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1436(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2559(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-.L77:
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movb $4, -2555(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2563(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2563(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2555(%rbp, 1), %bl
-
-// } ii()
-
-
-cmpb %bl, -1424(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2563(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2563(%rbp, 1), %bl
-
-// } ii()
-
-
-andb %bl, -2563(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-jz .L78
-
-// } ii()
-
-
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incl -1436(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1436(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2559(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-.L78:
-
-
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1436(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2567(%rbp, 1)
+movl %ebx, -798(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -27420,7 +31550,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27429,7 +31560,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27438,16 +31570,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2568(%rbp, 1), %bl
+movb -799(%rbp, 1), %bl
 
 // } ii()
 
 
-xorb %bl, -2568(%rbp, 1)
+xorb %bl, -799(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -27468,7 +31601,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27477,7 +31611,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27486,16 +31621,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -1480(%rbp, 1), %ebx
+movl -794(%rbp, 1), %ebx
 
 // } ii()
 
 
-cmpl %ebx, -2567(%rbp, 1)
+cmpl %ebx, -798(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -27507,177 +31643,12 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-sete -2568(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1432(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2572(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movb -2573(%rbp, 1), %bl
-
-// } ii()
-
-
-xorb %bl, -2573(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -1476(%rbp, 1), %ebx
-
-// } ii()
-
-
-cmpl %ebx, -2572(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-sete -2573(%rbp, 1)
+setb -799(%rbp, 1)
 
 // } ii()
 
@@ -27695,7 +31666,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27704,7 +31676,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27713,21 +31686,39 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2573(%rbp, 1), %bl
+movb -799(%rbp, 1), %bl
 
 // } ii()
 
 
-andb %bl, -2568(%rbp, 1)
+andb %bl, -799(%rbp, 1)
 // ii() {
 popq %rbx
 
 // } ii()
 
+
+// } ii()
+
+// ii() {
+jz .L133
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movl $0, -803(%rbp, 1)
 
 // } ii()
 
@@ -27745,7 +31736,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27754,7 +31746,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -27763,16 +31756,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movb -2568(%rbp, 1), %bl
+movl -803(%rbp, 1), %ebx
 
 // } ii()
 
 
-andb %bl, -2568(%rbp, 1)
+movl %ebx, -807(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -27781,209 +31775,22 @@ popq %rbx
 
 // } ii()
 
-// ii() {
-jz .L79
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-incl -1488(%rbp, 1)
-
-// } ii()
 
 
 
-
-
+.L130:
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-incl -1428(%rbp, 1)
+movl $28, -811(%rbp, 1)
 
 // } ii()
-
-
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call rand
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -2577(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $30, -2581(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-xorq %rdx, %rdx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movl -2577(%rbp, 1), %eax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-idivl -2581(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 35, 255
-
-//} mem_reference_to_regs()
-
-movl %edx, -2577(%rbp, 1)
-
-// } ii()
-
-
-
-
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-call rand
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 32, 255
-
-//} mem_reference_to_regs()
-
-movl %eax, -2585(%rbp, 1)
-
-// } ii()
-
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $10, -2589(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-xorq %rdx, %rdx
-
-// } ii()
-
-// ii() {
-xorq %rax, %rax
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 32
-
-//} mem_reference_to_regs()
-
-movl -2585(%rbp, 1), %eax
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-idivl -2589(%rbp, 1)
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 35, 255
-
-//} mem_reference_to_regs()
-
-movl %edx, -2585(%rbp, 1)
-
-// } ii()
-
 
 
 
@@ -27999,7 +31806,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28008,7 +31816,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28017,16 +31826,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -2585(%rbp, 1), %ebx
+movl -807(%rbp, 1), %ebx
 
 // } ii()
 
 
-movl %ebx, -2593(%rbp, 1)
+movl %ebx, -815(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -28048,7 +31858,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28057,7 +31868,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28066,16 +31878,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -2577(%rbp, 1), %ebx
+movb -816(%rbp, 1), %bl
 
 // } ii()
 
 
-movl %ebx, -2597(%rbp, 1)
+xorb %bl, -816(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -28084,6 +31897,68 @@ popq %rbx
 
 // } ii()
 
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -811(%rbp, 1), %ebx
+
+// } ii()
+
+
+cmpl %ebx, -815(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+setb -816(%rbp, 1)
+
+// } ii()
 
 
 
@@ -28099,7 +31974,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28108,7 +31984,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28117,16 +31994,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -2593(%rbp, 1), %ebx
+movb -816(%rbp, 1), %bl
 
 // } ii()
 
 
-movl %ebx, -2601(%rbp, 1)
+andb %bl, -816(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -28135,104 +32013,8 @@ popq %rbx
 
 // } ii()
 
-
 // ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -2597(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -2605(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
-
-// } ii()
-
-
-
-
-
-// ii() {
-// ii() {
-pushq %rbx
-
-// } ii()
-// ii() {
-xorq %rbx, %rbx
-
-// } ii()
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// hello 
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-
- // byee 
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-movl -2601(%rbp, 1), %ebx
-
-// } ii()
-
-
-movl %ebx, -1476(%rbp, 1)
-// ii() {
-popq %rbx
-
-// } ii()
-
+jz .L131
 
 // } ii()
 
@@ -28249,7 +32031,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28258,7 +32041,8 @@ xorq %rbx, %rbx
 // hello 
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
@@ -28267,16 +32051,17 @@ xorq %rbx, %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 42
+// reserved regs : [42]
+
 
 //} mem_reference_to_regs()
 
-movl -2605(%rbp, 1), %ebx
+movl -745(%rbp, 1), %ebx
 
 // } ii()
 
 
-movl %ebx, -1480(%rbp, 1)
+movl %ebx, -820(%rbp, 1)
 // ii() {
 popq %rbx
 
@@ -28290,25 +32075,60 @@ popq %rbx
 
 
 
-.L79:
-
-
-
 // ii() {
-jmp .L80
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -820(%rbp, 1), %ebx
 
 // } ii()
 
-.L81:
+
+movl %ebx, -828(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
 
 
-game_lose:
-
-
+// } ii()
 
 
 // ii() {
-movq $.L82, %rdi
+movq $4294967295, %rax
 
 // } ii()
 
@@ -28316,11 +32136,1200 @@ movq $.L82, %rdi
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 66
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movl -1488(%rbp, 1), %esi
+andq %rax, -828(%rbp, 1)
+
+// } ii()
+
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+pushq %r11
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq -104(%rbp, 1), %r10
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq -112(%rbp, 1), %r11
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [72]
+
+
+//} mem_reference_to_regs()
+
+movq %r11, -836(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -844(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r11
+
+// } ii()
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -844(%rbp, 1), %rbx
+
+// } ii()
+
+
+cmpq %rbx, -828(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jl .L125
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -828(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [35]
+
+
+//} mem_reference_to_regs()
+
+movq -844(%rbp, 1), %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L125:
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -828(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -852(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -852(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $3136, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -852(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -790(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -860(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -860(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -860(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L126
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -860(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L126:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -836(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -852(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -868(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -860(%rbp, 1), %rbx
+
+// } ii()
+
+
+movq %rbx, -876(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq -876(%rbp, 1), %rax
+
+// } ii()
+
+
+// ii() {
+imulq $112, %rax
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movq %rax, -876(%rbp, 1)
+
+// } ii()
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movl -807(%rbp, 1), %ebx
+
+// } ii()
+
+
+movl %ebx, -884(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -884(%rbp, 1)
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+cmpq $28, -884(%rbp, 1)
+
+// } ii()
+
+// ii() {
+jl .L127
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [66]
+
+
+//} mem_reference_to_regs()
+
+movq -884(%rbp, 1), %rsi
+
+// } ii()
+
+
+// ii() {
+movq $28, %rdx
+
+// } ii()
+
+
+// ii() {
+call err_oob
+
+// } ii()
+
+.L127:
+// ii() {
+pushq %r10
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -868(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -876(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+leaq 0(%rbx, %r12, 1), %r10
+// ii() {
+popq %r12
+
+// } ii()
+// ii() {
+popq %rbx
+
+// } ii()
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [71]
+
+
+//} mem_reference_to_regs()
+
+movq %r10, -892(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+popq %r10
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %r13
+
+// } ii()
+// ii() {
+xorq %r13, %r13
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+// ii() {
+pushq %rbx
+
+// } ii()
+
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movq -892(%rbp, 1), %rbx
+
+// } ii()
+
+
+// ii() {
+pushq %r12
+
+// } ii()
+
+// ii() {
+xorq %r12, %r12
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [76]
+
+
+//} mem_reference_to_regs()
+
+movq -884(%rbp, 1), %r12
+
+// } ii()
+
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : [42 76]
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [77]
+
+
+//} mem_reference_to_regs()
+
+movb 0(%rbx, %r12, 4), %r13b
+
+// } ii()
+
+
+// ii() {
+// pop pushed: 
+popq %r12
+
+// } ii()
+// ii() {
+// pop pushed: 
+popq %rbx
+
+// } ii()
+movb %r13b, -893(%rbp, 1)
+// ii() {
+popq %r13
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+movq $4294967295, %rax
+
+// } ii()
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+andq %rax, -893(%rbp, 1)
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -893(%rbp, 1), %bl
+
+// } ii()
+
+
+movb %bl, -894(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movb $5, -895(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -894(%rbp, 1), %bl
+
+// } ii()
+
+
+movb %bl, -896(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -897(%rbp, 1), %bl
+
+// } ii()
+
+
+xorb %bl, -897(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -895(%rbp, 1), %bl
+
+// } ii()
+
+
+cmpb %bl, -896(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+seta -897(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// ii() {
+pushq %rbx
+
+// } ii()
+// ii() {
+xorq %rbx, %rbx
+
+// } ii()
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// hello 
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+
+ // byee 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [42]
+
+
+//} mem_reference_to_regs()
+
+movb -897(%rbp, 1), %bl
+
+// } ii()
+
+
+andb %bl, -897(%rbp, 1)
+// ii() {
+popq %rbx
+
+// } ii()
+
+
+// } ii()
+
+// ii() {
+jz .L128
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movb $64, -898(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movb -898(%rbp, 1), %dil
 
 // } ii()
 
@@ -28332,82 +33341,42 @@ xorq %rax, %rax
 // } ii()
 
 // ii() {
-call printf
+call putchar
 
 // } ii()
 
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 32, 255
+// reserved regs : [32]
+
 
 //} mem_reference_to_regs()
 
-movl %eax, -2609(%rbp, 1)
+movl %eax, -902(%rbp, 1)
 
 // } ii()
 
 
 
 
-game_end:
 
+// ii() {
+jmp .L129
+
+// } ii()
+
+
+.L128:
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 255
+// reserved regs : []
+
 
 //} mem_reference_to_regs()
 
-movl $0, -2613(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 255
-
-//} mem_reference_to_regs()
-
-movl $0, -2617(%rbp, 1)
-
-// } ii()
-
-
-
-// ii() {
-pushq %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 42
-
-//} mem_reference_to_regs()
-
-leaq -385(%rbp, 1), %rbx
-
-// } ii()
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 42, 255
-
-//} mem_reference_to_regs()
-
-movq %rbx, -2625(%rbp, 1)
-
-// } ii()
-
-
-// ii() {
-popq %rbx
+movb $32, -903(%rbp, 1)
 
 // } ii()
 
@@ -28416,35 +33385,12 @@ popq %rbx
 // ii() {
 // mem_reference_to_regs() {
 
-// reserved regs : 255, 65
+// reserved regs : [65]
+
 
 //} mem_reference_to_regs()
 
-movl -2613(%rbp, 1), %edi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 66
-
-//} mem_reference_to_regs()
-
-movl -2617(%rbp, 1), %esi
-
-// } ii()
-
-
-// ii() {
-// mem_reference_to_regs() {
-
-// reserved regs : 255, 35
-
-//} mem_reference_to_regs()
-
-movq -2625(%rbp, 1), %rdx
+movb -903(%rbp, 1), %dil
 
 // } ii()
 
@@ -28456,10 +33402,155 @@ xorq %rax, %rax
 // } ii()
 
 // ii() {
-call tcsetattr
+call putchar
 
 // } ii()
 
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -907(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+.L129:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -807(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L130
+
+// } ii()
+
+.L131:
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+movb $10, -908(%rbp, 1)
+
+// } ii()
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [65]
+
+
+//} mem_reference_to_regs()
+
+movb -908(%rbp, 1), %dil
+
+// } ii()
+
+
+
+// ii() {
+xorq %rax, %rax
+
+// } ii()
+
+// ii() {
+call putchar
+
+// } ii()
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : [32]
+
+
+//} mem_reference_to_regs()
+
+movl %eax, -912(%rbp, 1)
+
+// } ii()
+
+
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -790(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L132
+
+// } ii()
+
+.L133:
+
+
+
+
+// ii() {
+// mem_reference_to_regs() {
+
+// reserved regs : []
+
+
+//} mem_reference_to_regs()
+
+incl -745(%rbp, 1)
+
+// } ii()
+
+
+
+
+// ii() {
+jmp .L134
+
+// } ii()
+
+.L135:
 
 
 
@@ -28775,7 +33866,6 @@ _mystart:
 
 
 
-.L1: .byte 27, 91, 50, 74, 0
 
 
 
@@ -28883,6 +33973,7 @@ _mystart:
 
 
 
+.L1: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 111, 112, 101, 110, 100, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 0
 
 
 
@@ -28917,15 +34008,14 @@ _mystart:
 
 
 
-.L5: .byte 27, 91, 49, 109, 0
 
 
 
 
 
 
+.L3: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
-.L6: .byte 27, 91, 51, 56, 58, 53, 58, 37, 104, 104, 100, 109, 0
 
 
 
@@ -28948,6 +34038,7 @@ _mystart:
 
 
 
+.L5: .byte 109, 97, 103, 105, 99, 32, 110, 117, 109, 98, 101, 114, 58, 32, 37, 120, 10, 0
 
 
 
@@ -28964,7 +34055,6 @@ _mystart:
 
 
 
-.L10: .byte 27, 91, 48, 109, 0
 
 
 
@@ -28985,6 +34075,7 @@ _mystart:
 
 
 
+.L6: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -29008,6 +34099,7 @@ _mystart:
 
 
 
+.L8: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 105, 109, 97, 103, 101, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
 
@@ -29044,6 +34136,7 @@ _mystart:
 
 
 
+.L9: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -29067,6 +34160,7 @@ _mystart:
 
 
 
+.L11: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 114, 111, 119, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
 
@@ -29103,6 +34197,7 @@ _mystart:
 
 
 
+.L12: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -29126,6 +34221,7 @@ _mystart:
 
 
 
+.L14: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 99, 111, 108, 117, 109, 110, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
 
@@ -29150,6 +34246,7 @@ _mystart:
 
 
 
+.L15: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 112, 105, 120, 101, 108, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
 
@@ -29257,6 +34354,7 @@ _mystart:
 
 
 
+.L17: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -29318,6 +34416,7 @@ _mystart:
 
 
 
+.L21: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 111, 112, 101, 110, 100, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 0
 
 
 
@@ -29358,6 +34457,7 @@ _mystart:
 
 
 
+.L23: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -29381,6 +34481,7 @@ _mystart:
 
 
 
+.L25: .byte 109, 97, 103, 105, 99, 32, 110, 117, 109, 98, 101, 114, 58, 32, 37, 120, 10, 0
 
 
 
@@ -29417,6 +34518,7 @@ _mystart:
 
 
 
+.L26: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -29440,6 +34542,7 @@ _mystart:
 
 
 
+.L28: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 108, 97, 98, 101, 108, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
 
@@ -29502,6 +34605,7 @@ _mystart:
 
 
 
+.L29: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -29906,6 +35010,7 @@ _mystart:
 
 
 
+.L51: .byte 119, 101, 105, 103, 104, 116, 115, 58, 10, 0
 
 
 
@@ -29935,6 +35040,7 @@ _mystart:
 
 
 
+.L52: .byte 37, 117, 32, 0
 
 
 
@@ -29985,6 +35091,7 @@ _mystart:
 
 
 
+.L58: .byte 10, 0
 
 
 
@@ -29999,6 +35106,7 @@ _mystart:
 
 
 
+.L61: .byte 105, 110, 112, 117, 116, 58, 10, 0
 
 
 
@@ -30028,6 +35136,7 @@ _mystart:
 
 
 
+.L62: .byte 37, 117, 32, 0
 
 
 
@@ -30064,6 +35173,7 @@ _mystart:
 
 
 
+.L67: .byte 10, 0
 
 
 
@@ -30078,6 +35188,7 @@ _mystart:
 
 
 
+.L70: .byte 98, 105, 97, 115, 58, 32, 37, 117, 10, 0
 
 
 
@@ -30117,7 +35228,6 @@ _mystart:
 
 
 
-.L71: .byte 114, 101, 97, 100, 32, 101, 114, 114, 111, 114, 32, 102, 114, 111, 109, 32, 115, 116, 100, 105, 110, 33, 0
 
 
 
@@ -30208,6 +35318,7 @@ _mystart:
 
 
 
+.L80: .byte 114, 101, 115, 117, 108, 116, 58, 10, 0
 
 
 
@@ -30237,6 +35348,7 @@ _mystart:
 
 
 
+.L81: .byte 37, 117, 32, 0
 
 
 
@@ -30258,7 +35370,692 @@ _mystart:
 
 
 
-.L82: .byte 89, 111, 117, 32, 76, 111, 115, 116, 33, 32, 80, 111, 105, 110, 116, 115, 58, 32, 37, 100, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L86: .byte 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L91: .byte 46, 47, 101, 120, 97, 109, 112, 108, 101, 115, 47, 115, 111, 102, 116, 109, 97, 120, 95, 109, 99, 110, 110, 47, 116, 114, 97, 105, 110, 45, 105, 109, 97, 103, 101, 115, 45, 105, 100, 120, 51, 45, 117, 98, 121, 116, 101, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L92: .byte 46, 47, 101, 120, 97, 109, 112, 108, 101, 115, 47, 115, 111, 102, 116, 109, 97, 120, 95, 109, 99, 110, 110, 47, 116, 114, 97, 105, 110, 45, 108, 97, 98, 101, 108, 115, 45, 105, 100, 120, 49, 45, 117, 98, 121, 116, 101, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L93: .byte 37, 108, 108, 100, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L106: .byte 110, 101, 117, 114, 97, 108, 95, 110, 101, 116, 119, 111, 114, 107, 46, 108, 101, 110, 58, 32, 37, 100, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L123: .byte 108, 97, 98, 101, 108, 58, 32, 37, 104, 104, 117, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
