@@ -1155,12 +1155,18 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					Any pointer (eight bytes) will be 8-byte aligned.
 				*/
 				align := field_size
-
-				if datatype_array.IsStaticArrayType(field_type) {
-					align = field_type.(datatype_array.StaticArrayType).ElementType.ByteSize()
+				
+				// search elementary type
+				_static_type := field_type
+				for datatype_array.IsStaticArrayType(_static_type) {
+					println(_static_type.Name())
+					_static_type = _static_type.(datatype_array.StaticArrayType).ElementType
+					align = _static_type.ByteSize()
 				}
 
 				padding := (align - (field_offset & uint64(align - 1))) & uint64(align - 1)
+
+				println("struct ", _struct.Name(), " has padding of ", padding)
 
 				struct_field := datatype_struct.StructField{field_name, field_type, padding + field_offset}
 				_struct.AddField(struct_field)

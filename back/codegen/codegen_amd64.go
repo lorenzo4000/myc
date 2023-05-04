@@ -489,91 +489,131 @@ func (stack Stack_Region) Reference() Memory_Reference {
 
 // === Instruction ===
 
+func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_regs [2]RegisterClass) Codegen_Out {
+	res := Codegen_Out{}
+	res.Code.TextAppendSln("// mem_reference_to_regs() {\n")
+	res.Code.TextAppendSln("// reserved regs : " + strconv.FormatInt(int64(reserved_regs[0]), 10) + ", " + strconv.FormatInt(int64(reserved_regs[1]), 10))
+
+	start_register := Operand(nil)
+	index_register := Operand(nil)
+	switch mem.Start.(type)  {
+		case Register: start_register = mem.Start.(Register)
+	}
+	switch mem.Index.(type)  {
+		case Register: index_register = mem.Index.(Register)
+	}
+
+	if mem.Start != nil && start_register == nil {
+		var new_start Operand = nil
+		for j, r := range ScratchRegisters {
+			if (reserved_regs[0] == 0xFF || r != reserved_regs[0]) && 
+			   (reserved_regs[1] == 0xFF || r != reserved_regs[1]) && 
+			   (index_register == nil || (index_register != nil && r != index_register.(Register).Class)) {
+					new_start, _ = r.GetRegister(datatype.TYPE_UINT64)
+					(*regs_pushed)[j] = true
+					res.Code.TextAppendSln(ii("pushq", new_start))
+					break
+			}
+		}
+		
+		if new_start != nil {
+			// move Start to new_start
+			res.Code.TextAppendSln(ii("xorq", new_start, new_start))
+			_new_start, _ := new_start.(Register).Class.GetRegister(mem.Start.Type())
+			res.Code.Appendln(GEN_move(mem.Start, _new_start).Code)
+			mem.Start = _new_start
+			start_register = mem.Start
+		}
+	}
+	if mem.Index != nil && index_register == nil {
+		var new_index Operand = nil
+		for j, r := range ScratchRegisters {
+			if (reserved_regs[0] == 0xFF || r != reserved_regs[0]) && 
+			   (reserved_regs[1] == 0xFF || r != reserved_regs[1]) && 
+			   (start_register 		 == nil || (start_register != nil && r != start_register.(Register).Class      )) {
+					new_index, _ = r.GetRegister(datatype.TYPE_UINT64)
+					(*regs_pushed)[j] = true
+					res.Code.TextAppendSln(ii("pushq", new_index))
+					break
+			}
+		}
+		
+		if new_index != nil {
+			// move Index to new_index
+			res.Code.TextAppendSln(ii("xorq", new_index, new_index))
+			_new_index, _ := new_index.(Register).Class.GetRegister(mem.Index.Type())
+			res.Code.Appendln(GEN_move(mem.Index, _new_index).Code)
+			mem.Index = _new_index
+			index_register = mem.Index
+		}
+	}
+
+	res.Result = mem
+
+	res.Code.TextAppendSln("\n//} mem_reference_to_regs()\n")
+	return res
+}
+
 func ii(op string, oprnds ...Operand) string {
-	instruction := ""
+	instruction := "// ii() {\n"
 	pre_memory_reference_code := make([]string, len(oprnds))
 
 	cnt := 0
 
-	rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
-	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_UINT64)
-
-	rax_pushed := make([]bool, len(oprnds))
-	r10_pushed := make([]bool, len(oprnds))
-	start_pushed := make([]bool, len(oprnds))
+	start_pushed := make([]RegisterClass, len(oprnds))
+	for i, _ := range start_pushed {
+		start_pushed[i] = RegisterClass(byte(0xFF))
+	}
+	regs_pushed := make([][5]bool, len(oprnds))
 
 	// the destination is usually the last operand...
-	//
-	// what do you want me to do anyway huh?
-	// this is a stupid toy compiler, i don't mean to make it actually work lol.
-	// You are so dumb for thinking that this stupid thing is "designed" to work.
-	// This compiler only works on a very limited subset of examples...
-	// It's literally a LIE! YOU SHOULD NOT USE IT! you should instead WRITE YOUR OWN!
-	// i so so SO hate this thing i'm building. I want to kill myself for wasting time on this absolute CRAP.
 	destination := Operand(nil)
 	if len(oprnds) > 0 {
 		destination = oprnds[len(oprnds)-1]
 	}	
-
 	destination_register := Operand(nil)
 	if destination != nil {
 		switch destination.(type) {
 			case Register: destination_register = destination.(Register)
 		}
 	}
+	
+	// the source is usually the first operand...
+	source := Operand(nil)
+	if len(oprnds) > 0 {
+		source = oprnds[0]
+	}	
+	source_register := Operand(nil)
+	if source != nil {
+		switch source.(type) {
+			case Register: source_register = source.(Register)
+		}
+	}
 
 	for i, oprnd := range oprnds {
 		switch oprnd.(type) {
-			case Memory_Reference:
+			case Memory_Reference: 
 				mem := oprnd.(Memory_Reference)
 				off := uint64(mem.Offset)
 
-				switch mem.Start.(type)  {
-					case Memory_Reference :
-						// if the destination is rax, it doesn't make sense to save it... and if i saved it
-						// it wouldn't actually work... trust me, i tried.
-						if destination_register != nil {
-							if destination_register.(Register).Class != REGISTER_RAX {
-								pre_memory_reference_code[i] += ii("pushq", rax)
-								rax_pushed[i] = true
-							}
-						}
-
-						// move Start to rax
-						pre_memory_reference_code[i] += ii("xorq", rax, rax)
-						_rax, _ := REGISTER_RAX.GetRegister(mem.Start.Type())
-						pre_memory_reference_code[i] += GEN_move(mem.Start, _rax).Code.Text
-						instruction += "// using rax\n"
-						if mem.Index != nil {
-							instruction += "// the index is very cute! : " + mem.Index.Text() + "\n"
-						}
-						mem.Start = rax
+				reserved_regs := [2]RegisterClass{RegisterClass(byte(0xFF)), RegisterClass(byte(0xFF))}
+				if source_register != nil {
+					reserved_regs[0] = source_register.(Register).Class
 				}
-				switch mem.Index.(type)  {
-					case Memory_Reference :
-						pre_memory_reference_code[i] += "// i am trying to move the index to r10, am i going to succeed? ...\n"
-						if destination_register != nil {
-							if destination_register.(Register).Class != REGISTER_R10 {
-								pre_memory_reference_code[i] += ii("pushq", r10)
-								r10_pushed[i] = true
-							}
-						}
-
-						// move Index to r10
-						pre_memory_reference_code[i] += ii("xorq", r10, r10)
-						_r10, _ := REGISTER_R10.GetRegister(mem.Index.Type())
-
-						pre_memory_reference_code[i] += GEN_move(mem.Index, _r10).Code.Text
-						instruction += "// using r10\n"
-						mem.Index = r10
+				if destination_register != nil {
+					reserved_regs[1] = destination_register.(Register).Class
 				}
+
+				to_regs := mem_reference_to_regs(mem, &(regs_pushed[i]), reserved_regs)
+				pre_memory_reference_code[i] += to_regs.Code.Text
+				mem = to_regs.Result.(Memory_Reference)
 
 				if mem.Offset < 0 {
 					off = off ^ 0xFFFFFFFFFFFFFFFF
 				}
 				if (off >> 32) > 0 {
 					pre_memory_reference_code[i] += ii("pushq", mem.Start) + "\n"
-					start_pushed[i] = true
+					start_pushed[i] = mem.Start.(Register).Class
 					
 
 					// add the offset manually (on the CPU)
@@ -593,17 +633,36 @@ func ii(op string, oprnds ...Operand) string {
 	}
 
 	if cnt >= 2 {
-		var allocation Operand
+		var allocation Operand = nil
+		for _, r := range ScratchRegisters {
+			for _, o := range oprnds {
+				switch o.(type) {
+					case Memory_Reference:
+						os := o.(Memory_Reference).Start.(Register).Class
+						oi := RegisterClass(byte(0xFF))
+						if o.(Memory_Reference).Index != nil {
+							oi = o.(Memory_Reference).Index.(Register).Class
+						}
+						if os == r || oi == r {
+							goto _continue
+						}
+				}
+			}
 
-		reg, full := RegisterScratchAllocate(oprnds[0].Type())
-		if full {
-			allocation, _ = REGISTER_RBX.GetRegister(oprnds[0].Type())
-			rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
+			allocation, _ = r.GetRegister(datatype.TYPE_UINT64)
+			instruction += ii("pushq", allocation) 
+			break
 
-			instruction += Instruction("pushq", rbx) + "\n"
-		} else {
-			allocation = reg
+			_continue:
 		}
+		
+		if allocation != nil {
+			instruction += ii("xorq", allocation, allocation)
+			allocation, _ = allocation.(Register).Class.GetRegister(oprnds[0].Type())
+		} else {
+			instruction += "// whhhaattt!??\n"
+		}
+
 
 		// OOhhh good im gonna wrtie a master piece of code now
 		for i, oprnd := range oprnds { 
@@ -618,28 +677,25 @@ func ii(op string, oprnds ...Operand) string {
 
 		instruction += Instruction(op, oprnds...) + "\n"
 	
-		for i, oprnd := range oprnds {
-			switch oprnd.(type) {
-				case Memory_Reference:
-					if start_pushed[i] {
-						instruction += ii("popq", oprnd.(Memory_Reference).Start)
-					}
-					if r10_pushed[i] {
-						instruction += ii("popq", r10)
-					}
-					if rax_pushed[i] {
-						instruction += ii("popq", rax)
-					}
+		for i, _ := range oprnds {
+			if start_pushed[i] != RegisterClass(byte(0xFF)) {
+				sp, _ := start_pushed[i].GetRegister(datatype.TYPE_UINT64)
+				instruction += ii("// pop start \npopq", sp)
+			}
+			for j := len(ScratchRegisters)-1; j >= 0; j-- {
+				if regs_pushed[i][j] {
+					r := ScratchRegisters[j]
+					pushed_reg, _ := r.GetRegister(datatype.TYPE_UINT64)
+					instruction += ii("// pop pushed: \npopq", pushed_reg)
+				}
 			}
 		}
 
-		if full {
-			rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
-			instruction += Instruction("popq", rbx) + "\n"
-		} else {
-			reg.Free()
+		if allocation != nil {
+			_allocation, _ := allocation.(Register).Class.GetRegister(datatype.TYPE_UINT64)
+			instruction += ii("popq", _allocation) + "\n"
 		}
-		return instruction
+		return instruction + "\n// } ii()\n"
 	}
 
 	// OOhhh good im gonna wrtie a master piece of code now
@@ -651,22 +707,21 @@ func ii(op string, oprnds ...Operand) string {
 
 	instruction += Instruction(op, oprnds...) + "\n"
 
-	for i, oprnd := range oprnds {
-		switch oprnd.(type) {
-			case Memory_Reference:
-				if start_pushed[i] {
-					instruction += ii("popq", oprnd.(Memory_Reference).Start)
-				}
-				if r10_pushed[i] {
-					instruction += ii("popq", r10)
-				}
-				if rax_pushed[i] {
-					instruction += ii("popq", rax)
-				}
+	for i, _ := range oprnds {
+		if start_pushed[i] != RegisterClass(byte(0xFF)) {
+			sp, _ := start_pushed[i].GetRegister(datatype.TYPE_UINT64)
+			instruction += ii("// pop start \npopq", sp)
+		}
+		for j := len(ScratchRegisters)-1; j >= 0; j-- {
+			if regs_pushed[i][j] {
+				r := ScratchRegisters[j]
+				pushed_reg, _ := r.GetRegister(datatype.TYPE_UINT64)
+				instruction += ii("popq", pushed_reg)
+			}
 		}
 	}
 
-	return instruction
+	return instruction + "\n// } ii()\n"
 }
 
 // === runtime procedures ===
@@ -1790,8 +1845,12 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 	res := Codegen_Out{}
 
 	// TODO: get rid of this!!
-	for i := len(params); i < len(args); i++ {
-		params = append(params, args[i].Type())
+	if len(params) < len(args) {
+		params = make([]datatype.DataType, len(args))
+
+		for i := 0; i < len(args); i++ {
+			params[i] = args[i].Type()
+		}
 	}
 
 	allocated_regs := 0
@@ -1874,7 +1933,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 		var full bool
 		reg, full := RegisterScratchAllocate(pointer_type)
 		if full {
-			allocation, full := REGISTER_RBX.GetRegister(pointer_type)
+			allocation, full = REGISTER_RBX.GetRegister(pointer_type)
 			if full {
 				fmt.Println("codegen error: could not find return register for type `" + f.DataType.Name() + "`")
 			}
@@ -1882,6 +1941,8 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 		} else {
 			allocation = reg
 		}
+
+		fmt.Println(registers_alloc)
 		res.Code.TextAppendSln(ii("leaq", memory, allocation))
 
 		// push-front pointer to args
@@ -1904,6 +1965,10 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	call_args := GEN_callargs(args, function_params)
 	res.Code.Appendln(call_args.Code)
 
+	// C uses rax to know if we are passing
+	// floating point arguments as varargs.
+	// TODO: do this only if varargs
+	res.Code.TextAppendSln(ii("xorq %rax, %rax"))
 	name := LabelGet(function_name)
 	res.Code.TextAppendSln(ii("call", name))
 
@@ -1924,9 +1989,10 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	}
 
 	// unreserve the stack space where we passed the arguments
-	arguments_in_stack := StackDeallocateCurrentRegion()
-	if arguments_in_stack != nil {
+	var arguments_in_stack *Stack_Region =  StackDeallocateCurrentRegion()
+	for arguments_in_stack != nil {
 		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(arguments_in_stack.reserved), 10}, rsp))
+		arguments_in_stack  = StackDeallocateCurrentRegion()
 	}
 
 	if f.DataType != nil &&
@@ -3848,6 +3914,30 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 
 func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out {
 	res := Codegen_Out{}
+	
+	address_type := datatype.TYPE_INT64
+	
+	// make index big
+	if index.Type().ByteSize() < 8 {
+		var v Operand
+		reg, full := RegisterScratchAllocate(address_type)
+		if full {
+			v = StackAllocate(address_type).Reference()
+			res.Code.Appendln(GEN_very_generic_move(index, v).Code)
+		} else {
+			v = reg
+			view, _ := reg.Class.GetRegister(index.Type())
+			res.Code.Appendln(GEN_very_generic_move(index, view).Code)
+		}
+		mask := uint64(1 << index.Type().BitSize()) - uint64(1)
+		mask_literal := Asm_Int_Literal{v.Type(), int64(mask), 10}
+		rax, _ := REGISTER_RAX.GetRegister(mask_literal.Type())
+		res.Code.Appendln(GEN_move(mask_literal, rax).Code)
+		mask_code := ii("andq", rax, v)
+		res.Code.TextAppendSln(mask_code)
+		
+		index = v
+	}
 
 	var element_type datatype.DataType
 	length := uint64(0)
@@ -3861,28 +3951,28 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 		element_type = static_array_type.ElementType
 		length = static_array_type.Length
 	}
-	length_literal := Asm_Int_Literal{index.Type(), int64(length), 10}
+	length_literal := Asm_Int_Literal{address_type, int64(length), 10}
 
-	cmp := GEN_binop(front.AST_OP_GOE, index, length_literal)
-	res.Code.Appendln(cmp.Code)
+	// this deallocates the inedex for some reason... so don't do it
+	//cmp := GEN_binop(front.AST_OP_GOE, index, length)
+	
+	res.Code.TextAppendSln(ii("cmpq", length_literal, index))
 	no_oob_err := LabelGen()
+	res.Code.TextAppendSln(ii("jl", no_oob_err)) // less means fine!
 
-	res.Code.TextAppendSln(ii("andb", cmp.Result, cmp.Result))
-	res.Code.TextAppendSln(ii("jz", no_oob_err)) // zero means fine!
-
-	// one means error
-	rsi, _ := REGISTER_RSI.GetRegister(index.Type())
-	rdx, _ := REGISTER_RDX.GetRegister(length_literal.Type())
+	// greater or equal means error
+	rsi, _ := REGISTER_RSI.GetRegister(address_type)
+	rdx, _ := REGISTER_RDX.GetRegister(address_type)
 	res.Code.Appendln(GEN_move(index, rsi).Code)   
 	res.Code.Appendln(GEN_move(length_literal, rdx).Code)   
 	res.Code.TextAppendSln(ii("call", ERR_OOB))   
 
 	res.Code.TextAppendSln(no_oob_err.Text()+":")
-	r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64)
+	r10, _ := REGISTER_R10.GetRegister(address_type)
 	res.Code.TextAppendSln(ii("pushq",r10))
 	res.Code.TextAppendSln(ii("leaq", array_allocation, r10))
 
-	start := StackAllocate(r10.Type()).Reference()
+	start := StackAllocate(address_type).Reference()  // start and index need to be the same type
 	res.Code.Appendln(GEN_move(r10, start).Code)
 	
 	res.Code.TextAppendSln(ii("popq",r10))
@@ -3899,7 +3989,7 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 		res.Result = array_index_reference
 	} else {
 		// we need to do the multiplication on the CPU
-		element_size := Asm_Int_Literal{index.Type(), int64(element_type.ByteSize()), 10}
+		element_size := Asm_Int_Literal{address_type, int64(element_type.ByteSize()), 10}
 
 		// TODO: do the thing for every binop, also check if left is left value!
 		left_value  := index
@@ -3951,15 +4041,39 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 	res := Codegen_Out{}
 
+	address_type := datatype.TYPE_INT64
+
+	// make index big
+	if index.Type().ByteSize() < 8 {
+		var v Operand
+		reg, full := RegisterScratchAllocate(address_type)
+		if full {
+			v = StackAllocate(address_type).Reference()
+			res.Code.Appendln(GEN_very_generic_move(index, v).Code)
+		} else {
+			v = reg
+			view, _ := reg.Class.GetRegister(index.Type())
+			res.Code.Appendln(GEN_very_generic_move(index, view).Code)
+		}
+		mask := uint64(1 << index.Type().BitSize()) - uint64(1)
+		mask_literal := Asm_Int_Literal{v.Type(), int64(mask), 10}
+		rax, _ := REGISTER_RAX.GetRegister(mask_literal.Type())
+		res.Code.Appendln(GEN_move(mask_literal, rax).Code)
+		mask_code := ii("andq", rax, v)
+		res.Code.TextAppendSln(mask_code)
+		
+		index = v
+	}
+		
 	var start Operand
 	var length Operand
 	switch array_struct.(type) {
 		case Memory_Reference:
-			r10, _ := REGISTER_R10.GetRegister(datatype.TYPE_INT64) // length or size... idk
-			r11, _ := REGISTER_R11.GetRegister(datatype.TYPE_INT64) // data
+			r10, _ := REGISTER_R10.GetRegister(address_type) // length or size... idk
+			r11, _ := REGISTER_R11.GetRegister(address_type) // data
 
-			start = StackAllocate(r11.Type()).Reference()
-			length = StackAllocate(index.Type()).Reference()
+			start = StackAllocate(address_type).Reference()
+			length = StackAllocate(address_type).Reference()
 
 			// load array.data, array.len => r10, r11
 			res.Code.TextAppendSln(ii("pushq",r10))
@@ -3969,8 +4083,7 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 			res.Code.Appendln(load.Code)
 
 			res.Code.Appendln(GEN_move(r11, start).Code)
-			_r10, _ := REGISTER_R10.GetRegister(index.Type()) 
-			res.Code.Appendln(GEN_move(_r10, length).Code)
+			res.Code.Appendln(GEN_move(r10, length).Code)
 
 			res.Code.TextAppendSln(ii("popq",r11))
 			res.Code.TextAppendSln(ii("popq",r10))
@@ -3983,16 +4096,15 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 			return res
 	}
 			
-	cmp := GEN_binop(front.AST_OP_GOE, index, length)
-	res.Code.Appendln(cmp.Code)
+	// this deallocates the inedex for some reason... so don't do it
+	//cmp := GEN_binop(front.AST_OP_GOE, index, length)
+	res.Code.TextAppendSln(ii("cmpq", length, index))
 	no_oob_err := LabelGen()
+	res.Code.TextAppendSln(ii("jl", no_oob_err)) // less means fine!
 
-	res.Code.TextAppendSln(ii("andb", cmp.Result, cmp.Result))
-	res.Code.TextAppendSln(ii("jz", no_oob_err)) // zero means fine!
-
-	// one means error
-	rsi, _ := REGISTER_RSI.GetRegister(index.Type())
-	rdx, _ := REGISTER_RDX.GetRegister(length.Type())
+	// greater or equal means error
+	rsi, _ := REGISTER_RSI.GetRegister(address_type)
+	rdx, _ := REGISTER_RDX.GetRegister(address_type)
 	res.Code.Appendln(GEN_move(index, rsi).Code)   
 	res.Code.Appendln(GEN_move(length, rdx).Code)   
 	res.Code.TextAppendSln(ii("call", ERR_OOB))   
@@ -4019,7 +4131,7 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 		res.Result = array_index_reference
 	} else {
 		// we need to do the multiplication on the CPU
-		element_size := Asm_Int_Literal{index.Type(), int64(element_type.ByteSize()), 10}
+		element_size := Asm_Int_Literal{address_type, int64(element_type.ByteSize()), 10}
 
 		// TODO: do the thing for every binop, also check if left is left value!
 		left_value  := index

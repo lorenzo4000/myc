@@ -28,7 +28,7 @@ function flip32(:x uint32) uint32{
 	return flipped;
 }
 
-function read_dataset_image(:filename string) [][784]uint8 {
+function read_dataset_image(:filename string) [][28][28]uint8 {
 	// open file read-only
 	:fd int32 = open(filename.data, 0, 0);
 	if fd < 0 {
@@ -79,7 +79,7 @@ function read_dataset_image(:filename string) [][784]uint8 {
 	:number_of_pixels uint32 = number_of_images * number_of_rows * number_of_columns;
 	printf("number of pixels in set: %d\n".data, number_of_pixels);
 
-	:images [][784]uint8 = allocate([uint64]number_of_pixels);
+	:images [][28][28]uint8 = allocate([uint64]number_of_pixels);
 	for(:i uint32 = 0; i < number_of_images; i++) {
 		n = read(fd, images[i].data, ([uint64]number_of_rows * [uint64]number_of_columns));
 		if n < ([uint64]number_of_rows * [uint64]number_of_columns) {
@@ -129,7 +129,9 @@ function read_dataset_label(:filename string) []uint8 {
 	return labels;
 }
 
-function matmul(:a [][]uint32, :b [][]uint32) [][]uint32 {
+function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
+	printf("matmulling\n".data);
+	
 	:ah uint64 = a.len;
 	if ah <= 0 {
 		return;
@@ -152,21 +154,27 @@ function matmul(:a [][]uint32, :b [][]uint32) [][]uint32 {
 		return;
 	}
 
-	:c [][]uint32 = allocate(ah * bw * 4);
+	:c [28][28]uint32; 
 
 	for(:i int32 = 0; i < [int32]ah; i++) {
 		for(:j int32 = 0; j < [int32]aw; j++) {
 			for(:k int32 = 0; k < [int32]aw; k++) {
-				c[i][j] += a[i][k] * b[k][j];
+				:p uint32 = a[i][k] * b[k][j];
+				printf("%u * %u = %u\n".data, a[i][k], b[k][j], p);
+
+				c[i][j] += p;
+				printf("%u\n".data, c[i][j]);
 			}
+			printf("%u ".data, c[i][j]);
 		}
+		printf("\n".data);
 	}
 
 	return c;
 } 
 
 struct Neuron {
-	:weights [784]uint32;
+	:weights [28][28]uint32;
 	:bias 		  uint32;
 }
 
@@ -176,29 +184,75 @@ function nn(:levels uint32) [][10]Neuron {
 	return network;
 }
 
-function forward(:net [][10]Neuron, :x [748]uint8) {
+function forward(:net [][10]Neuron, :x [28][28]uint32) {
 	:first_layer [10]Neuron = net[0];
-	:first_layer_out [10]uint32;
+	:first_layer_out [10][28][28]uint32;
 
-	//for(:n int32 = 0; n < [int32]first_layer.len; n++) {
-	//}
-	
+	for(:n int32 = 0; n < [int32]first_layer.len; n++) {
+		printf("weights:\n".data);
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				printf("%u ".data, first_layer[n].weights[r][c]);
+			}
+			printf("\n".data);
+		}
+
+		printf("input:\n".data);
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				printf("%u ".data, x[r][c]);
+			}
+			printf("\n".data);
+		}
+
+		first_layer_out[n] = matmul(first_layer[n].weights, x);
+		
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				printf("%u ".data, first_layer_out[n][r][c]);
+			}
+			printf("\n".data);
+		}
+	}
 }
 
 function main() {
-	:image_set [][784]uint8 = read_dataset_image("./examples/softmax_mcnn/train-images-idx3-ubyte");
+	:image_set [][28][28]uint8 = read_dataset_image("./examples/softmax_mcnn/train-images-idx3-ubyte");
 	:label_set []     uint8 = read_dataset_label("./examples/softmax_mcnn/train-labels-idx1-ubyte");
-
+	
 	printf("%lld\n".data, image_set.len);
 
+	// cast image set to uint32
+	:image_set_32 [][28][28]uint32 = allocate(28*28*image_set.len*4);
+	for(:i uint32 = 0; i < [uint32]image_set.len; i++) {
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				image_set_32[i][r][c] = [uint32]image_set[i][r][c];
+			}
+		}
+	}
+	
+	
 	:neural_network [][10]Neuron = nn(1);
+	printf("neural_network.len: %d\n".data, neural_network.len);
+
+	// write ones in weights
+	for(:i int32 = 0; i < [int32]neural_network[0][0].weights.len; i++) {
+		for(:j int32 = 0; j < [int32](neural_network[0][0].weights[i]).len; j++) {
+			neural_network[0][0].weights[i][j] = 3;
+		}
+	}
+		
+	forward(neural_network, image_set_32[5]);
+
+	
 	
 	/*
 	for(:i int32 = 0; i < [int32]neural_network.len; i++) {
 		for(:j int32 = 0; j < [int32]neural_network[i].len; j++) {
 			:w []uint32 = neural_network[i][j].weights;
 			:b uint32 = neural_network[i][j].bias;
-
+	
 			for(:k int32 = 0; k < [int32](w.len); k++) {
 				printf("neuron[%d][%d].weights[%d]: %u\n".data, i, j, k, w[k]);
 			}
@@ -206,17 +260,16 @@ function main() {
 		}
 	}
 	*/
+	
+	return;
 
-	/*	
 	for(:i uint32 = 0; i < [uint32]image_set.len; i++) {
 		printf("label: %hhu\n".data, label_set[i]);
 		for(:r uint32 = 0; r < 28; r++) {
 			for(:c uint32 = 0; c < 28; c++) {
 				:image uint32 = i;
-				:pixel uint32 = (r*28) + c;
-
-				:p uint8 = image_set[image][pixel];
-
+				:p uint8 = [uint8]image_set_32[image][r][c];
+	
 				if p > 5 {
 					putchar('@');
 				} else {
@@ -226,5 +279,4 @@ function main() {
 			putchar('\n');
 		}
 	}
-	*/
 }
