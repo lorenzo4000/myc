@@ -201,6 +201,11 @@ func Compatible(source *datatype.DataType, destination *datatype.DataType) bool 
 							return true
 						}
 					}
+					if datatype.IsFloatType(s.(datatype.PrimitiveType)) && datatype.IsFloatType(d.(datatype.PrimitiveType)) {
+						if s == datatype.TYPE_FLOAT_LITERAL || d == datatype.TYPE_FLOAT_LITERAL {
+							return true
+						}
+					}
 			}
 		case datatype.PointerType:
 			sp := s.(datatype.PointerType)
@@ -572,6 +577,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_LITERAL: {
 			switch ast.Data[0].Type {
 				case front.TOKEN_INT_LITERAL: ast.DataType = datatype.TYPE_INT_LITERAL
+				case front.TOKEN_FLOAT_LITERAL: ast.DataType = datatype.TYPE_FLOAT_LITERAL
 				case front.TOKEN_BOOL_LITERAL: ast.DataType = datatype.TYPE_BOOL
 				case front.TOKEN_STRING_LITERAL: {
 					string_length := len(ast.Data[0].String_value)
@@ -863,9 +869,19 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			}
 			
-			ast.DataType = *left_type
+			if *left_type == datatype.TYPE_INT_LITERAL   ||
+			   *left_type == datatype.TYPE_FLOAT_LITERAL {
+				ast.DataType = *right_type 
+			} else {
+				ast.DataType = *left_type
+			}
 
 			if !datatype.IsIntegerType(ast.DataType) 			 &&
+			   !(datatype.IsFloatType(ast.DataType) && (ast.Type == front.AST_OP_SUM ||
+			   										   	ast.Type == front.AST_OP_SUB ||
+													   	ast.Type == front.AST_OP_MUL ||
+													   	ast.Type == front.AST_OP_DIV ||
+													   	ast.Type == front.AST_OP_MOD)) &&
 			   !datatype_string.IsStaticStringType(ast.DataType) &&
 			   !ast.DataType.Equals(datatype_string.TYPE_STRING) {
 				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
@@ -881,7 +897,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				return nil
 			} 
 
-			if !datatype.IsIntegerType((*left_type)) || !datatype.IsIntegerType((*right_type)) {
+			if (!datatype.IsIntegerType((*left_type)) || !datatype.IsIntegerType((*right_type))) &&
+			   (!datatype.IsFloatType((*left_type)) || !datatype.IsFloatType((*right_type))) {
 				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
 				return nil
 		    }
@@ -982,6 +999,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = *left_type
 
 			if !datatype.IsIntegerType(ast.DataType) &&
+			   !(datatype.IsFloatType(ast.DataType) && (ast.Type == front.AST_OP_ESUM ||
+			   										   	ast.Type == front.AST_OP_ESUB ||
+													   	ast.Type == front.AST_OP_EDIV ||
+													   	ast.Type == front.AST_OP_EMOD)) &&
 			   (front.AST_OP_ESUM != ast.Type && 
 				ast.DataType.Equals(datatype_string.TYPE_STRING)) {
 				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
@@ -1015,7 +1036,8 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			ast.DataType = *left_type
 
-			if !datatype.IsIntegerType(ast.DataType) {
+			if !datatype.IsIntegerType(ast.DataType) && 
+			   !datatype.IsFloatType(ast.DataType)  {
 				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())
 				return nil
 			}
@@ -1040,8 +1062,16 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 
 		// ** unary ops
-		case front.AST_OP_NEG, front.AST_OP_BNOT: {
-			// TODO: check if operand is integer signed? maybe...
+		case front.AST_OP_NEG: {
+			ast.DataType = ast.Children[0].DataType
+
+			if !datatype.IsIntegerType(ast.DataType) &&
+			   !datatype.IsFloatType(ast.DataType) {
+				typeErrorAt(ast, "invalid operation for types `%s`", ast.DataType.Name())
+				return nil
+			}
+		}
+		case front.AST_OP_BNOT: {
 			ast.DataType = ast.Children[0].DataType
 
 			if !datatype.IsIntegerType(ast.DataType) {

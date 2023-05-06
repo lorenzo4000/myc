@@ -290,7 +290,7 @@ func (ast Ast_Node) ToString() (string) {
 
 	ast_str += " : "
 	for i, token := range ast.Data {
-		ast_str += "[ int_value = " + strconv.Itoa(int(token.Int_value)) + ", string_value = " + token.String_value + " ]"
+		ast_str += "[ int_value = " + strconv.Itoa(int(token.Int_value)) + ", string_value = " + token.String_value + ", float_value = " + strconv.FormatFloat(token.Float_value, 'E', -1, 64) + " ]"
 		if i + 1 < len(ast.Data) {
 			ast_str += ", "
 		}

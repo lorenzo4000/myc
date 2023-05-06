@@ -11,8 +11,9 @@ const (
 	TOKEN_IDENTIFIER        = 0
 	TOKEN_STRING_LITERAL	= 1 
 	TOKEN_INT_LITERAL	  	= 2 
-	TOKEN_BOOL_LITERAL	  	= 3
-	TOKEN_DIRECTIVE    		= 4 		// used by pre-processor, ignored by the parser
+	TOKEN_FLOAT_LITERAL	  	= 3
+	TOKEN_BOOL_LITERAL	  	= 4
+	TOKEN_DIRECTIVE    		= 5 		// used by pre-processor, ignored by the parser
 
 	// characters
 	TOKEN_OPENING_PARENTHESES = '(' 
@@ -167,6 +168,7 @@ type Token struct {
 
 	Int_value int64
 	String_value string
+	Float_value float64
 }
 
 func IsCharacterToken(c byte) (bool) {
@@ -178,52 +180,57 @@ func GetToken(str string, l0 int32, l1 int32, c0 int32, c1 int32) (Token, error)
 	if len(str) == 1 {
 		character_token, is_character_token := characterTokenMap[str[0]]
 		if is_character_token {
-			return Token{character_token, l0, c0, l1, c1, 0, ""}, nil
+			return Token{character_token, l0, c0, l1, c1, 0, "", 0}, nil
 		}
 	}
 
 	multiCharacter_token, is_multiCharacter_token := multiCharacterTokenMap[str]
 	if is_multiCharacter_token  {
-		return Token{multiCharacter_token, l0, c0, l1, c1, 0, ""}, nil
+		return Token{multiCharacter_token, l0, c0, l1, c1, 0, "", 0}, nil
 	}
 
 	keyword_token, is_keyword_token := keywordTokenMap[str]
 	if is_keyword_token  {
-		return Token{keyword_token, l0, c0, l1, c1, 0, ""}, nil
+		return Token{keyword_token, l0, c0, l1, c1, 0, "", 0}, nil
 	}
 
 	if str[0] == '"' {
-		return Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, str[1:len(str) - 1]}, nil
+		return Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, str[1:len(str) - 1], 0}, nil
 	}
 	if str[0] == '@' {
 
 		if len(str) <= 1 || str[1] != '@' {
-			return Token{TOKEN_DIRECTIVE, l0, c0, l1, c1, 0, str[1:]}, nil
+			return Token{TOKEN_DIRECTIVE, l0, c0, l1, c1, 0, str[1:], 0}, nil
 		} else {
-			return Token{TOKEN_DIRECTIVE, l0, c0, l1, c1, 0, str[2:len(str) - 2]}, nil
+			return Token{TOKEN_DIRECTIVE, l0, c0, l1, c1, 0, str[2:len(str) - 2], 0}, nil
 		}
 	}
-	if str[0] >= 48 && str[0] <= 57 {
+	if (str[0] >= 48 && str[0] <= 57) || str[0] == '.' {
 		i, err := strconv.ParseInt(str, 0, 64)
 		if err != nil {
-			if err == strconv.ErrSyntax || i == 0 {
-				fmt.Printf("%d:%d: lexical error: int literal is empty or contains invalid digits\n", l0, c0)
-			} 
-			if err == strconv.ErrRange || i > 0 {
-				fmt.Printf("%d:%d: lexical error: int literal is too big\n", l0, c0)
+			// try floating point
+			f, err := strconv.ParseFloat(str, 64)
+			if err != nil {
+				if err == strconv.ErrSyntax || i == 0 {
+					fmt.Printf("%d:%d: lexical error: numeric literal is empty or contains invalid digits\n", l0, c0)
+				} 
+				if err == strconv.ErrRange || i > 0 {
+					fmt.Printf("%d:%d: lexical error: numeric literal is too big\n", l0, c0)
+				}
+				return Token{}, errors.New("numeric literal parse error")
 			}
-			return Token{}, errors.New("int literal parse error")
+			return Token{TOKEN_FLOAT_LITERAL, l0, c0, l1, c1, 0, "", f}, nil
 		}
-		return Token{TOKEN_INT_LITERAL, l0, c0, l1, c1, i, ""}, nil
+		return Token{TOKEN_INT_LITERAL, l0, c0, l1, c1, i, "", 0}, nil
 	}
 	if str == "true" {
-		return Token{TOKEN_BOOL_LITERAL, l0, c0, l1, c1, 1, str}, nil
+		return Token{TOKEN_BOOL_LITERAL, l0, c0, l1, c1, 1, str, 0}, nil
 	}
 	if str == "false" {
-		return Token{TOKEN_BOOL_LITERAL, l0, c0, l1, c1, 0, str}, nil
+		return Token{TOKEN_BOOL_LITERAL, l0, c0, l1, c1, 0, str, 0}, nil
 	}
 
 
 
-	return Token{TOKEN_IDENTIFIER, l0, c0, l1, c1, 0, str}, nil
+	return Token{TOKEN_IDENTIFIER, l0, c0, l1, c1, 0, str, 0}, nil
 }

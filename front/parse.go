@@ -260,24 +260,13 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 					}
 				}
 				
-			case TOKEN_STRING_LITERAL: 
+			case TOKEN_STRING_LITERAL, TOKEN_INT_LITERAL, TOKEN_FLOAT_LITERAL, TOKEN_BOOL_LITERAL: 
 				literal := new(Ast_Node)
 				literal.Type = AST_LITERAL
 				lit, _ := parser.Pop()
 				literal.Data = []Token{lit}
 				return literal 
-			case TOKEN_INT_LITERAL: 
-				literal := new(Ast_Node)
-				literal.Type = AST_LITERAL
-				lit, _ := parser.Pop()
-				literal.Data = []Token{lit}
-				return literal
-			case TOKEN_BOOL_LITERAL: 
-				literal := new(Ast_Node)
-				literal.Type = AST_LITERAL
-				lit, _ := parser.Pop()
-				literal.Data = []Token{lit}
-				return literal
+
 			case TOKEN_OPENING_BRACE:
 				parser.Pop()
 
@@ -337,6 +326,11 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 					switch next.Type {
 						case TOKEN_INT_LITERAL: 
 							next.Int_value *= int64(-1)
+							parser.Tokens[parser.Index] = next
+
+							return parser.ParseSubExpression()
+						case TOKEN_FLOAT_LITERAL: 
+							next.Float_value *= float64(-1)
 							parser.Tokens[parser.Index] = next
 
 							return parser.ParseSubExpression()
@@ -917,6 +911,7 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 		current.C1 + 1,
 		0,
 		"",
+		0,
 	})
 
 	// search first '{'
@@ -943,6 +938,7 @@ func (parser *Parser) ParseWhile() (*Ast_Node) {
 		current.C1 + 1 ,
 		0,
 		"",
+		0,
 	})
 
 	{
@@ -1204,6 +1200,7 @@ func (parser *Parser) ParseSwitch() (*Ast_Node) {
 		current.C1 + 1,
 		0,
 		"",
+		0,
 	})
 
 	// search first '{'
@@ -1230,6 +1227,7 @@ func (parser *Parser) ParseSwitch() (*Ast_Node) {
 		current.C1 + 1 ,
 		0,
 		"",
+		0,
 	})
 
 	{
@@ -1295,6 +1293,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 		current.C1 + 1,
 		0,
 		"",
+		0,
 	})
 
 	// search first '{'
@@ -1321,6 +1320,7 @@ func (parser *Parser) ParseIf() (*Ast_Node) {
 		current.C1 + 1 ,
 		0,
 		"",
+		0,
 	})
 
 	{
@@ -1599,7 +1599,7 @@ func (parser *Parser) ParseFunctionDefinition() (*Ast_Node) {
 			function_definition.Children[2] = return_type
 		} else {
 			if next.Type != TOKEN_OPENING_BRACE {
-				parseExpectErrorAt(next, "return type or REPLACE_11")
+				parseExpectErrorAt(next, "return type or {")
 				return nil
 			}
 		}

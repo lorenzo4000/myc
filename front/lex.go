@@ -23,11 +23,19 @@ func Lex(src string) ([]Token) {
 			}
 			next_token_str += string(src[index])
 			if IsCharacterToken(src[index]) {
-				break
+				if !(src[index] == '.' &&
+				   ((index - 1 >= 0       && src[index-1] >= 48 && src[index-1] <= 57) ||
+				    (index + 1 < len(src) && src[index+1] >= 48 && src[index+1] <= 57))) {
+					break
+				}
 			}
 			if index+1 < len(src) {
 				if IsCharacterToken(src[index+1]) {
-					break
+					if !(src[index+1] == '.' &&
+					   ((index >= 0       && src[index] >= 48 && src[index] <= 57) ||
+						(index + 2 < len(src) && src[index+2] >= 48 && src[index+2] <= 57))) {
+						break
+					}
 				}
 			}
 
@@ -72,7 +80,7 @@ func Lex(src string) ([]Token) {
 				}
 				char = byte(v)
 			}
-			next_token := Token{TOKEN_INT_LITERAL, l0, c0, l1, c1, int64(char), ""}
+			next_token := Token{TOKEN_INT_LITERAL, l0, c0, l1, c1, int64(char), "", 0}
 			res = append(res, next_token)
 
 			c1++
@@ -120,7 +128,7 @@ func Lex(src string) ([]Token) {
 					fmt.Printf("%d:%d: lexical error: %s\n", l1, c1, err)	
 				}
 			}
-			next_token := Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, next_token_str}
+			next_token := Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, next_token_str, 0}
 			res = append(res, next_token)
 
 			c1++

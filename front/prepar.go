@@ -70,11 +70,11 @@ func lex_directive(src string) ([]Token) {
 		if len(next_token_str) > 0 {
 			var next_token Token
 			if next_token_str[0] == '"' {
-				 next_token = Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, next_token_str[1:len(next_token_str) - 1]}
+				 next_token = Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, next_token_str[1:len(next_token_str) - 1], 0}
 			} else {
 				switch next_token_str {
 					case "import": 
-						 next_token = Token{directive_IMPORT, l0, c0, l1, c1, 0, next_token_str}
+						 next_token = Token{directive_IMPORT, l0, c0, l1, c1, 0, next_token_str, 0}
 				}
 			}
 

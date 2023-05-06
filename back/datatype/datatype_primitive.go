@@ -10,15 +10,17 @@ const (
 	TYPE_INT32  = PrimitiveType(iota)
 	TYPE_INT16  = PrimitiveType(iota)
 	TYPE_INT8  = PrimitiveType(iota)
-
 	TYPE_UINT64  = PrimitiveType(iota)
 	TYPE_UINT32  = PrimitiveType(iota)
 	TYPE_UINT16  = PrimitiveType(iota)
 	TYPE_UINT8  = PrimitiveType(iota)
-
 	TYPE_INT_LITERAL = PrimitiveType(iota)
 
 	TYPE_BOOL  = PrimitiveType(iota)
+
+	TYPE_F64  = PrimitiveType(iota)
+	TYPE_F32  = PrimitiveType(iota)
+	TYPE_FLOAT_LITERAL = PrimitiveType(iota)
 
 	// works only as pointer and array! It's basically C's void type~ ^^;
 	TYPE_GENERIC  = PrimitiveType(iota)
@@ -41,6 +43,10 @@ func (typ PrimitiveType) Name() string {
 		case TYPE_INT_LITERAL: return "int_literal"
 
 		case TYPE_BOOL: return "bool"
+
+		case TYPE_F64:  return "f64"
+		case TYPE_F32:  return "f32"
+		case TYPE_FLOAT_LITERAL:  return "float_literal"
 		
 		case TYPE_GENERIC: return "?"
 	}
@@ -63,6 +69,10 @@ func (typ PrimitiveType) BitSize() uint64 {
 		case TYPE_INT_LITERAL: return 64
 
 		case TYPE_BOOL: return 8
+		
+		case TYPE_F64:  return 64
+		case TYPE_F32:  return 32
+		case TYPE_FLOAT_LITERAL:  return 64
 		
 		case TYPE_GENERIC: return 8
 	}
@@ -92,6 +102,18 @@ func IsIntegerType(typ DataType) bool {
 	return false
 }
 
+func IsFloatType(typ DataType) bool {
+	switch typ.(type) {
+		case PrimitiveType:
+			return typ == TYPE_F64  ||
+				   typ == TYPE_F32  ||
+				   
+				   typ == TYPE_FLOAT_LITERAL
+	}
+	return false
+}
+
+
 // true = signed / false = unsigned
 func (typ PrimitiveType) Sign() bool {
 	return typ == TYPE_INT64  ||
@@ -99,7 +121,11 @@ func (typ PrimitiveType) Sign() bool {
 		   typ == TYPE_INT16  ||
 		   typ == TYPE_INT8	  ||
 
-		   typ == TYPE_INT_LITERAL
+		   typ == TYPE_F64	  ||
+		   typ == TYPE_F32	  ||
+
+		   typ == TYPE_INT_LITERAL ||
+		   typ == TYPE_FLOAT_LITERAL 
 
 }
 
