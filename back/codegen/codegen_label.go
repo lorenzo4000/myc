@@ -35,7 +35,9 @@ func (lbl Label) LiteralValue() Operand {
 }
 
 func (lbl Label) Dereference() Operand {
-	return LabelGet("(" + lbl.text + ")")	
+	l := LabelGet("(" + lbl.text + ")")	
+	l.datatype = lbl.datatype
+	return l
 }
 
 var labels_count int = 0

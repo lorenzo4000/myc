@@ -333,31 +333,12 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			// get bits of floating point number
 			f := ast.Data[0].Float_value
 
-			f_bits := uint64(0)
-			switch ast.DataType.ByteSize() {
-				case 8:
-					f_bits = math.Float64bits(f)
-				case 4:
-					f_bits = uint64(math.Float32bits(float32(f)))
-				
-			}
-			
-			// load to scratch
-			var full bool
-			reg, full := RegisterScratchAllocate(ast.DataType)
-			if full {
-				allocation = StackAllocate(ast.DataType).Reference()
-			} else {
-				allocation, _ = reg.Class.GetRegister(datatype.TYPE_F64)
-			}
-			
-			load := GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(f_bits), 10}, allocation)
-			out.Code.Appendln(load.Code)
+			f_bits := math.Float64bits(f)
 
-			if !full {
-				allocation = reg
-			}
+			f_label := LabelGen()
 
+			out.Code.Appendln(f_label + ": ", )
+			
 		case front.TOKEN_BOOL_LITERAL:
 			var full bool
 			reg, full := RegisterScratchAllocate(ast.DataType)
@@ -810,108 +791,47 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			expression := children_out[1].Result
 
 			var result Operand
-			if datatype.IsIntegerType(ast.DataType) {
-				var result_expression_type_view Operand
-				reg, full := RegisterScratchAllocate(ast.DataType)
-				if full {
-					result = StackAllocate(ast.DataType).Reference()
+			var result_expression_type_view Operand
+			reg, full := RegisterScratchAllocate(ast.DataType)
+			if full {
+				result = StackAllocate(ast.DataType).Reference()
 
-					view := result.(Memory_Reference)
-					view.DataType = datatype.TYPE_INT64
+				view := result.(Memory_Reference)
+				view.DataType = datatype.TYPE_INT64
 
-					result_expression_type_view = view
-				} else {
-					result = reg
-					err := false
-					result_expression_type_view, err = reg.Class.GetRegister(datatype.TYPE_INT64)
-					if err {
-						fmt.Println("codegen error: could not find sub 64-bit for type casting")
-					}
-				}
-
-				var expression_view Operand
-				switch expression.(type) {
-				case Register:
-					err := false
-					expression_view, err = expression.(Register).Class.GetRegister(ast.DataType)
-					if err {
-						fmt.Println("codegen error: could not find sub 64-bit for type casting")
-					}
-				case Memory_Reference:
-					view := expression.(Memory_Reference)
-					view.DataType = ast.DataType
-					expression_view = view
-				}
-
-				move := GEN_move(expression_view, result)
-				out.Code.Appendln(move.Code)
-
-				mask := uint64(1<<expression.Type().BitSize()) - uint64(1)
-				rax, _ := REGISTER_RAX.GetRegister(result_expression_type_view.Type())
-				out.Code.Appendln(GEN_move(Asm_Int_Literal{result_expression_type_view.Type(), int64(mask), 10}, rax).Code)
-				mask_code := ii("andq", rax, result_expression_type_view)
-				out.Code.TextAppendSln(mask_code)
-			} else { // float
-				// ** allocate xmm() result
-				reg, full := register_xmm_allocate(ast.DataType)
-				var save Operand
-				if full {
-					var reg Register
-					switch expression.(type) {
-						case Register:
-							for _, x := range [16]RegisterClass{REGISTER_XMM0,  REGISTER_XMM1, 
-																REGISTER_XMM2,  REGISTER_XMM3, 
-																REGISTER_XMM4,  REGISTER_XMM5,
-																REGISTER_XMM6,  REGISTER_XMM7,
-																REGISTER_XMM8,  REGISTER_XMM9,
-																REGISTER_XMM10, REGISTER_XMM11,
-																REGISTER_XMM12, REGISTER_XMM13,
-																REGISTER_XMM14, REGISTER_XMM15} {
-								if x != expression.(Register).Class  {
-									reg, _ = x.GetRegister(expression.Type())
-									break
-								}
-							}
-					}
-
-					save = StackAllocate(reg.Type()).Reference()
-					out.Code.Appendln(GEN_move(reg, save).Code)
-				} 
-
-				// ** convert
-				if expression.Type().ByteSize() == 8 {
-					if ast.DataType.ByteSize() == 4 {
-						out.Code.TextAppendSln(ii("cvtsd2ss", expression, reg))
-					} else { // 8 (do nothing)
-						reg.Free()
-						result = expression
-						goto casting_done
-					}
-				} else { // 4
-					if ast.DataType.ByteSize() == 8 {
-						out.Code.TextAppendSln(ii("cvtss2sd", expression, reg))
-					} else { // 4 (do nothing)
-						reg.Free()
-						result = expression
-						goto casting_done
-					}
-				}
-
-				// ** put result into new allocation
-				result, full = RegisterScratchAllocate(ast.DataType)
-				if full {
-					result = StackAllocate(ast.DataType).Reference()
-				}
-
-				out.Code.Appendln(GEN_move(reg, result).Code)
-
-				if full {
-					// restore save
-					out.Code.Appendln(GEN_move(save, reg).Code)
+				result_expression_type_view = view
+			} else {
+				result = reg
+				err := false
+				result_expression_type_view, err = reg.Class.GetRegister(datatype.TYPE_INT64)
+				if err {
+					fmt.Println("codegen error: could not find sub 64-bit for type casting")
 				}
 			}
 
-			casting_done:
+			var expression_view Operand
+			switch expression.(type) {
+			case Register:
+				err := false
+				expression_view, err = expression.(Register).Class.GetRegister(ast.DataType)
+				if err {
+					fmt.Println("codegen error: could not find sub 64-bit for type casting")
+				}
+			case Memory_Reference:
+				view := expression.(Memory_Reference)
+				view.DataType = ast.DataType
+				expression_view = view
+			}
+
+			move := GEN_move(expression_view, result)
+			out.Code.Appendln(move.Code)
+
+			mask := uint64(1<<expression.Type().BitSize()) - uint64(1)
+			rax, _ := REGISTER_RAX.GetRegister(result_expression_type_view.Type())
+			out.Code.Appendln(GEN_move(Asm_Int_Literal{result_expression_type_view.Type(), int64(mask), 10}, rax).Code)
+			mask_code := ii("andq", rax, result_expression_type_view)
+			out.Code.TextAppendSln(mask_code)
+
 			out.Result = result
 		}
 	case front.AST_STRUCT_DEFINITION_BODY:

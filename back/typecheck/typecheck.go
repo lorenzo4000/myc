@@ -1133,13 +1133,15 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			casting_type := ast.Children[0].DataType
 			expression_type := ast.Children[1].DataType
 			
-			// NOTE: For now it's only valid if they are both integer types.
+			// NOTE: For now it's only valid if they are both integer and float types.
 			switch casting_type.(type) {
 				case datatype.PrimitiveType: 
 					switch expression_type.(type) {
 						case datatype.PrimitiveType:
-							if !datatype.IsIntegerType(casting_type) && 
-								datatype.IsIntegerType(expression_type) {
+							if !((datatype.IsIntegerType(casting_type) && 
+							      datatype.IsIntegerType(expression_type)) ||
+								 (datatype.IsFloatType(casting_type) && 
+							      datatype.IsFloatType(expression_type))) {
 								typeErrorAt(ast, "cannot cast `%s` to `%s`", expression_type.Name(), casting_type.Name())
 								return nil
 							}

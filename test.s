@@ -1,36 +1,473 @@
-AST_HEAD : 
-	AST_FUNCTION_DEFINITION() : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = main, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-		AST_BODY() | ASTO_BODY_FUNCTION : 
-			AST_VARIABLE_DEFINITION(f32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = f, float_value = 0E+00 ]
-				AST_DATATYPE(f32) : [ int_value = 0, string_value = f32, float_value = 0E+00 ]
-				AST_OP_MUL(f32) : 
-					AST_LITERAL(f32) : [ int_value = 0, string_value = , float_value = 5.56E+00 ]
-					AST_LITERAL(f32) : [ int_value = 0, string_value = , float_value = 3.34E+00 ]
-			AST_OP_EMUL(f32) : 
-				AST_VARIABLE_NAME(f32) : [ int_value = 0, string_value = f, float_value = 0E+00 ]
-				AST_LITERAL(f32) : [ int_value = 0, string_value = , float_value = 2.02E+00 ]
-			AST_OP_ESUM(f32) : 
-				AST_VARIABLE_NAME(f32) : [ int_value = 0, string_value = f, float_value = 0E+00 ]
-				AST_LITERAL(f32) : [ int_value = 0, string_value = , float_value = 4.23E+00 ]
-panic: runtime error: invalid memory address or nil pointer dereference
-[signal SIGSEGV: segmentation violation code=0x1 addr=0x30 pc=0x4f4550]
+.text
 
-goroutine 1 [running]:
-mycgo/back/codegen.GEN_binop(0x19, {0x0, 0x0}, {0x0?, 0x0?})
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen_amd64.go:2384 +0xb0
-mycgo/back/codegen.Codegen(0xc000066460)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:605 +0x8715
-mycgo/back/codegen.Codegen(0xc0000662d0)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:146 +0x1ba
-mycgo/back/codegen.Codegen(0xc000066280)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:146 +0x1ba
-mycgo/back/codegen.Codegen(0xc0000660f0)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:146 +0x1ba
-mycgo/back/codegen.Codegen(0xc0000660a0)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:146 +0x1ba
-main.main()
-	/home/lorenzo/Projects/mycgo/main/main.go:148 +0x8d8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.string "\0main"
+.global main
+main:
+pushq %rbp
+
+movq %rsp, %rbp
+
+subq $304, %rsp
+
+
+
+
+
+movq $1085401989, %rbx
+
+
+
+movq $1079362191, %r12
+
+
+
+movq %rbx, %xmm0
+
+
+movq %r12, %xmm1
+
+
+addss %xmm1, %xmm0
+
+
+
+movq %xmm0, -229(%rbp, 1)
+
+
+
+
+
+
+
+cvtss2sd -229(%rbp, 1), %xmm1
+
+movq %xmm1, %r13
+
+
+
+
+movabsq $4644782549876468613, %r14
+
+
+
+
+
+movabsq $4632156286108670362, %r15
+
+
+
+
+
+pushq %rbx
+movabsq $4632156286108670362, %rbx
+
+
+movq %rbx, -237(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+movabsq $4632156286108670362, %rbx
+
+
+movq %rbx, -245(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+movq $45, %rbx
+
+
+movq %rbx, -253(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+xorq %rbx, %rbx
+movq -253(%rbp, 1), %rbx
+
+
+movq %rbx, -261(%rbp, 1)
+popq %rbx
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -261(%rbp, 1)
+
+
+
+pushq %rbx
+movq $235, %rbx
+
+
+movq %rbx, -269(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+xorq %rbx, %rbx
+movq -269(%rbp, 1), %rbx
+
+
+movq %rbx, -277(%rbp, 1)
+popq %rbx
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -277(%rbp, 1)
+
+
+
+pushq %rbx
+movq $434, %rbx
+
+
+movq %rbx, -285(%rbp, 1)
+
+popq %rbx
+
+
+pushq %rbx
+xorq %rbx, %rbx
+movq -285(%rbp, 1), %rbx
+
+
+movq %rbx, -293(%rbp, 1)
+popq %rbx
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -293(%rbp, 1)
+
+
+movq $.L1, %rdi
+
+
+movq %r13, %xmm0
+
+
+movq %r14, %xmm1
+
+
+movq %r15, %xmm2
+
+
+movq -237(%rbp, 1), %xmm3
+
+
+movq -245(%rbp, 1), %xmm4
+
+
+movq -261(%rbp, 1), %rsi
+
+
+movq -277(%rbp, 1), %rdx
+
+
+movq -293(%rbp, 1), %rcx
+
+
+
+movq $1, %rax
+
+
+call printf
+
+addq $32, %rsp
+
+movl %eax, -297(%rbp, 1)
+
+
+
+
+
+._main:
+movq %rbp, %rsp
+
+popq %rbp
+
+ret
+
+
+
+ 
+function_name:
+	pushq %rbp
+	movq %rsp, %rbp
+
+	// skip null-termination
+	decq %rdi
+	decq %rdi
+
+	f_name_loop:
+	cmpb $0, (%rdi)
+	je  f_name_loop_exit
+
+	decq %rdi
+	jmp f_name_loop
+
+	f_name_loop_exit:
+	incq %rdi
+	movq %rdi, %rax
+
+	movq %rbp, %rsp
+	popq %rbp
+	ret
+	
+
+.string "\0stack_trace"
+.global stack_trace
+stack_trace:
+	pushq %rbp
+	movq %rsp, %rbp
+
+	stack_trace_loop:
+	// check if i am at the bottom of the stack and exit 
+	
+	
+
+
+	// call instruction address 
+	movq 8(%rbp), %rbx
+	
+	// to get the address of the current function, we
+	// read the call instruction:
+	// let's assume the opcode is big 1 byte, and the operand (address) is 
+	// big 4 bytes.
+
+	// read the opcode
+	movb -5(%rbx), %sil
+
+	//op E8 means relative addressing
+	cmpb $0xe8, %sil
+	je stack_trace_relative
+	
+	jmp stack_trace_absolute
+	stack_trace_relative:
+	// read function address
+	xorq %r12, %r12
+	movl -4(%rbx), %r12d
+	
+	// add to caller address
+	addl %ebx, %r12d
+
+	movq %r12, %rdi
+	call function_name
+
+	movq %rax, %rsi
+	movq $stack_trace_message, %rdi
+	call printf
+	jmp stack_trace_continue
+
+	stack_trace_absolute:
+	// read function address
+	xorq %r12, %r12
+	movl -4(%rbx), %r12d
+
+	movq %r12, %rdi
+	call function_name
+
+	movq %rax, %rsi
+	movq $stack_trace_message, %rdi
+	call printf
+	
+	stack_trace_continue:
+	// if function address is == main, we are at the end!
+	cmpq $main, %r12
+	je stack_trace_exit
+
+	// base pointer of caller
+	movq (%rbp), %rbp  
+	jmp stack_trace_loop
+	
+	stack_trace_exit:
+	movq %rbp, %rsp
+	popq %rbp
+	ret
+	
+ 
+.string "\0err_oob"
+.global err_oob
+err_oob:
+	pushq %rbp
+	movq %rsp, %rbp
+
+	// rsi = index; rdx = length
+	movq $err_oob_message, %rdi
+	call printf
+
+	call stack_trace
+	call exit
+
+.string "\0_mystart"
+.global _mystart
+_mystart:
+
+	// rdi, rsi: args
+	// (skip argc)
+	leaq 8(%rsp), %rdi
+	xorq %rsi, %rsi
+	_mystart_args_loop:
+	// if NULL end
+	cmpq $0, (%rdi, %rsi, 8)
+	je _mystart_args_loop_end
+	incq %rsi
+	jmp _mystart_args_loop
+	_mystart_args_loop_end:
+
+	// rdx, rcx: envs
+	// (skip null)
+	leaq 8(%rdi, %rsi, 8), %rdx
+	xorq %rcx, %rcx
+	_mystart_envs_loop:
+	cmpq $0, (%rdx, %rcx, 8)
+	je _mystart_envs_loop_end
+	incq %rcx
+	jmp _mystart_envs_loop
+	_mystart_envs_loop_end:
+	
+	call main
+	movq %rax, %rdi
+
+	call exit
+
+
+.data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L1: .byte 37, 102, 44, 32, 37, 102, 44, 32, 37, 102, 44, 32, 37, 102, 44, 32, 37, 102, 44, 32, 37, 117, 44, 32, 37, 117, 44, 32, 37, 117, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+err_oob_message: .string "runtime error: index %lld is out of boundaries, with length %lld.\n"
+stack_trace_message: .string "at function %s\n"
+
+

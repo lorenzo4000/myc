@@ -14,6 +14,7 @@ import (
 
 // === Register ===
 const (
+	REG_SUB_DOUBLE = byte(iota)
 	REG_SUB_Q = byte(iota)
 	REG_SUB_D = byte(iota)
 	REG_SUB_W = byte(iota)
@@ -25,9 +26,10 @@ const (
 	REG_KIND_MASK  = byte(0xE0)
 	REG_KIND_MASKI = REG_KIND_MASK ^ 0xFF
 
-	REG_KIND_QDWBb = byte(0x20)
-	REG_KIND_QDWB  = byte(0x40)
-	REG_KIND_QDW   = byte(0x80)
+	REG_KIND_QDWBb = byte(0b0010_0000)
+	REG_KIND_QDWB  = byte(0b0100_0000)
+	REG_KIND_QDW   = byte(0b1000_0000)
+	REG_KIND_XMM   = byte(0b1010_0000)
 )
 
 type RegisterClass byte
@@ -63,28 +65,62 @@ const (
 	REGISTER_RIP    = RegisterClass(iota | REG_KIND_QDW)
 	REGISTER_RFLAGS = RegisterClass(iota | REG_KIND_QDW)
 
+	REGISTER_XMM0    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM1    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM2    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM3    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM4    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM5    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM6    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM7    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM8    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM9    = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM10   = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM11   = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM12   = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM13   = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM14   = RegisterClass(iota | REG_KIND_XMM)
+	REGISTER_XMM15   = RegisterClass(iota | REG_KIND_XMM)
+
 	N_REGISTERS = iota
 )
 
 var RegistersStr = [N_REGISTERS][REG_SUB_MAX]string{
-	{"%rax", "%eax", "%ax", "%al", "%ah"},
-	{"%rdi", "%edi", "%di", "%dil"},
-	{"%rsi", "%esi", "%si", "%sil"},
-	{"%rdx", "%edx", "%dx", "%dl", "%dh"},
-	{"%rcx", "%ecx", "%cx", "%cl", "%ch"},
-	{"%r8", "%r8d", "%r8w", "%r8b"},
-	{"%r9", "%r9d", "%r9w", "%r9b"},
-	{"%r10", "%r10d", "%r10w", "%r10b"},
-	{"%r11", "%r11d", "%r11w", "%r11b"},
-	{"%rsp", "%esp", "%sp", "%spl"},
-	{"%rbx", "%ebx", "%bx", "%bl", "%bh"},
-	{"%rbp", "%ebp", "%bp", "%bpl"},
-	{"%r12", "%r12d", "%r12w", "%r12b"},
-	{"%r13", "%r13d", "%r13w", "%r13b"},
-	{"%r14", "%r14d", "%r14w", "%r14b"},
-	{"%r15", "%r15d", "%r15w", "%r15b"},
-	{"%rip", "%eip", "%ip"},
-	{"%rflags", "%eflags", "%flags"},
+	{"", "%rax", "%eax", "%ax", "%al", "%ah"},
+	{"", "%rdi", "%edi", "%di", "%dil"},
+	{"", "%rsi", "%esi", "%si", "%sil"},
+	{"", "%rdx", "%edx", "%dx", "%dl", "%dh"},
+	{"", "%rcx", "%ecx", "%cx", "%cl", "%ch"},
+	{"", "%r8", "%r8d", "%r8w", "%r8b"},
+	{"", "%r9", "%r9d", "%r9w", "%r9b"},
+	{"", "%r10", "%r10d", "%r10w", "%r10b"},
+	{"", "%r11", "%r11d", "%r11w", "%r11b"},
+	{"", "%rsp", "%esp", "%sp", "%spl"},
+	{"", "%rbx", "%ebx", "%bx", "%bl", "%bh"},
+	{"", "%rbp", "%ebp", "%bp", "%bpl"},
+	{"", "%r12", "%r12d", "%r12w", "%r12b"},
+	{"", "%r13", "%r13d", "%r13w", "%r13b"},
+	{"", "%r14", "%r14d", "%r14w", "%r14b"},
+	{"", "%r15", "%r15d", "%r15w", "%r15b"},
+	{"", "%rip", "%eip", "%ip"},
+	{"", "%rflags", "%eflags", "%flags"},
+
+	{"%xmm0"},
+	{"%xmm1"},
+	{"%xmm2"},
+	{"%xmm3"},
+	{"%xmm4"},
+	{"%xmm5"},
+	{"%xmm6"},
+	{"%xmm7"},
+	{"%xmm8"},
+	{"%xmm9"},
+	{"%xmm10"},
+	{"%xmm11"},
+	{"%xmm12"},
+	{"%xmm13"},
+	{"%xmm14"},
+	{"%xmm15"},
 }
 
 func (reg RegisterClass) register_from_sub(sub byte) Register {
@@ -99,6 +135,9 @@ func (reg RegisterClass) GetRegister(typ datatype.DataType) (Register, bool) {
 
 	var r Register
 	switch reg_kind {
+	case REG_KIND_XMM:
+		r = reg.register_from_sub(REG_SUB_DOUBLE)
+		r.Datatype = typ
 	case REG_KIND_QDW:
 		switch bit_size {
 		case 64:
@@ -282,8 +321,8 @@ func RegisterScratchFreeAll() {
 	}
 }
 
-func register_argument_allocate(sub byte) (Register, bool) {
-	for _, s := range ArgumentRegisters {
+func register_integer_argument_allocate(sub byte) (Register, bool) {
+	for _, s := range IntegerArgumentRegisters {
 		if sub == REG_SUB_B {
 			if byte(s)&REG_KIND_MASK > REG_KIND_QDWB {
 				continue
@@ -306,23 +345,72 @@ func register_argument_allocate(sub byte) (Register, bool) {
 	return Register{}, true
 }
 
+func register_float_argument_allocate(_type datatype.DataType) (Register, bool) {
+	for _, s := range FloatArgumentRegisters {
+		if !registers_alloc[byte(s) & REG_KIND_MASKI][REG_SUB_DOUBLE]  {
+			s.Allocate()
+			return s.GetRegister(_type)
+		}
+	}
+	return Register{}, true
+}
+
+func register_xmm_allocate(_type datatype.DataType) (Register, bool) {
+	for _, r := range [16]RegisterClass{REGISTER_XMM0,  REGISTER_XMM1, 
+									    REGISTER_XMM2,  REGISTER_XMM3, 
+									    REGISTER_XMM4,  REGISTER_XMM5,
+									    REGISTER_XMM6,  REGISTER_XMM7,
+									    REGISTER_XMM8,  REGISTER_XMM9,
+									    REGISTER_XMM10, REGISTER_XMM11,
+									    REGISTER_XMM12, REGISTER_XMM13,
+									    REGISTER_XMM14, REGISTER_XMM15} {
+		if !registers_alloc[byte(r) & REG_KIND_MASKI][REG_SUB_DOUBLE]  {
+			r.Allocate()
+			return r.GetRegister(_type)
+		}
+	}
+	return Register{}, true
+
+}
+
+func register_xmm_free_all() {
+	for _, r := range [16]RegisterClass{REGISTER_XMM0,  REGISTER_XMM1, 
+									    REGISTER_XMM2,  REGISTER_XMM3, 
+									    REGISTER_XMM4,  REGISTER_XMM5,
+									    REGISTER_XMM6,  REGISTER_XMM7,
+									    REGISTER_XMM8,  REGISTER_XMM9,
+									    REGISTER_XMM10, REGISTER_XMM11,
+									    REGISTER_XMM12, REGISTER_XMM13,
+									    REGISTER_XMM14, REGISTER_XMM15} {
+		r.Free()
+	}
+}
+
 func RegisterArgumentAllocate(_type datatype.DataType) (Register, bool) {
 	var r Register
 	f := false
 	switch _type.BitSize() {
 	case 64:
-		r, f = register_argument_allocate(REG_SUB_Q)
+		if datatype.IsFloatType(_type) {
+			r, f = register_float_argument_allocate(_type)
+		} else {
+			r, f = register_integer_argument_allocate(REG_SUB_Q)
+		}
 		r.Datatype = _type
 	case 32:
-		r, f = register_argument_allocate(REG_SUB_D)
+		if datatype.IsFloatType(_type) {
+			r, f = register_float_argument_allocate(_type)
+		} else {
+			r, f = register_integer_argument_allocate(REG_SUB_D)
+		}
 		r.Datatype = _type
 	case 16:
-		r, f = register_argument_allocate(REG_SUB_W)
+		r, f = register_integer_argument_allocate(REG_SUB_W)
 		r.Datatype = _type
 	case 8:
-		r, f = register_argument_allocate(REG_SUB_B)
+		r, f = register_integer_argument_allocate(REG_SUB_B)
 		if f {
-			r, f = register_argument_allocate(REG_SUB_b)
+			r, f = register_integer_argument_allocate(REG_SUB_b)
 			if f {
 				return Register{}, f
 			}
@@ -335,9 +423,10 @@ func RegisterArgumentAllocate(_type datatype.DataType) (Register, bool) {
 }
 
 func RegisterArgumentFreeAll() {
-	for _, s := range ArgumentRegisters {
+	for _, s := range IntegerArgumentRegisters {
 		s.Free()
 	}
+	register_xmm_free_all()
 }
 
 var ScratchRegisters = [5]RegisterClass{
@@ -348,13 +437,24 @@ var ScratchRegisters = [5]RegisterClass{
 	REGISTER_R15,
 }
 
-var ArgumentRegisters = [6]RegisterClass{
+var IntegerArgumentRegisters = [6]RegisterClass{
 	REGISTER_RDI,
 	REGISTER_RSI,
 	REGISTER_RDX,
 	REGISTER_RCX,
 	REGISTER_R8,
 	REGISTER_R9,
+}
+
+var FloatArgumentRegisters = [8]RegisterClass {
+	REGISTER_XMM0,
+	REGISTER_XMM1,
+	REGISTER_XMM2,
+	REGISTER_XMM3,
+	REGISTER_XMM4,
+	REGISTER_XMM5,
+	REGISTER_XMM6,
+	REGISTER_XMM7,
 }
 
 const RETURN_REGISTER = REGISTER_RAX
@@ -491,8 +591,6 @@ func (stack Stack_Region) Reference() Memory_Reference {
 
 func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_regs *[]RegisterClass) Codegen_Out {
 	res := Codegen_Out{}
-	res.Code.TextAppendSln("// mem_reference_to_regs() {\n")
-	res.Code.TextAppendSln("// reserved regs : " + fmt.Sprintln(*reserved_regs))
 
 	start_register := Operand(nil)
 	index_register := Operand(nil)
@@ -559,13 +657,11 @@ func mem_reference_to_regs(mem Memory_Reference, regs_pushed *[5]bool, reserved_
 	}
 
 	res.Result = mem
-
-	res.Code.TextAppendSln("\n//} mem_reference_to_regs()\n")
 	return res
 }
 
 func ii(op string, oprnds ...Operand) string {
-	instruction := "// ii() {\n"
+	instruction := ""
 	pre_memory_reference_code := make([]string, len(oprnds))
 
 	cnt := 0
@@ -669,16 +765,13 @@ func ii(op string, oprnds ...Operand) string {
 		if allocation != nil {
 			instruction += ii("xorq", allocation, allocation)
 			allocation, _ = allocation.(Register).Class.GetRegister(oprnds[0].Type())
-		} else {
-			instruction += "// whhhaattt!??\n"
-		}
-
+		} 
 
 		// OOhhh good im gonna wrtie a master piece of code now
 		for i, oprnd := range oprnds { 
 			switch oprnd.(type) {
 				case Memory_Reference:
-					instruction += "// hello \n" + pre_memory_reference_code[i] + "\n // byee \n"
+					instruction += pre_memory_reference_code[i] 
 			}
 		}
 		
@@ -716,7 +809,7 @@ func ii(op string, oprnds ...Operand) string {
 			_allocation, _ := allocation.(Register).Class.GetRegister(datatype.TYPE_UINT64)
 			instruction += ii("popq", _allocation) + "\n"
 		}
-		return instruction + "\n// } ii()\n"
+		return instruction 
 	}
 
 	// OOhhh good im gonna wrtie a master piece of code now
@@ -742,7 +835,7 @@ func ii(op string, oprnds ...Operand) string {
 		}
 	}
 
-	return instruction + "\n// } ii()\n"
+	return instruction
 }
 
 // === runtime procedures ===
@@ -1043,7 +1136,19 @@ func GEN_load(v Operand, r Register) Codegen_Out {
 	res := Codegen_Out{}
 
 	switch v.(type) {
-		case Label: v = v.LiteralValue()
+		case Label: 
+			if v.Text()[0] != '(' {
+				v = v.LiteralValue()
+			}
+	}
+
+	if byte(r.Class) & REG_KIND_MASK == REG_KIND_XMM {
+		switch v.(type) {
+			case Register:
+				v, _ = v.(Register).Class.GetRegister(datatype.TYPE_F64)
+		}
+		res.Code.TextAppendSln(ii("movq", v, r))
+		return res
 	}
 
 	switch v.Type().BitSize() {
@@ -1081,8 +1186,18 @@ func GEN_store(v Operand, m Memory_Reference) Codegen_Out {
 	res := Codegen_Out{}
 	
 	switch v.(type) {
-		case Label: v = v.LiteralValue()
+		case Label: 
+			if v.Text()[0] != '(' {
+				v = v.LiteralValue()
+			}
+		case Register:
+			r := v.(Register)
+			if byte(r.Class) & REG_KIND_MASK == REG_KIND_XMM {
+				res.Code.TextAppendSln(ii("movq", r, m))
+				return res
+			}
 	}
+	
 
 	rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_INT64)
 
@@ -1801,10 +1916,12 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 		args = new_args
 	}
 
-	allocated_regs := 0
+	allocated_int_regs := 0
+	allocated_float_regs := 0
 	allocated_stack := int64(16) // return address (8B) + pushed rbp (8B)
 	for _, a := range args {
-		if (a.Type().ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters)-1)) {
+		if (datatype.IsIntegerType(a.Type()) && (a.Type().ByteSize() > 16 || allocated_int_regs >= len(IntegerArgumentRegisters) || (a.Type().ByteSize() > 8 && allocated_int_regs >= len(IntegerArgumentRegisters)-1))) ||
+		   (datatype.IsFloatType(a.Type()) && allocated_float_regs >= len(FloatArgumentRegisters)) {
 			rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_UINT64)
 
 			stack_region := Memory_Reference{
@@ -1833,17 +1950,9 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 
 			res.Code.Appendln(GEN_very_generic_move(RegisterPair{a.Type(), reg_a, reg_b}, a.(Memory_Reference)).Code)
 
-			allocated_regs += 2
+			allocated_int_regs += 2
 		} else {
 			var arg Operand
-			/*
-			switch a.(type) {
-			case Label:
-				arg = a.LiteralValue()
-			default:
-				arg = a
-			}
-			*/
 			arg = a
 
 			arg_reg, full := RegisterArgumentAllocate(arg.Type())
@@ -1851,8 +1960,12 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 				fmt.Println("codegen error: could not find an argument register for type `" + arg.Type().Name() + "`")
 				return res
 			}
-
-			allocated_regs++
+			
+			if datatype.IsFloatType(a.Type()) {
+				allocated_float_regs++
+			} else {
+				allocated_int_regs++
+			}
 
 			res.Code.Appendln(GEN_move(arg_reg, arg).Code)
 		}
@@ -1874,9 +1987,14 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 		}
 	}
 
-	allocated_regs := 0
+	// TODO: dont do thsi
+	register_xmm_free_all()
+
+	allocated_int_regs := 0
+	allocated_float_regs := 0
 	for i, a := range args {
-		if (params[i].ByteSize() > 16 || allocated_regs >= len(ArgumentRegisters) || (params[i].ByteSize() > 8 && allocated_regs >= len(ArgumentRegisters)-1)){ 
+		if (datatype.IsIntegerType(params[i]) && (params[i].ByteSize() > 16 || allocated_int_regs >= len(IntegerArgumentRegisters) || (params[i].ByteSize() > 8 && allocated_int_regs >= len(IntegerArgumentRegisters)-1))) ||
+		   (datatype.IsFloatType(params[i]) && allocated_float_regs >= len(FloatArgumentRegisters)) {
 			rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
 			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 
@@ -1908,19 +2026,10 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 				return res
 			}
 
-			allocated_regs += 2
+			allocated_int_regs += 2
 			res.Code.Appendln(GEN_very_generic_move(a, RegisterPair{params[i], reg_b, reg_a}).Code)
 		} else {
-
 			var arg Operand
-			/*
-			switch a.(type) {
-			case Label:
-				arg = a.LiteralValue()
-			default:
-				arg = a
-			}
-			*/
 			arg = a
 
 			arg_reg, full := RegisterArgumentAllocate(arg.Type())
@@ -1929,7 +2038,11 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 				return res
 			}
 
-			allocated_regs++
+			if datatype.IsFloatType(params[i]) {
+				allocated_float_regs++
+			} else {
+				allocated_int_regs++
+			}
 			res.Code.Appendln(GEN_load(arg, arg_reg).Code)
 		}
 	}
@@ -1989,14 +2102,23 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	// C uses rax to know if we are passing
 	// floating point arguments as varargs.
 	// TODO: do this only if varargs
-	res.Code.TextAppendSln(ii("xorq %rax, %rax"))
+	rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+
+	rax_value := Asm_Int_Literal{datatype.TYPE_UINT64, 0, 10}
+	for _, a := range args {
+		if datatype.IsFloatType(a.Type()) {
+			rax_value.Value = 1
+			break
+		}
+	}
+	res.Code.Appendln(GEN_move(rax_value, rax).Code)
 	name := LabelGet(function_name)
 	res.Code.TextAppendSln(ii("call", name))
 
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
 
 	nargs := len(f.Children)
-	nargs_in_stack := nargs - len(ArgumentRegisters)
+	nargs_in_stack := nargs - len(IntegerArgumentRegisters)
 	if nargs_in_stack > 0 {
 		reserved_stack := uint32(nargs_in_stack * 8)
 		if reserved_stack%16 != 0 {
@@ -2749,15 +2871,68 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			}
 			break
 		}
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("addq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("addl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("addw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("addb", r, l))
+
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
+
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto l_fine
+					}
+			}
+
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto r_fine
+					}
+				case Memory_Reference:
+					goto r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			r_fine:
+
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("addsd", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("addss", r, l))
+			}
+		} else {
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("addq", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("addl", r, l))
+			case 16:
+				res.Code.TextAppendSln(ii("addw", r, l))
+			case 8:
+				res.Code.TextAppendSln(ii("addb", r, l))
+			}
 		}
 		allocation = l
 	case front.AST_OP_SUB, front.AST_OP_ESUB:
