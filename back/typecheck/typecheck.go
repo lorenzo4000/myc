@@ -880,8 +880,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			   !(datatype.IsFloatType(ast.DataType) && (ast.Type == front.AST_OP_SUM ||
 			   										   	ast.Type == front.AST_OP_SUB ||
 													   	ast.Type == front.AST_OP_MUL ||
-													   	ast.Type == front.AST_OP_DIV ||
-													   	ast.Type == front.AST_OP_MOD)) &&
+													   	ast.Type == front.AST_OP_DIV )) &&
 			   !datatype_string.IsStaticStringType(ast.DataType) &&
 			   !ast.DataType.Equals(datatype_string.TYPE_STRING) {
 				typeErrorAt(ast, "invalid operation for types `%s` and `%s`", (*right_type).Name(), (*left_type).Name())

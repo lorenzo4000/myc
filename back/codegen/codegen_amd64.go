@@ -2437,15 +2437,30 @@ func GEN_uniop(t front.Ast_Type, v Operand) Codegen_Out {
 
 	switch t {
 	case front.AST_OP_NEG:
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("negq", v))
-		case 32:
-			res.Code.TextAppendSln(ii("negl", v))
-		case 16:
-			res.Code.TextAppendSln(ii("negw", v))
-		case 8:
-			res.Code.TextAppendSln(ii("negb", v))
+		if datatype.IsFloatType(v.Type()) {
+			// load to scratch
+			var full bool
+			reg, full := RegisterScratchAllocate(v.Type())
+			if full {
+				allocation = StackAllocate(v.Type()).Reference()
+			} else {
+				allocation = reg
+			}
+			
+			res.Code.Appendln(GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, 0, 10}, allocation).Code)
+			res.Code.Appendln(GEN_binop(front.AST_OP_ESUB, allocation, v).Code)
+			res.Code.Appendln(GEN_move(allocation, v).Code)
+		} else {
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("negq", v))
+			case 32:
+				res.Code.TextAppendSln(ii("negl", v))
+			case 16:
+				res.Code.TextAppendSln(ii("negw", v))
+			case 8:
+				res.Code.TextAppendSln(ii("negb", v))
+			}
 		}
 		allocation = v
 	case front.AST_OP_NOT:
@@ -2922,6 +2937,8 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			case 32:
 				res.Code.TextAppendSln(ii("addss", r, l))
 			}
+			res.Code.Appendln(GEN_move(l, old_l).Code)
+			l = old_l
 		} else {
 			switch data_size {
 			case 64:
@@ -2936,15 +2953,69 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		}
 		allocation = l
 	case front.AST_OP_SUB, front.AST_OP_ESUB:
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("subq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("subl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("subw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("subb", r, l))
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
+
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto sub_l_fine
+					}
+			}
+
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			sub_l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto sub_r_fine
+					}
+				case Memory_Reference:
+					goto sub_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			sub_r_fine:
+
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("subsd", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("subss", r, l))
+			}
+			res.Code.Appendln(GEN_move(l, old_l).Code)
+			l = old_l
+		} else {	
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("subq", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("subl", r, l))
+			case 16:
+				res.Code.TextAppendSln(ii("subw", r, l))
+			case 8:
+				res.Code.TextAppendSln(ii("subb", r, l))
+			}
 		}
 		allocation = l
 	case front.AST_OP_MUL, front.AST_OP_EMUL:
@@ -3573,56 +3644,163 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		rax, _ := REGISTER_RAX.GetRegister(l.Type())
 		res.Code.Appendln(GEN_load(l, rax).Code)
 
-		switch r.Type().BitSize() {
-		case 64:
-			res.Code.TextAppendSln(ii("imulq", r, rax))
-		case 32:
-			res.Code.TextAppendSln(ii("imull", r, rax))
-		case 16:
-			res.Code.TextAppendSln(ii("imulw", r, rax))
-		case 8:
-			res.Code.TextAppendSln(ii("imulb", r))
-		}
-		res.Code.Appendln(GEN_move(rax, l).Code)
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
 
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto mul_l_fine
+					}
+			}
+
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			mul_l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto mul_r_fine
+					}
+				case Memory_Reference:
+					goto mul_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			mul_r_fine:
+
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("mulsd", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("mulss", r, l))
+			}
+			res.Code.Appendln(GEN_move(l, old_l).Code)
+			l = old_l
+		} else {
+			switch r.Type().BitSize() {
+			case 64:
+				res.Code.TextAppendSln(ii("imulq", r, rax))
+			case 32:
+				res.Code.TextAppendSln(ii("imull", r, rax))
+			case 16:
+				res.Code.TextAppendSln(ii("imulw", r, rax))
+			case 8:
+				res.Code.TextAppendSln(ii("imulb", r))
+			}
+			res.Code.Appendln(GEN_move(rax, l).Code)
+		}
 		allocation = l
 	case front.AST_OP_DIV, front.AST_OP_EDIV:
-		rax, _ := REGISTER_RAX.GetRegister(l.Type())
-		rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
-		rdx_64, _ := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
 
-		res.Code.TextAppendSln(ii("xorq", rdx_64, rdx_64))
-		res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto div_l_fine
+					}
+			}
 
-		res.Code.Appendln(GEN_load(l, rax).Code)
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			div_l_fine:
+		
 
-		switch r.(type) {
-			case Asm_Int_Literal:
-				var full bool
-				var right Operand
-				reg, full := RegisterScratchAllocate(r.Type())
-				if full {
-					 right = StackAllocate(r.Type()).Reference()
-				} else {
-					 right = reg
-				}
-				
-				res.Code.Appendln(GEN_move(r, right).Code)
-				
-				r = right
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto div_r_fine
+					}
+				case Memory_Reference:
+					goto div_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			div_r_fine:
+
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("divsd", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("divss", r, l))
+			}
+			res.Code.Appendln(GEN_move(l, old_l).Code)
+			l = old_l
+		} else {
+			rax, _ := REGISTER_RAX.GetRegister(l.Type())
+			rax_64, _ := REGISTER_RAX.GetRegister(datatype.TYPE_INT64)
+			rdx_64, _ := REGISTER_RDX.GetRegister(datatype.TYPE_INT64)
+
+			res.Code.TextAppendSln(ii("xorq", rdx_64, rdx_64))
+			res.Code.TextAppendSln(ii("xorq", rax_64, rax_64))
+
+			res.Code.Appendln(GEN_load(l, rax).Code)
+
+			switch r.(type) {
+				case Asm_Int_Literal:
+					var full bool
+					var right Operand
+					reg, full := RegisterScratchAllocate(r.Type())
+					if full {
+						 right = StackAllocate(r.Type()).Reference()
+					} else {
+						 right = reg
+					}
+					
+					res.Code.Appendln(GEN_move(r, right).Code)
+					
+					r = right
+			}
+
+			switch r.Type().BitSize() {
+			case 64:
+				res.Code.TextAppendSln(ii("idivq", r))
+			case 32:
+				res.Code.TextAppendSln(ii("idivl", r))
+			case 16:
+				res.Code.TextAppendSln(ii("idivw", r))
+			case 8:
+				res.Code.TextAppendSln(ii("idivb", r))
+			}
+			res.Code.Appendln(GEN_move(rax, l).Code)
 		}
-
-		switch r.Type().BitSize() {
-		case 64:
-			res.Code.TextAppendSln(ii("idivq", r))
-		case 32:
-			res.Code.TextAppendSln(ii("idivl", r))
-		case 16:
-			res.Code.TextAppendSln(ii("idivw", r))
-		case 8:
-			res.Code.TextAppendSln(ii("idivb", r))
-		}
-		res.Code.Appendln(GEN_move(rax, l).Code)
 
 		allocation = l
 	case front.AST_OP_MOD, front.AST_OP_EMOD:
@@ -3672,120 +3850,364 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		res.Code.Appendln(GEN_move(rem, l).Code)
 		allocation = l
 	case front.AST_OP_GRT:
-		var full bool
-		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-		if full {
-			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-		} else {
-			allocation = reg
-		}
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
 
-		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("cmpq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("cmpl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("cmpw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("cmpb", r, l))
-		}
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto grt_l_fine
+					}
+			}
 
-		if r.Type().(datatype.PrimitiveType).Sign() {
-			res.Code.TextAppendSln(ii("setg", allocation))
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			grt_l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto grt_r_fine
+					}
+				case Memory_Reference:
+					goto grt_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			grt_r_fine:
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpsd $14, ", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpss $14, ", r, l))
+			}
+
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+			_l, _ := l.(Register).Class.GetRegister(datatype.TYPE_BOOL)
+			res.Code.Appendln(GEN_move(_l, allocation).Code)
+			res.Code.TextAppendSln(ii("andb $1, ", allocation))
 		} else {
-			res.Code.TextAppendSln(ii("seta", allocation))
+			var full bool
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+
+			res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpq", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpl", r, l))
+			case 16:
+				res.Code.TextAppendSln(ii("cmpw", r, l))
+			case 8:
+				res.Code.TextAppendSln(ii("cmpb", r, l))
+			}
+
+			if r.Type().(datatype.PrimitiveType).Sign() {
+				res.Code.TextAppendSln(ii("setg", allocation))
+			} else {
+				res.Code.TextAppendSln(ii("seta", allocation))
+			}
 		}
 		switch l.(type) {
 		case Register:
 			l.(Register).Free()
 		}
 	case front.AST_OP_LES:
-		var full bool
-		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-		if full {
-			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-		} else {
-			allocation = reg
-		}
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
 
-		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("cmpq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("cmpl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("cmpw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("cmpb", r, l))
-		}
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto les_l_fine
+					}
+			}
 
-		if r.Type().(datatype.PrimitiveType).Sign() {
-			res.Code.TextAppendSln(ii("setl", allocation))
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			les_l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto les_r_fine
+					}
+				case Memory_Reference:
+					goto les_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			les_r_fine:
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpsd $1, ", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpss $1, ", r, l))
+			}
+
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+			_l, _ := l.(Register).Class.GetRegister(datatype.TYPE_BOOL)
+			res.Code.Appendln(GEN_move(_l, allocation).Code)
+			res.Code.TextAppendSln(ii("andb $1, ", allocation))
 		} else {
-			res.Code.TextAppendSln(ii("setb", allocation))
+			var full bool
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+
+			res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpq", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpl", r, l))
+			case 16:
+				res.Code.TextAppendSln(ii("cmpw", r, l))
+			case 8:
+				res.Code.TextAppendSln(ii("cmpb", r, l))
+			}
+
+			if r.Type().(datatype.PrimitiveType).Sign() {
+				res.Code.TextAppendSln(ii("setl", allocation))
+			} else {
+				res.Code.TextAppendSln(ii("setb", allocation))
+			}
 		}
 		switch l.(type) {
 		case Register:
 			l.(Register).Free()
 		}
 	case front.AST_OP_GOE:
-		var full bool
-		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-		if full {
-			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-		} else {
-			allocation = reg
-		}
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
 
-		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("cmpq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("cmpl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("cmpw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("cmpb", r, l))
-		}
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto goe_l_fine
+					}
+			}
 
-		if r.Type().(datatype.PrimitiveType).Sign() {
-			res.Code.TextAppendSln(ii("setge", allocation))
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			goe_l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto goe_r_fine
+					}
+				case Memory_Reference:
+					goto goe_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			goe_r_fine:
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpsd $13, ", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpss $13, ", r, l))
+			}
+
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+			_l, _ := l.(Register).Class.GetRegister(datatype.TYPE_BOOL)
+			res.Code.Appendln(GEN_move(_l, allocation).Code)
+			res.Code.TextAppendSln(ii("andb $1, ", allocation))
 		} else {
-			res.Code.TextAppendSln(ii("setae", allocation))
+			var full bool
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+
+			res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpq", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpl", r, l))
+			case 16:
+				res.Code.TextAppendSln(ii("cmpw", r, l))
+			case 8:
+				res.Code.TextAppendSln(ii("cmpb", r, l))
+			}
+
+			if r.Type().(datatype.PrimitiveType).Sign() {
+				res.Code.TextAppendSln(ii("setge", allocation))
+			} else {
+				res.Code.TextAppendSln(ii("setae", allocation))
+			}
 		}
 		switch l.(type) {
 		case Register:
 			l.(Register).Free()
 		}
 	case front.AST_OP_LOE:
-		var full bool
-		reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
-		if full {
-			allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
-		} else {
-			allocation = reg
-		}
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
 
-		res.Code.TextAppendSln(ii("xorb", allocation, allocation))
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("cmpq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("cmpl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("cmpw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("cmpb", r, l))
-		}
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto loe_l_fine
+					}
+			}
 
-		if r.Type().(datatype.PrimitiveType).Sign() {
-			res.Code.TextAppendSln(ii("setle", allocation))
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			loe_l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto loe_r_fine
+					}
+				case Memory_Reference:
+					goto loe_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			loe_r_fine:
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpsd $2, ", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpss $2, ", r, l))
+			}
+
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+			_l, _ := l.(Register).Class.GetRegister(datatype.TYPE_BOOL)
+			res.Code.Appendln(GEN_move(_l, allocation).Code)
+			res.Code.TextAppendSln(ii("andb $1, ", allocation))
 		} else {
-			res.Code.TextAppendSln(ii("setbe", allocation))
+			var full bool
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+
+			res.Code.TextAppendSln(ii("xorb", allocation, allocation))
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpq", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpl", r, l))
+			case 16:
+				res.Code.TextAppendSln(ii("cmpw", r, l))
+			case 8:
+				res.Code.TextAppendSln(ii("cmpb", r, l))
+			}
+
+			if r.Type().(datatype.PrimitiveType).Sign() {
+				res.Code.TextAppendSln(ii("setle", allocation))
+			} else {
+				res.Code.TextAppendSln(ii("setbe", allocation))
+			}
 		}
 		switch l.(type) {
 		case Register:
@@ -3992,18 +4414,79 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 			goto exit_eq
 		}
 
-		switch data_size {
-		case 64:
-			res.Code.TextAppendSln(ii("cmpq", r, l))
-		case 32:
-			res.Code.TextAppendSln(ii("cmpl", r, l))
-		case 16:
-			res.Code.TextAppendSln(ii("cmpw", r, l))
-		case 8:
-			res.Code.TextAppendSln(ii("cmpb", r, l))
-		}
+		if datatype.IsFloatType(l.Type()) {
+			old_l := l
+			full := false
 
-		res.Code.TextAppendSln(ii("sete", allocation))
+			switch l.(type) {
+				case Register :
+					if byte(l.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto equ_l_fine
+					}
+			}
+
+			// move l to xmm regs
+			l, full = register_xmm_allocate(l.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_l, l).Code)
+			
+			equ_l_fine:
+		
+
+			old_r := r
+			full = false
+
+			switch r.(type) {
+				case Register :
+					if byte(r.(Register).Class)&REG_KIND_MASK == REG_KIND_XMM { 
+						goto equ_r_fine
+					}
+				case Memory_Reference:
+					goto equ_r_fine
+			}
+
+			// move l to xmm regs
+			r, full = register_xmm_allocate(r.Type())
+			if full {
+				// TODO: something
+			}
+			res.Code.Appendln(GEN_move(old_r, r).Code)
+
+
+			equ_r_fine:
+
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpsd $0, ", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpss $0, ", r, l))
+			}
+
+			reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+			if full {
+				allocation = StackAllocate(datatype.TYPE_BOOL).Reference()
+			} else {
+				allocation = reg
+			}
+			_l, _ := l.(Register).Class.GetRegister(datatype.TYPE_BOOL)
+			res.Code.Appendln(GEN_move(_l, allocation).Code)
+			res.Code.TextAppendSln(ii("andb $1, ", allocation))
+		} else {
+			switch data_size {
+			case 64:
+				res.Code.TextAppendSln(ii("cmpq", r, l))
+			case 32:
+				res.Code.TextAppendSln(ii("cmpl", r, l))
+			case 16:
+				res.Code.TextAppendSln(ii("cmpw", r, l))
+			case 8:
+				res.Code.TextAppendSln(ii("cmpb", r, l))
+			}
+
+			res.Code.TextAppendSln(ii("sete", allocation))
+		}	
 		exit_eq:
 		switch l.(type) {
 		case Register:
@@ -4094,6 +4577,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		}
 		allocation = l
 	}
+
 
 	switch r.(type) {
 		case Register:

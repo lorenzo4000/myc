@@ -898,8 +898,9 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				}
 
 				// ** put result into new allocation
-				result, full = RegisterScratchAllocate(ast.DataType)
-				if full {
+				_full := false
+				result, _full = RegisterScratchAllocate(ast.DataType)
+				if _full {
 					result = StackAllocate(ast.DataType).Reference()
 				}
 

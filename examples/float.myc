@@ -1,10 +1,31 @@
 @import "lib/c/stdio.myc"
 
 function main() {
-	:f f32 = 5.56 + 3.34;
-	//f *= 2.02;
-	//f += 4.23;
+	:f f64 = 5.56 + 3.34;
+	printf("%G\n".data, [f64]f);
+	
+	f -= 3.34;
+	printf("%G\n".data, [f64]f);
+	
+	f *= 2.02;
+	printf("%G\n".data, [f64]f);
+	
+	f /= 4.5;
+	printf("%G\n".data, [f64]f);
 
-	printf("%f, %f, %f, %f, %f, %u, %u, %u\n".data,
-	    [f64]f, [f64]345.320, [f64]49.45, [f64]49.45, [f64]49.45, [uint64]45, [uint64]235, [uint64]434);
+	f = 6.345;
+
+	f = -f;
+
+	if f == 6.345 {
+		printf("%f == 6.345\n".data, f);
+	} else {
+		printf("%f != 6.345\n".data, f);
+	}
+
+	if f > 5.3 {
+		printf("%f > 5.3\n".data, f);
+	} else {
+		printf("%f <= 5.3\n".data, f);
+	}
 }
