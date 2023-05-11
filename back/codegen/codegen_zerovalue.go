@@ -16,6 +16,9 @@ func PrimitiveZeroValue(typ datatype.PrimitiveType) Operand {
 		case datatype.TYPE_UINT32: return Operand(Asm_Int_Literal{typ, 0, 10})
 		case datatype.TYPE_UINT16: return Operand(Asm_Int_Literal{typ, 0, 10})
 		case datatype.TYPE_UINT8: return Operand(Asm_Int_Literal{typ, 0, 10})
+		
+		case datatype.TYPE_F64: return Operand(Asm_Int_Literal{typ, 0, 10})
+		case datatype.TYPE_F32: return Operand(Asm_Int_Literal{typ, 0, 10})
 
 		case datatype.TYPE_BOOL: return Operand(Asm_Int_Literal{typ, 0, 10})
 	}

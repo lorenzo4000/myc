@@ -1137,10 +1137,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				case datatype.PrimitiveType: 
 					switch expression_type.(type) {
 						case datatype.PrimitiveType:
-							if !((datatype.IsIntegerType(casting_type) && 
-							      datatype.IsIntegerType(expression_type)) ||
-								 (datatype.IsFloatType(casting_type) && 
-							      datatype.IsFloatType(expression_type))) {
+							if !(datatype.IsIntegerType(casting_type) ||
+								 datatype.IsFloatType(casting_type))   && 
+							    (datatype.IsIntegerType(expression_type) ||
+							      datatype.IsFloatType(expression_type)) {
 								typeErrorAt(ast, "cannot cast `%s` to `%s`", expression_type.Name(), casting_type.Name())
 								return nil
 							}

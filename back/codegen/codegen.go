@@ -779,7 +779,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				r, full := RegisterScratchAllocate(value.Type())
 				if full {
 					v, _ = REGISTER_RBX.GetRegister(value.Type())
-					out.Code.TextAppendSln(ii("pushq", rbx))
+					out.Code.TextAppendSln(GEN_push(rbx).Code.Text)
 				} else {
 					v = r
 				}
@@ -789,7 +789,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				out.Code.Appendln(load.Code)
 
 				if full {
-					out.Code.TextAppendSln(ii("popq", rbx))
+					out.Code.TextAppendSln(GEN_pop(rbx).Code.Text)
 				} else {
 					r.Free()
 				}
@@ -811,52 +811,98 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			var result Operand
 			if datatype.IsIntegerType(ast.DataType) {
-				var result_expression_type_view Operand
-				reg, full := RegisterScratchAllocate(ast.DataType)
-				if full {
-					result = StackAllocate(ast.DataType).Reference()
+				if datatype.IsIntegerType(expression.Type()) {
+					// *** int to int
+					var result_expression_type_view Operand
+					reg, full := RegisterScratchAllocate(ast.DataType)
+					if full {
+						result = StackAllocate(ast.DataType).Reference()
 
-					view := result.(Memory_Reference)
-					view.DataType = datatype.TYPE_INT64
+						view := result.(Memory_Reference)
+						view.DataType = datatype.TYPE_INT64
 
-					result_expression_type_view = view
-				} else {
-					result = reg
-					err := false
-					result_expression_type_view, err = reg.Class.GetRegister(datatype.TYPE_INT64)
-					if err {
-						fmt.Println("codegen error: could not find sub 64-bit for type casting")
+						result_expression_type_view = view
+					} else {
+						result = reg
+						err := false
+						result_expression_type_view, err = reg.Class.GetRegister(datatype.TYPE_INT64)
+						if err {
+							fmt.Println("codegen error: could not find sub 64-bit for type casting")
+						}
 					}
+
+					var expression_view Operand
+					switch expression.(type) {
+					case Register:
+						err := false
+						expression_view, err = expression.(Register).Class.GetRegister(ast.DataType)
+						if err {
+							fmt.Println("codegen error: could not find sub 64-bit for type casting")
+						}
+					case Memory_Reference:
+						view := expression.(Memory_Reference)
+						view.DataType = ast.DataType
+						expression_view = view
+					}
+
+					move := GEN_move(expression_view, result)
+					out.Code.Appendln(move.Code)
+
+					mask := uint64(1<<expression.Type().BitSize()) - uint64(1)
+					rax, _ := REGISTER_RAX.GetRegister(result_expression_type_view.Type())
+					out.Code.Appendln(GEN_move(Asm_Int_Literal{result_expression_type_view.Type(), int64(mask), 10}, rax).Code)
+					mask_code := ii("andq", rax, result_expression_type_view)
+					out.Code.TextAppendSln(mask_code)
 				}
 
-				var expression_view Operand
-				switch expression.(type) {
-				case Register:
-					err := false
-					expression_view, err = expression.(Register).Class.GetRegister(ast.DataType)
-					if err {
-						fmt.Println("codegen error: could not find sub 64-bit for type casting")
+
+				if datatype.IsFloatType(expression.Type()) {
+					reg, full := RegisterScratchAllocate(ast.DataType)
+					var save Operand
+					if full {
+						switch expression.(type) {
+							case Register:
+								for _, x := range ScratchRegisters {
+									if x != expression.(Register).Class  {
+										reg, _ = x.GetRegister(ast.DataType)
+										break
+									}
+								}
+							default:
+								reg, _ = REGISTER_RBX.GetRegister(ast.DataType)
+									
+						}
+
+						save = StackAllocate(reg.Type()).Reference()
+						out.Code.Appendln(GEN_move(reg, save).Code)
+					} 
+
+					// *** float to int
+					if expression.Type().ByteSize() == 8 {
+						out.Code.TextAppendSln(ii("cvtsd2si", expression, reg))
+					} else { // 4
+						out.Code.TextAppendSln(ii("cvtss2si", expression, reg))
 					}
-				case Memory_Reference:
-					view := expression.(Memory_Reference)
-					view.DataType = ast.DataType
-					expression_view = view
+				
+					// ** put result into new allocation
+					_full := false
+					result, _full = RegisterScratchAllocate(ast.DataType)
+					if _full {
+						result = StackAllocate(ast.DataType).Reference()
+					}
+
+					out.Code.Appendln(GEN_move(reg, result).Code)
+
+					if full {
+						// restore save
+						out.Code.Appendln(GEN_move(save, reg).Code)
+					}
 				}
-
-				move := GEN_move(expression_view, result)
-				out.Code.Appendln(move.Code)
-
-				mask := uint64(1<<expression.Type().BitSize()) - uint64(1)
-				rax, _ := REGISTER_RAX.GetRegister(result_expression_type_view.Type())
-				out.Code.Appendln(GEN_move(Asm_Int_Literal{result_expression_type_view.Type(), int64(mask), 10}, rax).Code)
-				mask_code := ii("andq", rax, result_expression_type_view)
-				out.Code.TextAppendSln(mask_code)
-			} else { // float
+			} else if datatype.IsFloatType(ast.DataType) {
 				// ** allocate xmm() result
 				reg, full := register_xmm_allocate(ast.DataType)
 				var save Operand
 				if full {
-					var reg Register
 					switch expression.(type) {
 						case Register:
 							for _, x := range [16]RegisterClass{REGISTER_XMM0,  REGISTER_XMM1, 
@@ -868,10 +914,12 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 																REGISTER_XMM12, REGISTER_XMM13,
 																REGISTER_XMM14, REGISTER_XMM15} {
 								if x != expression.(Register).Class  {
-									reg, _ = x.GetRegister(expression.Type())
+									reg, _ = x.GetRegister(ast.DataType)
 									break
 								}
 							}
+						default:
+							reg, _ = REGISTER_XMM0.GetRegister(ast.DataType)
 					}
 
 					save = StackAllocate(reg.Type()).Reference()
@@ -879,21 +927,58 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				} 
 
 				// ** convert
-				if expression.Type().ByteSize() == 8 {
-					if ast.DataType.ByteSize() == 4 {
-						out.Code.TextAppendSln(ii("cvtsd2ss", expression, reg))
-					} else { // 8 (do nothing)
-						reg.Free()
-						result = expression
-						goto casting_done
+				if datatype.IsFloatType(expression.Type()) {
+					// *** float to float
+					if expression.Type().ByteSize() == 8 {
+						if ast.DataType.ByteSize() == 4 {
+							out.Code.TextAppendSln(ii("cvtsd2ss", expression, reg))
+						} else { // 8 (do nothing)
+							reg.Free()
+							result = expression
+							goto casting_done
+						}
+					} else { // 4
+						if ast.DataType.ByteSize() == 8 {
+							out.Code.TextAppendSln(ii("cvtss2sd", expression, reg))
+						} else { // 4 (do nothing)
+							reg.Free()
+							result = expression
+							goto casting_done
+						}
 					}
-				} else { // 4
+				}
+
+				if datatype.IsIntegerType(expression.Type()) {
+					// *** int to float
+					var _save Operand
+					var _reg  Register
+					_full  := false
+					if ast.DataType.ByteSize() > expression.Type().ByteSize() {
+						switch expression.(type) {
+							case Memory_Reference:
+								_reg, _full = RegisterScratchAllocate(datatype.TYPE_UINT64)
+								if _full {
+									_reg, _ = REGISTER_RBX.GetRegister(datatype.TYPE_UINT64)
+									_save = StackAllocate(_reg.Type()).Reference()
+									out.Code.Appendln(GEN_move(_reg, _save).Code)
+								} 
+							case Register: 
+								_reg, _ = expression.(Register).Class.GetRegister(datatype.TYPE_UINT64)
+						}
+						
+						out.Code.TextAppendSln(ii("movq", expression, _reg))
+						out.Code.TextAppendSln(ii("andq", Asm_Int_Literal{_reg.Type(), (1 << expression.Type().BitSize()) - 1, 10}, _reg))
+						expression = _reg
+					}
+
 					if ast.DataType.ByteSize() == 8 {
-						out.Code.TextAppendSln(ii("cvtss2sd", expression, reg))
-					} else { // 4 (do nothing)
-						reg.Free()
-						result = expression
-						goto casting_done
+						out.Code.TextAppendSln(ii("cvtsi2sd", expression, reg))
+					} else { // 4
+						out.Code.TextAppendSln(ii("cvtsi2ss", expression, reg))
+					}
+					
+					if _save != nil {
+						out.Code.Appendln(GEN_move(_save, _reg).Code)
 					}
 				}
 
@@ -903,7 +988,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				if _full {
 					result = StackAllocate(ast.DataType).Reference()
 				}
-
+				
 				out.Code.Appendln(GEN_move(reg, result).Code)
 
 				if full {

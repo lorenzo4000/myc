@@ -129,6 +129,7 @@ function read_dataset_label(:filename string) []uint8 {
 	return labels;
 }
 
+/*
 function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
 	:ah uint64 = a.len;
 	if ah <= 0 {
@@ -164,13 +165,14 @@ function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
 
 	return c;
 } 
+*/
 
-function vecmul(:a []uint32, :b []uint32) uint32 {
+function vecmul(:a []f32, :b []f32) f32 {
 	if a.len != b.len {
 		return;
 	}
 
-	:res uint32;
+	:res f32;
 	for(:i int32 = 0; i < [int32]a.len; i++) {
 		res += a[i] * b[i];
 	}
@@ -179,8 +181,8 @@ function vecmul(:a []uint32, :b []uint32) uint32 {
 }
 
 struct Neuron {
-	:weights [784]uint32;
-	:bias 		  uint32;
+	:weights [784]f32;
+	:bias 		  f32;
 }
 
 function nn(:levels uint32) [][10]Neuron {
@@ -189,40 +191,68 @@ function nn(:levels uint32) [][10]Neuron {
 	return network;
 }
 
-function exp(:x int32) uint32 {
-	:res uint32 = (1 << 31);
+/*
+function exp(:x f32) f32 {
+	:e f32 = 2.71828;
+	:res f32 = 1.0;
 
 	// 3 is a very good approximation of e
 	for(:i int32 = 0; i < x; i++) {
-		printf("res : %u\n".data, res);
-		res *= 3;
+		printf("res : %f\n".data, [f64]res);
+		res *= e;
 	}
 	for(:i int32 = 0; i > x; i--) {
-		printf("res : %u\n".data, res);
-		res /= 3;
+		printf("res : %f\n".data, [f64]res);
+		res /= e;
 	}
 
 	res
 }
+*/
 
-function logistic(:x uint32) uint32 {
-	:nominator uint64 = 1 << 4;
-	printf("x : %llx\n".data, [int32]x);
-	:denominator uint64 = (1 << 4) + [uint64]exp(-[int32]x);
-	printf("%llu / %llu\n".data, nominator, denominator);
-	:sigmoid uint64 = (nominator / denominator);
-	return [uint32]sigmoid;
+//float expf(float x);
+function expf(:x f32) f32 external;
+
+function logistic(:x f32) f32 {
+	printf("x : %f\n".data, [f64]x);
+
+	:nominator f32 = 1.0;
+	:denominator f32 = 1.0 + expf(-x);
+	printf("nominator: %g\n".data, [f64]nominator);
+	printf("denominator: %g\n".data, [f64]denominator);
+
+	:sigmoid f32 = nominator / denominator;
+	return sigmoid;
 }
 
-function forward(:net [][10]Neuron, :x [784]uint32) {
+function softmax(:z []f32, :i int32) f32 {
+	:denominator f32 = 0.0;	
+	for(:j uint64 = 0; j < z.len; j++) {
+		printf("x[%u] = %f\n".data, j, [f64]z[j]);
+		denominator += z[j];
+	}
+
+	printf("denominator: %f\n".data, [f64]denominator);
+	
+	z[i] / denominator
+}
+
+function forward(:net [][10]Neuron, :x [784]f32) [10]f32 {
+	printf("nett.len == %llu\n".data, net.len);
+	printf("x.len == %llu\n".data, x.len);
+
 	:first_layer [10]Neuron = net[0];
-	:first_layer_out [10][784]uint32;
+	:first_layer_out [10]f32;
+
+	printf("net[0].len == %llu\n".data, first_layer.len);
+	printf("net[0][0].weights.data == %llx\n".data, first_layer[0].weights.data);
+	printf("net[0][0].weights[0] == %f\n".data, [f64]first_layer[0].weights[0]);
 
 	for(:n int32 = 0; n < [int32]first_layer.len; n++) {
 		printf("weights:\n".data);
 		for(:r uint32 = 0; r < 28; r++) {
 			for(:c uint32 = 0; c < 28; c++) {
-				printf("%u ".data, first_layer[n].weights[r * 28 + c]);
+				printf("%f ".data, [f64]first_layer[n].weights[r * 28 + c]);
 			}
 			printf("\n".data);
 		}
@@ -230,41 +260,50 @@ function forward(:net [][10]Neuron, :x [784]uint32) {
 		printf("input:\n".data);
 		for(:r uint32 = 0; r < 28; r++) {
 			for(:c uint32 = 0; c < 28; c++) {
-				printf("%u ".data, x[r * 28 + c]);
+				printf("%f ".data, [f64]x[r * 28 + c]);
 			}
 			printf("\n".data);
 		}
 
-		printf("bias: %u\n".data, first_layer[n].bias);
+		printf("bias: %f\n".data, [f64]first_layer[n].bias);
 
 		// ** linear part **
 		// z = wt * x + b
-		:z uint32 = vecmul(first_layer[n].weights, x);
+		:z f32 = vecmul(first_layer[n].weights, x);
 
 		z += first_layer[n].bias;
 
 		// ** activation function **
-		:l uint32 = logistic(z);
-		
-		
-		printf("result: ".data);
-		printf("%u ".data, z);
-		printf(", %u\n".data, l);
+		:l f32 = logistic(z);
+		first_layer_out[n] = l;
+		printf("logistic: %f\n".data, [f64]first_layer_out[n]);
 	}
+
+	
+	:first_layer_out_distributed [10]f32;
+	for(:n int32 = 0; n < [int32]first_layer.len; n++) {
+		// ** softmax **
+		first_layer_out_distributed[n] = softmax(first_layer_out, n);
+	}
+
+	first_layer_out_distributed
 }
 
 function main() {
 	:images [][28][28]uint8 = read_dataset_image("./examples/softmax_mcnn/train-images-idx3-ubyte");
 	:labels []     uint8 = read_dataset_label("./examples/softmax_mcnn/train-labels-idx1-ubyte");
 	
-	printf("%lld\n".data, images.len);
+	printf("%llx\n".data, images.len);
 
-	// cast image set to uint32
-	:image_set [][784]uint32 = allocate(28*28*images.len*4);
+	// cast image set to f32
+	:image_set [][784]f32 = allocate(28*28*images.len*4);
 	for(:i uint32 = 0; i < [uint32]image_set.len; i++) {
 		for(:r uint32 = 0; r < 28; r++) {
 			for(:c uint32 = 0; c < 28; c++) {
-				image_set[i][r * 28 + c] = [uint32]images[i][r][c];
+				:pixel uint8 = images[i][r][c];
+				if pixel > 0 {
+					image_set[i][r * 28 + c] = 1.0 / [f32]pixel;
+				}
 			}
 		}
 	}
@@ -274,20 +313,26 @@ function main() {
 	printf("neural_network.len: %d\n".data, neural_network.len);
 
 	// write ones in weights
-	for(:i int32 = 0; i < [int32]neural_network[0][0].weights.len; i++) {
-		neural_network[0][0].weights[i] = 3;
+	for(:i int32 = 0; i < [int32]neural_network[0].len; i++) {
+		for(:j int32 = 0; j < [int32]neural_network[0][i].weights.len; j++) {
+			neural_network[0][i].weights[j] = 1.0;
+		}
+		neural_network[0][i].bias = 1.0;
 	}
-	neural_network[0][0].bias = 1;
 		
-	forward(neural_network, image_set[5]);
+	:probability_distribution [10]f32 = forward(neural_network, image_set[5]);
+	for(:n int32 = 0; n < [int32]probability_distribution.len; n++) {
+		printf("probability[%u]: %f\n".data, n, [f64]probability_distribution[n]);
+	}
 
+	return;
 	
 	
 	/*
 	for(:i int32 = 0; i < [int32]neural_network.len; i++) {
 		for(:j int32 = 0; j < [int32]neural_network[i].len; j++) {
-			:w []uint32 = neural_network[i][j].weights;
-			:b uint32 = neural_network[i][j].bias;
+			:w []f32 = neural_network[i][j].weights;
+			:b f32 = neural_network[i][j].bias;
 	
 			for(:k int32 = 0; k < [int32](w.len); k++) {
 				printf("neuron[%d][%d].weights[%d]: %u\n".data, i, j, k, w[k]);
@@ -295,9 +340,7 @@ function main() {
 			printf("neuron[%d][%d].bias: %u\n".data, i, j, b);
 		}
 	}
-	*/
 	
-	return;
 
 	for(:i uint32 = 0; i < [uint32]images.len; i++) {
 		printf("label: %hhu\n".data, labels[i]);
@@ -315,4 +358,5 @@ function main() {
 			putchar('\n');
 		}
 	}
+*/
 }
