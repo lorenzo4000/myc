@@ -232,21 +232,15 @@ function softmax(:z []f32, :i int32) f32 {
 		denominator += z[j];
 	}
 
+	printf("nominator: %f\n".data, [f64]z[i]);
 	printf("denominator: %f\n".data, [f64]denominator);
 	
 	z[i] / denominator
 }
 
 function forward(:net [][10]Neuron, :x [784]f32) [10]f32 {
-	printf("nett.len == %llu\n".data, net.len);
-	printf("x.len == %llu\n".data, x.len);
-
 	:first_layer [10]Neuron = net[0];
 	:first_layer_out [10]f32;
-
-	printf("net[0].len == %llu\n".data, first_layer.len);
-	printf("net[0][0].weights.data == %llx\n".data, first_layer[0].weights.data);
-	printf("net[0][0].weights[0] == %f\n".data, [f64]first_layer[0].weights[0]);
 
 	for(:n int32 = 0; n < [int32]first_layer.len; n++) {
 		printf("weights:\n".data);
@@ -280,13 +274,17 @@ function forward(:net [][10]Neuron, :x [784]f32) [10]f32 {
 	}
 
 	
+	// ** softmax **
 	:first_layer_out_distributed [10]f32;
 	for(:n int32 = 0; n < [int32]first_layer.len; n++) {
-		// ** softmax **
 		first_layer_out_distributed[n] = softmax(first_layer_out, n);
 	}
 
-	first_layer_out_distributed
+	return first_layer_out_distributed;
+}
+
+function back(:net [][10]Neuron, :out [10]f32, :lbl [10]f32) {
+	
 }
 
 function main() {
@@ -308,6 +306,13 @@ function main() {
 		}
 	}
 	
+	// cast label set to binary vector (still f32 because math)
+	:label_set [][10]f32 = allocate(labels.len*4*10);
+	for(:i uint32 = 0; i < [uint32]label_set.len; i++) {
+		:answer uint8 = labels[i];
+		label_set[i][answer] = 1.0;	
+	}
+
 	
 	:neural_network [][10]Neuron = nn(1);
 	printf("neural_network.len: %d\n".data, neural_network.len);

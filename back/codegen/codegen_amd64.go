@@ -532,7 +532,9 @@ func StackUnreserveBytes(bytes uint64) uint64 {
 	}
 
 	if CurrentReservedStack < bytes {
-		return 0
+		unreserved := CurrentReservedStack
+		CurrentReservedStack = 0
+		return unreserved
 	} else {
 		CurrentReservedStack -= bytes
 	}
@@ -546,8 +548,7 @@ func StackUnreserveAll() {
 
 var CurrentAllocatedStack uint64 = 0
 
-func StackAllocate(_type datatype.DataType) Stack_Region {
-	size := uint64(_type.ByteSize())
+func StackAllocateBytes(size uint64) Stack_Region {
 	reserved := uint64(0)
 
 	for CurrentAllocatedStack+size > CurrentReservedStack {
@@ -555,18 +556,24 @@ func StackAllocate(_type datatype.DataType) Stack_Region {
 	}
 	CurrentAllocatedStack += size
 
-	region := Stack_Region{CurrentAllocatedStack, _type, reserved}
+	region := Stack_Region{CurrentAllocatedStack, nil, reserved}
 
+	return region
+}
+
+func StackAllocate(_type datatype.DataType) Stack_Region {
+	region := StackAllocateBytes(_type.ByteSize())
+	region.datatype = _type
 	return region
 }
 
 var StackRegions []Stack_Region
 
-func StackAllocateAndRemember(_type datatype.DataType) Stack_Region {
+func StackAllocateAndRemember(_type datatype.DataType) *Stack_Region {
 	allocated := StackAllocate(_type)
 	StackRegions = append(StackRegions, allocated)
 
-	return allocated
+	return &StackRegions[len(StackRegions)-1]
 }
 
 func StackDeallocateCurrentRegion() *Stack_Region {
@@ -999,20 +1006,22 @@ var ERR_OOB Label = Label{nil, "err_oob"}
 var __pushed_regs int
 func GEN_push(r Operand) Codegen_Out {
 	res := Codegen_Out{}
-	CurrentReservedStack += 8
+
 	reg, _ := r.(Register).Class.GetRegister(datatype.TYPE_UINT64)
 	res.Code.TextAppendSln(ii("pushq", reg))
+
 	__pushed_regs++
-	res.Code.TextAppendSln(fmt.Sprintf("// current pushed: %d", __pushed_regs))
+	// res.Code.TextAppendSln(fmt.Sprintf("// current pushed: %d", __pushed_regs))
 	return res
 }
 func GEN_pop(r Operand) Codegen_Out {
 	res := Codegen_Out{}
-	CurrentReservedStack -= 8
+
 	reg, _ := r.(Register).Class.GetRegister(datatype.TYPE_UINT64)
 	res.Code.TextAppendSln(ii("popq", reg))
+
 	__pushed_regs--
-	res.Code.TextAppendSln(fmt.Sprintf("// current pushed: %d", __pushed_regs))
+	// res.Code.TextAppendSln(fmt.Sprintf("// current pushed: %d", __pushed_regs))
 	return res
 }
 
@@ -1140,7 +1149,7 @@ func GEN_function_prologue(f *front.Ast_Node) Codegen_Out {
 	if CurrentReservedStack > 0 {
 		// allocate used stack
 		res.Code.Appendln((GEN_binop(front.AST_OP_SUB, rsp, Asm_Int_Literal{datatype.TYPE_INT64, int64(CurrentReservedStack), 10}).Code))
-		res.Code.TextAppendSln(fmt.Sprintf("// curently pushed: %d", __pushed_regs))
+//		res.Code.TextAppendSln(fmt.Sprintf("// curently pushed: %d", __pushed_regs))
 	//if (CurrentReservedStack - 8) % 16 != 0 {
 	//	res.Code.Appendln((GEN_binop(front.AST_OP_SUB, rsp, Asm_Int_Literal{datatype.TYPE_INT64, int64(16 - ((CurrentReservedStack - 8) & 0xF)), 10}).Code))
 	//}
@@ -2221,11 +2230,12 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	function_params := declaration.(Codegen_Symbol).ArgTypes
 
 	call_args := GEN_callargs(args, function_params)
+	res.Code.Appendln(call_args.Code)
+
 	if pushed_rbx {
 		allocation, _ := REGISTER_RBX.GetRegister(datatype.TYPE_UINT64)
 		res.Code.TextAppendSln(GEN_pop(allocation).Code.Text)
 	}
-	res.Code.Appendln(call_args.Code)
 
 	// C uses rax to know if we are passing
 	// floating point arguments as varargs.
@@ -2243,8 +2253,8 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	
 	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
 
-	actually_reserved := CurrentReservedStack 
-	res.Code.TextAppendSln(fmt.Sprintf("// currently reserved: %x; actually_reserved: %x; currently pueshed: %d", CurrentReservedStack, actually_reserved, __pushed_regs))
+	actually_reserved := CurrentReservedStack + uint64(__pushed_regs * 8)
+//	res.Code.TextAppendSln(fmt.Sprintf("// currently reserved: %x; actually_reserved: %x; currently pueshed: %d", CurrentReservedStack, actually_reserved, __pushed_regs))
 	bytes := uint64(0)
 	if actually_reserved % 16 != 0 {
 		bytes = 16 - (actually_reserved & 0xF)
