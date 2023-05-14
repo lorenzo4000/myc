@@ -1096,7 +1096,7 @@ func GEN_return(v Operand, function *front.Ast_Node) Codegen_Out {
 			// to do this we have to actually copy the entire value into the memory pointed by ghost;
 			ghost_parameter_name := ".ghost_" + function_name
 
-			ghost_parameter, found := symbol.SymbolTableGetInCurrentScope(ghost_parameter_name)
+			ghost_parameter, found := symbol.SymbolTableGetFromCurrentScope(ghost_parameter_name)
 			if !found {
 				fmt.Println("codegen error: ghost parameter `" + ghost_parameter_name + "` was not declared in this function")
 				return out
@@ -1226,7 +1226,36 @@ func GEN_function_epilogue(ast *front.Ast_Node, body_result Operand) Codegen_Out
 			two_regs_return_done:
 			res.Code.Appendln(GEN_loadstruct(body_result.(Memory_Reference), return_regs).Code)
 		} else if body_type.ByteSize() > 16 {
-			// TODO
+			// fill up the memory pointed by the ghost parameter with the return value~ ^^
+			// to do this we have to actually copy the entire value into the memory pointed by ghost;
+			ghost_parameter_name := ".ghost_" + function_name
+
+			ghost_parameter, found := symbol.SymbolTableGetFromCurrentScope(ghost_parameter_name)
+			if !found {
+				fmt.Println("codegen error: ghost parameter `" + ghost_parameter_name + "` was not declared in this function")
+				return res
+			}
+
+			// get the ghost_parameter poitner and put it in rax
+			rax, _ := REGISTER_RAX.GetRegister(ghost_parameter.Type())
+			res.Code.Appendln(GEN_move(ghost_parameter.(Codegen_Symbol).Data.Reference(), rax).Code)
+
+			// create a memory reference with rax as start
+			ghost_parameter_reference := Memory_Reference{
+				body_type,
+				0,
+				rax,
+				nil,
+				1,
+			}
+
+			switch body_result.Type().(type) {
+				case datatype_struct.StructType:
+					res.Code.Appendln(GEN_storestruct(body_result.(Memory_Reference), ghost_parameter_reference).Code)
+				case datatype_array.StaticArrayType:
+					res.Code.Appendln(GEN_arraycopy(body_result.(Memory_Reference), ghost_parameter_reference).Code)
+						
+			}
 		}
 	}
 
@@ -1259,13 +1288,41 @@ func GEN_load(v Operand, r Register) Codegen_Out {
 	}
 			
 	if byte(r.Class) & REG_KIND_MASK == REG_KIND_XMM {
-		rbx, _ := REGISTER_RBX.GetRegister(datatype.TYPE_UINT64)
-		_rbx, _ := REGISTER_RBX.GetRegister(v.Type())
-		res.Code.TextAppendSln(GEN_push(rbx).Code.Text)
-		res.Code.TextAppendSln(Instruction("xorq", rbx, rbx))
-		res.Code.Appendln(GEN_load(v, _rbx).Code)
-		res.Code.TextAppendSln(ii("movq", rbx, r))
-		res.Code.TextAppendSln(GEN_pop(rbx).Code.Text)
+		switch v.(type) {
+			case Memory_Reference:
+				if v.Type().ByteSize() > 4 {
+					res.Code.TextAppendSln(ii("movsd", v, r))
+				} else {
+					res.Code.TextAppendSln(ii("movss", v, r))
+				}
+			case Register:
+				vr := v.(Register)
+				if byte(vr.Class) & REG_KIND_MASK == REG_KIND_XMM {
+					if v.Type().ByteSize() > 4 {
+						res.Code.TextAppendSln(ii("movsd", vr, r))
+					} else {
+						res.Code.TextAppendSln(ii("movss", vr, r))
+					}
+				} else {
+					var alloc Operand
+					full := false
+					alloc, full = RegisterScratchAllocate(datatype.TYPE_UINT64)
+					if full {
+						alloc = StackAllocate(v.Type()).Reference()
+
+						res.Code.Appendln(GEN_move(v, alloc).Code)
+						if v.Type().ByteSize() > 4 {
+							res.Code.TextAppendSln(ii("movsd", alloc, r))
+						} else {
+							res.Code.TextAppendSln(ii("movss", alloc, r))
+						}
+					} else {
+						_alloc, _ := alloc.(Register).Class.GetRegister(v.Type())
+						res.Code.Appendln(GEN_load(v, _alloc).Code)
+						res.Code.TextAppendSln(ii("movq", alloc, r))
+					}
+				}
+		}
 		return res
 	}
 
@@ -1321,11 +1378,11 @@ func GEN_store(v Operand, m Memory_Reference) Codegen_Out {
 		case Register:
 			r := v.(Register)
 			if byte(r.Class) & REG_KIND_MASK == REG_KIND_XMM {
-				res.Code.TextAppendSln(GEN_push(rbx).Code.Text)
-				res.Code.TextAppendSln(ii("movq", r, rbx))
-				_rbx, _ := REGISTER_RBX.GetRegister(r.Type())
-				res.Code.Appendln(GEN_move(_rbx, m).Code)
-				res.Code.TextAppendSln(GEN_pop(rbx).Code.Text)
+				if v.Type().ByteSize() > 4 {
+					res.Code.TextAppendSln(ii("movsd", r, m))
+				} else {
+					res.Code.TextAppendSln(ii("movss", r, m))
+				}
 				return res
 			}
 	}
@@ -2034,7 +2091,8 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 		init_value := Asm_Int_Literal{variable_type, 0, 10}
 		res.Code.Appendln(GEN_move(init_value, variable_allc.Reference()).Code)
 
-		err := symbol.SymbolTableInsertInCurrentScope(ghost_parameter_name, Codegen_Symbol{variable_type, variable_allc, nil})
+		prev_scope := symbol.Symbol_Scope_Stack[len(symbol.Symbol_Scope_Stack)-2]
+		err := symbol.SymbolTableInsert(ghost_parameter_name, prev_scope, Codegen_Symbol{variable_type, variable_allc, nil})
 		if err != nil {
 			fmt.Println(err)
 			return res
@@ -2123,9 +2181,14 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 
 	allocated_int_regs := 0
 	allocated_float_regs := 0
+
+	var args_in_stack []int
 	for i, a := range args {
 		if (params[i].ByteSize() > 16 || ((datatype.IsIntegerType(params[i]) && allocated_int_regs >= len(IntegerArgumentRegisters)) || (params[i].ByteSize() > 8 && allocated_int_regs >= len(IntegerArgumentRegisters)-1))) ||
 		   (datatype.IsFloatType(params[i]) && allocated_float_regs >= len(FloatArgumentRegisters)) {
+
+			args_in_stack = append(args_in_stack, i)
+			/*
 			rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
 			rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 
@@ -2134,6 +2197,10 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(allocated_region.reserved), 10}, rsp))
 
 			res.Code.Appendln(GEN_move(rsp, rax).Code)
+			padding := int64(allocated_region.reserved - params[i].ByteSize())
+			if padding > 0 {
+				res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, padding, 10}, rax))
+			}
 
 			stack_region := Memory_Reference{
 				params[i],
@@ -2144,6 +2211,7 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			}
 
 			res.Code.Appendln(GEN_very_generic_move(a, stack_region).Code)
+			*/
 		} else if params[i].ByteSize() > 8 {
 			// TODO: don't just assume it's a struct
 			reg_a, full := RegisterArgumentAllocate(datatype.TYPE_UINT64)
@@ -2176,6 +2244,33 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			}
 			res.Code.Appendln(GEN_load(arg, arg_reg).Code)
 		}
+	}
+
+	for j := len(args_in_stack)-1; j >= 0; j-- {
+		i := args_in_stack[j]
+
+		rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
+		rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+
+		// We unreserve this in GEN_call. I know this is confusing.
+		allocated_region := StackAllocateAndRemember(params[i])
+		res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(allocated_region.reserved), 10}, rsp))
+
+		res.Code.Appendln(GEN_move(rsp, rax).Code)
+		padding := int64(allocated_region.reserved - params[i].ByteSize())
+		if padding > 0 {
+			res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, padding, 10}, rax))
+		}
+
+		stack_region := Memory_Reference{
+			params[i],
+			0,
+			rax,
+			nil,
+			1,
+		}
+
+		res.Code.Appendln(GEN_very_generic_move(args[i], stack_region).Code)
 	}
 
 	RegisterArgumentFreeAll()

@@ -920,6 +920,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 							}
 						default:
 							reg, _ = REGISTER_XMM0.GetRegister(ast.DataType)
+							reg.Allocate()
 					}
 
 					save = StackAllocate(reg.Type()).Reference()
@@ -928,6 +929,23 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 				// ** convert
 				if datatype.IsFloatType(expression.Type()) {
+					switch  expression.(type) {
+						case Register:
+						if byte(expression.(Register).Class) & REG_KIND_MASK != REG_KIND_XMM {
+							// ** allocate source operand
+							var source Operand
+							full := false
+							source, full = register_xmm_allocate(expression.Type())
+							if full {
+								source = StackAllocate(expression.Type()).Reference()
+							}
+
+							out.Code.Appendln(GEN_move(expression, source).Code)
+							expression.(Register).Free()
+							expression = source
+						}		
+					}
+
 					// *** float to float
 					if expression.Type().ByteSize() == 8 {
 						if ast.DataType.ByteSize() == 4 {
@@ -990,10 +1008,16 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				}
 				
 				out.Code.Appendln(GEN_move(reg, result).Code)
-
 				if full {
 					// restore save
 					out.Code.Appendln(GEN_move(save, reg).Code)
+				} else {
+					reg.Free()
+				}
+
+				switch expression.(type) {
+					case Register:
+						expression.(Register).Free()
 				}
 			}
 
