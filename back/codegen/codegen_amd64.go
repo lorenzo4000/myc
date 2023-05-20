@@ -994,7 +994,7 @@ _mystart:
 `,
 Data:
 `
-err_oob_message: .string "runtime error: index %lld is out of boundaries, with length %lld.\n"
+err_oob_message: .string "runtime error: index %llu is out of boundaries, with length %llu.\n"
 stack_trace_message: .string "at function %s\n"
 `,
 }
@@ -1928,31 +1928,37 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 
 						if datatype_struct.IsDynamicArrayType(s.Type()) &&
 						   datatype_struct.DynamicArrayDataType(s.Type()).Equals(datatype.TYPE_GENERIC) {
-							array_destination := d.(Memory_Reference)
-							array_destination_type := datatype_struct.DynamicArrayDataType(array_destination.Type())
 
 							// get destination length
 							array_destination_length := Operand(nil)
-							{
-								struct_type := array_destination.Type().(datatype_struct.StructType)
-								struct_offset:= array_destination.Offset
-								struct_start := array_destination.Start
-								struct_index := array_destination.Index
-								struct_indexcoeff := array_destination.IndexCoefficient
+							array_destination_type := datatype_struct.DynamicArrayDataType(d.Type())
+							switch d.(type) {
+								case RegisterPair:
+									array_destination := d.(RegisterPair)
+									array_destination_length = array_destination.r1
 
-								{
-									field := 1
-									field_type := struct_type.Fields[field].Type
-									field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+								case Memory_Reference:
+									array_destination := d.(Memory_Reference)
 
-									array_destination_length = Memory_Reference{
-										field_type,
-										field_offset,
-										struct_start,
-										struct_index,
-										struct_indexcoeff,
+									struct_type := array_destination.Type().(datatype_struct.StructType)
+									struct_offset:= array_destination.Offset
+									struct_start := array_destination.Start
+									struct_index := array_destination.Index
+									struct_indexcoeff := array_destination.IndexCoefficient
+
+									{
+										field := 1
+										field_type := struct_type.Fields[field].Type
+										field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+										array_destination_length = Memory_Reference{
+											field_type,
+											field_offset,
+											struct_start,
+											struct_index,
+											struct_indexcoeff,
+										}
 									}
-								}
 							}
 
 							// divide times destination element type
@@ -1967,32 +1973,38 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 						} else 
 						if datatype_struct.IsDynamicArrayType(d.Type()) &&
 						   datatype_struct.DynamicArrayDataType(d.Type()).Equals(datatype.TYPE_GENERIC) {
-							array_destination := d.(Memory_Reference)
 							array_source := s.(Memory_Reference)
 							array_source_type := datatype_struct.DynamicArrayDataType(array_source.Type())
-
+							
 							// get destination length
 							array_destination_length := Operand(nil)
-							{
-								struct_type := array_destination.Type().(datatype_struct.StructType)
-								struct_offset:= array_destination.Offset
-								struct_start := array_destination.Start
-								struct_index := array_destination.Index
-								struct_indexcoeff := array_destination.IndexCoefficient
+							switch d.(type) {
+								case RegisterPair:
+									array_destination := d.(RegisterPair)
+									array_destination_length = array_destination.r1
 
-								{
-									field := 1
-									field_type := struct_type.Fields[field].Type
-									field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+								case Memory_Reference:
+									array_destination := d.(Memory_Reference)
 
-									array_destination_length = Memory_Reference{
-										field_type,
-										field_offset,
-										struct_start,
-										struct_index,
-										struct_indexcoeff,
+									struct_type := array_destination.Type().(datatype_struct.StructType)
+									struct_offset:= array_destination.Offset
+									struct_start := array_destination.Start
+									struct_index := array_destination.Index
+									struct_indexcoeff := array_destination.IndexCoefficient
+
+									{
+										field := 1
+										field_type := struct_type.Fields[field].Type
+										field_offset := struct_offset + int64(struct_type.Fields[field].Offset)
+
+										array_destination_length = Memory_Reference{
+											field_type,
+											field_offset,
+											struct_start,
+											struct_index,
+											struct_indexcoeff,
+										}
 									}
-								}
 							}
 
 							// multiply times source element type
@@ -2071,6 +2083,8 @@ func GEN_jump(a Operand) Codegen_Out {
 func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 	res := Codegen_Out{}
 	function_name := f.Children[0].Data[0].String_value
+	
+	RegisterArgumentFreeAll()
 
 	if f.DataType.ByteSize() > 16 {
 		// create a ghost parameter for returning the big stuff
@@ -2246,22 +2260,22 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 		}
 	}
 
-	for j := len(args_in_stack)-1; j >= 0; j-- {
+	// ** reserve stack for args
+	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
+	for j := 0; j < len(args_in_stack); j++ {
 		i := args_in_stack[j]
-
-		rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_UINT64)
-		rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
 
 		// We unreserve this in GEN_call. I know this is confusing.
 		allocated_region := StackAllocateAndRemember(params[i])
 		res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(allocated_region.reserved), 10}, rsp))
+	}
 
-		res.Code.Appendln(GEN_move(rsp, rax).Code)
-		padding := int64(allocated_region.reserved - params[i].ByteSize())
-		if padding > 0 {
-			res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, padding, 10}, rax))
-		}
-
+	// ** put args in stack
+	rax, _ := REGISTER_RAX.GetRegister(datatype.TYPE_UINT64)
+	res.Code.Appendln(GEN_move(rsp, rax).Code)
+	for j := 0; j < len(args_in_stack); j++ {
+		i := args_in_stack[j]
+		
 		stack_region := Memory_Reference{
 			params[i],
 			0,
@@ -2269,8 +2283,9 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			nil,
 			1,
 		}
-
+		
 		res.Code.Appendln(GEN_very_generic_move(args[i], stack_region).Code)
+		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(params[i].ByteSize()), 10}, rax))
 	}
 
 	RegisterArgumentFreeAll()
@@ -4929,7 +4944,7 @@ func GEN_static_array_index(array_allocation Operand, index Operand) Codegen_Out
 	
 	res.Code.TextAppendSln(ii("cmpq", length_literal, index))
 	no_oob_err := LabelGen()
-	res.Code.TextAppendSln(ii("jl", no_oob_err)) // less means fine!
+	res.Code.TextAppendSln(ii("jb", no_oob_err)) // less means fine!
 
 	// greater or equal means error
 	rsi, _ := REGISTER_RSI.GetRegister(address_type)
@@ -5071,7 +5086,7 @@ func GEN_dynamic_array_index(array_struct Operand, index Operand) Codegen_Out {
 	//cmp := GEN_binop(front.AST_OP_GOE, index, length)
 	res.Code.TextAppendSln(ii("cmpq", length, index))
 	no_oob_err := LabelGen()
-	res.Code.TextAppendSln(ii("jl", no_oob_err)) // less means fine!
+	res.Code.TextAppendSln(ii("jb", no_oob_err)) // less means fine!
 
 	// greater or equal means error
 	rsi, _ := REGISTER_RSI.GetRegister(address_type)

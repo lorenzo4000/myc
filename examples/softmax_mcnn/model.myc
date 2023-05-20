@@ -1,0 +1,525 @@
+/*
+	we rapresent numbers as binary vector of size 10 (0-9)
+	the image is big 256x256 grey-scale pixels, so...
+	
+		first layer has 10 neurons with how many weights?
+		28*28 = 784 weights
+	
+
+*/
+
+@import "lib/c/stdio.myc"
+@import "lib/memory.myc"
+
+//  ssize_t read(int fd, void *buf, size_t count);
+function read(:fd int32, :buf *?, :count uint64) uint64 external;
+
+//ssize_t write(int fd, const void buf[.count], size_t count);
+function write(:fd int32, :buf *?, :count uint64) uint64 external;
+
+// int open(const char *pathname, int flags, mode_t mode);
+function open(:pathname *uint8, :flags int32, :mode uint32) int32 external;
+
+// int close(int fd);
+function close(:fd int32) int32 external;
+
+function flip32(:x uint32) uint32{
+	:flipped uint32 = 0;
+	
+	flipped |= (x & (0xFF << 0 )) << 24;
+	flipped |= (x & (0xFF << 8 )) << 8 ;
+	flipped |= (x & (0xFF << 16)) >> 8 ;
+	flipped |= (x & (0xFF << 24)) >> 24;
+
+	return flipped;
+}
+
+function read_dataset_image(:filename string) [][28][28]uint8 {
+	// open file read-only
+	:fd int32 = open(filename.data, 0, 0);
+	if fd < 0 {
+		printf("error: could not opend file `%s`!".data, filename.data);
+		return;
+	}
+
+	// magic value
+	:magic_value uint32;
+	:n uint64 = read(fd, &magic_value, 4);
+	if n < 4 {
+		printf("error: could not read file in memory!\n".data);
+		return;
+	}
+	magic_value = flip32(magic_value);
+	printf("magic number: %x\n".data, magic_value);
+
+	// number of images
+	:number_of_images uint32;
+	n = read(fd, &number_of_images, 4);
+	if n < 4 {
+		printf("error: could not read file in memory!\n".data);
+		return;
+	}
+	number_of_images = flip32(number_of_images);
+	printf("number of images in set: %d\n".data, number_of_images);
+
+	// number of rows
+	:number_of_rows uint32;
+	n = read(fd, &number_of_rows, 4);
+	if n < 4 {
+		printf("error: could not read file in memory!\n".data);
+		return;
+	}
+	number_of_rows = flip32(number_of_rows);
+	printf("number of rows in set: %d\n".data, number_of_rows);
+	
+	// number of columns
+	:number_of_columns uint32;
+	n = read(fd, &number_of_columns, 4);
+	if n < 4 {
+		printf("error: could not read file in memory!\n".data);
+		return;
+	}
+	number_of_columns = flip32(number_of_columns);
+	printf("number of columns in set: %d\n".data, number_of_columns);
+
+	:number_of_pixels uint32 = number_of_images * number_of_rows * number_of_columns;
+	printf("number of pixels in set: %d\n".data, number_of_pixels);
+
+	:images [][28][28]uint8 = allocate([uint64]number_of_pixels);
+	for(:i uint32 = 0; i < number_of_images; i++) {
+		n = read(fd, images[i].data, ([uint64]number_of_rows * [uint64]number_of_columns));
+		if n < ([uint64]number_of_rows * [uint64]number_of_columns) {
+			printf("error: could not read file in memory!\n".data);
+			return;
+		}
+	}
+	
+	:close_err int32 = close(fd);
+	if close_err < 0 {
+		printf("error closing image set file `%s`!\n".data, filename.data);
+	}
+	return images;
+}
+
+function read_dataset_label(:filename string) []uint8 {
+	// open file read-only
+	:fd int32 = open(filename.data, 0, 0);
+	if fd < 0 {
+		printf("error: could not opend file `%s`!".data, filename.data);
+		return;
+	}
+
+	// magic value
+	:magic_value uint32;
+	:n uint64 = read(fd, &magic_value, 4);
+	if n < 4 {
+		printf("error: could not read file in memory!\n".data);
+		return;
+	}
+	magic_value = flip32(magic_value);
+	printf("magic number: %x\n".data, magic_value);
+
+	// number of labels
+	:number_of_labels uint32;
+	n = read(fd, &number_of_labels, 4);
+	if n < 4 {
+		printf("error: could not read file in memory!\n".data);
+		return;
+	}
+	number_of_labels = flip32(number_of_labels);
+	printf("number of labels in set: %d\n".data, number_of_labels);
+
+	:labels []uint8 = allocate([uint64]number_of_labels);
+	n = read(fd, labels.data, [uint64]number_of_labels);
+	if n < [uint64]number_of_labels {
+		printf("error: could not read file in memory!\n".data);
+		return;
+	}
+	
+	:close_err int32 = close(fd);
+	if close_err < 0 {
+		printf("error closing label set file `%s`!\n".data, filename.data);
+	}
+	return labels;
+}
+
+/*
+function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
+	:ah uint64 = a.len;
+	if ah <= 0 {
+		return;
+	}
+	:aw uint64 = a[0].len;
+	if aw <= 0 {
+		return;
+	}
+	
+	:bh uint64 = b.len;
+	if bh <= 0 {
+		return;
+	}
+	:bw uint64 = b[0].len;
+	if bw <= 0 {
+		return;
+	}
+
+	if aw != bh {
+		return;
+	}
+
+	:c [28][28]uint32; 
+
+	for(:i int32 = 0; i < [int32]ah; i++) {
+		for(:j int32 = 0; j < [int32]aw; j++) {
+			for(:k int32 = 0; k < [int32]aw; k++) {
+				c[i][j] += a[k][i] * b[k][j];
+			}
+		}
+	}
+
+	return c;
+} 
+*/
+
+function vecmul(:a []f32, :b []f32) f32 {
+	if a.len != b.len {
+		return;
+	}
+
+	:res f32;
+	for(:i int32 = 0; i < [int32]a.len; i++) {
+		res += a[i] * b[i];
+	}
+
+	res
+}
+
+struct Neuron {
+	:weights []f32;
+	:bias 	   f32;
+}
+
+function nn() [][10]Neuron {
+	:network [][10]Neuron = allocate(2 * 10 * 20);
+
+	printf("net layers: %u\n".data, network.len);
+
+	// first layer 784*10
+	for(:i uint64 = 0; i < network[0].len; i++) {
+		network[0][i].weights = allocate(784 * 4);
+	}
+	printf("net[0] weights: %u\n".data, network[0][0].weights.len);
+
+	// second layer 10*10
+	for(:i uint64 = 0; i < network[1].len; i++) {
+		network[1][i].weights = allocate(10 * 4);
+	}
+	printf("net[1] weights: %u\n".data, network[1][0].weights.len);
+
+	return network;
+}
+
+//float expf(float x);
+function expf(:x f32) f32 external;
+
+//float logf(float x);
+function logf(:x f32) f32 external;
+
+//time_t time(time_t *_Nullable tloc);
+function time(:tloc uint32) uint32 external;
+
+//time_t sqrtf(float x);
+function sqrtf(:x f32) f32 external;
+
+
+function logistic(:x f32) f32 {
+	//printf("x: %f\n".data, [f64]x);
+	:nominator f32 = 1.0;
+	:denominator f32 = 1.0 + expf(-x);
+	//printf("denominator: %f\n".data, [f64]denominator);
+	//printf("nominator: %f\n".data,   [f64]nominator);
+
+	:sigmoid f32 = nominator / denominator;
+	// printf("sigmoid: %f\n".data, [f64]sigmoid);
+	return sigmoid;
+}
+
+/*
+function logistic_prime(:x f32) f32 {
+	:l f32 = logistic(x);
+	(1.0 - l) * l
+}
+*/
+
+function softmax(:z []f32, :i int32) f32 {
+	:denominator f32 = 0.0;	
+	for(:j uint64 = 0; j < z.len; j++) {
+		denominator += expf(z[j]);
+	}
+
+	expf(z[i]) / denominator
+}
+
+struct ForwardOut {
+	:a [][10]f32; // layer output
+	:z [][10]f32; // layer output (linear-part)
+}
+
+function forward(:net [][10]Neuron, :x [784]f32, :out ForwardOut) {
+	// ** input layer **
+	// printf("input layer (sigmoid):\n".data);
+	for(:n int32 = 0; n < [int32]net[0].len; n++) {
+		/*
+		printf("weights:\n".data);
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				printf("%f ".data, [f64]net[0][n].weights[r * 28 + c]);
+			}
+			printf("\n".data);
+		}
+
+		printf("input:\n".data);
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				printf("%f ".data, [f64]x[r * 28 + c]);
+			}
+			printf("\n".data);
+		}
+
+		printf("bias: %f\n".data, [f64]net[0][n].bias);
+		*/
+
+		// ** linear part **
+		// z = wt * x + b
+		:z f32 = vecmul(net[0][n].weights, x);
+
+		z += net[0][n].bias;
+		out.z[0][n] = z;
+
+		// ** activation function **
+		:l f32 = logistic(z);
+		out.a[0][n] = l;
+		// printf("logistic: %f\n".data, [f64]l);
+	}
+
+	
+	// ** output layer **
+	// printf("output layer (softmax):\n".data);
+	for(:n int32 = 0; n < [int32]net[1].len; n++) {
+		/*
+		printf("weights:\n".data);
+		for(:r uint32 = 0; r < 10; r++) {
+			printf("%f ".data, [f64]net[1][n].weights[r]);
+		}
+		putchar('\n');
+
+		printf("input:\n".data);
+		for(:r uint32 = 0; r < 10; r++) {
+			printf("%f ".data, [f64]out.a[0][r]);
+		}
+		putchar('\n');
+
+		printf("bias: %f\n".data, [f64]net[1][n].bias);
+		*/
+
+		// ** linear part **
+		// z = wt * x + b
+		:z f32 = vecmul(net[1][n].weights, out.a[0]);
+
+		z += net[1][n].bias;
+
+		out.z[1][n] = z;
+	}
+		
+	// softmax activation function 
+	for(:n int32 = 0; n < [int32]net[1].len; n++) {
+		out.a[1][n] = softmax(out.z[1], n);
+		// printf("softmax: %f\n".data, [f64]out.a[1][n]);
+	}
+}
+
+function loss(:q f32, :p f32) f32 {
+	- (p * logf(q))
+}
+
+function loss10n(:q [10]f32, :p [10]f32) f32 {
+	:result f32;
+	for(:i uint64 = 0; i < q.len; i++) {
+		result += loss(q[i], p[i]);
+	}
+	result / [f32]q.len
+}
+
+function der_loss10n_q(:q [10]f32, :p [10]f32) [10]f32 {
+	for(:i uint64 = 0; i < q.len; i++) {
+		p[i] -= q[i];
+		p[i] *= -1.0;
+	}
+	p
+}
+
+function back(:net [][10]Neuron, :x [784]f32, :a [][10]f32, :lbl [10]f32, :learning_rate f32) {
+	/*
+	printf("back() :\n".data);
+	for(:l int32 = 0; l < [int32]a.len; l++) {
+		for(:n int32 = 0; n < [int32]a[l].len; n++) {
+			printf("a[%u][%u]: %f; p[%u]: %f\n".data, l, n, [f64]a[l][n], n, [f64]lbl[n]);
+		}
+	}
+	*/
+		
+	// ** calculate cost gradients with respect to weights and biases **
+	:loss_derivative [10]f32 = der_loss10n_q(a[1], lbl);
+	for(:i int32 = 0; i < [int32]loss_derivative.len; i++) {
+		printf("loss_derivative[%u]: %f\n".data, i, [f64]loss_derivative[i]);
+		
+	}
+
+	// *** output layer ***
+	{
+		// *** weight_gradient = matmul(loss_derivative, transpose(a[0]))
+		:weight_gradient [10][10]f32; 
+		:bias_gradient   [10]f32; 
+		for(:i int32 = 0; i < [int32]loss_derivative.len; i++) {
+			for(:j int32 = 0; j < [int32]a[0].len; j++) {
+				weight_gradient[i][j] = loss_derivative[i] * a[0][j] * learning_rate;
+			}
+			bias_gradient[i] = loss_derivative[i] * learning_rate;
+		}
+
+
+		for(:n int64 = [int64]net[1].len-1; n >= 0; n--) {
+			for(:w uint64 = 0; w < net[1][n].weights.len; w++) {
+				net[1][n].weights[w] -= weight_gradient[n][w];
+			}
+			// net[1][n].bias -= bias_gradient[n];
+		}
+	};
+
+	// *** input layer ***
+	{
+		// *** delta_thingy[0] = matmul(transpose(net[1][*].weights), delta_thingy[1]) * sigmoid_prime(z[0])
+		// let's break it down: 
+		// 
+		// *   matmul(transpose(net[1][*].weights), delta_thingy[1])
+		// *   delta_thingy[1] = loss_derivative
+		// 	   10 x 10  .  10 x 1 = 10 x 1 vector
+		:weight_mul [10]f32; 
+		for(:n int32 = 0; n < [int32]net[1].len; n++) {
+			for(:w uint64 = 0; w < net[1][n].weights.len; w++) {
+				weight_mul[n] += net[1][n].weights[w] * loss_derivative[n];
+				// printf("weight_mul: %f\n".data, [f64]weight_mul[n]);
+			}
+		}
+
+
+		// *   weight_mul * sigmoid_prime(z[0])
+		// 	   sigmoid_prime[z[0]] = (1 - a[0]) * a[0] = (-a[0] + 1) * a[0]
+		:sigmoid_prime [10]f32;
+		for(:n int32 = 0; n < [int32]sigmoid_prime.len; n++) {
+			// printf("a[0][n]: %f\n".data, [f64]a[0][n]);
+			sigmoid_prime[n] = (1.0 - a[0][n]) * a[0][n];
+			// printf("sigmoid_prime: %f\n".data, [f64]sigmoid_prime[n]);
+		}
+		
+		// element-wise-vecmul(weight_mul, sigmoid_prime);
+		:delta [10]f32; 
+		for(:n int32 = 0; n < [int32]delta.len; n++) {
+			delta[n] = sigmoid_prime[n] * weight_mul[n];
+			// printf("delta: %f\n".data, [f64]delta[n]);
+		}
+		
+		:bias_gradient [10]f32 = delta;
+		:weight_gradient [10][784]f32; 
+		for(:i int32 = 0; i < [int32]delta.len; i++) {
+			for(:j int32 = 0; j < [int32]x.len; j++) {
+				weight_gradient[i][j] = delta[i] * x[j] * learning_rate;
+			}
+			bias_gradient[i] *= learning_rate;
+		}
+
+		// ** update weights ** 
+		// printf("net[0].len : %u\n".data, net[0].len);
+
+		for(:n int64 = [int64]net[0].len-1; n >= 0; n--) {
+			// printf("net[0][%llu].weights.len : %u\n".data, n, net[0][n].weights.len);
+			printf("".data);
+			for(:w uint64 = 0; w < net[0][n].weights.len; w++) {
+				// printf("weight_gradient: %f\n".data, [f64]weight_gradient[n][w]);
+				net[0][n].weights[w] -= weight_gradient[n][w];
+				//printf("%f\n".data, [f64]net[0][n].weights[w]);
+			}
+			// net[0][n].bias -= bias_gradient[n];
+		}
+	}
+}
+
+function save_model(:filename string, :neural_network [][10]Neuron) {
+	:file int32 = open(filename.data, 0x241, 0644);
+	if file < 0 {
+		printf("error opening model checkpoint file `%s`!\n".data, filename.data);
+	}
+
+	:written uint64;
+	for(:l int32 = 0; l < [int32]neural_network.len; l++) {
+		for(:n int32 = 0; n < [int32]neural_network[l].len; n++) {
+			:bias *? = &(neural_network[l][n].bias);
+			printf("%llx\n".data, bias);
+
+			written = write(file, neural_network[l][n].weights.data, neural_network[l][n].weights.len * 4);
+			if written == -1 {
+				printf("error writing into model checkpoint file `%s`!\n".data, filename.data);
+			} else {
+				printf("written %llu bytes\n".data, written);
+			}
+
+			written = write(file, bias, 4);
+			if written == -1 {
+				printf("error writing into model checkpoint file `%s`!\n".data, filename.data);
+			} else {
+				printf("written %llu bytes\n".data, written);
+			}
+		}
+	}
+
+	:close_err int32 = close(file);
+	if close_err < 0 {
+		printf("error closing model checkpoint file `%s`!\n".data, filename.data);
+	}
+}
+
+function read_model(:filename string, :neural_network [][10]Neuron) {
+	:file int32 = open(filename.data, 0, 0);
+	if file < 0 {
+		printf("error opening model checkpoint file `%s`!\n".data, filename.data);
+	}
+
+	:_read uint64;
+	for(:l int32 = 0; l < [int32]neural_network.len; l++) {
+		for(:n int32 = 0; n < [int32]neural_network[l].len; n++) {
+			:bias *? = &(neural_network[l][n].bias);
+			printf("%llx\n".data, bias);
+
+			:nw uint64 = neural_network[l][n].weights.len * 4;
+			_read = read(file, neural_network[l][n].weights.data, nw);
+			if _read < nw {
+				printf("error reading from model checkpoint file `%s`!\n".data, filename.data);
+			} else {
+				printf("read %llu bytes\n".data, _read);
+			}
+
+			_read = read(file, bias, 4);
+			if _read < 4 {
+				printf("error reading from model checkpoint file `%s`!\n".data, filename.data);
+			} else {
+				printf("read %llu bytes\n".data, _read);
+			}
+		}
+	}
+
+	:close_err int32 = close(file);
+	if close_err < 0 {
+		printf("error closing model checkpoint file `%s`!\n".data, filename.data);
+	}
+}
+

@@ -348,10 +348,10 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			if full {
 				allocation = StackAllocate(ast.DataType).Reference()
 			} else {
-				allocation, _ = reg.Class.GetRegister(datatype.TYPE_F64)
+				allocation, _ = reg.Class.GetRegister(ast.DataType)
 			}
 			
-			load := GEN_move(Asm_Int_Literal{datatype.TYPE_UINT64, int64(f_bits), 10}, allocation)
+			load := GEN_move(Asm_Int_Literal{ast.DataType, int64(f_bits), 10}, allocation)
 			out.Code.Appendln(load.Code)
 
 			if !full {
@@ -740,6 +740,14 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				out.Code.TextAppendSln("// referencing stuff from mem!")
 				println("// referencing stuff from mem!")
 				ref := GEN_reference_from_mem(children_out[0].Result.(Memory_Reference))
+				out.Code.Appendln(ref.Code)
+				
+				out.Result = ref.Result
+			case front.AST_OP_DOT:
+				out.Code.Appendln(children_out[0].Code)
+
+				ref := GEN_reference_from_mem(children_out[0].Result.(Memory_Reference))
+
 				out.Code.Appendln(ref.Code)
 				
 				out.Result = ref.Result

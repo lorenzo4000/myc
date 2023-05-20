@@ -1,6 +1,8 @@
 struct    has padding of  0
 struct    has padding of  0
-[[false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false true false false false] [false false false false false false] [false true false false false false] [false false true false false false] [false true false false false false] [false false true false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false]]
+struct    has padding of  0
+struct    has padding of  0
+[[false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false true false false false false] [false false false false false false] [false true false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false] [false false false false false false]]
 .text
 
 
@@ -109,6 +111,9 @@ popq %rax
 
 
 movq -233(%rbp, 1), %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -240,6 +245,9 @@ movq -16(%rbp, 1), %rdi
 movq -24(%rbp, 1), %rsi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -294,6 +302,8 @@ ret
 
 
 
+
+
 .string "\0flip32"
 .global flip32
 flip32:
@@ -301,15 +311,15 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $48, %rsp
+subq $80, %rsp
 
 
 
-movl $0, -40(%rbp, 1)
+movl $0, -64(%rbp, 1)
 
 
 
-movl %edi, -40(%rbp, 1)
+movl %edi, -64(%rbp, 1)
 
 
 
@@ -318,7 +328,7 @@ movl $0, %ebx
 
 
 
-movl %ebx, -44(%rbp, 1)
+movl %ebx, -68(%rbp, 1)
 
 
 
@@ -339,7 +349,7 @@ shll %cl, %r12d
 
 
 
-movl -40(%rbp, 1), %r13d
+movl -64(%rbp, 1), %r13d
 
 
 andl %r12d, %r13d
@@ -357,7 +367,7 @@ shll %cl, %r13d
 
 
 
-orl %r13d, -44(%rbp, 1)
+orl %r13d, -68(%rbp, 1)
 
 
 
@@ -378,7 +388,7 @@ shll %cl, %r12d
 
 
 
-movl -40(%rbp, 1), %r13d
+movl -64(%rbp, 1), %r13d
 
 
 andl %r12d, %r13d
@@ -396,7 +406,7 @@ shll %cl, %r13d
 
 
 
-orl %r13d, -44(%rbp, 1)
+orl %r13d, -68(%rbp, 1)
 
 
 
@@ -417,7 +427,7 @@ shll %cl, %r12d
 
 
 
-movl -40(%rbp, 1), %r13d
+movl -64(%rbp, 1), %r13d
 
 
 andl %r12d, %r13d
@@ -435,7 +445,7 @@ shrl %cl, %r13d
 
 
 
-orl %r13d, -44(%rbp, 1)
+orl %r13d, -68(%rbp, 1)
 
 
 
@@ -456,7 +466,7 @@ shll %cl, %r12d
 
 
 
-movl -40(%rbp, 1), %r13d
+movl -64(%rbp, 1), %r13d
 
 
 andl %r12d, %r13d
@@ -474,12 +484,12 @@ shrl %cl, %r13d
 
 
 
-orl %r13d, -44(%rbp, 1)
+orl %r13d, -68(%rbp, 1)
 
 
 
 
-movl -44(%rbp, 1), %eax
+movl -68(%rbp, 1), %eax
 
 
 jmp ._flip32
@@ -504,7 +514,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $480, %rsp
+subq $496, %rsp
 
 
 
@@ -565,6 +575,9 @@ movl %ebx, %esi
 
 
 movl %r12d, %edx
+
+
+movq %rsp, %rax
 
 
 
@@ -630,6 +643,9 @@ movq $.L1, %rdi
 movq -16(%rbp, 1), %rsi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -679,6 +695,9 @@ movq %r15, %rsi
 
 
 movq -33(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -775,6 +794,9 @@ jz .L4
 movq $.L3, %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -797,6 +819,9 @@ jmp ._read_dataset_image
 
 
 movl -25(%rbp, 1), %edi
+
+
+movq %rsp, %rax
 
 
 
@@ -843,6 +868,9 @@ movq $.L5, %rdi
 
 
 movl -25(%rbp, 1), %esi
+
+
+movq %rsp, %rax
 
 
 
@@ -894,6 +922,9 @@ movq -94(%rbp, 1), %rsi
 
 
 movq -102(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -1003,6 +1034,9 @@ jz .L7
 movq $.L6, %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -1025,6 +1059,9 @@ jmp ._read_dataset_image
 
 
 movl -86(%rbp, 1), %edi
+
+
+movq %rsp, %rax
 
 
 
@@ -1071,6 +1108,9 @@ movq $.L8, %rdi
 
 
 movl -86(%rbp, 1), %esi
+
+
+movq %rsp, %rax
 
 
 
@@ -1122,6 +1162,9 @@ movq -163(%rbp, 1), %rsi
 
 
 movq -171(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -1231,6 +1274,9 @@ jz .L10
 movq $.L9, %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -1253,6 +1299,9 @@ jmp ._read_dataset_image
 
 
 movl -155(%rbp, 1), %edi
+
+
+movq %rsp, %rax
 
 
 
@@ -1299,6 +1348,9 @@ movq $.L11, %rdi
 
 
 movl -155(%rbp, 1), %esi
+
+
+movq %rsp, %rax
 
 
 
@@ -1350,6 +1402,9 @@ movq -232(%rbp, 1), %rsi
 
 
 movq -240(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -1459,6 +1514,9 @@ jz .L13
 movq $.L12, %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -1481,6 +1539,9 @@ jmp ._read_dataset_image
 
 
 movl -224(%rbp, 1), %edi
+
+
+movq %rsp, %rax
 
 
 
@@ -1527,6 +1588,9 @@ movq $.L14, %rdi
 
 
 movl -224(%rbp, 1), %esi
+
+
+movq %rsp, %rax
 
 
 
@@ -1609,6 +1673,9 @@ movq $.L15, %rdi
 movl -301(%rbp, 1), %esi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -1671,6 +1738,9 @@ andq %rax, -313(%rbp, 1)
 
 
 movq -313(%rbp, 1), %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -1868,7 +1938,7 @@ popq %rbx
 
 
 
-jl .L16
+jb .L16
 
 movq -374(%rbp, 1), %rsi
 
@@ -1994,6 +2064,9 @@ movq -406(%rbp, 1), %rsi
 
 
 movq -414(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -2140,6 +2213,9 @@ jz .L18
 movq $.L17, %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -2173,6 +2249,121 @@ jmp .L19
 
 
 
+movl -20(%rbp, 1), %edi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call close
+
+movl %eax, -471(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -471(%rbp, 1), %ebx
+
+
+movl %ebx, -475(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+movl $0, -479(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -475(%rbp, 1), %ebx
+
+
+movl %ebx, -483(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -484(%rbp, 1), %bl
+
+
+xorb %bl, -484(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -479(%rbp, 1), %ebx
+
+
+cmpl %ebx, -483(%rbp, 1)
+popq %rbx
+
+
+
+setl -484(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -484(%rbp, 1), %bl
+
+
+andb %bl, -484(%rbp, 1)
+popq %rbx
+
+
+
+jz .L22
+
+
+
+
+
+movq $.L21, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -488(%rbp, 1)
+
+
+
+
+
+.L22:
+
+
+
 movq -337(%rbp, 1), %rdx
 
 
@@ -2202,7 +2393,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $256, %rsp
+subq $272, %rsp
 
 
 
@@ -2265,6 +2456,9 @@ movl %ebx, %esi
 movl %r12d, %edx
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -2316,16 +2510,19 @@ popq %rbx
 
 
 
-jz .L22
+jz .L24
 
 
 
 
 
-movq $.L21, %rdi
+movq $.L23, %rdi
 
 
 movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
 
 
 
@@ -2345,7 +2542,7 @@ jmp ._read_dataset_label
 
 
 
-.L22:
+.L24:
 
 
 movl $0, -25(%rbp, 1)
@@ -2377,6 +2574,9 @@ movq %r15, %rsi
 
 
 movq -33(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -2466,11 +2666,14 @@ popq %rbx
 
 
 
-jz .L24
+jz .L26
 
 
 
-movq $.L23, %rdi
+movq $.L25, %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -2490,11 +2693,14 @@ jmp ._read_dataset_label
 
 
 
-.L24:
+.L26:
 
 
 
 movl -25(%rbp, 1), %edi
+
+
+movq %rsp, %rax
 
 
 
@@ -2537,10 +2743,13 @@ popq %rbx
 
 
 
-movq $.L25, %rdi
+movq $.L27, %rdi
 
 
 movl -25(%rbp, 1), %esi
+
+
+movq %rsp, %rax
 
 
 
@@ -2592,6 +2801,9 @@ movq -94(%rbp, 1), %rsi
 
 
 movq -102(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -2694,11 +2906,14 @@ popq %rbx
 
 
 
-jz .L27
+jz .L29
 
 
 
-movq $.L26, %rdi
+movq $.L28, %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -2718,11 +2933,14 @@ jmp ._read_dataset_label
 
 
 
-.L27:
+.L29:
 
 
 
 movl -86(%rbp, 1), %edi
+
+
+movq %rsp, %rax
 
 
 
@@ -2765,10 +2983,13 @@ popq %rbx
 
 
 
-movq $.L28, %rdi
+movq $.L30, %rdi
 
 
 movl -86(%rbp, 1), %esi
+
+
+movq %rsp, %rax
 
 
 
@@ -2833,6 +3054,9 @@ andq %rax, -159(%rbp, 1)
 
 
 movq -159(%rbp, 1), %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -2933,6 +3157,9 @@ movq -191(%rbp, 1), %rsi
 
 
 movq -207(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
 
 
 
@@ -3042,11 +3269,14 @@ popq %rbx
 
 
 
-jz .L30
+jz .L32
 
 
 
-movq $.L29, %rdi
+movq $.L31, %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -3066,7 +3296,122 @@ jmp ._read_dataset_label
 
 
 
-.L30:
+.L32:
+
+
+
+movl -20(%rbp, 1), %edi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call close
+
+movl %eax, -248(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -248(%rbp, 1), %ebx
+
+
+movl %ebx, -252(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+movl $0, -256(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -252(%rbp, 1), %ebx
+
+
+movl %ebx, -260(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -261(%rbp, 1), %bl
+
+
+xorb %bl, -261(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -256(%rbp, 1), %ebx
+
+
+cmpl %ebx, -260(%rbp, 1)
+popq %rbx
+
+
+
+setl -261(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -261(%rbp, 1), %bl
+
+
+andb %bl, -261(%rbp, 1)
+popq %rbx
+
+
+
+jz .L34
+
+
+
+
+
+movq $.L33, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -265(%rbp, 1)
+
+
+
+
+
+.L34:
 
 
 
@@ -3203,7 +3548,7 @@ xorb $1, %r12b
 
 andb %r12b, %r12b
 
-jz .L31
+jz .L35
 
 jmp ._vecmul
 
@@ -3211,7 +3556,7 @@ jmp ._vecmul
 
 
 
-.L31:
+.L35:
 
 
 movl $0, -36(%rbp, 1)
@@ -3227,7 +3572,7 @@ movl %ebx, -40(%rbp, 1)
 
 
 
-.L34:
+.L38:
 
 
 
@@ -3255,7 +3600,7 @@ setl %r15b
 
 andb %r15b, %r15b
 
-jz .L35
+jz .L39
 
 
 
@@ -3295,7 +3640,7 @@ popq %r10
 
 cmpq -56(%rbp, 1), %r13
 
-jl .L32
+jb .L36
 
 movq %r13, %rsi
 
@@ -3305,7 +3650,7 @@ movq -56(%rbp, 1), %rdx
 
 call err_oob
 
-.L32:
+.L36:
 
 
 
@@ -3345,7 +3690,7 @@ popq %r10
 
 cmpq -72(%rbp, 1), %r14
 
-jl .L33
+jb .L37
 
 movq %r14, %rsi
 
@@ -3355,7 +3700,7 @@ movq -72(%rbp, 1), %rdx
 
 call err_oob
 
-.L33:
+.L37:
 
 
 pushq %r12
@@ -3420,9 +3765,9 @@ incl -40(%rbp, 1)
 
 
 
-jmp .L34
+jmp .L38
 
-.L35:
+.L39:
 
 
 
@@ -3518,6 +3863,9 @@ movq %rax, %rbx
 movq %rbx, %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -3581,10 +3929,13 @@ movq %rax, -44(%rbp, 1)
 
 
 
-movq $.L36, %rdi
+movq $.L40, %rdi
 
 
 movq -44(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
 
 
 
@@ -3607,7 +3958,7 @@ movq %r13, -60(%rbp, 1)
 
 
 
-.L40:
+.L44:
 
 
 movq $0, %r14
@@ -3641,7 +3992,7 @@ popq %r10
 
 cmpq -76(%rbp, 1), %r14
 
-jl .L37
+jb .L41
 
 movq %r14, %rsi
 
@@ -3651,7 +4002,7 @@ movq -76(%rbp, 1), %rdx
 
 call err_oob
 
-.L37:
+.L41:
 movq %r14, %rax
 
 
@@ -3707,7 +4058,7 @@ popq %rbx
 
 
 
-jz .L41
+jz .L45
 
 pushq %rbx
 
@@ -3746,6 +4097,9 @@ movq %rax, -125(%rbp, 1)
 
 
 movq -125(%rbp, 1), %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -3846,7 +4200,7 @@ popq %r10
 
 cmpq -101(%rbp, 1), %r15
 
-jl .L38
+jb .L42
 
 movq %r15, %rsi
 
@@ -3856,7 +4210,7 @@ movq -101(%rbp, 1), %rdx
 
 call err_oob
 
-.L38:
+.L42:
 movq %r15, %rax
 
 
@@ -3871,7 +4225,7 @@ movq %rax, %r15
 
 cmpq $10, -60(%rbp, 1)
 
-jl .L39
+jb .L43
 
 movq -60(%rbp, 1), %rsi
 
@@ -3881,7 +4235,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L39:
+.L43:
 pushq %r10
 
 
@@ -4069,9 +4423,9 @@ incq -60(%rbp, 1)
 
 
 
-jmp .L40
+jmp .L44
 
-.L41:
+.L45:
 
 
 
@@ -4126,7 +4480,7 @@ popq %rbx
 
 
 
-jl .L43
+jb .L47
 
 movq -189(%rbp, 1), %rsi
 
@@ -4136,7 +4490,7 @@ movq -205(%rbp, 1), %rdx
 
 call err_oob
 
-.L43:
+.L47:
 pushq %rbx
 
 xorq %rbx, %rbx
@@ -4177,7 +4531,7 @@ popq %rbx
 
 cmpq $10, -221(%rbp, 1)
 
-jl .L44
+jb .L48
 
 movq -221(%rbp, 1), %rsi
 
@@ -4187,7 +4541,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L44:
+.L48:
 pushq %r10
 
 
@@ -4248,7 +4602,7 @@ movq %rax, -237(%rbp, 1)
 
 
 
-movq $.L42, %rdi
+movq $.L46, %rdi
 
 
 pushq %rbx
@@ -4272,6 +4626,9 @@ popq %r12
 
 popq %rbx
 
+
+
+movq %rsp, %rax
 
 
 
@@ -4312,7 +4669,7 @@ popq %rbx
 
 
 
-.L48:
+.L52:
 
 
 pushq %rbx
@@ -4364,7 +4721,7 @@ popq %rbx
 
 
 
-jl .L45
+jb .L49
 
 movq -265(%rbp, 1), %rsi
 
@@ -4374,7 +4731,7 @@ movq -281(%rbp, 1), %rdx
 
 call err_oob
 
-.L45:
+.L49:
 pushq %rbx
 
 xorq %rbx, %rbx
@@ -4462,7 +4819,7 @@ popq %rbx
 
 
 
-jz .L49
+jz .L53
 
 pushq %rbx
 
@@ -4501,6 +4858,9 @@ movq %rax, -362(%rbp, 1)
 
 
 movq -362(%rbp, 1), %rdi
+
+
+movq %rsp, %rax
 
 
 
@@ -4619,7 +4979,7 @@ popq %rbx
 
 
 
-jl .L46
+jb .L50
 
 movq -314(%rbp, 1), %rsi
 
@@ -4629,7 +4989,7 @@ movq -330(%rbp, 1), %rdx
 
 call err_oob
 
-.L46:
+.L50:
 pushq %rbx
 
 xorq %rbx, %rbx
@@ -4658,7 +5018,7 @@ movq %rax, -338(%rbp, 1)
 
 cmpq $10, -257(%rbp, 1)
 
-jl .L47
+jb .L51
 
 movq -257(%rbp, 1), %rsi
 
@@ -4668,7 +5028,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L47:
+.L51:
 pushq %r10
 
 
@@ -4866,9 +5226,9 @@ incq -257(%rbp, 1)
 
 
 
-jmp .L48
+jmp .L52
 
-.L49:
+.L53:
 
 
 
@@ -4923,7 +5283,7 @@ popq %rbx
 
 
 
-jl .L51
+jb .L55
 
 movq -426(%rbp, 1), %rsi
 
@@ -4933,7 +5293,7 @@ movq -442(%rbp, 1), %rdx
 
 call err_oob
 
-.L51:
+.L55:
 pushq %rbx
 
 xorq %rbx, %rbx
@@ -4974,7 +5334,7 @@ popq %rbx
 
 cmpq $10, -458(%rbp, 1)
 
-jl .L52
+jb .L56
 
 movq -458(%rbp, 1), %rsi
 
@@ -4984,7 +5344,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L52:
+.L56:
 pushq %r10
 
 
@@ -5045,7 +5405,7 @@ movq %rax, -474(%rbp, 1)
 
 
 
-movq $.L50, %rdi
+movq $.L54, %rdi
 
 
 pushq %rbx
@@ -5069,6 +5429,9 @@ popq %r12
 
 popq %rbx
 
+
+
+movq %rsp, %rax
 
 
 
@@ -5107,6 +5470,8 @@ ret
 
 
 
+
+
 .string "\0logistic"
 .global logistic
 logistic:
@@ -5114,83 +5479,97 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $80, %rsp
+subq $64, %rsp
 
 
 
-movl $0, -12(%rbp, 1)
+movl $0, -20(%rbp, 1)
 
 
 
-movss %xmm0, -12(%rbp, 1)
-
-
-
-
+movss %xmm0, -20(%rbp, 1)
 
 
 
 
-cvtss2sd -12(%rbp, 1), %xmm0
-
-movq %xmm0, %rbx
+movl $1065353216, %ebx
 
 
 
-movq $.L53, %rdi
+movl %ebx, -24(%rbp, 1)
 
 
-movq %rbx, %r12
+
+movl $1065353216, %r12d
 
 
-movq %r12, %xmm0
+
+
+movl -20(%rbp, 1), %r13d
+
+
+movl $0, %r14d
+
+
+movl %r14d, %r15d
+
+
+movq %r15, %xmm0
+
+
+movl %r13d, -28(%rbp, 1)
+
+
+movss -28(%rbp, 1), %xmm1
+
+
+subss %xmm1, %xmm0
+
+movq %xmm0, %r14
+
+
+
+movl %r14d, %r13d
+
+
+
+
+movl %r13d, -32(%rbp, 1)
+
+
+movss -32(%rbp, 1), %xmm0
+
+
+movq %rsp, %rax
 
 
 
 movq $1, %rax
 
 
-call printf
+call expf
 
-movl %eax, %r13d
-
-
-
-
-movq $1065353216, %r14
-
-
-
-movl %r14d, -16(%rbp, 1)
-
-
-
-movq $1065353216, %r15
+movss %xmm0, -36(%rbp, 1)
 
 
 
 
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -12(%rbp, 1), %ebx
+movl %r12d, -40(%rbp, 1)
 
 
-movl %ebx, -20(%rbp, 1)
-popq %rbx
+movss -40(%rbp, 1), %xmm0
+
+
+addss -36(%rbp, 1), %xmm0
+
+movq %xmm0, %r12
 
 
 
 
-movl $0, -24(%rbp, 1)
+movl %r12d, -44(%rbp, 1)
 
 
-movss -24(%rbp, 1), %xmm0
-
-
-subss -20(%rbp, 1), %xmm0
-
-movss %xmm0, -24(%rbp, 1)
 
 
 
@@ -5200,97 +5579,18 @@ xorq %rbx, %rbx
 movl -24(%rbp, 1), %ebx
 
 
-movl %ebx, -20(%rbp, 1)
+movl %ebx, -48(%rbp, 1)
 popq %rbx
 
 
 
 
+movss -48(%rbp, 1), %xmm1
 
 
-movss -20(%rbp, 1), %xmm0
+divss -44(%rbp, 1), %xmm1
 
-
-
-movq $1, %rax
-
-
-call expf
-
-movss %xmm0, -28(%rbp, 1)
-
-
-
-
-movl %r15d, -32(%rbp, 1)
-
-
-movss -32(%rbp, 1), %xmm0
-
-
-addss -28(%rbp, 1), %xmm0
-
-movq %xmm0, %r15
-
-
-
-
-movl %r15d, -36(%rbp, 1)
-
-
-
-
-
-
-
-cvtss2sd -16(%rbp, 1), %xmm1
-
-movsd %xmm1, -44(%rbp, 1)
-
-
-
-movq $.L54, %rdi
-
-
-movsd -44(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -48(%rbp, 1)
-
-
-
-
-
-
-
-
-cvtss2sd -36(%rbp, 1), %xmm0
-
-movsd %xmm0, -56(%rbp, 1)
-
-
-
-movq $.L55, %rdi
-
-
-movsd -56(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -60(%rbp, 1)
-
-
+movss %xmm1, -48(%rbp, 1)
 
 
 
@@ -5298,32 +5598,10 @@ movl %eax, -60(%rbp, 1)
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -16(%rbp, 1), %ebx
+movl -48(%rbp, 1), %ebx
 
 
-movl %ebx, -64(%rbp, 1)
-popq %rbx
-
-
-
-
-movss -64(%rbp, 1), %xmm0
-
-
-divss -36(%rbp, 1), %xmm0
-
-movss %xmm0, -64(%rbp, 1)
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -64(%rbp, 1), %ebx
-
-
-movl %ebx, -68(%rbp, 1)
+movl %ebx, -52(%rbp, 1)
 popq %rbx
 
 
@@ -5331,7 +5609,7 @@ popq %rbx
 
 
 
-movss -68(%rbp, 1), %xmm0
+movss -52(%rbp, 1), %xmm0
 
 
 jmp ._logistic
@@ -5356,7 +5634,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $144, %rsp
+subq $80, %rsp
 
 
 
@@ -5407,7 +5685,7 @@ movl %edx, -20(%rbp, 1)
 
 
 
-movq $0, %rbx
+movl $0, %ebx
 
 
 
@@ -5424,7 +5702,7 @@ movq %r12, -32(%rbp, 1)
 
 
 
-.L59:
+.L58:
 
 
 
@@ -5442,10 +5720,7 @@ setb %r14b
 
 andb %r14b, %r14b
 
-jz .L60
-
-
-
+jz .L59
 
 
 
@@ -5486,7 +5761,7 @@ popq %rbx
 
 
 
-jl .L57
+jb .L57
 
 movq -32(%rbp, 1), %rsi
 
@@ -5515,115 +5790,37 @@ xorq %r12, %r12
 movq -32(%rbp, 1), %r12
 
 
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
+movss 0(%rbx, %r12, 4), %xmm0
 popq %r12
 
 popq %rbx
 
 
-movq %xmm0, %r13
 
-
-
-movq $.L56, %rdi
-
-
-movq -32(%rbp, 1), %rsi
-
-
-movq %r13, %r15
-
-
-movq %r15, %xmm0
+movq %rsp, %rax
 
 
 
 movq $1, %rax
 
 
-call printf
+call expf
 
-movl %eax, -52(%rbp, 1)
-
-
+movq %xmm0, %r13
 
 
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -60(%rbp, 1)
-
-
-movq %r10, -68(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -68(%rbp, 1), %rbx
-
-
-cmpq %rbx, -32(%rbp, 1)
-popq %rbx
-
-
-
-jl .L58
-
-movq -32(%rbp, 1), %rsi
-
-
-movq -68(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L58:
 
 
 movss -24(%rbp, 1), %xmm0
 
 
-pushq %rbx
+movl %r13d, %r15d
 
 
-xorq %rbx, %rbx
-
-movq -60(%rbp, 1), %rbx
+movq %r15, %xmm1
 
 
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -32(%rbp, 1), %r12
-
-
-addss 0(%rbx, %r12, 4), %xmm0
-popq %r12
-
-popq %rbx
-
+addss %xmm1, %xmm0
 
 movss %xmm0, -24(%rbp, 1)
 
@@ -5637,88 +5834,85 @@ incq -32(%rbp, 1)
 
 
 
-jmp .L59
+jmp .L58
+
+.L59:
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -20(%rbp, 1), %ebx
+
+
+movl %ebx, -56(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -56(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -64(%rbp, 1)
+
+
+movq %r10, -72(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -72(%rbp, 1), %rbx
+
+
+cmpq %rbx, -56(%rbp, 1)
+popq %rbx
+
+
+
+jb .L60
+
+movq -56(%rbp, 1), %rsi
+
+
+movq -72(%rbp, 1), %rdx
+
+
+call err_oob
 
 .L60:
 
 
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -20(%rbp, 1), %ebx
-
-
-movl %ebx, -76(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -76(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -84(%rbp, 1)
-
-
-movq %r10, -92(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -92(%rbp, 1), %rbx
-
-
-cmpq %rbx, -76(%rbp, 1)
-popq %rbx
-
-
-
-jl .L62
-
-movq -76(%rbp, 1), %rsi
-
-
-movq -92(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L62:
-
-
 pushq %rbx
 
 
 xorq %rbx, %rbx
 
-movq -84(%rbp, 1), %rbx
+movq -64(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -5726,176 +5920,43 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -76(%rbp, 1), %r12
+movq -56(%rbp, 1), %r12
 
 
-cvtss2sd 0(%rbx, %r12, 4), %xmm1
+movss 0(%rbx, %r12, 4), %xmm0
 popq %r12
 
 popq %rbx
 
 
-movsd %xmm1, -100(%rbp, 1)
 
-
-
-movq $.L61, %rdi
-
-
-movsd -100(%rbp, 1), %xmm0
+movq %rsp, %rax
 
 
 
 movq $1, %rax
 
 
-call printf
+call expf
 
-movl %eax, -104(%rbp, 1)
+movss %xmm0, -76(%rbp, 1)
 
 
 
 
 
-
-
-
-cvtss2sd -24(%rbp, 1), %xmm0
-
-movsd %xmm0, -112(%rbp, 1)
-
-
-
-movq $.L63, %rdi
-
-
-movsd -112(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -116(%rbp, 1)
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -20(%rbp, 1), %ebx
-
-
-movl %ebx, -124(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -124(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -132(%rbp, 1)
-
-
-movq %r10, -140(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -140(%rbp, 1), %rbx
-
-
-cmpq %rbx, -124(%rbp, 1)
-popq %rbx
-
-
-
-jl .L64
-
-movq -124(%rbp, 1), %rsi
-
-
-movq -140(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L64:
-
-
-
-pushq %r13
-
-xorq %r13, %r13
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -132(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -124(%rbp, 1), %r12
-
-
-movl 0(%rbx, %r12, 4), %r13d
-
-
-popq %r12
-
-popq %rbx
-
-movl %r13d, -144(%rbp, 1)
-popq %r13
-
-
-
-
-movss -144(%rbp, 1), %xmm0
+movss -76(%rbp, 1), %xmm0
 
 
 divss -24(%rbp, 1), %xmm0
 
-movss %xmm0, -144(%rbp, 1)
+movss %xmm0, -76(%rbp, 1)
 
 
 
 
 
-movss -144(%rbp, 1), %xmm0
+movss -76(%rbp, 1), %xmm0
 
 
 ._softmax:
@@ -5907,6 +5968,7 @@ ret
 
 
 
+
 .string "\0forward"
 .global forward
 forward:
@@ -5914,7 +5976,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $4352, %rsp
+subq $3872, %rsp
 
 
 
@@ -5929,7 +5991,7 @@ pushq %rcx
 
 xorq %rax, %rax
 
-leaq -16(%rbp, 1), %rdi
+leaq -48(%rbp, 1), %rdi
 
 movq $16, %rcx
 
@@ -5960,7 +6022,7 @@ pushq %rcx
 
 xorq %rax, %rax
 
-leaq -3152(%rbp, 1), %rdi
+leaq -3184(%rbp, 1), %rdi
 
 movq $3136, %rcx
 
@@ -5980,25 +6042,41 @@ popq %rax
 
 
 
-pushq %rbx
+pushq %rax
 
 
-movq $0, %rbx
+pushq %rdi
 
 
-movq %rbx, -3160(%rbp, 1)
-
-popq %rbx
+pushq %rcx
 
 
+xorq %rax, %rax
 
-movq %rdi, -3160(%rbp, 1)
+leaq -3216(%rbp, 1), %rdi
+
+movq $32, %rcx
 
 
-movq %rdx, -8(%rbp, 1)
+cld
+
+rep stosb
+
+popq %rcx
 
 
-movq %rsi, -16(%rbp, 1)
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movq %rsi, -40(%rbp, 1)
+
+
+movq %rdi, -48(%rbp, 1)
 
 
 
@@ -6013,7 +6091,7 @@ pushq %rcx
 
 leaq 16(%rbp, 1), %rsi
 
-leaq -3152(%rbp, 1), %rdi
+leaq -3184(%rbp, 1), %rdi
 
 movq $3136, %rcx
 
@@ -6032,69 +6110,76 @@ popq %rsi
 
 
 
+pushq %rbx
+
+xorq %rbx, %rbx
+movq 3176(%rbp, 1), %rbx
+
+
+movq %rbx, -3192(%rbp, 1)
+popq %rbx
 
 
 
 
-movq $.L65, %rdi
+pushq %rbx
+
+xorq %rbx, %rbx
+movq 3168(%rbp, 1), %rbx
 
 
-
-movq $0, %rax
-
-
-call printf
-
-movl %eax, %ebx
-
-
-
-
-pushq %rax
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-xorq %rax, %rax
-
-leaq -3200(%rbp, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep stosb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rax
+movq %rbx, -3200(%rbp, 1)
+popq %rbx
 
 
 
 
-movl $0, %r12d
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq 3160(%rbp, 1), %rbx
+
+
+movq %rbx, -3208(%rbp, 1)
+popq %rbx
 
 
 
-movl %r12d, -3204(%rbp, 1)
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq 3152(%rbp, 1), %rbx
+
+
+movq %rbx, -3216(%rbp, 1)
+popq %rbx
 
 
 
 
-.L95:
 
 
 
-movq $0, %r13
+
+
+
+movl $0, %ebx
+
+
+
+movl %ebx, -3220(%rbp, 1)
+
+
+
+
+.L70:
+
+
+
+movq $0, %r12
 
 
 
@@ -6104,17 +6189,17 @@ pushq %r10
 pushq %r11
 
 
-movq -8(%rbp, 1), %r10
+movq -40(%rbp, 1), %r10
 
 
-movq -16(%rbp, 1), %r11
+movq -48(%rbp, 1), %r11
 
 
 
-movq %r11, -3212(%rbp, 1)
+movq %r11, -3228(%rbp, 1)
 
 
-movq %r10, -3220(%rbp, 1)
+movq %r10, -3236(%rbp, 1)
 
 
 popq %r11
@@ -6123,133 +6208,244 @@ popq %r11
 popq %r10
 
 
-cmpq -3220(%rbp, 1), %r13
+cmpq -3236(%rbp, 1), %r12
 
-jl .L66
+jb .L61
 
-movq %r13, %rsi
+movq %r12, %rsi
 
 
-movq -3220(%rbp, 1), %rdx
+movq -3236(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L66:
-movq %r13, %rax
+.L61:
+movq %r12, %rax
 
 
 imulq $200, %rax
 
-movq %rax, %r13
+movq %rax, %r12
 
 
 
 
 
-movq $10, %r14
+movq $10, %r13
 
 
 
-movl %r14d, %r15d
+movl %r13d, %r14d
 
 
 movq $-1, %rax
 
 
+andq %rax, %r14
+
+
+movl -3220(%rbp, 1), %r15d
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3237(%rbp, 1), %bl
+
+
+xorb %bl, -3237(%rbp, 1)
+popq %rbx
+
+
+
+cmpl %r14d, %r15d
+
+setl -3237(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3237(%rbp, 1), %bl
+
+
+andb %bl, -3237(%rbp, 1)
+popq %rbx
+
+
+
+jz .L71
+
+
+movq $0, %r14
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -40(%rbp, 1), %r10
+
+
+movq -48(%rbp, 1), %r11
+
+
+
+movq %r11, -3245(%rbp, 1)
+
+
+movq %r10, -3253(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+cmpq -3253(%rbp, 1), %r14
+
+jb .L62
+
+movq %r14, %rsi
+
+
+movq -3253(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L62:
+movq %r14, %rax
+
+
+imulq $200, %rax
+
+movq %rax, %r14
+
+
+
+
+
+
+movl -3220(%rbp, 1), %r15d
+
+
+movq $4294967295, %rax
+
+
 andq %rax, %r15
 
+cmpq $10, %r15
+
+jb .L63
+
+movq %r15, %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L63:
+pushq %r10
+
 
 pushq %rbx
 
+
 xorq %rbx, %rbx
-movl -3204(%rbp, 1), %ebx
+
+movq -3245(%rbp, 1), %rbx
 
 
-movl %ebx, -3224(%rbp, 1)
+leaq 0(%rbx, %r14, 1), %r10
+popq %rbx
+
+
+movq %r10, -3261(%rbp, 1)
+
+
+popq %r10
+
+
+movq %r15, %rax
+
+
+imulq $20, %rax
+
+movq %rax, %r15
+
+
+
+
+
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3261(%rbp, 1), %rbx
+
+
+movq 8(%rbx, %r15, 1), %rsi
+popq %rbx
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3261(%rbp, 1), %rbx
+
+
+movq 0(%rbx, %r15, 1), %rdi
 popq %rbx
 
 
 
 
+
 pushq %rbx
 
-xorq %rbx, %rbx
-movb -3225(%rbp, 1), %bl
+
+leaq -3184(%rbp, 1), %rbx
+
+movq %rbx, -3269(%rbp, 1)
 
 
-xorb %bl, -3225(%rbp, 1)
 popq %rbx
 
 
 
-cmpl %r15d, -3224(%rbp, 1)
-
-setl -3225(%rbp, 1)
+movq -3269(%rbp, 1), %rdx
 
 
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3225(%rbp, 1), %bl
-
-
-andb %bl, -3225(%rbp, 1)
-popq %rbx
+movq $784, %rcx
 
 
 
-jz .L96
-
-
-
-movq $.L67, %rdi
+movq %rsp, %rax
 
 
 
 movq $0, %rax
 
 
-call printf
+call vecmul
 
-movl %eax, %r15d
-
-
-
-
-movl $0, -3229(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3229(%rbp, 1), %ebx
-
-
-movl %ebx, -3233(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L75:
-
-movl $28, -3237(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3233(%rbp, 1), %ebx
-
-
-movl %ebx, -3241(%rbp, 1)
-popq %rbx
+movss %xmm0, -3273(%rbp, 1)
 
 
 
@@ -6257,116 +6453,13 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -3242(%rbp, 1), %bl
+movl -3273(%rbp, 1), %ebx
 
 
-xorb %bl, -3242(%rbp, 1)
+movl %ebx, -3277(%rbp, 1)
 popq %rbx
 
 
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3237(%rbp, 1), %ebx
-
-
-cmpl %ebx, -3241(%rbp, 1)
-popq %rbx
-
-
-
-setb -3242(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3242(%rbp, 1), %bl
-
-
-andb %bl, -3242(%rbp, 1)
-popq %rbx
-
-
-
-jz .L76
-
-movl $0, -3246(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3246(%rbp, 1), %ebx
-
-
-movl %ebx, -3250(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L72:
-
-movl $28, -3254(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3250(%rbp, 1), %ebx
-
-
-movl %ebx, -3258(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3259(%rbp, 1), %bl
-
-
-xorb %bl, -3259(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3254(%rbp, 1), %ebx
-
-
-cmpl %ebx, -3258(%rbp, 1)
-popq %rbx
-
-
-
-setb -3259(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3259(%rbp, 1), %bl
-
-
-andb %bl, -3259(%rbp, 1)
-popq %rbx
-
-
-
-jz .L73
 
 
 
@@ -6378,7 +6471,7 @@ pushq %rbx
 movq $0, %rbx
 
 
-movq %rbx, -3267(%rbp, 1)
+movq %rbx, -3285(%rbp, 1)
 
 popq %rbx
 
@@ -6391,17 +6484,17 @@ pushq %r10
 pushq %r11
 
 
-movq -8(%rbp, 1), %r10
+movq -40(%rbp, 1), %r10
 
 
-movq -16(%rbp, 1), %r11
+movq -48(%rbp, 1), %r11
 
 
 
-movq %r11, -3275(%rbp, 1)
+movq %r11, -3293(%rbp, 1)
 
 
-movq %r10, -3283(%rbp, 1)
+movq %r10, -3301(%rbp, 1)
 
 
 popq %r11
@@ -6413,43 +6506,43 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3283(%rbp, 1), %rbx
+movq -3301(%rbp, 1), %rbx
 
 
-cmpq %rbx, -3267(%rbp, 1)
+cmpq %rbx, -3285(%rbp, 1)
 popq %rbx
 
 
 
-jl .L69
+jb .L64
 
-movq -3267(%rbp, 1), %rsi
+movq -3285(%rbp, 1), %rsi
 
 
-movq -3283(%rbp, 1), %rdx
+movq -3301(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L69:
+.L64:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3267(%rbp, 1), %rbx
+movq -3285(%rbp, 1), %rbx
 
 
-movq %rbx, -3291(%rbp, 1)
+movq %rbx, -3309(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -3291(%rbp, 1), %rax
+movq -3309(%rbp, 1), %rax
 
 
 imulq $200, %rax
 
-movq %rax, -3291(%rbp, 1)
+movq %rax, -3309(%rbp, 1)
 
 
 
@@ -6461,10 +6554,10 @@ movq %rax, -3291(%rbp, 1)
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3204(%rbp, 1), %ebx
+movl -3220(%rbp, 1), %ebx
 
 
-movl %ebx, -3299(%rbp, 1)
+movl %ebx, -3317(%rbp, 1)
 popq %rbx
 
 
@@ -6473,13 +6566,13 @@ popq %rbx
 movq $4294967295, %rax
 
 
-andq %rax, -3299(%rbp, 1)
+andq %rax, -3317(%rbp, 1)
 
-cmpq $10, -3299(%rbp, 1)
+cmpq $10, -3317(%rbp, 1)
 
-jl .L70
+jb .L65
 
-movq -3299(%rbp, 1), %rsi
+movq -3317(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -6487,7 +6580,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L70:
+.L65:
 pushq %r10
 
 
@@ -6496,7 +6589,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -3275(%rbp, 1), %rbx
+movq -3293(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -6504,7 +6597,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -3291(%rbp, 1), %r12
+movq -3309(%rbp, 1), %r12
 
 
 leaq 0(%rbx, %r12, 1), %r10
@@ -6513,7 +6606,7 @@ popq %r12
 popq %rbx
 
 
-movq %r10, -3307(%rbp, 1)
+movq %r10, -3325(%rbp, 1)
 
 
 popq %r10
@@ -6522,21 +6615,21 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3299(%rbp, 1), %rbx
+movq -3317(%rbp, 1), %rbx
 
 
-movq %rbx, -3315(%rbp, 1)
+movq %rbx, -3333(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -3315(%rbp, 1), %rax
+movq -3333(%rbp, 1), %rax
 
 
 imulq $20, %rax
 
-movq %rax, -3315(%rbp, 1)
+movq %rax, -3333(%rbp, 1)
 
 
 
@@ -6546,42 +6639,32 @@ movq %rax, -3315(%rbp, 1)
 
 
 
-
-movl $28, -3319(%rbp, 1)
-
+movss -3277(%rbp, 1), %xmm0
 
 
 pushq %rbx
 
+
 xorq %rbx, %rbx
-movl -3233(%rbp, 1), %ebx
+
+movq -3325(%rbp, 1), %rbx
 
 
-movl %ebx, -3323(%rbp, 1)
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3333(%rbp, 1), %r12
+
+
+addss 16(%rbx, %r12, 1), %xmm0
+popq %r12
+
 popq %rbx
 
 
-
-
-movl -3323(%rbp, 1), %eax
-
-
-imull -3319(%rbp, 1), %eax
-
-movl %eax, -3323(%rbp, 1)
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3250(%rbp, 1), %ebx
-
-
-addl %ebx, -3323(%rbp, 1)
-popq %rbx
+movss %xmm0, -3277(%rbp, 1)
 
 
 
@@ -6590,19 +6673,30 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3323(%rbp, 1), %ebx
+movl -3277(%rbp, 1), %ebx
 
 
-movl %ebx, -3331(%rbp, 1)
+movl %ebx, -3385(%rbp, 1)
 popq %rbx
 
 
 
 
-movq $4294967295, %rax
 
 
-andq %rax, -3331(%rbp, 1)
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -3341(%rbp, 1)
+
+popq %rbx
+
+
+
 
 pushq %r10
 
@@ -6610,57 +6704,17 @@ pushq %r10
 pushq %r11
 
 
-pushq %rbx
+movq -3192(%rbp, 1), %r10
 
 
-xorq %rbx, %rbx
-
-movq -3307(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3315(%rbp, 1), %r12
-
-
-movq 8(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
+movq -3200(%rbp, 1), %r11
 
 
 
-pushq %rbx
+movq %r11, -3349(%rbp, 1)
 
 
-xorq %rbx, %rbx
-
-movq -3307(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3315(%rbp, 1), %r12
-
-
-movq 0(%rbx, %r12, 1), %r11
-popq %r12
-
-popq %rbx
-
-
-
-
-movq %r11, -3339(%rbp, 1)
-
-
-movq %r10, -3347(%rbp, 1)
+movq %r10, -3357(%rbp, 1)
 
 
 popq %r11
@@ -6672,25 +6726,82 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3347(%rbp, 1), %rbx
+movq -3357(%rbp, 1), %rbx
 
 
-cmpq %rbx, -3331(%rbp, 1)
+cmpq %rbx, -3341(%rbp, 1)
 popq %rbx
 
 
 
-jl .L71
+jb .L66
 
-movq -3331(%rbp, 1), %rsi
+movq -3341(%rbp, 1), %rsi
 
 
-movq -3347(%rbp, 1), %rdx
+movq -3357(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L71:
+.L66:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3341(%rbp, 1), %rbx
+
+
+movq %rbx, -3365(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3365(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -3365(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3220(%rbp, 1), %ebx
+
+
+movl %ebx, -3373(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3373(%rbp, 1)
+
+cmpq $10, -3373(%rbp, 1)
+
+jb .L67
+
+movq -3373(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L67:
+pushq %r10
 
 
 pushq %rbx
@@ -6698,7 +6809,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -3339(%rbp, 1), %rbx
+movq -3349(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -6706,103 +6817,81 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -3331(%rbp, 1), %r12
+movq -3365(%rbp, 1), %r12
 
 
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
+leaq 0(%rbx, %r12, 1), %r10
 popq %r12
 
 popq %rbx
 
 
-movsd %xmm0, -3355(%rbp, 1)
+movq %r10, -3381(%rbp, 1)
+
+
+popq %r10
 
 
 
-movq $.L68, %rdi
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
 
 
-movsd -3355(%rbp, 1), %xmm0
+xorq %rbx, %rbx
+
+movq -3381(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3373(%rbp, 1), %r12
+
+
+movl -3385(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+movss -3277(%rbp, 1), %xmm0
+
+
+movq %rsp, %rax
 
 
 
 movq $1, %rax
 
 
-call printf
+call logistic
 
-movl %eax, -3359(%rbp, 1)
+movss %xmm0, -3389(%rbp, 1)
 
-
-
-
-
-
-incl -3250(%rbp, 1)
-
-
-
-
-jmp .L72
-
-.L73:
-
-
-
-
-movq $.L74, %rdi
-
-
-
-movq $0, %rax
-
-
-call printf
-
-movl %eax, -3363(%rbp, 1)
-
-
-
-
-
-
-incl -3233(%rbp, 1)
-
-
-
-
-jmp .L75
-
-.L76:
-
-
-
-
-movq $.L77, %rdi
-
-
-
-movq $0, %rax
-
-
-call printf
-
-movl %eax, -3367(%rbp, 1)
-
-
-
-
-movl $0, -3371(%rbp, 1)
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3371(%rbp, 1), %ebx
+movl -3389(%rbp, 1), %ebx
 
 
-movl %ebx, -3375(%rbp, 1)
+movl %ebx, -3393(%rbp, 1)
 popq %rbx
 
 
@@ -6810,74 +6899,226 @@ popq %rbx
 
 
 
-.L83:
-
-movl $28, -3379(%rbp, 1)
-
-
-
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3375(%rbp, 1), %ebx
+movl -3393(%rbp, 1), %ebx
 
 
-movl %ebx, -3383(%rbp, 1)
+movl %ebx, -3445(%rbp, 1)
 popq %rbx
 
 
 
 
+
+
+
 pushq %rbx
 
-xorq %rbx, %rbx
-movb -3384(%rbp, 1), %bl
+
+movq $0, %rbx
 
 
-xorb %bl, -3384(%rbp, 1)
+movq %rbx, -3401(%rbp, 1)
+
 popq %rbx
 
 
 
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -3208(%rbp, 1), %r10
+
+
+movq -3216(%rbp, 1), %r11
+
+
+
+movq %r11, -3409(%rbp, 1)
+
+
+movq %r10, -3417(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3379(%rbp, 1), %ebx
+movq -3417(%rbp, 1), %rbx
 
 
-cmpl %ebx, -3383(%rbp, 1)
+cmpq %rbx, -3401(%rbp, 1)
 popq %rbx
 
 
 
-setb -3384(%rbp, 1)
+jb .L68
+
+movq -3401(%rbp, 1), %rsi
 
 
+movq -3417(%rbp, 1), %rdx
 
+
+call err_oob
+
+.L68:
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -3384(%rbp, 1), %bl
+movq -3401(%rbp, 1), %rbx
 
 
-andb %bl, -3384(%rbp, 1)
+movq %rbx, -3425(%rbp, 1)
 popq %rbx
 
 
 
-jz .L84
 
-movl $0, -3388(%rbp, 1)
+movq -3425(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -3425(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3388(%rbp, 1), %ebx
+movl -3220(%rbp, 1), %ebx
 
 
-movl %ebx, -3392(%rbp, 1)
+movl %ebx, -3433(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3433(%rbp, 1)
+
+cmpq $10, -3433(%rbp, 1)
+
+jb .L69
+
+movq -3433(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L69:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3409(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3425(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -3441(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3441(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3433(%rbp, 1), %r12
+
+
+movl -3445(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+
+incl -3220(%rbp, 1)
+
+
+
+
+jmp .L70
+
+.L71:
+
+
+movl $0, -3449(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3449(%rbp, 1), %ebx
+
+
+movl %ebx, -3453(%rbp, 1)
 popq %rbx
 
 
@@ -6887,17 +7128,101 @@ popq %rbx
 
 .L80:
 
-movl $28, -3396(%rbp, 1)
 
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -3461(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -40(%rbp, 1), %r10
+
+
+movq -48(%rbp, 1), %r11
+
+
+
+movq %r11, -3469(%rbp, 1)
+
+
+movq %r10, -3477(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3392(%rbp, 1), %ebx
+movq -3477(%rbp, 1), %rbx
 
 
-movl %ebx, -3400(%rbp, 1)
+cmpq %rbx, -3461(%rbp, 1)
+popq %rbx
+
+
+
+jb .L72
+
+movq -3461(%rbp, 1), %rsi
+
+
+movq -3477(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L72:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3461(%rbp, 1), %rbx
+
+
+movq %rbx, -3485(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3485(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -3485(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -3493(%rbp, 1)
+
 popq %rbx
 
 
@@ -6906,10 +7231,40 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -3401(%rbp, 1), %bl
+movl -3493(%rbp, 1), %ebx
 
 
-xorb %bl, -3401(%rbp, 1)
+movl %ebx, -3497(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -3497(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3453(%rbp, 1), %ebx
+
+
+movl %ebx, -3501(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3502(%rbp, 1), %bl
+
+
+xorb %bl, -3502(%rbp, 1)
 popq %rbx
 
 
@@ -6917,25 +7272,25 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3396(%rbp, 1), %ebx
+movl -3497(%rbp, 1), %ebx
 
 
-cmpl %ebx, -3400(%rbp, 1)
+cmpl %ebx, -3501(%rbp, 1)
 popq %rbx
 
 
 
-setb -3401(%rbp, 1)
+setl -3502(%rbp, 1)
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -3401(%rbp, 1), %bl
+movb -3502(%rbp, 1), %bl
 
 
-andb %bl, -3401(%rbp, 1)
+andb %bl, -3502(%rbp, 1)
 popq %rbx
 
 
@@ -6943,57 +7298,99 @@ popq %rbx
 jz .L81
 
 
-
-
-
-
-movl $28, -3405(%rbp, 1)
-
-
-
 pushq %rbx
 
-xorq %rbx, %rbx
-movl -3375(%rbp, 1), %ebx
+
+movq $1, %rbx
 
 
-movl %ebx, -3409(%rbp, 1)
+movq %rbx, -3510(%rbp, 1)
+
 popq %rbx
 
 
 
 
-movl -3409(%rbp, 1), %eax
+pushq %r10
 
 
-imull -3405(%rbp, 1), %eax
-
-movl %eax, -3409(%rbp, 1)
+pushq %r11
 
 
+movq -40(%rbp, 1), %r10
 
+
+movq -48(%rbp, 1), %r11
+
+
+
+movq %r11, -3518(%rbp, 1)
+
+
+movq %r10, -3526(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3392(%rbp, 1), %ebx
+movq -3526(%rbp, 1), %rbx
 
 
-addl %ebx, -3409(%rbp, 1)
+cmpq %rbx, -3510(%rbp, 1)
+popq %rbx
+
+
+
+jb .L73
+
+movq -3510(%rbp, 1), %rsi
+
+
+movq -3526(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L73:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3510(%rbp, 1), %rbx
+
+
+movq %rbx, -3534(%rbp, 1)
 popq %rbx
 
 
 
 
+movq -3534(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -3534(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3409(%rbp, 1), %ebx
+movl -3453(%rbp, 1), %ebx
 
 
-movl %ebx, -3417(%rbp, 1)
+movl %ebx, -3542(%rbp, 1)
 popq %rbx
 
 
@@ -7002,31 +7399,164 @@ popq %rbx
 movq $4294967295, %rax
 
 
-andq %rax, -3417(%rbp, 1)
+andq %rax, -3542(%rbp, 1)
 
-cmpq $784, -3417(%rbp, 1)
+cmpq $10, -3542(%rbp, 1)
 
-jl .L79
+jb .L74
 
-movq -3417(%rbp, 1), %rsi
+movq -3542(%rbp, 1), %rsi
 
 
-movq $784, %rdx
+movq $10, %rdx
 
 
 call err_oob
 
-.L79:
+.L74:
 pushq %r10
 
 
-leaq -3152(%rbp, 1), %r10
+pushq %rbx
 
-movq %r10, -3425(%rbp, 1)
+
+xorq %rbx, %rbx
+
+movq -3518(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3534(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -3550(%rbp, 1)
 
 
 popq %r10
 
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3542(%rbp, 1), %rbx
+
+
+movq %rbx, -3558(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3558(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -3558(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -3566(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -3208(%rbp, 1), %r10
+
+
+movq -3216(%rbp, 1), %r11
+
+
+
+movq %r11, -3574(%rbp, 1)
+
+
+movq %r10, -3582(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3582(%rbp, 1), %rbx
+
+
+cmpq %rbx, -3566(%rbp, 1)
+popq %rbx
+
+
+
+jb .L75
+
+movq -3566(%rbp, 1), %rsi
+
+
+movq -3582(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L75:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3566(%rbp, 1), %rbx
+
+
+movq %rbx, -3590(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3590(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -3590(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
 
 
 
@@ -7035,7 +7565,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -3425(%rbp, 1), %rbx
+movq -3550(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -7043,39 +7573,514 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -3417(%rbp, 1), %r12
+movq -3558(%rbp, 1), %r12
 
 
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
+movq 8(%rbx, %r12, 1), %rsi
 popq %r12
 
 popq %rbx
 
 
-movsd %xmm0, -3433(%rbp, 1)
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3550(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3558(%rbp, 1), %r12
+
+
+movq 0(%rbx, %r12, 1), %rdi
+popq %r12
+
+popq %rbx
 
 
 
-movq $.L78, %rdi
 
 
-movsd -3433(%rbp, 1), %xmm0
+pushq %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3574(%rbp, 1), %r12
+
+
+pushq %r13
+
+
+xorq %r13, %r13
+
+movq -3590(%rbp, 1), %r13
+
+
+leaq 0(%r12, %r13, 1), %rbx
+popq %r13
+
+popq %r12
+
+
+movq %rbx, -3598(%rbp, 1)
+
+
+popq %rbx
 
 
 
-movq $1, %rax
+movq -3598(%rbp, 1), %rdx
 
 
-call printf
-
-movl %eax, -3437(%rbp, 1)
-
+movq $10, %rcx
 
 
 
+movq %rsp, %rax
 
 
-incl -3392(%rbp, 1)
+
+movq $0, %rax
+
+
+call vecmul
+
+movss %xmm0, -3602(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3602(%rbp, 1), %ebx
+
+
+movl %ebx, -3606(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -3614(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -40(%rbp, 1), %r10
+
+
+movq -48(%rbp, 1), %r11
+
+
+
+movq %r11, -3622(%rbp, 1)
+
+
+movq %r10, -3630(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3630(%rbp, 1), %rbx
+
+
+cmpq %rbx, -3614(%rbp, 1)
+popq %rbx
+
+
+
+jb .L76
+
+movq -3614(%rbp, 1), %rsi
+
+
+movq -3630(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L76:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3614(%rbp, 1), %rbx
+
+
+movq %rbx, -3638(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3638(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -3638(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3453(%rbp, 1), %ebx
+
+
+movl %ebx, -3646(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3646(%rbp, 1)
+
+cmpq $10, -3646(%rbp, 1)
+
+jb .L77
+
+movq -3646(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L77:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3622(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3638(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -3654(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3646(%rbp, 1), %rbx
+
+
+movq %rbx, -3662(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3662(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -3662(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+movss -3606(%rbp, 1), %xmm0
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3654(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3662(%rbp, 1), %r12
+
+
+addss 16(%rbx, %r12, 1), %xmm0
+popq %r12
+
+popq %rbx
+
+
+movss %xmm0, -3606(%rbp, 1)
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3606(%rbp, 1), %ebx
+
+
+movl %ebx, -3714(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -3670(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -3192(%rbp, 1), %r10
+
+
+movq -3200(%rbp, 1), %r11
+
+
+
+movq %r11, -3678(%rbp, 1)
+
+
+movq %r10, -3686(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3686(%rbp, 1), %rbx
+
+
+cmpq %rbx, -3670(%rbp, 1)
+popq %rbx
+
+
+
+jb .L78
+
+movq -3670(%rbp, 1), %rsi
+
+
+movq -3686(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L78:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3670(%rbp, 1), %rbx
+
+
+movq %rbx, -3694(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3694(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -3694(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3453(%rbp, 1), %ebx
+
+
+movl %ebx, -3702(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3702(%rbp, 1)
+
+cmpq $10, -3702(%rbp, 1)
+
+jb .L79
+
+movq -3702(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L79:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3678(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3694(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -3710(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3710(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3702(%rbp, 1), %r12
+
+
+movl -3714(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+
+incl -3453(%rbp, 1)
 
 
 
@@ -7085,1016 +8090,25 @@ jmp .L80
 .L81:
 
 
+movl $0, -3718(%rbp, 1)
 
-
-movq $.L82, %rdi
-
-
-
-movq $0, %rax
-
-
-call printf
-
-movl %eax, -3441(%rbp, 1)
-
-
-
-
-
-
-incl -3375(%rbp, 1)
-
-
-
-
-jmp .L83
-
-.L84:
-
-
-
-
-
-
-pushq %rbx
-
-
-movq $0, %rbx
-
-
-movq %rbx, -3449(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -3457(%rbp, 1)
-
-
-movq %r10, -3465(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3465(%rbp, 1), %rbx
+movl -3718(%rbp, 1), %ebx
 
 
-cmpq %rbx, -3449(%rbp, 1)
+movl %ebx, -3722(%rbp, 1)
 popq %rbx
 
 
 
-jl .L86
-
-movq -3449(%rbp, 1), %rsi
 
 
-movq -3465(%rbp, 1), %rdx
-
-
-call err_oob
 
 .L86:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3449(%rbp, 1), %rbx
-
-
-movq %rbx, -3473(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3473(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -3473(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3204(%rbp, 1), %ebx
-
-
-movl %ebx, -3481(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3481(%rbp, 1)
-
-cmpq $10, -3481(%rbp, 1)
-
-jl .L87
-
-movq -3481(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L87:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3457(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3473(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -3489(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3481(%rbp, 1), %rbx
-
-
-movq %rbx, -3497(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3497(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -3497(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3489(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3497(%rbp, 1), %r12
-
-
-cvtss2sd 16(%rbx, %r12, 1), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -3505(%rbp, 1)
-
-
-
-movq $.L85, %rdi
-
-
-movsd -3505(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -3509(%rbp, 1)
-
-
-
-
-
-pushq %rbx
-
-
-movq $0, %rbx
-
-
-movq %rbx, -3517(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -3525(%rbp, 1)
-
-
-movq %r10, -3533(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3533(%rbp, 1), %rbx
-
-
-cmpq %rbx, -3517(%rbp, 1)
-popq %rbx
-
-
-
-jl .L88
-
-movq -3517(%rbp, 1), %rsi
-
-
-movq -3533(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L88:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3517(%rbp, 1), %rbx
-
-
-movq %rbx, -3541(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3541(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -3541(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3204(%rbp, 1), %ebx
-
-
-movl %ebx, -3549(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3549(%rbp, 1)
-
-cmpq $10, -3549(%rbp, 1)
-
-jl .L89
-
-movq -3549(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L89:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3525(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3541(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -3557(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3549(%rbp, 1), %rbx
-
-
-movq %rbx, -3565(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3565(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -3565(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3557(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3565(%rbp, 1), %r12
-
-
-movq 8(%rbx, %r12, 1), %rsi
-popq %r12
-
-popq %rbx
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3557(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3565(%rbp, 1), %r12
-
-
-movq 0(%rbx, %r12, 1), %rdi
-popq %r12
-
-popq %rbx
-
-
-
-
-
-pushq %rbx
-
-
-leaq -3152(%rbp, 1), %rbx
-
-movq %rbx, -3573(%rbp, 1)
-
-
-popq %rbx
-
-
-
-movq -3573(%rbp, 1), %rdx
-
-
-movq $784, %rcx
-
-
-
-
-movq $0, %rax
-
-
-call vecmul
-
-movss %xmm0, -3577(%rbp, 1)
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3577(%rbp, 1), %ebx
-
-
-movl %ebx, -3581(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-
-pushq %rbx
-
-
-movq $0, %rbx
-
-
-movq %rbx, -3589(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -3597(%rbp, 1)
-
-
-movq %r10, -3605(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3605(%rbp, 1), %rbx
-
-
-cmpq %rbx, -3589(%rbp, 1)
-popq %rbx
-
-
-
-jl .L90
-
-movq -3589(%rbp, 1), %rsi
-
-
-movq -3605(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L90:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3589(%rbp, 1), %rbx
-
-
-movq %rbx, -3613(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3613(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -3613(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3204(%rbp, 1), %ebx
-
-
-movl %ebx, -3621(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3621(%rbp, 1)
-
-cmpq $10, -3621(%rbp, 1)
-
-jl .L91
-
-movq -3621(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L91:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3597(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3613(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -3629(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3621(%rbp, 1), %rbx
-
-
-movq %rbx, -3637(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3637(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -3637(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-movss -3581(%rbp, 1), %xmm0
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3629(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3637(%rbp, 1), %r12
-
-
-addss 16(%rbx, %r12, 1), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movss %xmm0, -3581(%rbp, 1)
-
-
-
-
-
-movss -3581(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call logistic
-
-movss %xmm0, -3641(%rbp, 1)
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3641(%rbp, 1), %ebx
-
-
-movl %ebx, -3645(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3645(%rbp, 1), %ebx
-
-
-movl %ebx, -3665(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3204(%rbp, 1), %ebx
-
-
-movl %ebx, -3653(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3653(%rbp, 1)
-
-cmpq $10, -3653(%rbp, 1)
-
-jl .L92
-
-movq -3653(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L92:
-pushq %r10
-
-
-leaq -3200(%rbp, 1), %r10
-
-movq %r10, -3661(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-pushq %r13
-
-xorq %r13, %r13
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3661(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3653(%rbp, 1), %r12
-
-
-movl -3665(%rbp, 1), %r13d
-
-
-movl %r13d, 0(%rbx, %r12, 4)
-popq %r12
-
-popq %rbx
-
-popq %r13
-
-
-
-
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3204(%rbp, 1), %ebx
-
-
-movl %ebx, -3673(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3673(%rbp, 1)
-
-cmpq $10, -3673(%rbp, 1)
-
-jl .L94
-
-movq -3673(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L94:
-pushq %r10
-
-
-leaq -3200(%rbp, 1), %r10
-
-movq %r10, -3681(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3681(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3673(%rbp, 1), %r12
-
-
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -3689(%rbp, 1)
-
-
-
-movq $.L93, %rdi
-
-
-movsd -3689(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -3693(%rbp, 1)
-
-
-
-
-
-
-incl -3204(%rbp, 1)
-
-
-
-
-jmp .L95
-
-.L96:
-
-
-
-
-movq $.L97, %rdi
-
-
-
-movq $0, %rax
-
-
-call printf
-
-movl %eax, -3697(%rbp, 1)
-
-
-
-
-pushq %rax
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-xorq %rax, %rax
-
-leaq -3737(%rbp, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep stosb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rax
-
-
-
-
-movl $0, -3741(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3741(%rbp, 1), %ebx
-
-
-movl %ebx, -3745(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L119:
 
 
 
@@ -8104,7 +8118,7 @@ pushq %rbx
 movq $1, %rbx
 
 
-movq %rbx, -3753(%rbp, 1)
+movq %rbx, -3730(%rbp, 1)
 
 popq %rbx
 
@@ -8117,17 +8131,17 @@ pushq %r10
 pushq %r11
 
 
-movq -8(%rbp, 1), %r10
+movq -40(%rbp, 1), %r10
 
 
-movq -16(%rbp, 1), %r11
+movq -48(%rbp, 1), %r11
 
 
 
-movq %r11, -3761(%rbp, 1)
+movq %r11, -3738(%rbp, 1)
 
 
-movq %r10, -3769(%rbp, 1)
+movq %r10, -3746(%rbp, 1)
 
 
 popq %r11
@@ -8139,43 +8153,43 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3769(%rbp, 1), %rbx
+movq -3746(%rbp, 1), %rbx
 
 
-cmpq %rbx, -3753(%rbp, 1)
+cmpq %rbx, -3730(%rbp, 1)
 popq %rbx
 
 
 
-jl .L98
+jb .L82
 
-movq -3753(%rbp, 1), %rsi
+movq -3730(%rbp, 1), %rsi
 
 
-movq -3769(%rbp, 1), %rdx
+movq -3746(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L98:
+.L82:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3753(%rbp, 1), %rbx
+movq -3730(%rbp, 1), %rbx
 
 
-movq %rbx, -3777(%rbp, 1)
+movq %rbx, -3754(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -3777(%rbp, 1), %rax
+movq -3754(%rbp, 1), %rax
 
 
 imulq $200, %rax
 
-movq %rax, -3777(%rbp, 1)
+movq %rax, -3754(%rbp, 1)
 
 
 
@@ -8189,7 +8203,7 @@ pushq %rbx
 movq $10, %rbx
 
 
-movq %rbx, -3785(%rbp, 1)
+movq %rbx, -3762(%rbp, 1)
 
 popq %rbx
 
@@ -8199,10 +8213,10 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3785(%rbp, 1), %ebx
+movl -3762(%rbp, 1), %ebx
 
 
-movl %ebx, -3789(%rbp, 1)
+movl %ebx, -3766(%rbp, 1)
 popq %rbx
 
 
@@ -8211,16 +8225,16 @@ popq %rbx
 movq $-1, %rax
 
 
-andq %rax, -3789(%rbp, 1)
+andq %rax, -3766(%rbp, 1)
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3745(%rbp, 1), %ebx
+movl -3722(%rbp, 1), %ebx
 
 
-movl %ebx, -3793(%rbp, 1)
+movl %ebx, -3770(%rbp, 1)
 popq %rbx
 
 
@@ -8229,10 +8243,10 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -3794(%rbp, 1), %bl
+movb -3771(%rbp, 1), %bl
 
 
-xorb %bl, -3794(%rbp, 1)
+xorb %bl, -3771(%rbp, 1)
 popq %rbx
 
 
@@ -8240,122 +8254,30 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -3789(%rbp, 1), %ebx
+movl -3766(%rbp, 1), %ebx
 
 
-cmpl %ebx, -3793(%rbp, 1)
+cmpl %ebx, -3770(%rbp, 1)
 popq %rbx
 
 
 
-setl -3794(%rbp, 1)
+setl -3771(%rbp, 1)
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -3794(%rbp, 1), %bl
+movb -3771(%rbp, 1), %bl
 
 
-andb %bl, -3794(%rbp, 1)
+andb %bl, -3771(%rbp, 1)
 popq %rbx
 
 
 
-jz .L120
-
-
-
-movq $.L99, %rdi
-
-
-
-movq $0, %rax
-
-
-call printf
-
-movl %eax, -3798(%rbp, 1)
-
-
-
-
-movl $0, -3802(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3802(%rbp, 1), %ebx
-
-
-movl %ebx, -3806(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L104:
-
-movl $10, -3810(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3806(%rbp, 1), %ebx
-
-
-movl %ebx, -3814(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3815(%rbp, 1), %bl
-
-
-xorb %bl, -3815(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3810(%rbp, 1), %ebx
-
-
-cmpl %ebx, -3814(%rbp, 1)
-popq %rbx
-
-
-
-setb -3815(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3815(%rbp, 1), %bl
-
-
-andb %bl, -3815(%rbp, 1)
-popq %rbx
-
-
-
-jz .L105
-
+jz .L87
 
 
 
@@ -8366,7 +8288,7 @@ pushq %rbx
 movq $1, %rbx
 
 
-movq %rbx, -3823(%rbp, 1)
+movq %rbx, -3827(%rbp, 1)
 
 popq %rbx
 
@@ -8379,17 +8301,17 @@ pushq %r10
 pushq %r11
 
 
-movq -8(%rbp, 1), %r10
+movq -3192(%rbp, 1), %r10
 
 
-movq -16(%rbp, 1), %r11
+movq -3200(%rbp, 1), %r11
 
 
 
-movq %r11, -3831(%rbp, 1)
+movq %r11, -3835(%rbp, 1)
 
 
-movq %r10, -3839(%rbp, 1)
+movq %r10, -3843(%rbp, 1)
 
 
 popq %r11
@@ -8401,43 +8323,43 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3839(%rbp, 1), %rbx
+movq -3843(%rbp, 1), %rbx
 
 
-cmpq %rbx, -3823(%rbp, 1)
+cmpq %rbx, -3827(%rbp, 1)
 popq %rbx
 
 
 
-jl .L101
+jb .L85
 
-movq -3823(%rbp, 1), %rsi
+movq -3827(%rbp, 1), %rsi
 
 
-movq -3839(%rbp, 1), %rdx
+movq -3843(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L101:
+.L85:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -3823(%rbp, 1), %rbx
+movq -3827(%rbp, 1), %rbx
 
 
-movq %rbx, -3847(%rbp, 1)
+movq %rbx, -3851(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -3847(%rbp, 1), %rax
+movq -3851(%rbp, 1), %rax
 
 
-imulq $200, %rax
+imulq $40, %rax
 
-movq %rax, -3847(%rbp, 1)
+movq %rax, -3851(%rbp, 1)
 
 
 
@@ -8448,1523 +8370,47 @@ movq %rax, -3847(%rbp, 1)
 
 pushq %rbx
 
-xorq %rbx, %rbx
-movl -3745(%rbp, 1), %ebx
-
-
-movl %ebx, -3855(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3855(%rbp, 1)
-
-cmpq $10, -3855(%rbp, 1)
-
-jl .L102
-
-movq -3855(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L102:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3831(%rbp, 1), %rbx
-
 
 pushq %r12
 
 
 xorq %r12, %r12
 
-movq -3847(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -3863(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3855(%rbp, 1), %rbx
-
-
-movq %rbx, -3871(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3871(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -3871(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3806(%rbp, 1), %ebx
-
-
-movl %ebx, -3879(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3879(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3863(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3871(%rbp, 1), %r12
-
-
-movq 8(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3863(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3871(%rbp, 1), %r12
-
-
-movq 0(%rbx, %r12, 1), %r11
-popq %r12
-
-popq %rbx
-
-
-
-
-movq %r11, -3887(%rbp, 1)
-
-
-movq %r10, -3895(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3895(%rbp, 1), %rbx
-
-
-cmpq %rbx, -3879(%rbp, 1)
-popq %rbx
-
-
-
-jl .L103
-
-movq -3879(%rbp, 1), %rsi
-
-
-movq -3895(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L103:
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3887(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3879(%rbp, 1), %r12
-
-
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -3903(%rbp, 1)
-
-
-
-movq $.L100, %rdi
-
-
-movsd -3903(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -3907(%rbp, 1)
-
-
-
-
-
-
-incl -3806(%rbp, 1)
-
-
-
-
-jmp .L104
-
-.L105:
-
-
-movb $10, -3908(%rbp, 1)
-
-
-
-movb -3908(%rbp, 1), %dil
-
-
-
-movq $0, %rax
-
-
-call putchar
-
-movl %eax, -3912(%rbp, 1)
-
-
-
-
-
-
-movq $.L106, %rdi
-
-
-
-movq $0, %rax
-
-
-call printf
-
-movl %eax, -3916(%rbp, 1)
-
-
-
-
-movl $0, -3920(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3920(%rbp, 1), %ebx
-
-
-movl %ebx, -3924(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L109:
-
-movl $10, -3928(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3924(%rbp, 1), %ebx
-
-
-movl %ebx, -3932(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3933(%rbp, 1), %bl
-
-
-xorb %bl, -3933(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3928(%rbp, 1), %ebx
-
-
-cmpl %ebx, -3932(%rbp, 1)
-popq %rbx
-
-
-
-setb -3933(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -3933(%rbp, 1), %bl
-
-
-andb %bl, -3933(%rbp, 1)
-popq %rbx
-
-
-
-jz .L110
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3924(%rbp, 1), %ebx
-
-
-movl %ebx, -3941(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -3941(%rbp, 1)
-
-cmpq $10, -3941(%rbp, 1)
-
-jl .L108
-
-movq -3941(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L108:
-pushq %r10
-
-
-leaq -3200(%rbp, 1), %r10
-
-movq %r10, -3949(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3949(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3941(%rbp, 1), %r12
-
-
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -3957(%rbp, 1)
-
-
-
-movq $.L107, %rdi
-
-
-movsd -3957(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -3961(%rbp, 1)
-
-
-
-
-
-
-incl -3924(%rbp, 1)
-
-
-
-
-jmp .L109
-
-.L110:
-
-
-movb $10, -3962(%rbp, 1)
-
-
-
-movb -3962(%rbp, 1), %dil
-
-
-
-movq $0, %rax
-
-
-call putchar
-
-movl %eax, -3966(%rbp, 1)
-
-
-
-
-
-
-
-
-pushq %rbx
-
-
-movq $1, %rbx
-
-
-movq %rbx, -3974(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -3982(%rbp, 1)
-
-
-movq %r10, -3990(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3990(%rbp, 1), %rbx
-
-
-cmpq %rbx, -3974(%rbp, 1)
-popq %rbx
-
-
-
-jl .L112
-
-movq -3974(%rbp, 1), %rsi
-
-
-movq -3990(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L112:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -3974(%rbp, 1), %rbx
-
-
-movq %rbx, -3998(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -3998(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -3998(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3745(%rbp, 1), %ebx
-
-
-movl %ebx, -4006(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -4006(%rbp, 1)
-
-cmpq $10, -4006(%rbp, 1)
-
-jl .L113
-
-movq -4006(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L113:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -3982(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -3998(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -4014(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4006(%rbp, 1), %rbx
-
-
-movq %rbx, -4022(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -4022(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -4022(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -4014(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4022(%rbp, 1), %r12
-
-
-cvtss2sd 16(%rbx, %r12, 1), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -4030(%rbp, 1)
-
-
-
-movq $.L111, %rdi
-
-
-movsd -4030(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -4034(%rbp, 1)
-
-
-
-
-
-pushq %rbx
-
-
-movq $1, %rbx
-
-
-movq %rbx, -4042(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -4050(%rbp, 1)
-
-
-movq %r10, -4058(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4058(%rbp, 1), %rbx
-
-
-cmpq %rbx, -4042(%rbp, 1)
-popq %rbx
-
-
-
-jl .L114
-
-movq -4042(%rbp, 1), %rsi
-
-
-movq -4058(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L114:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4042(%rbp, 1), %rbx
-
-
-movq %rbx, -4066(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -4066(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -4066(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3745(%rbp, 1), %ebx
-
-
-movl %ebx, -4074(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -4074(%rbp, 1)
-
-cmpq $10, -4074(%rbp, 1)
-
-jl .L115
-
-movq -4074(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L115:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -4050(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4066(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -4082(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4074(%rbp, 1), %rbx
-
-
-movq %rbx, -4090(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -4090(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -4090(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -4082(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4090(%rbp, 1), %r12
-
-
-movq 8(%rbx, %r12, 1), %rsi
-popq %r12
-
-popq %rbx
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -4082(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4090(%rbp, 1), %r12
-
-
-movq 0(%rbx, %r12, 1), %rdi
-popq %r12
-
-popq %rbx
-
-
-
-
-
-pushq %rbx
-
-
-leaq -3200(%rbp, 1), %rbx
-
-movq %rbx, -4098(%rbp, 1)
-
-
-popq %rbx
-
-
-
-movq -4098(%rbp, 1), %rdx
-
-
-movq $10, %rcx
-
-
-
-
-movq $0, %rax
-
-
-call vecmul
-
-movss %xmm0, -4102(%rbp, 1)
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -4102(%rbp, 1), %ebx
-
-
-movl %ebx, -4106(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-
-pushq %rbx
-
-
-movq $1, %rbx
-
-
-movq %rbx, -4114(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -4122(%rbp, 1)
-
-
-movq %r10, -4130(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4130(%rbp, 1), %rbx
-
-
-cmpq %rbx, -4114(%rbp, 1)
-popq %rbx
-
-
-
-jl .L116
-
-movq -4114(%rbp, 1), %rsi
-
-
-movq -4130(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L116:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4114(%rbp, 1), %rbx
-
-
-movq %rbx, -4138(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -4138(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -4138(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3745(%rbp, 1), %ebx
-
-
-movl %ebx, -4146(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -4146(%rbp, 1)
-
-cmpq $10, -4146(%rbp, 1)
-
-jl .L117
-
-movq -4146(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L117:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -4122(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4138(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -4154(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4146(%rbp, 1), %rbx
-
-
-movq %rbx, -4162(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -4162(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -4162(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-movss -4106(%rbp, 1), %xmm0
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -4154(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4162(%rbp, 1), %r12
-
-
-addss 16(%rbx, %r12, 1), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movss %xmm0, -4106(%rbp, 1)
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -4106(%rbp, 1), %ebx
-
-
-movl %ebx, -4182(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -3745(%rbp, 1), %ebx
-
-
-movl %ebx, -4170(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -4170(%rbp, 1)
-
-cmpq $10, -4170(%rbp, 1)
-
-jl .L118
-
-movq -4170(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L118:
-pushq %r10
-
-
-leaq -3737(%rbp, 1), %r10
-
-movq %r10, -4178(%rbp, 1)
-
-
-popq %r10
-
-
+movq -3835(%rbp, 1), %r12
 
 
 pushq %r13
 
+
 xorq %r13, %r13
-pushq %rbx
+
+movq -3851(%rbp, 1), %r13
 
 
-xorq %rbx, %rbx
-
-movq -4178(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4170(%rbp, 1), %r12
-
-
-movl -4182(%rbp, 1), %r13d
-
-
-movl %r13d, 0(%rbx, %r12, 4)
-popq %r12
-
-popq %rbx
-
+leaq 0(%r12, %r13, 1), %rbx
 popq %r13
 
+popq %r12
 
 
-
-
-
-
-incl -3745(%rbp, 1)
-
-
-
-
-jmp .L119
-
-.L120:
-
-
-pushq %rax
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-xorq %rax, %rax
-
-leaq -4222(%rbp, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep stosb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rax
-
-
-
-
-movl $0, -4226(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -4226(%rbp, 1), %ebx
-
-
-movl %ebx, -4230(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L125:
-
-
-
-pushq %rbx
-
-
-movq $1, %rbx
-
-
-movq %rbx, -4238(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -8(%rbp, 1), %r10
-
-
-movq -16(%rbp, 1), %r11
-
-
-
-movq %r11, -4246(%rbp, 1)
-
-
-movq %r10, -4254(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4254(%rbp, 1), %rbx
-
-
-cmpq %rbx, -4238(%rbp, 1)
-popq %rbx
-
-
-
-jl .L121
-
-movq -4238(%rbp, 1), %rsi
-
-
-movq -4254(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L121:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -4238(%rbp, 1), %rbx
-
-
-movq %rbx, -4262(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -4262(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -4262(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-pushq %rbx
-
-
-movq $10, %rbx
-
-
-movq %rbx, -4270(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -4270(%rbp, 1), %ebx
-
-
-movl %ebx, -4274(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $-1, %rax
-
-
-andq %rax, -4274(%rbp, 1)
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -4230(%rbp, 1), %ebx
-
-
-movl %ebx, -4278(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -4279(%rbp, 1), %bl
-
-
-xorb %bl, -4279(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -4274(%rbp, 1), %ebx
-
-
-cmpl %ebx, -4278(%rbp, 1)
-popq %rbx
-
-
-
-setl -4279(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -4279(%rbp, 1), %bl
-
-
-andb %bl, -4279(%rbp, 1)
-popq %rbx
-
-
-
-jz .L126
-
-
-
-pushq %rbx
-
-
-leaq -3737(%rbp, 1), %rbx
-
-movq %rbx, -4303(%rbp, 1)
+movq %rbx, -3859(%rbp, 1)
 
 
 popq %rbx
 
 
 
-movq -4303(%rbp, 1), %rdi
+movq -3859(%rbp, 1), %rdi
 
 
 movq $10, %rsi
 
 
 
-movl -4230(%rbp, 1), %edx
+movl -3722(%rbp, 1), %edx
+
+
+movq %rsp, %rax
 
 
 
@@ -9973,7 +8419,7 @@ movq $0, %rax
 
 call softmax
 
-movss %xmm0, -4307(%rbp, 1)
+movss %xmm0, -3863(%rbp, 1)
 
 
 
@@ -9981,10 +8427,10 @@ movss %xmm0, -4307(%rbp, 1)
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -4307(%rbp, 1), %ebx
+movl -3863(%rbp, 1), %ebx
 
 
-movl %ebx, -4311(%rbp, 1)
+movl %ebx, -3867(%rbp, 1)
 popq %rbx
 
 
@@ -9992,13 +8438,100 @@ popq %rbx
 
 
 
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -3779(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -3208(%rbp, 1), %r10
+
+
+movq -3216(%rbp, 1), %r11
+
+
+
+movq %r11, -3787(%rbp, 1)
+
+
+movq %r10, -3795(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -4230(%rbp, 1), %ebx
+movq -3795(%rbp, 1), %rbx
 
 
-movl %ebx, -4287(%rbp, 1)
+cmpq %rbx, -3779(%rbp, 1)
+popq %rbx
+
+
+
+jb .L83
+
+movq -3779(%rbp, 1), %rsi
+
+
+movq -3795(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L83:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3779(%rbp, 1), %rbx
+
+
+movq %rbx, -3803(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3803(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -3803(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3722(%rbp, 1), %ebx
+
+
+movl %ebx, -3811(%rbp, 1)
 popq %rbx
 
 
@@ -10007,13 +8540,13 @@ popq %rbx
 movq $4294967295, %rax
 
 
-andq %rax, -4287(%rbp, 1)
+andq %rax, -3811(%rbp, 1)
 
-cmpq $10, -4287(%rbp, 1)
+cmpq $10, -3811(%rbp, 1)
 
-jl .L122
+jb .L84
 
-movq -4287(%rbp, 1), %rsi
+movq -3811(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -10021,13 +8554,33 @@ movq $10, %rdx
 
 call err_oob
 
-.L122:
+.L84:
 pushq %r10
 
 
-leaq -4222(%rbp, 1), %r10
+pushq %rbx
 
-movq %r10, -4295(%rbp, 1)
+
+xorq %rbx, %rbx
+
+movq -3787(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3803(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -3819(%rbp, 1)
 
 
 popq %r10
@@ -10043,7 +8596,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -4295(%rbp, 1), %rbx
+movq -3819(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -10051,10 +8604,10 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -4287(%rbp, 1), %r12
+movq -3811(%rbp, 1), %r12
 
 
-movl -4311(%rbp, 1), %r13d
+movl -3867(%rbp, 1), %r13d
 
 
 movl %r13d, 0(%rbx, %r12, 4)
@@ -10070,139 +8623,14 @@ popq %r13
 
 
 
+incl -3722(%rbp, 1)
 
 
 
-pushq %rbx
 
-xorq %rbx, %rbx
-movl -4230(%rbp, 1), %ebx
+jmp .L86
 
-
-movl %ebx, -4319(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -4319(%rbp, 1)
-
-cmpq $10, -4319(%rbp, 1)
-
-jl .L124
-
-movq -4319(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L124:
-pushq %r10
-
-
-leaq -4222(%rbp, 1), %r10
-
-movq %r10, -4327(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -4327(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -4319(%rbp, 1), %r12
-
-
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -4335(%rbp, 1)
-
-
-
-movq $.L123, %rdi
-
-
-movsd -4335(%rbp, 1), %xmm0
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -4339(%rbp, 1)
-
-
-
-
-
-
-incl -4230(%rbp, 1)
-
-
-
-
-jmp .L125
-
-.L126:
-
-
-
-
-movq -3160(%rbp, 1), %rax
-
-
-pushq %rsi
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-leaq -4222(%rbp, 1), %rsi
-
-leaq 0(%rax, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep movsb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rsi
+.L87:
 
 
 
@@ -10245,6 +8673,9 @@ movss %xmm1, -8(%rbp, 1)
 
 
 movss -4(%rbp, 1), %xmm0
+
+
+movq %rsp, %rax
 
 
 
@@ -10325,75 +8756,14 @@ ret
 
 
 
-.string "\0der_loss_q"
-.global der_loss_q
-der_loss_q:
+.string "\0loss10n"
+.global loss10n
+loss10n:
 pushq %rbp
 
 movq %rsp, %rbp
 
-subq $16, %rsp
-
-
-
-movl $0, -4(%rbp, 1)
-
-
-
-movl $0, -8(%rbp, 1)
-
-
-
-movss %xmm2, -4(%rbp, 1)
-
-
-movss %xmm3, -8(%rbp, 1)
-
-
-
-
-
-
-movl -8(%rbp, 1), %ebx
-
-
-movl %ebx, %r12d
-
-
-movq %r12, %xmm0
-
-
-divss -4(%rbp, 1), %xmm0
-
-movq %xmm0, %rbx
-
-
-
-
-
-movl %ebx, %r13d
-
-
-movq %r13, %xmm0
-
-
-._der_loss_q:
-movq %rbp, %rsp
-
-popq %rbp
-
-ret
-
-
-
-.string "\0cost"
-.global cost
-cost:
-pushq %rbp
-
-movq %rsp, %rbp
-
-subq $208, %rsp
+subq $128, %rsp
 
 
 
@@ -10521,66 +8891,49 @@ popq %rsi
 
 
 
-movl $0, %ebx
+movl $0, -84(%rbp, 1)
 
 
 
-movl %ebx, -84(%rbp, 1)
+movq $0, %rbx
+
+
+
+movq %rbx, -92(%rbp, 1)
 
 
 
 
-.L130:
-
+.L90:
 
 
 movq $10, %r12
 
 
 
-movl %r12d, %r13d
+movq -92(%rbp, 1), %r13
 
 
-movq $-1, %rax
+xorb %r14b, %r14b
 
+cmpq %r12, %r13
 
-andq %rax, %r13
-
-
-movl -84(%rbp, 1), %r14d
-
-
-xorb %r15b, %r15b
-
-cmpl %r13d, %r14d
-
-setl %r15b
+setb %r14b
 
 
 
-andb %r15b, %r15b
+andb %r14b, %r14b
 
-jz .L131
+jz .L91
 
 
 
 
+cmpq $10, -92(%rbp, 1)
 
+jb .L88
 
-
-movl -84(%rbp, 1), %r13d
-
-
-movq $4294967295, %rax
-
-
-andq %rax, %r13
-
-cmpq $10, %r13
-
-jl .L128
-
-movq %r13, %rsi
+movq -92(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -10588,13 +8941,13 @@ movq $10, %rdx
 
 call err_oob
 
-.L128:
+.L88:
 pushq %r10
 
 
 leaq -40(%rbp, 1), %r10
 
-movq %r10, -92(%rbp, 1)
+movq %r10, -100(%rbp, 1)
 
 
 popq %r10
@@ -10602,48 +8955,13 @@ popq %r10
 
 
 
-pushq %rbx
 
 
-xorq %rbx, %rbx
+cmpq $10, -92(%rbp, 1)
 
-movq -92(%rbp, 1), %rbx
+jb .L89
 
-
-cvtss2sd 0(%rbx, %r13, 4), %xmm0
-popq %rbx
-
-
-movq %xmm0, %r14
-
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -84(%rbp, 1), %ebx
-
-
-movl %ebx, -100(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -100(%rbp, 1)
-
-cmpq $10, -100(%rbp, 1)
-
-jl .L129
-
-movq -100(%rbp, 1), %rsi
+movq -92(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -10651,7 +8969,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L129:
+.L89:
 pushq %r10
 
 
@@ -10670,7 +8988,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -108(%rbp, 1), %rbx
+movq -100(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -10678,229 +8996,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -100(%rbp, 1), %r12
-
-
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -116(%rbp, 1)
-
-
-
-movq $.L127, %rdi
-
-
-movl -84(%rbp, 1), %esi
-
-
-movq %r14, -124(%rbp, 1)
-
-
-movsd -124(%rbp, 1), %xmm0
-
-
-movl -84(%rbp, 1), %edx
-
-
-movsd -116(%rbp, 1), %xmm1
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -128(%rbp, 1)
-
-
-
-
-
-
-incl -84(%rbp, 1)
-
-
-
-
-jmp .L130
-
-.L131:
-
-
-movl $0, -132(%rbp, 1)
-
-
-
-pushq %rbx
-
-
-movq $0, %rbx
-
-
-movq %rbx, -140(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -140(%rbp, 1), %rbx
-
-
-movq %rbx, -148(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L134:
-
-
-pushq %rbx
-
-
-movq $10, %rbx
-
-
-movq %rbx, -156(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -148(%rbp, 1), %rbx
-
-
-movq %rbx, -164(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -165(%rbp, 1), %bl
-
-
-xorb %bl, -165(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -156(%rbp, 1), %rbx
-
-
-cmpq %rbx, -164(%rbp, 1)
-popq %rbx
-
-
-
-setb -165(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -165(%rbp, 1), %bl
-
-
-andb %bl, -165(%rbp, 1)
-popq %rbx
-
-
-
-jz .L135
-
-
-
-
-cmpq $10, -148(%rbp, 1)
-
-jl .L132
-
-movq -148(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L132:
-pushq %r10
-
-
-leaq -40(%rbp, 1), %r10
-
-movq %r10, -173(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-
-
-cmpq $10, -148(%rbp, 1)
-
-jl .L133
-
-movq -148(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L133:
-pushq %r10
-
-
-leaq -80(%rbp, 1), %r10
-
-movq %r10, -181(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -173(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -148(%rbp, 1), %r12
+movq -92(%rbp, 1), %r12
 
 
 movss 0(%rbx, %r12, 4), %xmm0
@@ -10915,7 +9011,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -181(%rbp, 1), %rbx
+movq -108(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -10923,7 +9019,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -148(%rbp, 1), %r12
+movq -92(%rbp, 1), %r12
 
 
 movss 0(%rbx, %r12, 4), %xmm1
@@ -10931,6 +9027,9 @@ popq %r12
 
 popq %rbx
 
+
+
+movq %rsp, %rax
 
 
 
@@ -10939,82 +9038,76 @@ movq $1, %rax
 
 call loss
 
-movss %xmm0, -185(%rbp, 1)
+movq %xmm0, %r12
 
 
 
 
-movss -132(%rbp, 1), %xmm0
+movss -84(%rbp, 1), %xmm0
 
 
-addss -185(%rbp, 1), %xmm0
-
-movss %xmm0, -132(%rbp, 1)
+movl %r12d, %r13d
 
 
+movq %r13, %xmm1
 
 
+addss %xmm1, %xmm0
 
-
-incq -148(%rbp, 1)
-
-
-
-
-jmp .L134
-
-.L135:
+movss %xmm0, -84(%rbp, 1)
 
 
 
 
 
-pushq %rbx
 
-
-movq $10, %rbx
-
-
-movq %rbx, -193(%rbp, 1)
-
-popq %rbx
+incq -92(%rbp, 1)
 
 
 
 
-cvtsi2ss -193(%rbp, 1), %xmm1
+jmp .L90
 
-movss %xmm1, -197(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -132(%rbp, 1), %ebx
-
-
-movl %ebx, -201(%rbp, 1)
-popq %rbx
-
-
-
-
-movss -201(%rbp, 1), %xmm1
-
-
-divss -197(%rbp, 1), %xmm1
-
-movss %xmm1, -201(%rbp, 1)
+.L91:
 
 
 
 
 
-movss -201(%rbp, 1), %xmm0
+movq $10, %r15
 
 
-._cost:
+
+cvtsi2ss %r15, %xmm1
+
+movss %xmm1, -112(%rbp, 1)
+
+
+
+movl -84(%rbp, 1), %r15d
+
+
+movl %r15d, -116(%rbp, 1)
+
+
+movss -116(%rbp, 1), %xmm1
+
+
+divss -112(%rbp, 1), %xmm1
+
+movq %xmm1, %r15
+
+
+
+
+
+movl %r15d, -120(%rbp, 1)
+
+
+movss -120(%rbp, 1), %xmm0
+
+
+._loss10n:
 movq %rbp, %rsp
 
 popq %rbp
@@ -11023,14 +9116,14 @@ ret
 
 
 
-.string "\0der_cost_q"
-.global der_cost_q
-der_cost_q:
+.string "\0der_loss10n_q"
+.global der_loss10n_q
+der_loss10n_q:
 pushq %rbp
 
 movq %rsp, %rbp
 
-subq $208, %rsp
+subq $128, %rsp
 
 
 
@@ -11094,6 +9187,21 @@ popq %rdi
 popq %rax
 
 
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -88(%rbp, 1)
+
+popq %rbx
+
+
+
+movq %rdi, -88(%rbp, 1)
 
 
 pushq %rsi
@@ -11158,66 +9266,44 @@ popq %rsi
 
 
 
-movl $0, %ebx
+movq $0, %rbx
 
 
 
-movl %ebx, -84(%rbp, 1)
+movq %rbx, -96(%rbp, 1)
 
 
 
 
-.L139:
-
+.L95:
 
 
 movq $10, %r12
 
 
 
-movl %r12d, %r13d
+movq -96(%rbp, 1), %r13
 
 
-movq $-1, %rax
+xorb %r14b, %r14b
 
+cmpq %r12, %r13
 
-andq %rax, %r13
-
-
-movl -84(%rbp, 1), %r14d
-
-
-xorb %r15b, %r15b
-
-cmpl %r13d, %r14d
-
-setl %r15b
+setb %r14b
 
 
 
-andb %r15b, %r15b
+andb %r14b, %r14b
 
-jz .L140
-
-
+jz .L96
 
 
 
+cmpq $10, -96(%rbp, 1)
 
+jb .L92
 
-movl -84(%rbp, 1), %r13d
-
-
-movq $4294967295, %rax
-
-
-andq %rax, %r13
-
-cmpq $10, %r13
-
-jl .L137
-
-movq %r13, %rsi
+movq -96(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -11225,76 +9311,41 @@ movq $10, %rdx
 
 call err_oob
 
-.L137:
-pushq %r10
-
-
-leaq -40(%rbp, 1), %r10
-
-movq %r10, -92(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -92(%rbp, 1), %rbx
-
-
-cvtss2sd 0(%rbx, %r13, 4), %xmm0
-popq %rbx
-
-
-movq %xmm0, %r14
-
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -84(%rbp, 1), %ebx
-
-
-movl %ebx, -100(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -100(%rbp, 1)
-
-cmpq $10, -100(%rbp, 1)
-
-jl .L138
-
-movq -100(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L138:
+.L92:
 pushq %r10
 
 
 leaq -80(%rbp, 1), %r10
 
-movq %r10, -108(%rbp, 1)
+movq %r10, -104(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+
+cmpq $10, -96(%rbp, 1)
+
+jb .L93
+
+movq -96(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L93:
+pushq %r10
+
+
+leaq -40(%rbp, 1), %r10
+
+movq %r10, -112(%rbp, 1)
 
 
 popq %r10
@@ -11307,7 +9358,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -108(%rbp, 1), %rbx
+movq -104(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -11315,229 +9366,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -100(%rbp, 1), %r12
-
-
-cvtss2sd 0(%rbx, %r12, 4), %xmm0
-popq %r12
-
-popq %rbx
-
-
-movsd %xmm0, -116(%rbp, 1)
-
-
-
-movq $.L136, %rdi
-
-
-movl -84(%rbp, 1), %esi
-
-
-movq %r14, -124(%rbp, 1)
-
-
-movsd -124(%rbp, 1), %xmm0
-
-
-movl -84(%rbp, 1), %edx
-
-
-movsd -116(%rbp, 1), %xmm1
-
-
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -128(%rbp, 1)
-
-
-
-
-
-
-incl -84(%rbp, 1)
-
-
-
-
-jmp .L139
-
-.L140:
-
-
-movl $0, -132(%rbp, 1)
-
-
-
-pushq %rbx
-
-
-movq $0, %rbx
-
-
-movq %rbx, -140(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -140(%rbp, 1), %rbx
-
-
-movq %rbx, -148(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L143:
-
-
-pushq %rbx
-
-
-movq $10, %rbx
-
-
-movq %rbx, -156(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -148(%rbp, 1), %rbx
-
-
-movq %rbx, -164(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -165(%rbp, 1), %bl
-
-
-xorb %bl, -165(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -156(%rbp, 1), %rbx
-
-
-cmpq %rbx, -164(%rbp, 1)
-popq %rbx
-
-
-
-setb -165(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -165(%rbp, 1), %bl
-
-
-andb %bl, -165(%rbp, 1)
-popq %rbx
-
-
-
-jz .L144
-
-
-
-
-cmpq $10, -148(%rbp, 1)
-
-jl .L141
-
-movq -148(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L141:
-pushq %r10
-
-
-leaq -40(%rbp, 1), %r10
-
-movq %r10, -173(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-
-
-cmpq $10, -148(%rbp, 1)
-
-jl .L142
-
-movq -148(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L142:
-pushq %r10
-
-
-leaq -80(%rbp, 1), %r10
-
-movq %r10, -181(%rbp, 1)
-
-
-popq %r10
-
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -173(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -148(%rbp, 1), %r12
+movq -96(%rbp, 1), %r12
 
 
 movss 0(%rbx, %r12, 4), %xmm0
@@ -11552,7 +9381,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -181(%rbp, 1), %rbx
+movq -112(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -11560,7 +9389,109 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -148(%rbp, 1), %r12
+movq -96(%rbp, 1), %r12
+
+
+subss 0(%rbx, %r12, 4), %xmm0
+popq %r12
+
+popq %rbx
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -104(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -96(%rbp, 1), %r12
+
+
+movss %xmm0, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+
+
+
+
+
+
+cmpq $10, -96(%rbp, 1)
+
+jb .L94
+
+movq -96(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L94:
+pushq %r10
+
+
+leaq -80(%rbp, 1), %r10
+
+movq %r10, -120(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+movl $3212836864, %r12d
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -120(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -96(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %eax
+popq %r12
+
+popq %rbx
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -120(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -96(%rbp, 1), %r12
 
 
 movss 0(%rbx, %r12, 4), %xmm1
@@ -11570,88 +9501,87 @@ popq %rbx
 
 
 
-
-movq $1, %rax
-
-
-call der_loss_q
-
-movss %xmm0, -185(%rbp, 1)
+movl %r12d, %r13d
 
 
+movq %r13, %xmm2
 
 
-movss -132(%rbp, 1), %xmm0
-
-
-addss -185(%rbp, 1), %xmm0
-
-movss %xmm0, -132(%rbp, 1)
-
-
-
-
-
-
-incq -148(%rbp, 1)
-
-
-
-
-jmp .L143
-
-.L144:
-
-
-
-
+mulss %xmm2, %xmm1
 
 pushq %rbx
 
-
-movq $10, %rbx
-
-
-movq %rbx, -193(%rbp, 1)
-
-popq %rbx
-
-
-
-
-cvtsi2ss -193(%rbp, 1), %xmm1
-
-movss %xmm1, -197(%rbp, 1)
-
-
-
-pushq %rbx
 
 xorq %rbx, %rbx
-movl -132(%rbp, 1), %ebx
+
+movq -120(%rbp, 1), %rbx
 
 
-movl %ebx, -201(%rbp, 1)
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -96(%rbp, 1), %r12
+
+
+movss %xmm1, 0(%rbx, %r12, 4)
+popq %r12
+
 popq %rbx
 
 
 
 
-movss -201(%rbp, 1), %xmm1
 
 
-divss -197(%rbp, 1), %xmm1
 
-movss %xmm1, -201(%rbp, 1)
-
+incq -96(%rbp, 1)
 
 
 
 
-movss -201(%rbp, 1), %xmm0
+jmp .L95
+
+.L96:
 
 
-._der_cost_q:
+
+
+movq -88(%rbp, 1), %rax
+
+
+pushq %rsi
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+leaq -80(%rbp, 1), %rsi
+
+leaq 0(%rax, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep movsb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rsi
+
+
+
+._der_loss10n_q:
 movq %rbp, %rsp
 
 popq %rbp
@@ -11667,7 +9597,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $384, %rsp
+subq $36672, %rsp
 
 
 
@@ -11713,9 +9643,9 @@ pushq %rcx
 
 xorq %rax, %rax
 
-leaq -56(%rbp, 1), %rdi
+leaq -3152(%rbp, 1), %rdi
 
-movq $40, %rcx
+movq $3136, %rcx
 
 
 cld
@@ -11744,7 +9674,38 @@ pushq %rcx
 
 xorq %rax, %rax
 
-leaq -96(%rbp, 1), %rdi
+leaq -3168(%rbp, 1), %rdi
+
+movq $16, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -3208(%rbp, 1), %rdi
 
 movq $40, %rcx
 
@@ -11764,7 +9725,7 @@ popq %rax
 
 
 
-movl $0, -100(%rbp, 1)
+movl $0, -3212(%rbp, 1)
 
 
 
@@ -11786,9 +9747,9 @@ pushq %rcx
 
 leaq 16(%rbp, 1), %rsi
 
-leaq -56(%rbp, 1), %rdi
+leaq -3152(%rbp, 1), %rdi
 
-movq $40, %rcx
+movq $3136, %rcx
 
 
 cld
@@ -11802,6 +9763,13 @@ popq %rdi
 
 
 popq %rsi
+
+
+
+movq %rcx, -3160(%rbp, 1)
+
+
+movq %rdx, -3168(%rbp, 1)
 
 
 
@@ -11814,9 +9782,9 @@ pushq %rdi
 pushq %rcx
 
 
-leaq 56(%rbp, 1), %rsi
+leaq 3152(%rbp, 1), %rsi
 
-leaq -96(%rbp, 1), %rdi
+leaq -3208(%rbp, 1), %rdi
 
 movq $40, %rcx
 
@@ -11835,19 +9803,12 @@ popq %rsi
 
 
 
-movss %xmm2, -100(%rbp, 1)
+movss %xmm0, -3212(%rbp, 1)
 
 
 
 
-
-
-subq $32, %rsp
-
-movq %rsp, %rax
-
-
-pushq %rsi
+pushq %rax
 
 
 pushq %rdi
@@ -11856,16 +9817,16 @@ pushq %rdi
 pushq %rcx
 
 
-leaq -96(%rbp, 1), %rsi
+xorq %rax, %rax
 
-leaq 0(%rax, 1), %rdi
+leaq -3308(%rbp, 1), %rdi
 
 movq $40, %rcx
 
 
 cld
 
-rep movsb
+rep stosb
 
 popq %rcx
 
@@ -11873,93 +9834,12 @@ popq %rcx
 popq %rdi
 
 
-popq %rsi
-
-
-
-subq $48, %rsp
-
-movq %rsp, %rax
-
-
-addq $8, %rax
-
-pushq %rsi
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-leaq -56(%rbp, 1), %rsi
-
-leaq 0(%rax, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep movsb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rsi
+popq %rax
 
 
 
 
-movq $0, %rax
-
-
-call der_cost_q
-
-addq $48, %rsp
-
-addq $32, %rsp
-
-movq %xmm0, %rbx
-
-
-
-
-movl %ebx, -104(%rbp, 1)
-
-
-
-
-
-movl -104(%rbp, 1), %r12d
-
-
-movl %r12d, %eax
-
-
-movl %r12d, %r13d
-
-
-movq %r13, %xmm0
-
-
-mulss -100(%rbp, 1), %xmm0
-
-movq %xmm0, %r12
-
-
-
-
-movl %r12d, -108(%rbp, 1)
-
-
-
-
-movq $1, %r14
+movq $1, %rbx
 
 
 
@@ -11969,17 +9849,17 @@ pushq %r10
 pushq %r11
 
 
-movq -8(%rbp, 1), %r10
+movq -3160(%rbp, 1), %r10
 
 
-movq -16(%rbp, 1), %r11
+movq -3168(%rbp, 1), %r11
 
 
 
-movq %r11, -116(%rbp, 1)
+movq %r11, -3220(%rbp, 1)
 
 
-movq %r10, -124(%rbp, 1)
+movq %r10, -3228(%rbp, 1)
 
 
 popq %r11
@@ -11988,27 +9868,173 @@ popq %r11
 popq %r10
 
 
-cmpq -124(%rbp, 1), %r14
+cmpq -3228(%rbp, 1), %rbx
 
-jl .L145
+jb .L97
 
-movq %r14, %rsi
+movq %rbx, %rsi
 
 
-movq -124(%rbp, 1), %rdx
+movq -3228(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L145:
-movq %r14, %rax
+.L97:
+movq %rbx, %rax
 
 
-imulq $200, %rax
+imulq $40, %rax
 
-movq %rax, %r14
+movq %rax, %rbx
 
 
+
+
+
+
+leaq -3268(%rbp, 1), %r12
+
+movq %r12, %rdi
+
+
+subq $32, %rsp
+
+subq $48, %rsp
+
+movq %rsp, %rax
+
+
+pushq %rsi
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3220(%rbp, 1), %r12
+
+
+leaq 0(%r12, %rbx, 1), %rsi
+popq %r12
+
+
+leaq 0(%rax, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep movsb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rsi
+
+
+
+addq $40, %rax
+
+pushq %rsi
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+leaq -3208(%rbp, 1), %rsi
+
+leaq 0(%rax, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep movsb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rsi
+
+
+
+addq $40, %rax
+
+
+movq $0, %rax
+
+
+call der_loss10n_q
+
+addq $48, %rsp
+
+addq $32, %rsp
+
+movq %rax, %r13
+
+
+
+
+pushq %rsi
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+leaq -3268(%rbp, 1), %rsi
+
+leaq -3308(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep movsb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rsi
+
+
+
+
+movl $0, %r14d
+
+
+
+movl %r14d, -3312(%rbp, 1)
+
+
+
+
+.L100:
 
 
 
@@ -12016,29 +10042,363 @@ movq $10, %r15
 
 
 
+movl %r15d, -3316(%rbp, 1)
+
+
+movq $-1, %rax
+
+
+andq %rax, -3316(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3312(%rbp, 1), %ebx
+
+
+movl %ebx, -3320(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3321(%rbp, 1), %bl
+
+
+xorb %bl, -3321(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3316(%rbp, 1), %ebx
+
+
+cmpl %ebx, -3320(%rbp, 1)
+popq %rbx
+
+
+
+setl -3321(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3321(%rbp, 1), %bl
+
+
+andb %bl, -3321(%rbp, 1)
+popq %rbx
+
+
+
+jz .L101
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3312(%rbp, 1), %ebx
+
+
+movl %ebx, -3329(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3329(%rbp, 1)
+
+cmpq $10, -3329(%rbp, 1)
+
+jb .L99
+
+movq -3329(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L99:
+pushq %r10
+
+
+leaq -3308(%rbp, 1), %r10
+
+movq %r10, -3337(%rbp, 1)
+
+
+popq %r10
+
+
+
+
 pushq %rbx
 
 
-movq $1, %rbx
+xorq %rbx, %rbx
+
+movq -3337(%rbp, 1), %rbx
 
 
-movq %rbx, -132(%rbp, 1)
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3329(%rbp, 1), %r12
+
+
+cvtss2sd 0(%rbx, %r12, 4), %xmm0
+popq %r12
+
+popq %rbx
+
+
+movsd %xmm0, -3345(%rbp, 1)
+
+
+
+movq $.L98, %rdi
+
+
+movl -3312(%rbp, 1), %esi
+
+
+movsd -3345(%rbp, 1), %xmm0
+
+
+movq %rsp, %rax
+
+
+
+movq $1, %rax
+
+
+call printf
+
+movl %eax, -3349(%rbp, 1)
+
+
+
+
+
+
+incl -3312(%rbp, 1)
+
+
+
+
+jmp .L100
+
+.L101:
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -3749(%rbp, 1), %rdi
+
+movq $400, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -3789(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movl $0, -3793(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3793(%rbp, 1), %ebx
+
+
+movl %ebx, -3797(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L112:
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -3805(%rbp, 1)
 
 popq %rbx
 
 
 
 
-subq -132(%rbp, 1), %r15
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3805(%rbp, 1), %ebx
+
+
+movl %ebx, -3809(%rbp, 1)
+popq %rbx
 
 
 
-movq %r15, -140(%rbp, 1)
+
+movq $-1, %rax
+
+
+andq %rax, -3809(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3797(%rbp, 1), %ebx
+
+
+movl %ebx, -3813(%rbp, 1)
+popq %rbx
 
 
 
 
-.L157:
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3814(%rbp, 1), %bl
+
+
+xorb %bl, -3814(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3809(%rbp, 1), %ebx
+
+
+cmpl %ebx, -3813(%rbp, 1)
+popq %rbx
+
+
+
+setl -3814(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3814(%rbp, 1), %bl
+
+
+andb %bl, -3814(%rbp, 1)
+popq %rbx
+
+
+
+jz .L113
+
+movl $0, -3818(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3818(%rbp, 1), %ebx
+
+
+movl %ebx, -3822(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L108:
+
+
 
 pushq %rbx
 
@@ -12046,101 +10406,7 @@ pushq %rbx
 movq $0, %rbx
 
 
-movq %rbx, -148(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -140(%rbp, 1), %rbx
-
-
-movq %rbx, -156(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -157(%rbp, 1), %bl
-
-
-xorb %bl, -157(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -148(%rbp, 1), %rbx
-
-
-cmpq %rbx, -156(%rbp, 1)
-popq %rbx
-
-
-
-setae -157(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -157(%rbp, 1), %bl
-
-
-andb %bl, -157(%rbp, 1)
-popq %rbx
-
-
-
-jz .L158
-
-pushq %rbx
-
-
-movq $0, %rbx
-
-
-movq %rbx, -165(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -165(%rbp, 1), %rbx
-
-
-movq %rbx, -173(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L155:
-
-
-pushq %rbx
-
-
-movq $1, %rbx
-
-
-movq %rbx, -181(%rbp, 1)
+movq %rbx, -3830(%rbp, 1)
 
 popq %rbx
 
@@ -12153,17 +10419,17 @@ pushq %r10
 pushq %r11
 
 
-movq -8(%rbp, 1), %r10
+movq -3160(%rbp, 1), %r10
 
 
-movq -16(%rbp, 1), %r11
+movq -3168(%rbp, 1), %r11
 
 
 
-movq %r11, -189(%rbp, 1)
+movq %r11, -3838(%rbp, 1)
 
 
-movq %r10, -197(%rbp, 1)
+movq %r10, -3846(%rbp, 1)
 
 
 popq %r11
@@ -12175,43 +10441,256 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -197(%rbp, 1), %rbx
+movq -3846(%rbp, 1), %rbx
 
 
-cmpq %rbx, -181(%rbp, 1)
+cmpq %rbx, -3830(%rbp, 1)
 popq %rbx
 
 
 
-jl .L146
+jb .L102
 
-movq -181(%rbp, 1), %rsi
+movq -3830(%rbp, 1), %rsi
 
 
-movq -197(%rbp, 1), %rdx
+movq -3846(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L146:
+.L102:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -181(%rbp, 1), %rbx
+movq -3830(%rbp, 1), %rbx
 
 
-movq %rbx, -205(%rbp, 1)
+movq %rbx, -3854(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -205(%rbp, 1), %rax
+movq -3854(%rbp, 1), %rax
 
 
-imulq $200, %rax
+imulq $40, %rax
 
-movq %rax, -205(%rbp, 1)
+movq %rax, -3854(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -3862(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3862(%rbp, 1), %ebx
+
+
+movl %ebx, -3866(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -3866(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3822(%rbp, 1), %ebx
+
+
+movl %ebx, -3870(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3871(%rbp, 1), %bl
+
+
+xorb %bl, -3871(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3866(%rbp, 1), %ebx
+
+
+cmpl %ebx, -3870(%rbp, 1)
+popq %rbx
+
+
+
+setl -3871(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -3871(%rbp, 1), %bl
+
+
+andb %bl, -3871(%rbp, 1)
+popq %rbx
+
+
+
+jz .L109
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3797(%rbp, 1), %ebx
+
+
+movl %ebx, -3919(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3919(%rbp, 1)
+
+cmpq $10, -3919(%rbp, 1)
+
+jb .L105
+
+movq -3919(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L105:
+pushq %r10
+
+
+leaq -3308(%rbp, 1), %r10
+
+movq %r10, -3927(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -3935(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -3160(%rbp, 1), %r10
+
+
+movq -3168(%rbp, 1), %r11
+
+
+
+movq %r11, -3943(%rbp, 1)
+
+
+movq %r10, -3951(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3951(%rbp, 1), %rbx
+
+
+cmpq %rbx, -3935(%rbp, 1)
+popq %rbx
+
+
+
+jb .L106
+
+movq -3935(%rbp, 1), %rsi
+
+
+movq -3951(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L106:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -3935(%rbp, 1), %rbx
+
+
+movq %rbx, -3959(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -3959(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -3959(%rbp, 1)
 
 
 
@@ -12220,11 +10699,28 @@ movq %rax, -205(%rbp, 1)
 
 
 
-cmpq $10, -140(%rbp, 1)
+pushq %rbx
 
-jl .L147
+xorq %rbx, %rbx
+movl -3822(%rbp, 1), %ebx
 
-movq -140(%rbp, 1), %rsi
+
+movl %ebx, -3967(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3967(%rbp, 1)
+
+cmpq $10, -3967(%rbp, 1)
+
+jb .L107
+
+movq -3967(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -12232,7 +10728,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L147:
+.L107:
 pushq %r10
 
 
@@ -12241,7 +10737,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -189(%rbp, 1), %rbx
+movq -3943(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12249,7 +10745,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -205(%rbp, 1), %r12
+movq -3959(%rbp, 1), %r12
 
 
 leaq 0(%rbx, %r12, 1), %r10
@@ -12258,7 +10754,155 @@ popq %r12
 popq %rbx
 
 
-movq %r10, -213(%rbp, 1)
+movq %r10, -3975(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3975(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3967(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %r13d
+
+
+popq %r12
+
+popq %rbx
+
+movl %r13d, -3979(%rbp, 1)
+popq %r13
+
+
+
+
+movl -3979(%rbp, 1), %eax
+
+
+movss -3979(%rbp, 1), %xmm0
+
+
+mulss -3212(%rbp, 1), %xmm0
+
+movss %xmm0, -3979(%rbp, 1)
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3927(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3919(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %r13d
+
+
+popq %r12
+
+popq %rbx
+
+movl %r13d, -3983(%rbp, 1)
+popq %r13
+
+
+
+
+movl -3983(%rbp, 1), %eax
+
+
+movss -3983(%rbp, 1), %xmm1
+
+
+mulss -3979(%rbp, 1), %xmm1
+
+movss %xmm1, -3983(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3983(%rbp, 1), %ebx
+
+
+movl %ebx, -3987(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3797(%rbp, 1), %ebx
+
+
+movl %ebx, -3879(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3879(%rbp, 1)
+
+cmpq $10, -3879(%rbp, 1)
+
+jb .L103
+
+movq -3879(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L103:
+pushq %r10
+
+
+leaq -3749(%rbp, 1), %r10
+
+movq %r10, -3887(%rbp, 1)
 
 
 popq %r10
@@ -12267,21 +10911,732 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -140(%rbp, 1), %rbx
+movq -3879(%rbp, 1), %rbx
 
 
-movq %rbx, -221(%rbp, 1)
+movq %rbx, -3895(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -221(%rbp, 1), %rax
+movq -3895(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -3895(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3822(%rbp, 1), %ebx
+
+
+movl %ebx, -3903(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3903(%rbp, 1)
+
+cmpq $10, -3903(%rbp, 1)
+
+jb .L104
+
+movq -3903(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L104:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3887(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3895(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -3911(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -3911(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3903(%rbp, 1), %r12
+
+
+movl -3987(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+
+incl -3822(%rbp, 1)
+
+
+
+
+jmp .L108
+
+.L109:
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3797(%rbp, 1), %ebx
+
+
+movl %ebx, -4011(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4011(%rbp, 1)
+
+cmpq $10, -4011(%rbp, 1)
+
+jb .L111
+
+movq -4011(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L111:
+pushq %r10
+
+
+leaq -3308(%rbp, 1), %r10
+
+movq %r10, -4019(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4019(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4011(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %r13d
+
+
+popq %r12
+
+popq %rbx
+
+movl %r13d, -4023(%rbp, 1)
+popq %r13
+
+
+
+
+movl -4023(%rbp, 1), %eax
+
+
+movss -4023(%rbp, 1), %xmm2
+
+
+mulss -3212(%rbp, 1), %xmm2
+
+movss %xmm2, -4023(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4023(%rbp, 1), %ebx
+
+
+movl %ebx, -4027(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -3797(%rbp, 1), %ebx
+
+
+movl %ebx, -3995(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -3995(%rbp, 1)
+
+cmpq $10, -3995(%rbp, 1)
+
+jb .L110
+
+movq -3995(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L110:
+pushq %r10
+
+
+leaq -3789(%rbp, 1), %r10
+
+movq %r10, -4003(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4003(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -3995(%rbp, 1), %r12
+
+
+movl -4027(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+
+incl -3797(%rbp, 1)
+
+
+
+
+jmp .L112
+
+.L113:
+
+
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -4035(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -4043(%rbp, 1)
+
+
+movq %r10, -4051(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4051(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4035(%rbp, 1)
+popq %rbx
+
+
+
+jb .L114
+
+movq -4035(%rbp, 1), %rsi
+
+
+movq -4051(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L114:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4035(%rbp, 1), %rbx
+
+
+movq %rbx, -4059(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4059(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -4059(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -4067(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4067(%rbp, 1), %rbx
+
+
+movq %rbx, -4075(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -4075(%rbp, 1)
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -4083(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4083(%rbp, 1), %rbx
+
+
+subq %rbx, -4075(%rbp, 1)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4075(%rbp, 1), %rbx
+
+
+movq %rbx, -4091(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L124:
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -4099(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4091(%rbp, 1), %rbx
+
+
+movq %rbx, -4107(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4108(%rbp, 1), %bl
+
+
+xorb %bl, -4108(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4099(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4107(%rbp, 1)
+popq %rbx
+
+
+
+setge -4108(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4108(%rbp, 1), %bl
+
+
+andb %bl, -4108(%rbp, 1)
+popq %rbx
+
+
+
+jz .L125
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -4116(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4116(%rbp, 1), %rbx
+
+
+movq %rbx, -4124(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L122:
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -4132(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -4140(%rbp, 1)
+
+
+movq %r10, -4148(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4148(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4132(%rbp, 1)
+popq %rbx
+
+
+
+jb .L115
+
+movq -4132(%rbp, 1), %rsi
+
+
+movq -4148(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L115:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4132(%rbp, 1), %rbx
+
+
+movq %rbx, -4156(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4156(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -4156(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+cmpq $10, -4091(%rbp, 1)
+
+jb .L116
+
+movq -4091(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L116:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4140(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4156(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -4164(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4091(%rbp, 1), %rbx
+
+
+movq %rbx, -4172(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4172(%rbp, 1), %rax
 
 
 imulq $20, %rax
 
-movq %rax, -221(%rbp, 1)
+movq %rax, -4172(%rbp, 1)
 
 
 
@@ -12296,10 +11651,10 @@ movq %rax, -221(%rbp, 1)
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -173(%rbp, 1), %rbx
+movq -4124(%rbp, 1), %rbx
 
 
-movq %rbx, -229(%rbp, 1)
+movq %rbx, -4180(%rbp, 1)
 popq %rbx
 
 
@@ -12308,10 +11663,10 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -230(%rbp, 1), %bl
+movb -4181(%rbp, 1), %bl
 
 
-xorb %bl, -230(%rbp, 1)
+xorb %bl, -4181(%rbp, 1)
 popq %rbx
 
 
@@ -12324,7 +11679,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -213(%rbp, 1), %rbx
+movq -4164(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12332,7 +11687,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -221(%rbp, 1), %r12
+movq -4172(%rbp, 1), %r12
 
 
 movq 8(%rbx, %r12, 1), %r13
@@ -12342,27 +11697,27 @@ popq %r12
 
 popq %rbx
 
-cmpq %r13, -229(%rbp, 1)
+cmpq %r13, -4180(%rbp, 1)
 popq %r13
 
 
 
-setb -230(%rbp, 1)
+setb -4181(%rbp, 1)
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -230(%rbp, 1), %bl
+movb -4181(%rbp, 1), %bl
 
 
-andb %bl, -230(%rbp, 1)
+andb %bl, -4181(%rbp, 1)
 popq %rbx
 
 
 
-jz .L156
+jz .L123
 
 
 pushq %rbx
@@ -12371,7 +11726,7 @@ pushq %rbx
 movq $1, %rbx
 
 
-movq %rbx, -238(%rbp, 1)
+movq %rbx, -4189(%rbp, 1)
 
 popq %rbx
 
@@ -12391,10 +11746,10 @@ movq -16(%rbp, 1), %r11
 
 
 
-movq %r11, -246(%rbp, 1)
+movq %r11, -4197(%rbp, 1)
 
 
-movq %r10, -254(%rbp, 1)
+movq %r10, -4205(%rbp, 1)
 
 
 popq %r11
@@ -12406,43 +11761,43 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -254(%rbp, 1), %rbx
+movq -4205(%rbp, 1), %rbx
 
 
-cmpq %rbx, -238(%rbp, 1)
+cmpq %rbx, -4189(%rbp, 1)
 popq %rbx
 
 
 
-jl .L148
+jb .L117
 
-movq -238(%rbp, 1), %rsi
+movq -4189(%rbp, 1), %rsi
 
 
-movq -254(%rbp, 1), %rdx
+movq -4205(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L148:
+.L117:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -238(%rbp, 1), %rbx
+movq -4189(%rbp, 1), %rbx
 
 
-movq %rbx, -262(%rbp, 1)
+movq %rbx, -4213(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -262(%rbp, 1), %rax
+movq -4213(%rbp, 1), %rax
 
 
 imulq $200, %rax
 
-movq %rax, -262(%rbp, 1)
+movq %rax, -4213(%rbp, 1)
 
 
 
@@ -12451,11 +11806,11 @@ movq %rax, -262(%rbp, 1)
 
 
 
-cmpq $10, -140(%rbp, 1)
+cmpq $10, -4091(%rbp, 1)
 
-jl .L149
+jb .L118
 
-movq -140(%rbp, 1), %rsi
+movq -4091(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -12463,7 +11818,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L149:
+.L118:
 pushq %r10
 
 
@@ -12472,7 +11827,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -246(%rbp, 1), %rbx
+movq -4197(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12480,7 +11835,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -262(%rbp, 1), %r12
+movq -4213(%rbp, 1), %r12
 
 
 leaq 0(%rbx, %r12, 1), %r10
@@ -12489,7 +11844,7 @@ popq %r12
 popq %rbx
 
 
-movq %r10, -270(%rbp, 1)
+movq %r10, -4221(%rbp, 1)
 
 
 popq %r10
@@ -12498,21 +11853,21 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -140(%rbp, 1), %rbx
+movq -4091(%rbp, 1), %rbx
 
 
-movq %rbx, -278(%rbp, 1)
+movq %rbx, -4229(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -278(%rbp, 1), %rax
+movq -4229(%rbp, 1), %rax
 
 
 imulq $20, %rax
 
-movq %rax, -278(%rbp, 1)
+movq %rax, -4229(%rbp, 1)
 
 
 
@@ -12534,7 +11889,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -270(%rbp, 1), %rbx
+movq -4221(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12542,7 +11897,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -278(%rbp, 1), %r12
+movq -4229(%rbp, 1), %r12
 
 
 movq 8(%rbx, %r12, 1), %r10
@@ -12557,7 +11912,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -270(%rbp, 1), %rbx
+movq -4221(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12565,7 +11920,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -278(%rbp, 1), %r12
+movq -4229(%rbp, 1), %r12
 
 
 movq 0(%rbx, %r12, 1), %r11
@@ -12576,10 +11931,10 @@ popq %rbx
 
 
 
-movq %r11, -286(%rbp, 1)
+movq %r11, -4237(%rbp, 1)
 
 
-movq %r10, -294(%rbp, 1)
+movq %r10, -4245(%rbp, 1)
 
 
 popq %r11
@@ -12591,25 +11946,122 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -294(%rbp, 1), %rbx
+movq -4245(%rbp, 1), %rbx
 
 
-cmpq %rbx, -173(%rbp, 1)
+cmpq %rbx, -4124(%rbp, 1)
 popq %rbx
 
 
 
-jl .L150
+jb .L119
 
-movq -173(%rbp, 1), %rsi
+movq -4124(%rbp, 1), %rsi
 
 
-movq -294(%rbp, 1), %rdx
+movq -4245(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L150:
+.L119:
+
+
+
+
+cmpq $10, -4091(%rbp, 1)
+
+jb .L120
+
+movq -4091(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L120:
+pushq %r10
+
+
+leaq -3749(%rbp, 1), %r10
+
+movq %r10, -4253(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4091(%rbp, 1), %rbx
+
+
+movq %rbx, -4261(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4261(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -4261(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+cmpq $10, -4124(%rbp, 1)
+
+jb .L121
+
+movq -4124(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L121:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4253(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4261(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -4269(%rbp, 1)
+
+
+popq %r10
+
 
 
 
@@ -12618,7 +12070,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -286(%rbp, 1), %rbx
+movq -4237(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12626,24 +12078,22 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -173(%rbp, 1), %r12
+movq -4124(%rbp, 1), %r12
 
 
-movss 0(%rbx, %r12, 4), %xmm1
+movss 0(%rbx, %r12, 4), %xmm3
 popq %r12
 
 popq %rbx
 
 
-
-subss -108(%rbp, 1), %xmm1
 
 pushq %rbx
 
 
 xorq %rbx, %rbx
 
-movq -286(%rbp, 1), %rbx
+movq -4269(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12651,10 +12101,32 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -173(%rbp, 1), %r12
+movq -4124(%rbp, 1), %r12
 
 
-movss %xmm1, 0(%rbx, %r12, 4)
+subss 0(%rbx, %r12, 4), %xmm3
+popq %r12
+
+popq %rbx
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4237(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4124(%rbp, 1), %r12
+
+
+movss %xmm3, 0(%rbx, %r12, 4)
 popq %r12
 
 popq %rbx
@@ -12664,6 +12136,80 @@ popq %rbx
 
 
 
+
+incq -4124(%rbp, 1)
+
+
+
+
+jmp .L122
+
+.L123:
+
+
+
+
+decq -4091(%rbp, 1)
+
+
+
+
+jmp .L124
+
+.L125:
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -4309(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movl $0, -4313(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4313(%rbp, 1), %ebx
+
+
+movl %ebx, -4317(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L136:
 
 
 
@@ -12673,7 +12219,7 @@ pushq %rbx
 movq $1, %rbx
 
 
-movq %rbx, -302(%rbp, 1)
+movq %rbx, -4325(%rbp, 1)
 
 popq %rbx
 
@@ -12693,10 +12239,10 @@ movq -16(%rbp, 1), %r11
 
 
 
-movq %r11, -310(%rbp, 1)
+movq %r11, -4333(%rbp, 1)
 
 
-movq %r10, -318(%rbp, 1)
+movq %r10, -4341(%rbp, 1)
 
 
 popq %r11
@@ -12708,43 +12254,240 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -318(%rbp, 1), %rbx
+movq -4341(%rbp, 1), %rbx
 
 
-cmpq %rbx, -302(%rbp, 1)
+cmpq %rbx, -4325(%rbp, 1)
 popq %rbx
 
 
 
-jl .L152
+jb .L126
 
-movq -302(%rbp, 1), %rsi
+movq -4325(%rbp, 1), %rsi
 
 
-movq -318(%rbp, 1), %rdx
+movq -4341(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L152:
+.L126:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -302(%rbp, 1), %rbx
+movq -4325(%rbp, 1), %rbx
 
 
-movq %rbx, -326(%rbp, 1)
+movq %rbx, -4349(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -326(%rbp, 1), %rax
+movq -4349(%rbp, 1), %rax
 
 
 imulq $200, %rax
 
-movq %rax, -326(%rbp, 1)
+movq %rax, -4349(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -4357(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4357(%rbp, 1), %ebx
+
+
+movl %ebx, -4361(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -4361(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4317(%rbp, 1), %ebx
+
+
+movl %ebx, -4365(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4366(%rbp, 1), %bl
+
+
+xorb %bl, -4366(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4361(%rbp, 1), %ebx
+
+
+cmpl %ebx, -4365(%rbp, 1)
+popq %rbx
+
+
+
+setl -4366(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4366(%rbp, 1), %bl
+
+
+andb %bl, -4366(%rbp, 1)
+popq %rbx
+
+
+
+jz .L137
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -4374(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4374(%rbp, 1), %rbx
+
+
+movq %rbx, -4382(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L134:
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -4390(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -4398(%rbp, 1)
+
+
+movq %r10, -4406(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4406(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4390(%rbp, 1)
+popq %rbx
+
+
+
+jb .L127
+
+movq -4390(%rbp, 1), %rsi
+
+
+movq -4406(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L127:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4390(%rbp, 1), %rbx
+
+
+movq %rbx, -4414(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4414(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -4414(%rbp, 1)
 
 
 
@@ -12753,14 +12496,2030 @@ movq %rax, -326(%rbp, 1)
 
 
 
-cmpq $10, -140(%rbp, 1)
+pushq %rbx
 
-jl .L153
+xorq %rbx, %rbx
+movl -4317(%rbp, 1), %ebx
 
-movq -140(%rbp, 1), %rsi
+
+movl %ebx, -4422(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4422(%rbp, 1)
+
+cmpq $10, -4422(%rbp, 1)
+
+jb .L128
+
+movq -4422(%rbp, 1), %rsi
 
 
 movq $10, %rdx
+
+
+call err_oob
+
+.L128:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4398(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4414(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -4430(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4422(%rbp, 1), %rbx
+
+
+movq %rbx, -4438(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4438(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -4438(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4382(%rbp, 1), %rbx
+
+
+movq %rbx, -4446(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4447(%rbp, 1), %bl
+
+
+xorb %bl, -4447(%rbp, 1)
+popq %rbx
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4430(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4438(%rbp, 1), %r12
+
+
+movq 8(%rbx, %r12, 1), %r13
+
+
+popq %r12
+
+popq %rbx
+
+cmpq %r13, -4446(%rbp, 1)
+popq %r13
+
+
+
+setb -4447(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4447(%rbp, 1), %bl
+
+
+andb %bl, -4447(%rbp, 1)
+popq %rbx
+
+
+
+jz .L135
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4317(%rbp, 1), %ebx
+
+
+movl %ebx, -4455(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4455(%rbp, 1)
+
+cmpq $10, -4455(%rbp, 1)
+
+jb .L129
+
+movq -4455(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L129:
+pushq %r10
+
+
+leaq -4309(%rbp, 1), %r10
+
+movq %r10, -4463(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -4471(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -4479(%rbp, 1)
+
+
+movq %r10, -4487(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4487(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4471(%rbp, 1)
+popq %rbx
+
+
+
+jb .L130
+
+movq -4471(%rbp, 1), %rsi
+
+
+movq -4487(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L130:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4471(%rbp, 1), %rbx
+
+
+movq %rbx, -4495(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4495(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -4495(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4317(%rbp, 1), %ebx
+
+
+movl %ebx, -4503(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4503(%rbp, 1)
+
+cmpq $10, -4503(%rbp, 1)
+
+jb .L131
+
+movq -4503(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L131:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4479(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4495(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -4511(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4503(%rbp, 1), %rbx
+
+
+movq %rbx, -4519(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4519(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -4519(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4511(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4519(%rbp, 1), %r12
+
+
+movq 8(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4511(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4519(%rbp, 1), %r12
+
+
+movq 0(%rbx, %r12, 1), %r11
+popq %r12
+
+popq %rbx
+
+
+
+
+movq %r11, -4527(%rbp, 1)
+
+
+movq %r10, -4535(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4535(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4382(%rbp, 1)
+popq %rbx
+
+
+
+jb .L132
+
+movq -4382(%rbp, 1), %rsi
+
+
+movq -4535(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L132:
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4317(%rbp, 1), %ebx
+
+
+movl %ebx, -4543(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4543(%rbp, 1)
+
+cmpq $10, -4543(%rbp, 1)
+
+jb .L133
+
+movq -4543(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L133:
+pushq %r10
+
+
+leaq -3308(%rbp, 1), %r10
+
+movq %r10, -4551(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4527(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4382(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %r13d
+
+
+popq %r12
+
+popq %rbx
+
+movl %r13d, -4555(%rbp, 1)
+popq %r13
+
+
+
+
+movl -4555(%rbp, 1), %eax
+
+
+movss -4555(%rbp, 1), %xmm4
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4551(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4543(%rbp, 1), %r12
+
+
+mulss 0(%rbx, %r12, 4), %xmm4
+popq %r12
+
+popq %rbx
+
+
+movss %xmm4, -4555(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4463(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4455(%rbp, 1), %r12
+
+
+movss 0(%rbx, %r12, 4), %xmm5
+popq %r12
+
+popq %rbx
+
+
+
+addss -4555(%rbp, 1), %xmm5
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4463(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4455(%rbp, 1), %r12
+
+
+movss %xmm5, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+
+
+
+
+
+
+incq -4382(%rbp, 1)
+
+
+
+
+jmp .L134
+
+.L135:
+
+
+
+
+incl -4317(%rbp, 1)
+
+
+
+
+jmp .L136
+
+.L137:
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -4595(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movl $0, -4599(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4599(%rbp, 1), %ebx
+
+
+movl %ebx, -4603(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L143:
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -4611(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4611(%rbp, 1), %ebx
+
+
+movl %ebx, -4615(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -4615(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4603(%rbp, 1), %ebx
+
+
+movl %ebx, -4619(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4620(%rbp, 1), %bl
+
+
+xorb %bl, -4620(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4615(%rbp, 1), %ebx
+
+
+cmpl %ebx, -4619(%rbp, 1)
+popq %rbx
+
+
+
+setl -4620(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4620(%rbp, 1), %bl
+
+
+andb %bl, -4620(%rbp, 1)
+popq %rbx
+
+
+
+jz .L144
+
+movl $1065353216, -4640(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -4648(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -3160(%rbp, 1), %r10
+
+
+movq -3168(%rbp, 1), %r11
+
+
+
+movq %r11, -4656(%rbp, 1)
+
+
+movq %r10, -4664(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4664(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4648(%rbp, 1)
+popq %rbx
+
+
+
+jb .L139
+
+movq -4648(%rbp, 1), %rsi
+
+
+movq -4664(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L139:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4648(%rbp, 1), %rbx
+
+
+movq %rbx, -4672(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4672(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -4672(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4603(%rbp, 1), %ebx
+
+
+movl %ebx, -4680(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4680(%rbp, 1)
+
+cmpq $10, -4680(%rbp, 1)
+
+jb .L140
+
+movq -4680(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L140:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4656(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4672(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -4688(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+movss -4640(%rbp, 1), %xmm6
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4688(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4680(%rbp, 1), %r12
+
+
+subss 0(%rbx, %r12, 4), %xmm6
+popq %r12
+
+popq %rbx
+
+
+movss %xmm6, -4640(%rbp, 1)
+
+
+
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -4696(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -3160(%rbp, 1), %r10
+
+
+movq -3168(%rbp, 1), %r11
+
+
+
+movq %r11, -4704(%rbp, 1)
+
+
+movq %r10, -4712(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4712(%rbp, 1), %rbx
+
+
+cmpq %rbx, -4696(%rbp, 1)
+popq %rbx
+
+
+
+jb .L141
+
+movq -4696(%rbp, 1), %rsi
+
+
+movq -4712(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L141:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -4696(%rbp, 1), %rbx
+
+
+movq %rbx, -4720(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -4720(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -4720(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4603(%rbp, 1), %ebx
+
+
+movl %ebx, -4728(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4728(%rbp, 1)
+
+cmpq $10, -4728(%rbp, 1)
+
+jb .L142
+
+movq -4728(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L142:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4704(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4720(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -4736(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+movl -4640(%rbp, 1), %eax
+
+
+movss -4640(%rbp, 1), %xmm7
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4736(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4728(%rbp, 1), %r12
+
+
+mulss 0(%rbx, %r12, 4), %xmm7
+popq %r12
+
+popq %rbx
+
+
+movss %xmm7, -4640(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4640(%rbp, 1), %ebx
+
+
+movl %ebx, -4740(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4603(%rbp, 1), %ebx
+
+
+movl %ebx, -4628(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4628(%rbp, 1)
+
+cmpq $10, -4628(%rbp, 1)
+
+jb .L138
+
+movq -4628(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L138:
+pushq %r10
+
+
+leaq -4595(%rbp, 1), %r10
+
+movq %r10, -4636(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4636(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4628(%rbp, 1), %r12
+
+
+movl -4740(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+
+incl -4603(%rbp, 1)
+
+
+
+
+jmp .L143
+
+.L144:
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -4780(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movl $0, -4784(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4784(%rbp, 1), %ebx
+
+
+movl %ebx, -4788(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L148:
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -4796(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4796(%rbp, 1), %ebx
+
+
+movl %ebx, -4800(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -4800(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4788(%rbp, 1), %ebx
+
+
+movl %ebx, -4804(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4805(%rbp, 1), %bl
+
+
+xorb %bl, -4805(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4800(%rbp, 1), %ebx
+
+
+cmpl %ebx, -4804(%rbp, 1)
+popq %rbx
+
+
+
+setl -4805(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -4805(%rbp, 1), %bl
+
+
+andb %bl, -4805(%rbp, 1)
+popq %rbx
+
+
+
+jz .L149
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4788(%rbp, 1), %ebx
+
+
+movl %ebx, -4829(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4829(%rbp, 1)
+
+cmpq $10, -4829(%rbp, 1)
+
+jb .L146
+
+movq -4829(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L146:
+pushq %r10
+
+
+leaq -4595(%rbp, 1), %r10
+
+movq %r10, -4837(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4788(%rbp, 1), %ebx
+
+
+movl %ebx, -4845(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4845(%rbp, 1)
+
+cmpq $10, -4845(%rbp, 1)
+
+jb .L147
+
+movq -4845(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L147:
+pushq %r10
+
+
+leaq -4309(%rbp, 1), %r10
+
+movq %r10, -4853(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4837(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4829(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %r13d
+
+
+popq %r12
+
+popq %rbx
+
+movl %r13d, -4857(%rbp, 1)
+popq %r13
+
+
+
+
+movl -4857(%rbp, 1), %eax
+
+
+movss -4857(%rbp, 1), %xmm8
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4853(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4845(%rbp, 1), %r12
+
+
+mulss 0(%rbx, %r12, 4), %xmm8
+popq %r12
+
+popq %rbx
+
+
+movss %xmm8, -4857(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4857(%rbp, 1), %ebx
+
+
+movl %ebx, -4861(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -4788(%rbp, 1), %ebx
+
+
+movl %ebx, -4813(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -4813(%rbp, 1)
+
+cmpq $10, -4813(%rbp, 1)
+
+jb .L145
+
+movq -4813(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L145:
+pushq %r10
+
+
+leaq -4780(%rbp, 1), %r10
+
+movq %r10, -4821(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -4821(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -4813(%rbp, 1), %r12
+
+
+movl -4861(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+
+incl -4788(%rbp, 1)
+
+
+
+
+jmp .L148
+
+.L149:
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -4901(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+pushq %rsi
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+leaq -4780(%rbp, 1), %rsi
+
+leaq -4901(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep movsb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rsi
+
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -36261(%rbp, 1), %rdi
+
+movq $31360, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movl $0, -36265(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36265(%rbp, 1), %ebx
+
+
+movl %ebx, -36269(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L157:
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -36277(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36277(%rbp, 1), %ebx
+
+
+movl %ebx, -36281(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -36281(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36269(%rbp, 1), %ebx
+
+
+movl %ebx, -36285(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36286(%rbp, 1), %bl
+
+
+xorb %bl, -36286(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36281(%rbp, 1), %ebx
+
+
+cmpl %ebx, -36285(%rbp, 1)
+popq %rbx
+
+
+
+setl -36286(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36286(%rbp, 1), %bl
+
+
+andb %bl, -36286(%rbp, 1)
+popq %rbx
+
+
+
+jz .L158
+
+movl $0, -36290(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36290(%rbp, 1), %ebx
+
+
+movl %ebx, -36294(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L154:
+
+
+
+pushq %rbx
+
+
+movq $784, %rbx
+
+
+movq %rbx, -36302(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36302(%rbp, 1), %ebx
+
+
+movl %ebx, -36306(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -36306(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36294(%rbp, 1), %ebx
+
+
+movl %ebx, -36310(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36311(%rbp, 1), %bl
+
+
+xorb %bl, -36311(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36306(%rbp, 1), %ebx
+
+
+cmpl %ebx, -36310(%rbp, 1)
+popq %rbx
+
+
+
+setl -36311(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36311(%rbp, 1), %bl
+
+
+andb %bl, -36311(%rbp, 1)
+popq %rbx
+
+
+
+jz .L155
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36269(%rbp, 1), %ebx
+
+
+movl %ebx, -36359(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -36359(%rbp, 1)
+
+cmpq $10, -36359(%rbp, 1)
+
+jb .L152
+
+movq -36359(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L152:
+pushq %r10
+
+
+leaq -4780(%rbp, 1), %r10
+
+movq %r10, -36367(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36294(%rbp, 1), %ebx
+
+
+movl %ebx, -36375(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -36375(%rbp, 1)
+
+cmpq $784, -36375(%rbp, 1)
+
+jb .L153
+
+movq -36375(%rbp, 1), %rsi
+
+
+movq $784, %rdx
 
 
 call err_oob
@@ -12769,12 +14528,26 @@ call err_oob
 pushq %r10
 
 
+leaq -3152(%rbp, 1), %r10
+
+movq %r10, -36383(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
 pushq %rbx
 
 
 xorq %rbx, %rbx
 
-movq -310(%rbp, 1), %rbx
+movq -36383(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12782,16 +14555,130 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -326(%rbp, 1), %r12
+movq -36375(%rbp, 1), %r12
 
 
-leaq 0(%rbx, %r12, 1), %r10
+movl 0(%rbx, %r12, 4), %r13d
+
+
 popq %r12
 
 popq %rbx
 
+movl %r13d, -36387(%rbp, 1)
+popq %r13
 
-movq %r10, -334(%rbp, 1)
+
+
+
+movl -36387(%rbp, 1), %eax
+
+
+movss -36387(%rbp, 1), %xmm9
+
+
+mulss -3212(%rbp, 1), %xmm9
+
+movss %xmm9, -36387(%rbp, 1)
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36367(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36359(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %r13d
+
+
+popq %r12
+
+popq %rbx
+
+movl %r13d, -36391(%rbp, 1)
+popq %r13
+
+
+
+
+movl -36391(%rbp, 1), %eax
+
+
+movss -36391(%rbp, 1), %xmm10
+
+
+mulss -36387(%rbp, 1), %xmm10
+
+movss %xmm10, -36391(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36391(%rbp, 1), %ebx
+
+
+movl %ebx, -36395(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36269(%rbp, 1), %ebx
+
+
+movl %ebx, -36319(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -36319(%rbp, 1)
+
+cmpq $10, -36319(%rbp, 1)
+
+jb .L150
+
+movq -36319(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L150:
+pushq %r10
+
+
+leaq -36261(%rbp, 1), %r10
+
+movq %r10, -36327(%rbp, 1)
 
 
 popq %r10
@@ -12800,21 +14687,21 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -140(%rbp, 1), %rbx
+movq -36319(%rbp, 1), %rbx
 
 
-movq %rbx, -342(%rbp, 1)
+movq %rbx, -36335(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -342(%rbp, 1), %rax
+movq -36335(%rbp, 1), %rax
 
 
-imulq $20, %rax
+imulq $3136, %rax
 
-movq %rax, -342(%rbp, 1)
+movq %rax, -36335(%rbp, 1)
 
 
 
@@ -12823,20 +14710,45 @@ movq %rax, -342(%rbp, 1)
 
 
 
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36294(%rbp, 1), %ebx
 
 
+movl %ebx, -36343(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -36343(%rbp, 1)
+
+cmpq $784, -36343(%rbp, 1)
+
+jb .L151
+
+movq -36343(%rbp, 1), %rsi
+
+
+movq $784, %rdx
+
+
+call err_oob
+
+.L151:
 pushq %r10
 
 
-pushq %r11
-
-
 pushq %rbx
 
 
 xorq %rbx, %rbx
 
-movq -334(%rbp, 1), %rbx
+movq -36327(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12844,82 +14756,32 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -342(%rbp, 1), %r12
+movq -36335(%rbp, 1), %r12
 
 
-movq 8(%rbx, %r12, 1), %r10
+leaq 0(%rbx, %r12, 1), %r10
 popq %r12
 
 popq %rbx
 
 
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -334(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -342(%rbp, 1), %r12
-
-
-movq 0(%rbx, %r12, 1), %r11
-popq %r12
-
-popq %rbx
-
-
-
-
-movq %r11, -350(%rbp, 1)
-
-
-movq %r10, -358(%rbp, 1)
-
-
-popq %r11
+movq %r10, -36351(%rbp, 1)
 
 
 popq %r10
 
 
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -358(%rbp, 1), %rbx
 
 
-cmpq %rbx, -173(%rbp, 1)
-popq %rbx
+pushq %r13
 
-
-
-jl .L154
-
-movq -173(%rbp, 1), %rsi
-
-
-movq -358(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L154:
-
-
+xorq %r13, %r13
 pushq %rbx
 
 
 xorq %rbx, %rbx
 
-movq -350(%rbp, 1), %rbx
+movq -36351(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -12927,51 +14789,157 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -173(%rbp, 1), %r12
+movq -36343(%rbp, 1), %r12
 
 
-cvtss2sd 0(%rbx, %r12, 4), %xmm2
+movl -36395(%rbp, 1), %r13d
+
+
+movl %r13d, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+popq %r13
+
+
+
+
+
+
+
+incl -36294(%rbp, 1)
+
+
+
+
+jmp .L154
+
+.L155:
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -36269(%rbp, 1), %ebx
+
+
+movl %ebx, -36403(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -36403(%rbp, 1)
+
+cmpq $10, -36403(%rbp, 1)
+
+jb .L156
+
+movq -36403(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L156:
+pushq %r10
+
+
+leaq -4901(%rbp, 1), %r10
+
+movq %r10, -36411(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36411(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36403(%rbp, 1), %r12
+
+
+movl 0(%rbx, %r12, 4), %eax
 popq %r12
 
 popq %rbx
 
 
-movsd %xmm2, -366(%rbp, 1)
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36411(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36403(%rbp, 1), %r12
+
+
+movss 0(%rbx, %r12, 4), %xmm11
+popq %r12
+
+popq %rbx
 
 
 
-movq $.L151, %rdi
+mulss -3212(%rbp, 1), %xmm11
+
+pushq %rbx
 
 
-movsd -366(%rbp, 1), %xmm0
+xorq %rbx, %rbx
+
+movq -36411(%rbp, 1), %rbx
 
 
-
-movq $1, %rax
-
-
-call printf
-
-movl %eax, -370(%rbp, 1)
+pushq %r12
 
 
+xorq %r12, %r12
+
+movq -36403(%rbp, 1), %r12
 
 
+movss %xmm11, 0(%rbx, %r12, 4)
+popq %r12
 
-
-incq -173(%rbp, 1)
-
-
-
-
-jmp .L155
-
-.L156:
+popq %rbx
 
 
 
 
-decq -140(%rbp, 1)
+
+
+
+incl -36269(%rbp, 1)
 
 
 
@@ -12983,7 +14951,4304 @@ jmp .L157
 
 
 
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -36419(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -36427(%rbp, 1)
+
+
+movq %r10, -36435(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36435(%rbp, 1), %rbx
+
+
+cmpq %rbx, -36419(%rbp, 1)
+popq %rbx
+
+
+
+jb .L159
+
+movq -36419(%rbp, 1), %rsi
+
+
+movq -36435(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L159:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36419(%rbp, 1), %rbx
+
+
+movq %rbx, -36443(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -36443(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -36443(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -36451(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36451(%rbp, 1), %rbx
+
+
+movq %rbx, -36459(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -36459(%rbp, 1)
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -36467(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36467(%rbp, 1), %rbx
+
+
+subq %rbx, -36459(%rbp, 1)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36459(%rbp, 1), %rbx
+
+
+movq %rbx, -36475(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L170:
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -36483(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36475(%rbp, 1), %rbx
+
+
+movq %rbx, -36491(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36492(%rbp, 1), %bl
+
+
+xorb %bl, -36492(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36483(%rbp, 1), %rbx
+
+
+cmpq %rbx, -36491(%rbp, 1)
+popq %rbx
+
+
+
+setge -36492(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36492(%rbp, 1), %bl
+
+
+andb %bl, -36492(%rbp, 1)
+popq %rbx
+
+
+
+jz .L171
+
+
+
+movq $.L160, %rdi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -36496(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -36504(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36504(%rbp, 1), %rbx
+
+
+movq %rbx, -36512(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L168:
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -36520(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -36528(%rbp, 1)
+
+
+movq %r10, -36536(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36536(%rbp, 1), %rbx
+
+
+cmpq %rbx, -36520(%rbp, 1)
+popq %rbx
+
+
+
+jb .L161
+
+movq -36520(%rbp, 1), %rsi
+
+
+movq -36536(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L161:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36520(%rbp, 1), %rbx
+
+
+movq %rbx, -36544(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -36544(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -36544(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+cmpq $10, -36475(%rbp, 1)
+
+jb .L162
+
+movq -36475(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L162:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36528(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36544(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -36552(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36475(%rbp, 1), %rbx
+
+
+movq %rbx, -36560(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -36560(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -36560(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36512(%rbp, 1), %rbx
+
+
+movq %rbx, -36568(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36569(%rbp, 1), %bl
+
+
+xorb %bl, -36569(%rbp, 1)
+popq %rbx
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36552(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36560(%rbp, 1), %r12
+
+
+movq 8(%rbx, %r12, 1), %r13
+
+
+popq %r12
+
+popq %rbx
+
+cmpq %r13, -36568(%rbp, 1)
+popq %r13
+
+
+
+setb -36569(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -36569(%rbp, 1), %bl
+
+
+andb %bl, -36569(%rbp, 1)
+popq %rbx
+
+
+
+jz .L169
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -36577(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -8(%rbp, 1), %r10
+
+
+movq -16(%rbp, 1), %r11
+
+
+
+movq %r11, -36585(%rbp, 1)
+
+
+movq %r10, -36593(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36593(%rbp, 1), %rbx
+
+
+cmpq %rbx, -36577(%rbp, 1)
+popq %rbx
+
+
+
+jb .L163
+
+movq -36577(%rbp, 1), %rsi
+
+
+movq -36593(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L163:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36577(%rbp, 1), %rbx
+
+
+movq %rbx, -36601(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -36601(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -36601(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+cmpq $10, -36475(%rbp, 1)
+
+jb .L164
+
+movq -36475(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L164:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36585(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36601(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -36609(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36475(%rbp, 1), %rbx
+
+
+movq %rbx, -36617(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -36617(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -36617(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36609(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36617(%rbp, 1), %r12
+
+
+movq 8(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36609(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36617(%rbp, 1), %r12
+
+
+movq 0(%rbx, %r12, 1), %r11
+popq %r12
+
+popq %rbx
+
+
+
+
+movq %r11, -36625(%rbp, 1)
+
+
+movq %r10, -36633(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36633(%rbp, 1), %rbx
+
+
+cmpq %rbx, -36512(%rbp, 1)
+popq %rbx
+
+
+
+jb .L165
+
+movq -36512(%rbp, 1), %rsi
+
+
+movq -36633(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L165:
+
+
+
+
+cmpq $10, -36475(%rbp, 1)
+
+jb .L166
+
+movq -36475(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L166:
+pushq %r10
+
+
+leaq -36261(%rbp, 1), %r10
+
+movq %r10, -36641(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -36475(%rbp, 1), %rbx
+
+
+movq %rbx, -36649(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -36649(%rbp, 1), %rax
+
+
+imulq $3136, %rax
+
+movq %rax, -36649(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+cmpq $784, -36512(%rbp, 1)
+
+jb .L167
+
+movq -36512(%rbp, 1), %rsi
+
+
+movq $784, %rdx
+
+
+call err_oob
+
+.L167:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36641(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36649(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -36657(%rbp, 1)
+
+
+popq %r10
+
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36625(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36512(%rbp, 1), %r12
+
+
+movss 0(%rbx, %r12, 4), %xmm0
+popq %r12
+
+popq %rbx
+
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36657(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36512(%rbp, 1), %r12
+
+
+subss 0(%rbx, %r12, 4), %xmm0
+popq %r12
+
+popq %rbx
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -36625(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -36512(%rbp, 1), %r12
+
+
+movss %xmm0, 0(%rbx, %r12, 4)
+popq %r12
+
+popq %rbx
+
+
+
+
+
+
+
+incq -36512(%rbp, 1)
+
+
+
+
+jmp .L168
+
+.L169:
+
+
+
+
+decq -36475(%rbp, 1)
+
+
+
+
+jmp .L170
+
+.L171:
+
+
+
+
 ._back:
+movq %rbp, %rsp
+
+popq %rbp
+
+ret
+
+
+
+.string "\0save_model"
+.global save_model
+save_model:
+pushq %rbp
+
+movq %rsp, %rbp
+
+subq $432, %rsp
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -16(%rbp, 1), %rdi
+
+movq $16, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -32(%rbp, 1), %rdi
+
+movq $16, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movq %rsi, -8(%rbp, 1)
+
+
+movq %rdi, -16(%rbp, 1)
+
+
+
+movq %rcx, -24(%rbp, 1)
+
+
+movq %rdx, -32(%rbp, 1)
+
+
+
+
+
+
+
+movl $577, %ebx
+
+
+
+movl $420, %r12d
+
+
+
+movq -16(%rbp, 1), %rdi
+
+
+movl %ebx, %esi
+
+
+movl %r12d, %edx
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call open
+
+movl %eax, %r13d
+
+
+
+
+movl %r13d, -36(%rbp, 1)
+
+
+
+
+movl $0, %r14d
+
+
+
+movl -36(%rbp, 1), %r15d
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -37(%rbp, 1), %bl
+
+
+xorb %bl, -37(%rbp, 1)
+popq %rbx
+
+
+
+cmpl %r14d, %r15d
+
+setl -37(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -37(%rbp, 1), %bl
+
+
+andb %bl, -37(%rbp, 1)
+popq %rbx
+
+
+
+jz .L173
+
+
+
+
+
+movq $.L172, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, %r14d
+
+
+
+
+
+.L173:
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -45(%rbp, 1)
+
+popq %rbx
+
+
+
+
+movl $0, %r15d
+
+
+
+movl %r15d, -49(%rbp, 1)
+
+
+
+
+.L192:
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -24(%rbp, 1), %ebx
+
+
+movl %ebx, -53(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -53(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -57(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -58(%rbp, 1), %bl
+
+
+xorb %bl, -58(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -53(%rbp, 1), %ebx
+
+
+cmpl %ebx, -57(%rbp, 1)
+popq %rbx
+
+
+
+setl -58(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -58(%rbp, 1), %bl
+
+
+andb %bl, -58(%rbp, 1)
+popq %rbx
+
+
+
+jz .L193
+
+movl $0, -62(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -62(%rbp, 1), %ebx
+
+
+movl %ebx, -66(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L190:
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -74(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -74(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -82(%rbp, 1)
+
+
+movq %r10, -90(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -90(%rbp, 1), %rbx
+
+
+cmpq %rbx, -74(%rbp, 1)
+popq %rbx
+
+
+
+jb .L174
+
+movq -74(%rbp, 1), %rsi
+
+
+movq -90(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L174:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -74(%rbp, 1), %rbx
+
+
+movq %rbx, -98(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -98(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -98(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -106(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -106(%rbp, 1), %ebx
+
+
+movl %ebx, -110(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -110(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -114(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -115(%rbp, 1), %bl
+
+
+xorb %bl, -115(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -110(%rbp, 1), %ebx
+
+
+cmpl %ebx, -114(%rbp, 1)
+popq %rbx
+
+
+
+setl -115(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -115(%rbp, 1), %bl
+
+
+andb %bl, -115(%rbp, 1)
+popq %rbx
+
+
+
+jz .L191
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -123(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -123(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -131(%rbp, 1)
+
+
+movq %r10, -139(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -139(%rbp, 1), %rbx
+
+
+cmpq %rbx, -123(%rbp, 1)
+popq %rbx
+
+
+
+jb .L175
+
+movq -123(%rbp, 1), %rsi
+
+
+movq -139(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L175:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -123(%rbp, 1), %rbx
+
+
+movq %rbx, -147(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -147(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -147(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -155(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -155(%rbp, 1)
+
+cmpq $10, -155(%rbp, 1)
+
+jb .L176
+
+movq -155(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L176:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -131(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -147(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -163(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -155(%rbp, 1), %rbx
+
+
+movq %rbx, -171(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -171(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -171(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+pushq %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -163(%rbp, 1), %r12
+
+
+pushq %r13
+
+
+xorq %r13, %r13
+
+movq -171(%rbp, 1), %r13
+
+
+leaq 16(%r12, %r13, 1), %rbx
+popq %r13
+
+popq %r12
+
+
+movq %rbx, -179(%rbp, 1)
+
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -179(%rbp, 1), %rbx
+
+
+movq %rbx, -187(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+movq $.L177, %rdi
+
+
+movq -187(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -191(%rbp, 1)
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -199(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -199(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -207(%rbp, 1)
+
+
+movq %r10, -215(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -215(%rbp, 1), %rbx
+
+
+cmpq %rbx, -199(%rbp, 1)
+popq %rbx
+
+
+
+jb .L178
+
+movq -199(%rbp, 1), %rsi
+
+
+movq -215(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L178:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -199(%rbp, 1), %rbx
+
+
+movq %rbx, -223(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -223(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -223(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -231(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -231(%rbp, 1)
+
+cmpq $10, -231(%rbp, 1)
+
+jb .L179
+
+movq -231(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L179:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -207(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -223(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -239(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -231(%rbp, 1), %rbx
+
+
+movq %rbx, -247(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -247(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -247(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -255(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -255(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -263(%rbp, 1)
+
+
+movq %r10, -271(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -271(%rbp, 1), %rbx
+
+
+cmpq %rbx, -255(%rbp, 1)
+popq %rbx
+
+
+
+jb .L180
+
+movq -255(%rbp, 1), %rsi
+
+
+movq -271(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L180:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -255(%rbp, 1), %rbx
+
+
+movq %rbx, -279(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -279(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -279(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -287(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -287(%rbp, 1)
+
+cmpq $10, -287(%rbp, 1)
+
+jb .L181
+
+movq -287(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L181:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -263(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -279(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -295(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -287(%rbp, 1), %rbx
+
+
+movq %rbx, -303(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -303(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -303(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $4, %rbx
+
+
+movq %rbx, -311(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -295(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -303(%rbp, 1), %r12
+
+
+movq 8(%rbx, %r12, 1), %r13
+
+
+popq %r12
+
+popq %rbx
+
+movq %r13, -319(%rbp, 1)
+popq %r13
+
+
+
+
+movq -319(%rbp, 1), %rax
+
+
+imulq -311(%rbp, 1), %rax
+
+movq %rax, -319(%rbp, 1)
+
+
+
+
+movl -36(%rbp, 1), %edi
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -239(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -247(%rbp, 1), %r12
+
+
+movq 0(%rbx, %r12, 1), %rsi
+popq %r12
+
+popq %rbx
+
+
+
+movq -319(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call write
+
+movq %rax, -327(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -327(%rbp, 1), %rbx
+
+
+movq %rbx, -335(%rbp, 1)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -335(%rbp, 1), %rbx
+
+
+movq %rbx, -45(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $-1, %rbx
+
+
+movq %rbx, -343(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -45(%rbp, 1), %rbx
+
+
+movq %rbx, -351(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -352(%rbp, 1), %bl
+
+
+xorb %bl, -352(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -343(%rbp, 1), %rbx
+
+
+cmpq %rbx, -351(%rbp, 1)
+popq %rbx
+
+
+
+sete -352(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -352(%rbp, 1), %bl
+
+
+andb %bl, -352(%rbp, 1)
+popq %rbx
+
+
+
+jz .L184
+
+
+
+
+
+movq $.L182, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -356(%rbp, 1)
+
+
+
+
+
+jmp .L185
+
+
+.L184:
+
+
+
+movq $.L183, %rdi
+
+
+movq -45(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -360(%rbp, 1)
+
+
+
+
+
+.L185:
+
+
+
+
+pushq %rbx
+
+
+movq $4, %rbx
+
+
+movq %rbx, -368(%rbp, 1)
+
+popq %rbx
+
+
+
+
+movl -36(%rbp, 1), %edi
+
+
+movq -187(%rbp, 1), %rsi
+
+
+movq -368(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call write
+
+movq %rax, -376(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -376(%rbp, 1), %rbx
+
+
+movq %rbx, -384(%rbp, 1)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -384(%rbp, 1), %rbx
+
+
+movq %rbx, -45(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $-1, %rbx
+
+
+movq %rbx, -392(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -45(%rbp, 1), %rbx
+
+
+movq %rbx, -400(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -401(%rbp, 1), %bl
+
+
+xorb %bl, -401(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -392(%rbp, 1), %rbx
+
+
+cmpq %rbx, -400(%rbp, 1)
+popq %rbx
+
+
+
+sete -401(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -401(%rbp, 1), %bl
+
+
+andb %bl, -401(%rbp, 1)
+popq %rbx
+
+
+
+jz .L188
+
+
+
+
+
+movq $.L186, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -405(%rbp, 1)
+
+
+
+
+
+jmp .L189
+
+
+.L188:
+
+
+
+movq $.L187, %rdi
+
+
+movq -45(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -409(%rbp, 1)
+
+
+
+
+
+.L189:
+
+
+
+
+incl -66(%rbp, 1)
+
+
+
+
+jmp .L190
+
+.L191:
+
+
+
+
+incl -49(%rbp, 1)
+
+
+
+
+jmp .L192
+
+.L193:
+
+
+
+movl -36(%rbp, 1), %edi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call close
+
+movl %eax, -413(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -413(%rbp, 1), %ebx
+
+
+movl %ebx, -417(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+movl $0, -421(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -417(%rbp, 1), %ebx
+
+
+movl %ebx, -425(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -426(%rbp, 1), %bl
+
+
+xorb %bl, -426(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -421(%rbp, 1), %ebx
+
+
+cmpl %ebx, -425(%rbp, 1)
+popq %rbx
+
+
+
+setl -426(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -426(%rbp, 1), %bl
+
+
+andb %bl, -426(%rbp, 1)
+popq %rbx
+
+
+
+jz .L195
+
+
+
+
+
+movq $.L194, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -430(%rbp, 1)
+
+
+
+
+
+.L195:
+
+
+
+._save_model:
+movq %rbp, %rsp
+
+popq %rbp
+
+ret
+
+
+
+.string "\0read_model"
+.global read_model
+read_model:
+pushq %rbp
+
+movq %rsp, %rbp
+
+subq $432, %rsp
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -16(%rbp, 1), %rdi
+
+movq $16, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -32(%rbp, 1), %rdi
+
+movq $16, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movq %rsi, -8(%rbp, 1)
+
+
+movq %rdi, -16(%rbp, 1)
+
+
+
+movq %rcx, -24(%rbp, 1)
+
+
+movq %rdx, -32(%rbp, 1)
+
+
+
+
+
+
+
+movl $0, %ebx
+
+
+
+movl $0, %r12d
+
+
+
+movq -16(%rbp, 1), %rdi
+
+
+movl %ebx, %esi
+
+
+movl %r12d, %edx
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call open
+
+movl %eax, %r13d
+
+
+
+
+movl %r13d, -36(%rbp, 1)
+
+
+
+
+movl $0, %r14d
+
+
+
+movl -36(%rbp, 1), %r15d
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -37(%rbp, 1), %bl
+
+
+xorb %bl, -37(%rbp, 1)
+popq %rbx
+
+
+
+cmpl %r14d, %r15d
+
+setl -37(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -37(%rbp, 1), %bl
+
+
+andb %bl, -37(%rbp, 1)
+popq %rbx
+
+
+
+jz .L197
+
+
+
+
+
+movq $.L196, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, %r14d
+
+
+
+
+
+.L197:
+
+
+pushq %rbx
+
+
+movq $0, %rbx
+
+
+movq %rbx, -45(%rbp, 1)
+
+popq %rbx
+
+
+
+
+movl $0, %r15d
+
+
+
+movl %r15d, -49(%rbp, 1)
+
+
+
+
+.L216:
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -24(%rbp, 1), %ebx
+
+
+movl %ebx, -53(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -53(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -57(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -58(%rbp, 1), %bl
+
+
+xorb %bl, -58(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -53(%rbp, 1), %ebx
+
+
+cmpl %ebx, -57(%rbp, 1)
+popq %rbx
+
+
+
+setl -58(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -58(%rbp, 1), %bl
+
+
+andb %bl, -58(%rbp, 1)
+popq %rbx
+
+
+
+jz .L217
+
+movl $0, -62(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -62(%rbp, 1), %ebx
+
+
+movl %ebx, -66(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L214:
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -74(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -74(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -82(%rbp, 1)
+
+
+movq %r10, -90(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -90(%rbp, 1), %rbx
+
+
+cmpq %rbx, -74(%rbp, 1)
+popq %rbx
+
+
+
+jb .L198
+
+movq -74(%rbp, 1), %rsi
+
+
+movq -90(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L198:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -74(%rbp, 1), %rbx
+
+
+movq %rbx, -98(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -98(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -98(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -106(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -106(%rbp, 1), %ebx
+
+
+movl %ebx, -110(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -110(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -114(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -115(%rbp, 1), %bl
+
+
+xorb %bl, -115(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -110(%rbp, 1), %ebx
+
+
+cmpl %ebx, -114(%rbp, 1)
+popq %rbx
+
+
+
+setl -115(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -115(%rbp, 1), %bl
+
+
+andb %bl, -115(%rbp, 1)
+popq %rbx
+
+
+
+jz .L215
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -123(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -123(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -131(%rbp, 1)
+
+
+movq %r10, -139(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -139(%rbp, 1), %rbx
+
+
+cmpq %rbx, -123(%rbp, 1)
+popq %rbx
+
+
+
+jb .L199
+
+movq -123(%rbp, 1), %rsi
+
+
+movq -139(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L199:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -123(%rbp, 1), %rbx
+
+
+movq %rbx, -147(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -147(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -147(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -155(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -155(%rbp, 1)
+
+cmpq $10, -155(%rbp, 1)
+
+jb .L200
+
+movq -155(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L200:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -131(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -147(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -163(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -155(%rbp, 1), %rbx
+
+
+movq %rbx, -171(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -171(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -171(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+pushq %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -163(%rbp, 1), %r12
+
+
+pushq %r13
+
+
+xorq %r13, %r13
+
+movq -171(%rbp, 1), %r13
+
+
+leaq 16(%r12, %r13, 1), %rbx
+popq %r13
+
+popq %r12
+
+
+movq %rbx, -179(%rbp, 1)
+
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -179(%rbp, 1), %rbx
+
+
+movq %rbx, -187(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+movq $.L201, %rdi
+
+
+movq -187(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -191(%rbp, 1)
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -199(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -199(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -207(%rbp, 1)
+
+
+movq %r10, -215(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -215(%rbp, 1), %rbx
+
+
+cmpq %rbx, -199(%rbp, 1)
+popq %rbx
+
+
+
+jb .L202
+
+movq -199(%rbp, 1), %rsi
+
+
+movq -215(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L202:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -199(%rbp, 1), %rbx
+
+
+movq %rbx, -223(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -223(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -223(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -231(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -231(%rbp, 1)
+
+cmpq $10, -231(%rbp, 1)
+
+jb .L203
+
+movq -231(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L203:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -207(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -223(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -239(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -231(%rbp, 1), %rbx
+
+
+movq %rbx, -247(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -247(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -247(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $4, %rbx
+
+
+movq %rbx, -255(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r13
+
+xorq %r13, %r13
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -239(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -247(%rbp, 1), %r12
+
+
+movq 8(%rbx, %r12, 1), %r13
+
+
+popq %r12
+
+popq %rbx
+
+movq %r13, -263(%rbp, 1)
+popq %r13
+
+
+
+
+movq -263(%rbp, 1), %rax
+
+
+imulq -255(%rbp, 1), %rax
+
+movq %rax, -263(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -263(%rbp, 1), %rbx
+
+
+movq %rbx, -271(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -49(%rbp, 1), %ebx
+
+
+movl %ebx, -279(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -279(%rbp, 1)
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -24(%rbp, 1), %r10
+
+
+movq -32(%rbp, 1), %r11
+
+
+
+movq %r11, -287(%rbp, 1)
+
+
+movq %r10, -295(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -295(%rbp, 1), %rbx
+
+
+cmpq %rbx, -279(%rbp, 1)
+popq %rbx
+
+
+
+jb .L204
+
+movq -279(%rbp, 1), %rsi
+
+
+movq -295(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L204:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -279(%rbp, 1), %rbx
+
+
+movq %rbx, -303(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -303(%rbp, 1), %rax
+
+
+imulq $200, %rax
+
+movq %rax, -303(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -66(%rbp, 1), %ebx
+
+
+movl %ebx, -311(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -311(%rbp, 1)
+
+cmpq $10, -311(%rbp, 1)
+
+jb .L205
+
+movq -311(%rbp, 1), %rsi
+
+
+movq $10, %rdx
+
+
+call err_oob
+
+.L205:
+pushq %r10
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -287(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -303(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %r10
+popq %r12
+
+popq %rbx
+
+
+movq %r10, -319(%rbp, 1)
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -311(%rbp, 1), %rbx
+
+
+movq %rbx, -327(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -327(%rbp, 1), %rax
+
+
+imulq $20, %rax
+
+movq %rax, -327(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
+
+
+
+
+
+
+
+
+movl -36(%rbp, 1), %edi
+
+
+pushq %rbx
+
+
+xorq %rbx, %rbx
+
+movq -319(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -327(%rbp, 1), %r12
+
+
+movq 0(%rbx, %r12, 1), %rsi
+popq %r12
+
+popq %rbx
+
+
+
+movq -271(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call read
+
+movq %rax, -335(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -335(%rbp, 1), %rbx
+
+
+movq %rbx, -343(%rbp, 1)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -343(%rbp, 1), %rbx
+
+
+movq %rbx, -45(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -45(%rbp, 1), %rbx
+
+
+movq %rbx, -351(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -352(%rbp, 1), %bl
+
+
+xorb %bl, -352(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -271(%rbp, 1), %rbx
+
+
+cmpq %rbx, -351(%rbp, 1)
+popq %rbx
+
+
+
+setb -352(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -352(%rbp, 1), %bl
+
+
+andb %bl, -352(%rbp, 1)
+popq %rbx
+
+
+
+jz .L208
+
+
+
+
+
+movq $.L206, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -356(%rbp, 1)
+
+
+
+
+
+jmp .L209
+
+
+.L208:
+
+
+
+movq $.L207, %rdi
+
+
+movq -45(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -360(%rbp, 1)
+
+
+
+
+
+.L209:
+
+
+
+
+pushq %rbx
+
+
+movq $4, %rbx
+
+
+movq %rbx, -368(%rbp, 1)
+
+popq %rbx
+
+
+
+
+movl -36(%rbp, 1), %edi
+
+
+movq -187(%rbp, 1), %rsi
+
+
+movq -368(%rbp, 1), %rdx
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call read
+
+movq %rax, -376(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -376(%rbp, 1), %rbx
+
+
+movq %rbx, -384(%rbp, 1)
+popq %rbx
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -384(%rbp, 1), %rbx
+
+
+movq %rbx, -45(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $4, %rbx
+
+
+movq %rbx, -392(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -45(%rbp, 1), %rbx
+
+
+movq %rbx, -400(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -401(%rbp, 1), %bl
+
+
+xorb %bl, -401(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -392(%rbp, 1), %rbx
+
+
+cmpq %rbx, -400(%rbp, 1)
+popq %rbx
+
+
+
+setb -401(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -401(%rbp, 1), %bl
+
+
+andb %bl, -401(%rbp, 1)
+popq %rbx
+
+
+
+jz .L212
+
+
+
+
+
+movq $.L210, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -405(%rbp, 1)
+
+
+
+
+
+jmp .L213
+
+
+.L212:
+
+
+
+movq $.L211, %rdi
+
+
+movq -45(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -409(%rbp, 1)
+
+
+
+
+
+.L213:
+
+
+
+
+incl -66(%rbp, 1)
+
+
+
+
+jmp .L214
+
+.L215:
+
+
+
+
+incl -49(%rbp, 1)
+
+
+
+
+jmp .L216
+
+.L217:
+
+
+
+movl -36(%rbp, 1), %edi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call close
+
+movl %eax, -413(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -413(%rbp, 1), %ebx
+
+
+movl %ebx, -417(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+movl $0, -421(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -417(%rbp, 1), %ebx
+
+
+movl %ebx, -425(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -426(%rbp, 1), %bl
+
+
+xorb %bl, -426(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -421(%rbp, 1), %ebx
+
+
+cmpl %ebx, -425(%rbp, 1)
+popq %rbx
+
+
+
+setl -426(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -426(%rbp, 1), %bl
+
+
+andb %bl, -426(%rbp, 1)
+popq %rbx
+
+
+
+jz .L219
+
+
+
+
+
+movq $.L218, %rdi
+
+
+movq -16(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -430(%rbp, 1)
+
+
+
+
+
+.L219:
+
+
+
+._read_model:
 movq %rbp, %rsp
 
 popq %rbp
@@ -12999,7 +19264,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $1120, %rsp
+subq $992, %rsp
 
 
 
@@ -13036,7 +19301,7 @@ popq %rax
 
 
 
-movq $.L159, %rax
+movq $.L220, %rax
 
 
 leaq 0(%rax, 1), %rbx
@@ -13045,9 +19310,12 @@ leaq 0(%rax, 1), %rbx
 movq %rbx, %rdi
 
 
-movq $47, %rsi
+movq $55, %rsi
 
 
+
+
+movq %rsp, %rax
 
 
 
@@ -13123,7 +19391,7 @@ popq %rax
 
 
 
-movq $.L160, %rax
+movq $.L221, %rax
 
 
 leaq 0(%rax, 1), %r12
@@ -13132,9 +19400,12 @@ leaq 0(%rax, 1), %r12
 movq %r12, %rdi
 
 
-movq $47, %rsi
+movq $55, %rsi
 
 
+
+
+movq %rsp, %rax
 
 
 
@@ -13184,10 +19455,13 @@ popq %rbx
 
 
 
-movq $.L161, %rdi
+movq $.L222, %rdi
 
 
 movq -24(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
 
 
 
@@ -13300,6 +19574,9 @@ movq %rax, %r14
 movq %r14, %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -13367,7 +19644,7 @@ movl %r15d, -116(%rbp, 1)
 
 
 
-.L172:
+.L233:
 
 
 
@@ -13440,7 +19717,7 @@ popq %rbx
 
 
 
-jz .L173
+jz .L234
 
 movl $0, -129(%rbp, 1)
 
@@ -13460,7 +19737,7 @@ popq %rbx
 
 
 
-.L170:
+.L231:
 
 movl $28, -137(%rbp, 1)
 
@@ -13515,7 +19792,7 @@ popq %rbx
 
 
 
-jz .L171
+jz .L232
 
 movl $0, -146(%rbp, 1)
 
@@ -13535,7 +19812,7 @@ popq %rbx
 
 
 
-.L168:
+.L229:
 
 movl $28, -154(%rbp, 1)
 
@@ -13590,7 +19867,7 @@ popq %rbx
 
 
 
-jz .L169
+jz .L230
 
 
 
@@ -13647,7 +19924,7 @@ popq %rbx
 
 
 
-jl .L162
+jb .L223
 
 movq -167(%rbp, 1), %rsi
 
@@ -13657,7 +19934,7 @@ movq -183(%rbp, 1), %rdx
 
 call err_oob
 
-.L162:
+.L223:
 pushq %rbx
 
 xorq %rbx, %rbx
@@ -13703,7 +19980,7 @@ andq %rax, -199(%rbp, 1)
 
 cmpq $28, -199(%rbp, 1)
 
-jl .L163
+jb .L224
 
 movq -199(%rbp, 1), %rsi
 
@@ -13713,7 +19990,7 @@ movq $28, %rdx
 
 call err_oob
 
-.L163:
+.L224:
 pushq %r10
 
 
@@ -13790,7 +20067,7 @@ andq %rax, -223(%rbp, 1)
 
 cmpq $28, -223(%rbp, 1)
 
-jl .L164
+jb .L225
 
 movq -223(%rbp, 1), %rsi
 
@@ -13800,7 +20077,7 @@ movq $28, %rdx
 
 call err_oob
 
-.L164:
+.L225:
 pushq %r10
 
 
@@ -13921,24 +20198,11 @@ popq %rbx
 
 
 
-jz .L167
-
-pushq %rbx
-
-
-movq $1065353216, %rbx
-
-
-movq %rbx, -295(%rbp, 1)
-
-popq %rbx
+jz .L228
 
 
 
-
-
-
-movq %rbx, -303(%rbp, 1)
+movq %rbx, -299(%rbp, 1)
 
 
 movq -232(%rbp, 1), %rbx
@@ -13947,24 +20211,35 @@ andq $255, %rbx
 
 cvtsi2ss %rbx, %xmm0
 
-movq -303(%rbp, 1), %rbx
+movq -299(%rbp, 1), %rbx
 
+
+movss %xmm0, -303(%rbp, 1)
+
+
+
+
+movq $255, %rbx
+
+
+
+cvtsi2ss %rbx, %xmm0
 
 movss %xmm0, -307(%rbp, 1)
 
 
 
-movss -295(%rbp, 1), %xmm0
+movss -303(%rbp, 1), %xmm0
 
 
 divss -307(%rbp, 1), %xmm0
 
-movss %xmm0, -295(%rbp, 1)
+movss %xmm0, -303(%rbp, 1)
 
 
 
 
-movl -295(%rbp, 1), %ebx
+movl -303(%rbp, 1), %ebx
 
 
 
@@ -14022,7 +20297,7 @@ popq %rbx
 
 
 
-jl .L165
+jb .L226
 
 movq -243(%rbp, 1), %rsi
 
@@ -14032,7 +20307,7 @@ movq -259(%rbp, 1), %rdx
 
 call err_oob
 
-.L165:
+.L226:
 pushq %rbx
 
 xorq %rbx, %rbx
@@ -14118,7 +20393,7 @@ andq %rax, -283(%rbp, 1)
 
 cmpq $784, -283(%rbp, 1)
 
-jl .L166
+jb .L227
 
 movq -283(%rbp, 1), %rsi
 
@@ -14128,7 +20403,7 @@ movq $784, %rdx
 
 call err_oob
 
-.L166:
+.L227:
 pushq %r10
 
 
@@ -14187,7 +20462,7 @@ popq %r12
 
 
 
-.L167:
+.L228:
 
 
 
@@ -14197,9 +20472,9 @@ incl -150(%rbp, 1)
 
 
 
-jmp .L168
+jmp .L229
 
-.L169:
+.L230:
 
 
 
@@ -14209,9 +20484,9 @@ incl -133(%rbp, 1)
 
 
 
-jmp .L170
+jmp .L231
 
-.L171:
+.L232:
 
 
 
@@ -14221,9 +20496,9 @@ incl -116(%rbp, 1)
 
 
 
-jmp .L172
+jmp .L233
 
-.L173:
+.L234:
 
 
 pushq %rax
@@ -14320,6 +20595,9 @@ movq %rax, -331(%rbp, 1)
 movq -331(%rbp, 1), %rdi
 
 
+movq %rsp, %rax
+
+
 
 movq $0, %rax
 
@@ -14405,7 +20683,7 @@ popq %rbx
 
 
 
-.L177:
+.L238:
 
 
 
@@ -14478,7 +20756,7 @@ popq %rbx
 
 
 
-jz .L178
+jz .L239
 
 
 
@@ -14535,7 +20813,7 @@ popq %rbx
 
 
 
-jl .L174
+jb .L235
 
 movq -396(%rbp, 1), %rsi
 
@@ -14545,7 +20823,7 @@ movq -412(%rbp, 1), %rdx
 
 call err_oob
 
-.L174:
+.L235:
 
 
 pushq %r13
@@ -14581,16 +20859,7 @@ popq %r13
 
 
 
-pushq %rbx
-
-
-movq $1065353216, %rbx
-
-
-movq %rbx, -465(%rbp, 1)
-
-popq %rbx
-
+movl $1065353216, -465(%rbp, 1)
 
 
 
@@ -14661,7 +20930,7 @@ popq %rbx
 
 
 
-jl .L175
+jb .L236
 
 movq -421(%rbp, 1), %rsi
 
@@ -14671,7 +20940,7 @@ movq -437(%rbp, 1), %rdx
 
 call err_oob
 
-.L175:
+.L236:
 pushq %rbx
 
 xorq %rbx, %rbx
@@ -14717,7 +20986,7 @@ andq %rax, -453(%rbp, 1)
 
 cmpq $10, -453(%rbp, 1)
 
-jl .L176
+jb .L237
 
 movq -453(%rbp, 1), %rsi
 
@@ -14727,7 +20996,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L176:
+.L237:
 pushq %r10
 
 
@@ -14801,9 +21070,9 @@ incl -379(%rbp, 1)
 
 
 
-jmp .L177
+jmp .L238
 
-.L178:
+.L239:
 
 
 pushq %rax
@@ -14834,6 +21103,9 @@ popq %rdi
 
 popq %rax
 
+
+
+movq %rsp, %rax
 
 
 
@@ -14883,10 +21155,13 @@ popq %rbx
 
 
 
-movq $.L179, %rdi
+movq $.L240, %rdi
 
 
 movq -493(%rbp, 1), %rsi
+
+
+movq %rsp, %rax
 
 
 
@@ -14900,1202 +21175,48 @@ movl %eax, -505(%rbp, 1)
 
 
 
-movl $0, -509(%rbp, 1)
 
 
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -509(%rbp, 1), %ebx
-
-
-movl %ebx, -513(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L192:
-
-
-
+movq $.L241, %rax
 
 
 pushq %rbx
 
-xorq %rbx, %rbx
-movl -493(%rbp, 1), %ebx
 
+leaq 0(%rax, 1), %rbx
 
-movl %ebx, -517(%rbp, 1)
-popq %rbx
+movq %rbx, -513(%rbp, 1)
 
-
-
-
-movq $-1, %rax
-
-
-andq %rax, -517(%rbp, 1)
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -513(%rbp, 1), %ebx
-
-
-movl %ebx, -521(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -522(%rbp, 1), %bl
-
-
-xorb %bl, -522(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -517(%rbp, 1), %ebx
-
-
-cmpl %ebx, -521(%rbp, 1)
-popq %rbx
-
-
-
-setl -522(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -522(%rbp, 1), %bl
-
-
-andb %bl, -522(%rbp, 1)
-popq %rbx
-
-
-
-jz .L193
-
-movl $0, -526(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -526(%rbp, 1), %ebx
-
-
-movl %ebx, -530(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L190:
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -513(%rbp, 1), %ebx
-
-
-movl %ebx, -538(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -538(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -493(%rbp, 1), %r10
-
-
-movq -501(%rbp, 1), %r11
-
-
-
-movq %r11, -546(%rbp, 1)
-
-
-movq %r10, -554(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -554(%rbp, 1), %rbx
-
-
-cmpq %rbx, -538(%rbp, 1)
-popq %rbx
-
-
-
-jl .L180
-
-movq -538(%rbp, 1), %rsi
-
-
-movq -554(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L180:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -538(%rbp, 1), %rbx
-
-
-movq %rbx, -562(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -562(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -562(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-pushq %rbx
-
-
-movq $10, %rbx
-
-
-movq %rbx, -570(%rbp, 1)
 
 popq %rbx
 
 
 
+movq -513(%rbp, 1), %rdi
 
-pushq %rbx
 
-xorq %rbx, %rbx
-movl -570(%rbp, 1), %ebx
+movq $55, %rsi
 
 
-movl %ebx, -574(%rbp, 1)
-popq %rbx
 
 
+movq -493(%rbp, 1), %rcx
 
 
-movq $-1, %rax
+movq -501(%rbp, 1), %rdx
 
 
-andq %rax, -574(%rbp, 1)
 
 
-pushq %rbx
+movq %rsp, %rax
 
-xorq %rbx, %rbx
-movl -530(%rbp, 1), %ebx
 
 
-movl %ebx, -578(%rbp, 1)
-popq %rbx
+movq $0, %rax
 
 
+call read_model
 
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -579(%rbp, 1), %bl
-
-
-xorb %bl, -579(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -574(%rbp, 1), %ebx
-
-
-cmpl %ebx, -578(%rbp, 1)
-popq %rbx
-
-
-
-setl -579(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -579(%rbp, 1), %bl
-
-
-andb %bl, -579(%rbp, 1)
-popq %rbx
-
-
-
-jz .L191
-
-movl $0, -583(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -583(%rbp, 1), %ebx
-
-
-movl %ebx, -587(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-.L186:
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -513(%rbp, 1), %ebx
-
-
-movl %ebx, -595(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -595(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -493(%rbp, 1), %r10
-
-
-movq -501(%rbp, 1), %r11
-
-
-
-movq %r11, -603(%rbp, 1)
-
-
-movq %r10, -611(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -611(%rbp, 1), %rbx
-
-
-cmpq %rbx, -595(%rbp, 1)
-popq %rbx
-
-
-
-jl .L181
-
-movq -595(%rbp, 1), %rsi
-
-
-movq -611(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L181:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -595(%rbp, 1), %rbx
-
-
-movq %rbx, -619(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -619(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -619(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -530(%rbp, 1), %ebx
-
-
-movl %ebx, -627(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -627(%rbp, 1)
-
-cmpq $10, -627(%rbp, 1)
-
-jl .L182
-
-movq -627(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L182:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -603(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -619(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -635(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -627(%rbp, 1), %rbx
-
-
-movq %rbx, -643(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -643(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -643(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-
-pushq %r13
-
-xorq %r13, %r13
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -635(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -643(%rbp, 1), %r12
-
-
-movl 8(%rbx, %r12, 1), %r13d
-
-
-popq %r12
-
-popq %rbx
-
-movl %r13d, -647(%rbp, 1)
-popq %r13
-
-
-
-
-movq $-1, %rax
-
-
-andq %rax, -647(%rbp, 1)
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -587(%rbp, 1), %ebx
-
-
-movl %ebx, -651(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -652(%rbp, 1), %bl
-
-
-xorb %bl, -652(%rbp, 1)
-popq %rbx
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -647(%rbp, 1), %ebx
-
-
-cmpl %ebx, -651(%rbp, 1)
-popq %rbx
-
-
-
-setl -652(%rbp, 1)
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -652(%rbp, 1), %bl
-
-
-andb %bl, -652(%rbp, 1)
-popq %rbx
-
-
-
-jz .L187
-
-pushq %rbx
-
-
-movq $1065353216, %rbx
-
-
-movq %rbx, -736(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -736(%rbp, 1), %ebx
-
-
-movl %ebx, -740(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -513(%rbp, 1), %ebx
-
-
-movl %ebx, -660(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -660(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -493(%rbp, 1), %r10
-
-
-movq -501(%rbp, 1), %r11
-
-
-
-movq %r11, -668(%rbp, 1)
-
-
-movq %r10, -676(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -676(%rbp, 1), %rbx
-
-
-cmpq %rbx, -660(%rbp, 1)
-popq %rbx
-
-
-
-jl .L183
-
-movq -660(%rbp, 1), %rsi
-
-
-movq -676(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L183:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -660(%rbp, 1), %rbx
-
-
-movq %rbx, -684(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -684(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -684(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -530(%rbp, 1), %ebx
-
-
-movl %ebx, -692(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -692(%rbp, 1)
-
-cmpq $10, -692(%rbp, 1)
-
-jl .L184
-
-movq -692(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L184:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -668(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -684(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -700(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -692(%rbp, 1), %rbx
-
-
-movq %rbx, -708(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -708(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -708(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -587(%rbp, 1), %ebx
-
-
-movl %ebx, -716(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -716(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -700(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -708(%rbp, 1), %r12
-
-
-movq 8(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -700(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -708(%rbp, 1), %r12
-
-
-movq 0(%rbx, %r12, 1), %r11
-popq %r12
-
-popq %rbx
-
-
-
-
-movq %r11, -724(%rbp, 1)
-
-
-movq %r10, -732(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -732(%rbp, 1), %rbx
-
-
-cmpq %rbx, -716(%rbp, 1)
-popq %rbx
-
-
-
-jl .L185
-
-movq -716(%rbp, 1), %rsi
-
-
-movq -732(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L185:
-
-
-pushq %r13
-
-xorq %r13, %r13
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -724(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -716(%rbp, 1), %r12
-
-
-movl -740(%rbp, 1), %r13d
-
-
-movl %r13d, 0(%rbx, %r12, 4)
-popq %r12
-
-popq %rbx
-
-popq %r13
-
-
-
-
-
-
-
-incl -587(%rbp, 1)
-
-
-
-
-jmp .L186
-
-.L187:
-
-
-pushq %rbx
-
-
-movq $1065353216, %rbx
-
-
-movq %rbx, -800(%rbp, 1)
-
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -800(%rbp, 1), %ebx
-
-
-movl %ebx, -804(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -513(%rbp, 1), %ebx
-
-
-movl %ebx, -748(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -748(%rbp, 1)
-
-pushq %r10
-
-
-pushq %r11
-
-
-movq -493(%rbp, 1), %r10
-
-
-movq -501(%rbp, 1), %r11
-
-
-
-movq %r11, -756(%rbp, 1)
-
-
-movq %r10, -764(%rbp, 1)
-
-
-popq %r11
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -764(%rbp, 1), %rbx
-
-
-cmpq %rbx, -748(%rbp, 1)
-popq %rbx
-
-
-
-jl .L188
-
-movq -748(%rbp, 1), %rsi
-
-
-movq -764(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L188:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -748(%rbp, 1), %rbx
-
-
-movq %rbx, -772(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -772(%rbp, 1), %rax
-
-
-imulq $200, %rax
-
-movq %rax, -772(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -530(%rbp, 1), %ebx
-
-
-movl %ebx, -780(%rbp, 1)
-popq %rbx
-
-
-
-
-movq $4294967295, %rax
-
-
-andq %rax, -780(%rbp, 1)
-
-cmpq $10, -780(%rbp, 1)
-
-jl .L189
-
-movq -780(%rbp, 1), %rsi
-
-
-movq $10, %rdx
-
-
-call err_oob
-
-.L189:
-pushq %r10
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -756(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -772(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %r10
-popq %r12
-
-popq %rbx
-
-
-movq %r10, -788(%rbp, 1)
-
-
-popq %r10
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -780(%rbp, 1), %rbx
-
-
-movq %rbx, -796(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -796(%rbp, 1), %rax
-
-
-imulq $20, %rax
-
-movq %rax, -796(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-
-
-pushq %r13
-
-xorq %r13, %r13
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -788(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -796(%rbp, 1), %r12
-
-
-movl -804(%rbp, 1), %r13d
-
-
-movl %r13d, 16(%rbx, %r12, 1)
-popq %r12
-
-popq %rbx
-
-popq %r13
-
-
-
-
-
-
-
-incl -530(%rbp, 1)
-
-
-
-
-jmp .L190
-
-.L191:
-
-
-
-
-incl -513(%rbp, 1)
-
-
-
-
-jmp .L192
-
-.L193:
 
 
 pushq %rax
@@ -16109,9 +21230,9 @@ pushq %rcx
 
 xorq %rax, %rax
 
-leaq -924(%rbp, 1), %rdi
+leaq -673(%rbp, 1), %rdi
 
-movq $40, %rcx
+movq $32, %rcx
 
 
 cld
@@ -16129,19 +21250,478 @@ popq %rax
 
 
 
-
 pushq %rbx
 
 
-movq $5, %rbx
+movq $2, %rbx
 
 
-movq %rbx, -812(%rbp, 1)
+movq %rbx, -521(%rbp, 1)
 
 popq %rbx
 
 
 
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -529(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+
+movq $4, %rbx
+
+
+movq %rbx, -537(%rbp, 1)
+
+popq %rbx
+
+
+
+
+movq -529(%rbp, 1), %rax
+
+
+imulq -537(%rbp, 1), %rax
+
+movq %rax, -529(%rbp, 1)
+
+
+
+
+movq -521(%rbp, 1), %rax
+
+
+imulq -529(%rbp, 1), %rax
+
+movq %rax, -521(%rbp, 1)
+
+
+
+
+movq -521(%rbp, 1), %rdi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call allocate
+
+movq %rdx, -545(%rbp, 1)
+
+
+movq %rax, -553(%rbp, 1)
+
+
+
+
+
+pushq %rbx
+
+
+movq $2, %rbx
+
+
+movq %rbx, -561(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+
+movq $10, %rbx
+
+
+movq %rbx, -569(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %rbx
+
+
+movq $4, %rbx
+
+
+movq %rbx, -577(%rbp, 1)
+
+popq %rbx
+
+
+
+
+movq -569(%rbp, 1), %rax
+
+
+imulq -577(%rbp, 1), %rax
+
+movq %rax, -569(%rbp, 1)
+
+
+
+
+movq -561(%rbp, 1), %rax
+
+
+imulq -569(%rbp, 1), %rax
+
+movq %rax, -561(%rbp, 1)
+
+
+
+
+movq -561(%rbp, 1), %rdi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call allocate
+
+movq %rdx, -585(%rbp, 1)
+
+
+movq %rax, -593(%rbp, 1)
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -585(%rbp, 1), %rbx
+
+
+movq %rbx, -601(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -593(%rbp, 1), %rbx
+
+
+movq %rbx, -609(%rbp, 1)
+popq %rbx
+
+
+
+
+
+xorq %rdx, %rdx
+
+xorq %rax, %rax
+
+movq -601(%rbp, 1), %rax
+
+
+pushq %rbx
+
+
+movq $40, %rbx
+
+
+movq %rbx, -633(%rbp, 1)
+
+popq %rbx
+
+
+
+idivq -633(%rbp, 1)
+
+movq %rax, -601(%rbp, 1)
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -545(%rbp, 1), %rbx
+
+
+movq %rbx, -617(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -553(%rbp, 1), %rbx
+
+
+movq %rbx, -625(%rbp, 1)
+popq %rbx
+
+
+
+
+
+xorq %rdx, %rdx
+
+xorq %rax, %rax
+
+movq -617(%rbp, 1), %rax
+
+
+pushq %rbx
+
+
+movq $40, %rbx
+
+
+movq %rbx, -641(%rbp, 1)
+
+popq %rbx
+
+
+
+idivq -641(%rbp, 1)
+
+movq %rax, -617(%rbp, 1)
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -601(%rbp, 1), %rbx
+
+
+movq %rbx, -649(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -609(%rbp, 1), %rbx
+
+
+movq %rbx, -657(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -617(%rbp, 1), %rbx
+
+
+movq %rbx, -665(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -625(%rbp, 1), %rbx
+
+
+movq %rbx, -673(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+
+movl $0, -677(%rbp, 1)
+
+
+
+movl $0, -681(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -681(%rbp, 1), %ebx
+
+
+movl %ebx, -685(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+.L253:
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -104(%rbp, 1), %ebx
+
+
+movl %ebx, -689(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $-1, %rax
+
+
+andq %rax, -689(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -685(%rbp, 1), %ebx
+
+
+movl %ebx, -693(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -694(%rbp, 1), %bl
+
+
+xorb %bl, -694(%rbp, 1)
+popq %rbx
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -689(%rbp, 1), %ebx
+
+
+cmpl %ebx, -693(%rbp, 1)
+popq %rbx
+
+
+
+setb -694(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -694(%rbp, 1), %bl
+
+
+andb %bl, -694(%rbp, 1)
+popq %rbx
+
+
+
+jz .L254
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -685(%rbp, 1), %ebx
+
+
+movl %ebx, -698(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+movq $.L242, %rdi
+
+
+movl -698(%rbp, 1), %esi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, -702(%rbp, 1)
+
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -698(%rbp, 1), %ebx
+
+
+movl %ebx, -710(%rbp, 1)
+popq %rbx
+
+
+
+
+movq $4294967295, %rax
+
+
+andq %rax, -710(%rbp, 1)
 
 pushq %r10
 
@@ -16156,10 +21736,10 @@ movq -112(%rbp, 1), %r11
 
 
 
-movq %r11, -820(%rbp, 1)
+movq %r11, -718(%rbp, 1)
 
 
-movq %r10, -828(%rbp, 1)
+movq %r10, -726(%rbp, 1)
 
 
 popq %r11
@@ -16171,43 +21751,43 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -828(%rbp, 1), %rbx
+movq -726(%rbp, 1), %rbx
 
 
-cmpq %rbx, -812(%rbp, 1)
+cmpq %rbx, -710(%rbp, 1)
 popq %rbx
 
 
 
-jl .L194
+jb .L243
 
-movq -812(%rbp, 1), %rsi
+movq -710(%rbp, 1), %rsi
 
 
-movq -828(%rbp, 1), %rdx
+movq -726(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L194:
+.L243:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -812(%rbp, 1), %rbx
+movq -710(%rbp, 1), %rbx
 
 
-movq %rbx, -836(%rbp, 1)
+movq %rbx, -734(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -836(%rbp, 1), %rax
+movq -734(%rbp, 1), %rax
 
 
 imulq $3136, %rax
 
-movq %rax, -836(%rbp, 1)
+movq %rax, -734(%rbp, 1)
 
 
 
@@ -16215,23 +21795,18 @@ movq %rax, -836(%rbp, 1)
 
 
 
-pushq %rbx
+
+movq -493(%rbp, 1), %rsi
 
 
-leaq -876(%rbp, 1), %rbx
-
-movq %rbx, %rdi
-
-
-movq -493(%rbp, 1), %rdx
-
-
-movq -501(%rbp, 1), %rsi
+movq -501(%rbp, 1), %rdi
 
 
 
 
 subq $3136, %rsp
+
+subq $32, %rsp
 
 movq %rsp, %rax
 
@@ -16250,7 +21825,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -820(%rbp, 1), %rbx
+movq -718(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -16258,7 +21833,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -836(%rbp, 1), %r12
+movq -734(%rbp, 1), %r12
 
 
 leaq 0(%rbx, %r12, 1), %rsi
@@ -16286,8 +21861,63 @@ popq %rsi
 
 
 
+addq $3136, %rax
 
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -649(%rbp, 1), %rbx
+
+
+movq %rbx, 24(%rax, 1)
 popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -657(%rbp, 1), %rbx
+
+
+movq %rbx, 16(%rax, 1)
+popq %rbx
+
+
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -665(%rbp, 1), %rbx
+
+
+movq %rbx, 8(%rax, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -673(%rbp, 1), %rbx
+
+
+movq %rbx, 0(%rax, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+addq $32, %rax
 
 
 movq $0, %rax
@@ -16295,10 +21925,127 @@ movq $0, %rax
 
 call forward
 
+addq $32, %rsp
+
 addq $3136, %rsp
 
-movq %rax, -884(%rbp, 1)
 
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -806(%rbp, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+
+
+pushq %rbx
+
+
+movq $1, %rbx
+
+
+movq %rbx, -742(%rbp, 1)
+
+popq %rbx
+
+
+
+
+pushq %r10
+
+
+pushq %r11
+
+
+movq -665(%rbp, 1), %r10
+
+
+movq -673(%rbp, 1), %r11
+
+
+
+movq %r11, -750(%rbp, 1)
+
+
+movq %r10, -758(%rbp, 1)
+
+
+popq %r11
+
+
+popq %r10
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -758(%rbp, 1), %rbx
+
+
+cmpq %rbx, -742(%rbp, 1)
+popq %rbx
+
+
+
+jb .L244
+
+movq -742(%rbp, 1), %rsi
+
+
+movq -758(%rbp, 1), %rdx
+
+
+call err_oob
+
+.L244:
+pushq %rbx
+
+xorq %rbx, %rbx
+movq -742(%rbp, 1), %rbx
+
+
+movq %rbx, -766(%rbp, 1)
+popq %rbx
+
+
+
+
+movq -766(%rbp, 1), %rax
+
+
+imulq $40, %rax
+
+movq %rax, -766(%rbp, 1)
+
+
+
+// mul on the CPU up here ^
 
 
 
@@ -16311,9 +22058,29 @@ pushq %rdi
 pushq %rcx
 
 
-leaq -876(%rbp, 1), %rsi
+pushq %rbx
 
-leaq -924(%rbp, 1), %rdi
+
+xorq %rbx, %rbx
+
+movq -750(%rbp, 1), %rbx
+
+
+pushq %r12
+
+
+xorq %r12, %r12
+
+movq -766(%rbp, 1), %r12
+
+
+leaq 0(%rbx, %r12, 1), %rsi
+popq %r12
+
+popq %rbx
+
+
+leaq -806(%rbp, 1), %rdi
 
 movq $40, %rcx
 
@@ -16333,17 +22100,17 @@ popq %rsi
 
 
 
-movl $0, -928(%rbp, 1)
+movl $0, -810(%rbp, 1)
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -928(%rbp, 1), %ebx
+movl -810(%rbp, 1), %ebx
 
 
-movl %ebx, -932(%rbp, 1)
+movl %ebx, -814(%rbp, 1)
 popq %rbx
 
 
@@ -16351,7 +22118,7 @@ popq %rbx
 
 
 
-.L199:
+.L249:
 
 
 
@@ -16361,7 +22128,7 @@ pushq %rbx
 movq $10, %rbx
 
 
-movq %rbx, -940(%rbp, 1)
+movq %rbx, -822(%rbp, 1)
 
 popq %rbx
 
@@ -16371,10 +22138,10 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -940(%rbp, 1), %ebx
+movl -822(%rbp, 1), %ebx
 
 
-movl %ebx, -944(%rbp, 1)
+movl %ebx, -826(%rbp, 1)
 popq %rbx
 
 
@@ -16383,16 +22150,16 @@ popq %rbx
 movq $-1, %rax
 
 
-andq %rax, -944(%rbp, 1)
+andq %rax, -826(%rbp, 1)
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -932(%rbp, 1), %ebx
+movl -814(%rbp, 1), %ebx
 
 
-movl %ebx, -948(%rbp, 1)
+movl %ebx, -830(%rbp, 1)
 popq %rbx
 
 
@@ -16401,10 +22168,10 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -949(%rbp, 1), %bl
+movb -831(%rbp, 1), %bl
 
 
-xorb %bl, -949(%rbp, 1)
+xorb %bl, -831(%rbp, 1)
 popq %rbx
 
 
@@ -16412,30 +22179,30 @@ popq %rbx
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -944(%rbp, 1), %ebx
+movl -826(%rbp, 1), %ebx
 
 
-cmpl %ebx, -948(%rbp, 1)
+cmpl %ebx, -830(%rbp, 1)
 popq %rbx
 
 
 
-setl -949(%rbp, 1)
+setl -831(%rbp, 1)
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movb -949(%rbp, 1), %bl
+movb -831(%rbp, 1), %bl
 
 
-andb %bl, -949(%rbp, 1)
+andb %bl, -831(%rbp, 1)
 popq %rbx
 
 
 
-jz .L200
+jz .L250
 
 
 
@@ -16446,10 +22213,10 @@ jz .L200
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -932(%rbp, 1), %ebx
+movl -814(%rbp, 1), %ebx
 
 
-movl %ebx, -957(%rbp, 1)
+movl %ebx, -839(%rbp, 1)
 popq %rbx
 
 
@@ -16458,13 +22225,13 @@ popq %rbx
 movq $4294967295, %rax
 
 
-andq %rax, -957(%rbp, 1)
+andq %rax, -839(%rbp, 1)
 
-cmpq $10, -957(%rbp, 1)
+cmpq $10, -839(%rbp, 1)
 
-jl .L196
+jb .L246
 
-movq -957(%rbp, 1), %rsi
+movq -839(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -16472,13 +22239,13 @@ movq $10, %rdx
 
 call err_oob
 
-.L196:
+.L246:
 pushq %r10
 
 
-leaq -924(%rbp, 1), %r10
+leaq -806(%rbp, 1), %r10
 
-movq %r10, -965(%rbp, 1)
+movq %r10, -847(%rbp, 1)
 
 
 popq %r10
@@ -16491,7 +22258,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -965(%rbp, 1), %rbx
+movq -847(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -16499,7 +22266,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -957(%rbp, 1), %r12
+movq -839(%rbp, 1), %r12
 
 
 cvtss2sd 0(%rbx, %r12, 4), %xmm0
@@ -16508,7 +22275,8 @@ popq %r12
 popq %rbx
 
 
-movsd %xmm0, -973(%rbp, 1)
+movsd %xmm0, -855(%rbp, 1)
+
 
 
 
@@ -16517,16 +22285,20 @@ movsd %xmm0, -973(%rbp, 1)
 
 pushq %rbx
 
+xorq %rbx, %rbx
+movl -698(%rbp, 1), %ebx
 
-movq $5, %rbx
 
-
-movq %rbx, -981(%rbp, 1)
-
+movl %ebx, -863(%rbp, 1)
 popq %rbx
 
 
 
+
+movq $4294967295, %rax
+
+
+andq %rax, -863(%rbp, 1)
 
 pushq %r10
 
@@ -16541,10 +22313,10 @@ movq -363(%rbp, 1), %r11
 
 
 
-movq %r11, -989(%rbp, 1)
+movq %r11, -871(%rbp, 1)
 
 
-movq %r10, -997(%rbp, 1)
+movq %r10, -879(%rbp, 1)
 
 
 popq %r11
@@ -16556,43 +22328,43 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -997(%rbp, 1), %rbx
+movq -879(%rbp, 1), %rbx
 
 
-cmpq %rbx, -981(%rbp, 1)
+cmpq %rbx, -863(%rbp, 1)
 popq %rbx
 
 
 
-jl .L197
+jb .L247
 
-movq -981(%rbp, 1), %rsi
+movq -863(%rbp, 1), %rsi
 
 
-movq -997(%rbp, 1), %rdx
+movq -879(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L197:
+.L247:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -981(%rbp, 1), %rbx
+movq -863(%rbp, 1), %rbx
 
 
-movq %rbx, -1005(%rbp, 1)
+movq %rbx, -887(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -1005(%rbp, 1), %rax
+movq -887(%rbp, 1), %rax
 
 
 imulq $40, %rax
 
-movq %rax, -1005(%rbp, 1)
+movq %rax, -887(%rbp, 1)
 
 
 
@@ -16604,10 +22376,10 @@ movq %rax, -1005(%rbp, 1)
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -932(%rbp, 1), %ebx
+movl -814(%rbp, 1), %ebx
 
 
-movl %ebx, -1013(%rbp, 1)
+movl %ebx, -895(%rbp, 1)
 popq %rbx
 
 
@@ -16616,13 +22388,13 @@ popq %rbx
 movq $4294967295, %rax
 
 
-andq %rax, -1013(%rbp, 1)
+andq %rax, -895(%rbp, 1)
 
-cmpq $10, -1013(%rbp, 1)
+cmpq $10, -895(%rbp, 1)
 
-jl .L198
+jb .L248
 
-movq -1013(%rbp, 1), %rsi
+movq -895(%rbp, 1), %rsi
 
 
 movq $10, %rdx
@@ -16630,7 +22402,7 @@ movq $10, %rdx
 
 call err_oob
 
-.L198:
+.L248:
 pushq %r10
 
 
@@ -16639,7 +22411,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -989(%rbp, 1), %rbx
+movq -871(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -16647,7 +22419,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -1005(%rbp, 1), %r12
+movq -887(%rbp, 1), %r12
 
 
 leaq 0(%rbx, %r12, 1), %r10
@@ -16656,7 +22428,7 @@ popq %r12
 popq %rbx
 
 
-movq %r10, -1021(%rbp, 1)
+movq %r10, -903(%rbp, 1)
 
 
 popq %r10
@@ -16669,7 +22441,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -1021(%rbp, 1), %rbx
+movq -903(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -16677,7 +22449,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -1013(%rbp, 1), %r12
+movq -895(%rbp, 1), %r12
 
 
 cvtss2sd 0(%rbx, %r12, 4), %xmm0
@@ -16686,23 +22458,26 @@ popq %r12
 popq %rbx
 
 
-movsd %xmm0, -1029(%rbp, 1)
+movsd %xmm0, -911(%rbp, 1)
 
 
 
-movq $.L195, %rdi
+movq $.L245, %rdi
 
 
-movl -932(%rbp, 1), %esi
+movl -814(%rbp, 1), %esi
 
 
-movsd -973(%rbp, 1), %xmm0
+movsd -855(%rbp, 1), %xmm0
 
 
-movl -932(%rbp, 1), %edx
+movl -814(%rbp, 1), %edx
 
 
-movsd -1029(%rbp, 1), %xmm1
+movsd -911(%rbp, 1), %xmm1
+
+
+movq %rsp, %rax
 
 
 
@@ -16711,23 +22486,21 @@ movq $1, %rax
 
 call printf
 
-movl %eax, -1033(%rbp, 1)
+movl %eax, -915(%rbp, 1)
 
 
 
 
 
 
-incl -932(%rbp, 1)
+incl -814(%rbp, 1)
 
 
 
 
-jmp .L199
+jmp .L249
 
-.L200:
-
-
+.L250:
 
 
 
@@ -16735,16 +22508,20 @@ jmp .L199
 
 pushq %rbx
 
+xorq %rbx, %rbx
+movl -698(%rbp, 1), %ebx
 
-movq $5, %rbx
 
-
-movq %rbx, -1041(%rbp, 1)
-
+movl %ebx, -923(%rbp, 1)
 popq %rbx
 
 
 
+
+movq $4294967295, %rax
+
+
+andq %rax, -923(%rbp, 1)
 
 pushq %r10
 
@@ -16759,10 +22536,10 @@ movq -363(%rbp, 1), %r11
 
 
 
-movq %r11, -1049(%rbp, 1)
+movq %r11, -931(%rbp, 1)
 
 
-movq %r10, -1057(%rbp, 1)
+movq %r10, -939(%rbp, 1)
 
 
 popq %r11
@@ -16774,43 +22551,43 @@ popq %r10
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -1057(%rbp, 1), %rbx
+movq -939(%rbp, 1), %rbx
 
 
-cmpq %rbx, -1041(%rbp, 1)
+cmpq %rbx, -923(%rbp, 1)
 popq %rbx
 
 
 
-jl .L202
+jb .L251
 
-movq -1041(%rbp, 1), %rsi
+movq -923(%rbp, 1), %rsi
 
 
-movq -1057(%rbp, 1), %rdx
+movq -939(%rbp, 1), %rdx
 
 
 call err_oob
 
-.L202:
+.L251:
 pushq %rbx
 
 xorq %rbx, %rbx
-movq -1041(%rbp, 1), %rbx
+movq -923(%rbp, 1), %rbx
 
 
-movq %rbx, -1065(%rbp, 1)
+movq %rbx, -947(%rbp, 1)
 popq %rbx
 
 
 
 
-movq -1065(%rbp, 1), %rax
+movq -947(%rbp, 1), %rax
 
 
 imulq $40, %rax
 
-movq %rax, -1065(%rbp, 1)
+movq %rax, -947(%rbp, 1)
 
 
 
@@ -16818,12 +22595,44 @@ movq %rax, -1065(%rbp, 1)
 
 
 
+subq $32, %rsp
+
 subq $48, %rsp
 
 movq %rsp, %rax
 
 
-addq $8, %rax
+pushq %rsi
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+leaq -806(%rbp, 1), %rsi
+
+leaq 0(%rax, 1), %rdi
+
+movq $40, %rcx
+
+
+cld
+
+rep movsb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rsi
+
+
+
+addq $40, %rax
 
 pushq %rsi
 
@@ -16839,7 +22648,7 @@ pushq %rbx
 
 xorq %rbx, %rbx
 
-movq -1049(%rbp, 1), %rbx
+movq -931(%rbp, 1), %rbx
 
 
 pushq %r12
@@ -16847,7 +22656,7 @@ pushq %r12
 
 xorq %r12, %r12
 
-movq -1065(%rbp, 1), %r12
+movq -947(%rbp, 1), %r12
 
 
 leaq 0(%rbx, %r12, 1), %rsi
@@ -16875,66 +22684,53 @@ popq %rsi
 
 
 
-subq $32, %rsp
-
-movq %rsp, %rax
-
-
-pushq %rsi
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-leaq -924(%rbp, 1), %rsi
-
-leaq 0(%rax, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep movsb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rsi
-
-
+addq $40, %rax
 
 
 movq $0, %rax
 
 
-call cost
-
-addq $32, %rsp
+call loss10n
 
 addq $48, %rsp
 
-movss %xmm0, -1069(%rbp, 1)
+addq $32, %rsp
+
+movss %xmm0, -951(%rbp, 1)
 
 
 
 
-cvtss2sd -1069(%rbp, 1), %xmm0
+pushq %rbx
 
-movsd %xmm0, -1077(%rbp, 1)
-
-
-
-movq $.L201, %rdi
+xorq %rbx, %rbx
+movl -951(%rbp, 1), %ebx
 
 
-movsd -1077(%rbp, 1), %xmm0
+movl %ebx, -955(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+
+cvtss2sd -955(%rbp, 1), %xmm0
+
+movsd %xmm0, -963(%rbp, 1)
+
+
+
+movq $.L252, %rdi
+
+
+movsd -963(%rbp, 1), %xmm0
+
+
+movq %rsp, %rax
 
 
 
@@ -16943,228 +22739,61 @@ movq $1, %rax
 
 call printf
 
-movl %eax, -1081(%rbp, 1)
+movl %eax, -967(%rbp, 1)
 
 
 
 
 
 
+movss -677(%rbp, 1), %xmm0
 
-pushq %rbx
 
+addss -955(%rbp, 1), %xmm0
 
-movq $5, %rbx
+movss %xmm0, -677(%rbp, 1)
 
 
-movq %rbx, -1089(%rbp, 1)
 
-popq %rbx
 
 
 
+incl -685(%rbp, 1)
 
-pushq %r10
 
 
-pushq %r11
 
+jmp .L253
 
-movq -355(%rbp, 1), %r10
+.L254:
 
 
-movq -363(%rbp, 1), %r11
 
 
 
-movq %r11, -1097(%rbp, 1)
 
+cvtss2sd -677(%rbp, 1), %xmm1
 
-movq %r10, -1105(%rbp, 1)
+movsd %xmm1, -975(%rbp, 1)
 
 
-popq %r11
 
+movq $.L255, %rdi
 
-popq %r10
 
+movsd -975(%rbp, 1), %xmm0
 
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -1105(%rbp, 1), %rbx
-
-
-cmpq %rbx, -1089(%rbp, 1)
-popq %rbx
-
-
-
-jl .L203
-
-movq -1089(%rbp, 1), %rsi
-
-
-movq -1105(%rbp, 1), %rdx
-
-
-call err_oob
-
-.L203:
-pushq %rbx
-
-xorq %rbx, %rbx
-movq -1089(%rbp, 1), %rbx
-
-
-movq %rbx, -1113(%rbp, 1)
-popq %rbx
-
-
-
-
-movq -1113(%rbp, 1), %rax
-
-
-imulq $40, %rax
-
-movq %rax, -1113(%rbp, 1)
-
-
-
-// mul on the CPU up here ^
-
-
-
-pushq %rbx
-
-
-movq $1036831949, %rbx
-
-
-movq %rbx, -1117(%rbp, 1)
-
-popq %rbx
-
-
-
-
-movq -493(%rbp, 1), %rsi
-
-
-movq -501(%rbp, 1), %rdi
-
-
-
-
-movss -1117(%rbp, 1), %xmm0
-
-
-subq $48, %rsp
 
 movq %rsp, %rax
-
-
-addq $8, %rax
-
-pushq %rsi
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-pushq %rbx
-
-
-xorq %rbx, %rbx
-
-movq -1097(%rbp, 1), %rbx
-
-
-pushq %r12
-
-
-xorq %r12, %r12
-
-movq -1113(%rbp, 1), %r12
-
-
-leaq 0(%rbx, %r12, 1), %rsi
-popq %r12
-
-popq %rbx
-
-
-leaq 0(%rax, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep movsb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rsi
-
-
-
-subq $32, %rsp
-
-movq %rsp, %rax
-
-
-pushq %rsi
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-leaq -924(%rbp, 1), %rsi
-
-leaq 0(%rax, 1), %rdi
-
-movq $40, %rcx
-
-
-cld
-
-rep movsb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rsi
-
 
 
 
 movq $1, %rax
 
 
-call back
+call printf
 
-addq $32, %rsp
-
-addq $48, %rsp
-
-
-
-jmp ._main
+movl %eax, -979(%rbp, 1)
 
 
 
@@ -17583,7 +23212,14 @@ _mystart:
 
 
 
+
+
+
+
+
 .L1: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 111, 112, 101, 110, 100, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 0
+
+
 
 
 
@@ -17652,7 +23288,11 @@ _mystart:
 
 
 
+
+
 .L5: .byte 109, 97, 103, 105, 99, 32, 110, 117, 109, 98, 101, 114, 58, 32, 37, 120, 10, 0
+
+
 
 
 
@@ -17717,7 +23357,11 @@ _mystart:
 
 
 
+
+
 .L8: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 105, 109, 97, 103, 101, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
+
+
 
 
 
@@ -17782,7 +23426,11 @@ _mystart:
 
 
 
+
+
 .L11: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 114, 111, 119, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
+
+
 
 
 
@@ -17847,6 +23495,8 @@ _mystart:
 
 
 
+
+
 .L14: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 99, 111, 108, 117, 109, 110, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
@@ -17873,7 +23523,11 @@ _mystart:
 
 
 
+
 .L15: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 112, 105, 120, 101, 108, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
+
+
+
 
 
 
@@ -18023,6 +23677,7 @@ _mystart:
 
 
 
+.L21: .byte 101, 114, 114, 111, 114, 32, 99, 108, 111, 115, 105, 110, 103, 32, 105, 109, 97, 103, 101, 32, 115, 101, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
 
 
 
@@ -18048,7 +23703,6 @@ _mystart:
 
 
 
-.L21: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 111, 112, 101, 110, 100, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 0
 
 
 
@@ -18082,6 +23736,7 @@ _mystart:
 
 
 
+.L23: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 111, 112, 101, 110, 100, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 0
 
 
 
@@ -18091,7 +23746,6 @@ _mystart:
 
 
 
-.L23: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -18117,7 +23771,6 @@ _mystart:
 
 
 
-.L25: .byte 109, 97, 103, 105, 99, 32, 110, 117, 109, 98, 101, 114, 58, 32, 37, 120, 10, 0
 
 
 
@@ -18128,6 +23781,7 @@ _mystart:
 
 
 
+.L25: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -18155,8 +23809,8 @@ _mystart:
 
 
 
+.L27: .byte 109, 97, 103, 105, 99, 32, 110, 117, 109, 98, 101, 114, 58, 32, 37, 120, 10, 0
 
-.L26: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -18182,7 +23836,6 @@ _mystart:
 
 
 
-.L28: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 108, 97, 98, 101, 108, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
 
@@ -18197,6 +23850,7 @@ _mystart:
 
 
 
+.L28: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -18224,6 +23878,7 @@ _mystart:
 
 
 
+.L30: .byte 110, 117, 109, 98, 101, 114, 32, 111, 102, 32, 108, 97, 98, 101, 108, 115, 32, 105, 110, 32, 115, 101, 116, 58, 32, 37, 100, 10, 0
 
 
 
@@ -18248,7 +23903,6 @@ _mystart:
 
 
 
-.L29: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -18293,6 +23947,7 @@ _mystart:
 
 
 
+.L31: .byte 101, 114, 114, 111, 114, 58, 32, 99, 111, 117, 108, 100, 32, 110, 111, 116, 32, 114, 101, 97, 100, 32, 102, 105, 108, 101, 32, 105, 110, 32, 109, 101, 109, 111, 114, 121, 33, 10, 0
 
 
 
@@ -18324,6 +23979,7 @@ _mystart:
 
 
 
+.L33: .byte 101, 114, 114, 111, 114, 32, 99, 108, 111, 115, 105, 110, 103, 32, 108, 97, 98, 101, 108, 32, 115, 101, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
 
 
 
@@ -18410,7 +24066,6 @@ _mystart:
 
 
 
-.L36: .byte 110, 101, 116, 32, 108, 97, 121, 101, 114, 115, 58, 32, 37, 117, 10, 0
 
 
 
@@ -18488,6 +24143,7 @@ _mystart:
 
 
 
+.L40: .byte 110, 101, 116, 32, 108, 97, 121, 101, 114, 115, 58, 32, 37, 117, 10, 0
 
 
 
@@ -18520,7 +24176,6 @@ _mystart:
 
 
 
-.L42: .byte 110, 101, 116, 91, 48, 93, 32, 119, 101, 105, 103, 104, 116, 115, 58, 32, 37, 117, 10, 0
 
 
 
@@ -18600,6 +24255,7 @@ _mystart:
 
 
 
+.L46: .byte 110, 101, 116, 91, 48, 93, 32, 119, 101, 105, 103, 104, 116, 115, 58, 32, 37, 117, 10, 0
 
 
 
@@ -18666,7 +24322,6 @@ _mystart:
 
 
 
-.L50: .byte 110, 101, 116, 91, 49, 93, 32, 119, 101, 105, 103, 104, 116, 115, 58, 32, 37, 117, 10, 0
 
 
 
@@ -18728,7 +24383,6 @@ _mystart:
 
 
 
-.L53: .byte 120, 32, 58, 32, 37, 102, 10, 0
 
 
 
@@ -18749,6 +24403,7 @@ _mystart:
 
 
 
+.L54: .byte 110, 101, 116, 91, 49, 93, 32, 119, 101, 105, 103, 104, 116, 115, 58, 32, 37, 117, 10, 0
 
 
 
@@ -18771,7 +24426,6 @@ _mystart:
 
 
 
-.L54: .byte 110, 111, 109, 105, 110, 97, 116, 111, 114, 58, 32, 37, 103, 10, 0
 
 
 
@@ -18785,7 +24439,6 @@ _mystart:
 
 
 
-.L55: .byte 100, 101, 110, 111, 109, 105, 110, 97, 116, 111, 114, 58, 32, 37, 103, 10, 0
 
 
 
@@ -18845,7 +24498,6 @@ _mystart:
 
 
 
-.L56: .byte 120, 91, 37, 117, 93, 32, 61, 32, 37, 102, 10, 0
 
 
 
@@ -18895,7 +24547,6 @@ _mystart:
 
 
 
-.L61: .byte 110, 111, 109, 105, 110, 97, 116, 111, 114, 58, 32, 37, 102, 10, 0
 
 
 
@@ -18921,7 +24572,6 @@ _mystart:
 
 
 
-.L63: .byte 100, 101, 110, 111, 109, 105, 110, 97, 116, 111, 114, 58, 32, 37, 102, 10, 0
 
 
 
@@ -18976,7 +24626,6 @@ _mystart:
 
 
 
-.L65: .byte 105, 110, 112, 117, 116, 32, 108, 97, 121, 101, 114, 32, 40, 115, 105, 103, 109, 111, 105, 100, 41, 58, 10, 0
 
 
 
@@ -19018,7 +24667,6 @@ _mystart:
 
 
 
-.L67: .byte 119, 101, 105, 103, 104, 116, 115, 58, 10, 0
 
 
 
@@ -19049,7 +24697,6 @@ _mystart:
 
 
 
-.L68: .byte 37, 102, 32, 0
 
 
 
@@ -19122,7 +24769,6 @@ _mystart:
 
 
 
-.L74: .byte 10, 0
 
 
 
@@ -19138,7 +24784,6 @@ _mystart:
 
 
 
-.L77: .byte 105, 110, 112, 117, 116, 58, 10, 0
 
 
 
@@ -19169,7 +24814,6 @@ _mystart:
 
 
 
-.L78: .byte 37, 102, 32, 0
 
 
 
@@ -19208,7 +24852,6 @@ _mystart:
 
 
 
-.L82: .byte 10, 0
 
 
 
@@ -19224,7 +24867,6 @@ _mystart:
 
 
 
-.L85: .byte 98, 105, 97, 115, 58, 32, 37, 102, 10, 0
 
 
 
@@ -19374,7 +25016,6 @@ _mystart:
 
 
 
-.L93: .byte 108, 111, 103, 105, 115, 116, 105, 99, 58, 32, 37, 102, 10, 0
 
 
 
@@ -19403,7 +25044,6 @@ _mystart:
 
 
 
-.L97: .byte 111, 117, 116, 112, 117, 116, 32, 108, 97, 121, 101, 114, 32, 40, 115, 111, 102, 116, 109, 97, 120, 41, 58, 10, 0
 
 
 
@@ -19448,7 +25088,6 @@ _mystart:
 
 
 
-.L99: .byte 119, 101, 105, 103, 104, 116, 115, 58, 10, 0
 
 
 
@@ -19468,7 +25107,6 @@ _mystart:
 
 
 
-.L100: .byte 37, 102, 32, 0
 
 
 
@@ -19539,7 +25177,6 @@ _mystart:
 
 
 
-.L106: .byte 105, 110, 112, 117, 116, 58, 10, 0
 
 
 
@@ -19559,7 +25196,6 @@ _mystart:
 
 
 
-.L107: .byte 37, 102, 32, 0
 
 
 
@@ -19596,7 +25232,6 @@ _mystart:
 
 
 
-.L111: .byte 98, 105, 97, 115, 58, 32, 37, 102, 10, 0
 
 
 
@@ -19751,6 +25386,7 @@ _mystart:
 
 
 
+.L98: .byte 108, 111, 115, 115, 95, 100, 101, 114, 105, 118, 97, 116, 105, 118, 101, 91, 37, 117, 93, 58, 32, 37, 102, 10, 0
 
 
 
@@ -19805,7 +25441,6 @@ _mystart:
 
 
 
-.L123: .byte 115, 111, 102, 116, 109, 97, 120, 58, 32, 37, 102, 10, 0
 
 
 
@@ -19936,7 +25571,6 @@ _mystart:
 
 
 
-.L127: .byte 113, 91, 37, 117, 93, 58, 32, 37, 102, 59, 32, 112, 91, 37, 117, 93, 58, 32, 37, 102, 10, 0
 
 
 
@@ -20079,7 +25713,6 @@ _mystart:
 
 
 
-.L136: .byte 113, 91, 37, 117, 93, 58, 32, 37, 102, 59, 32, 112, 91, 37, 117, 93, 58, 32, 37, 102, 10, 0
 
 
 
@@ -20358,7 +25991,6 @@ _mystart:
 
 
 
-.L151: .byte 37, 102, 10, 0
 
 
 
@@ -20434,7 +26066,6 @@ _mystart:
 
 
 
-.L159: .byte 46, 47, 101, 120, 97, 109, 112, 108, 101, 115, 47, 115, 111, 102, 116, 109, 97, 120, 95, 109, 99, 110, 110, 47, 116, 114, 97, 105, 110, 45, 105, 109, 97, 103, 101, 115, 45, 105, 100, 120, 51, 45, 117, 98, 121, 116, 101, 0
 
 
 
@@ -20456,7 +26087,6 @@ _mystart:
 
 
 
-.L160: .byte 46, 47, 101, 120, 97, 109, 112, 108, 101, 115, 47, 115, 111, 102, 116, 109, 97, 120, 95, 109, 99, 110, 110, 47, 116, 114, 97, 105, 110, 45, 108, 97, 98, 101, 108, 115, 45, 105, 100, 120, 49, 45, 117, 98, 121, 116, 101, 0
 
 
 
@@ -20476,7 +26106,6 @@ _mystart:
 
 
 
-.L161: .byte 37, 108, 108, 120, 10, 0
 
 
 
@@ -20604,6 +26233,7 @@ _mystart:
 
 
 
+.L160: .byte 0
 
 
 
@@ -20771,6 +26401,7 @@ _mystart:
 
 
 
+.L172: .byte 101, 114, 114, 111, 114, 32, 111, 112, 101, 110, 105, 110, 103, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
 
 
 
@@ -20810,7 +26441,6 @@ _mystart:
 
 
 
-.L179: .byte 110, 101, 117, 114, 97, 108, 95, 110, 101, 116, 119, 111, 114, 107, 46, 108, 101, 110, 58, 32, 37, 100, 10, 0
 
 
 
@@ -20875,6 +26505,7 @@ _mystart:
 
 
 
+.L177: .byte 37, 108, 108, 120, 10, 0
 
 
 
@@ -20981,6 +26612,7 @@ _mystart:
 
 
 
+.L182: .byte 101, 114, 114, 111, 114, 32, 119, 114, 105, 116, 105, 110, 103, 32, 105, 110, 116, 111, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
 
 
 
@@ -20995,6 +26627,7 @@ _mystart:
 
 
 
+.L183: .byte 119, 114, 105, 116, 116, 101, 110, 32, 37, 108, 108, 117, 32, 98, 121, 116, 101, 115, 10, 0
 
 
 
@@ -21034,6 +26667,7 @@ _mystart:
 
 
 
+.L186: .byte 101, 114, 114, 111, 114, 32, 119, 114, 105, 116, 105, 110, 103, 32, 105, 110, 116, 111, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
 
 
 
@@ -21048,6 +26682,7 @@ _mystart:
 
 
 
+.L187: .byte 119, 114, 105, 116, 116, 101, 110, 32, 37, 108, 108, 117, 32, 98, 121, 116, 101, 115, 10, 0
 
 
 
@@ -21078,7 +26713,6 @@ _mystart:
 
 
 
-.L195: .byte 112, 114, 111, 98, 97, 98, 105, 108, 105, 116, 121, 91, 37, 117, 93, 58, 32, 37, 102, 59, 32, 108, 97, 98, 101, 108, 91, 37, 117, 93, 58, 32, 37, 102, 10, 0
 
 
 
@@ -21093,6 +26727,7 @@ _mystart:
 
 
 
+.L194: .byte 101, 114, 114, 111, 114, 32, 99, 108, 111, 115, 105, 110, 103, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
 
 
 
@@ -21140,7 +26775,6 @@ _mystart:
 
 
 
-.L201: .byte 99, 111, 115, 116, 58, 32, 37, 102, 10, 0
 
 
 
@@ -21151,6 +26785,7 @@ _mystart:
 
 
 
+.L196: .byte 101, 114, 114, 111, 114, 32, 111, 112, 101, 110, 105, 110, 103, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
 
 
 
@@ -21226,7 +26861,1039 @@ _mystart:
 
 
 
-err_oob_message: .string "runtime error: index %lld is out of boundaries, with length %lld.\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L201: .byte 37, 108, 108, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L206: .byte 101, 114, 114, 111, 114, 32, 114, 101, 97, 100, 105, 110, 103, 32, 102, 114, 111, 109, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L207: .byte 114, 101, 97, 100, 32, 37, 108, 108, 117, 32, 98, 121, 116, 101, 115, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L210: .byte 101, 114, 114, 111, 114, 32, 114, 101, 97, 100, 105, 110, 103, 32, 102, 114, 111, 109, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L211: .byte 114, 101, 97, 100, 32, 37, 108, 108, 117, 32, 98, 121, 116, 101, 115, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L218: .byte 101, 114, 114, 111, 114, 32, 99, 108, 111, 115, 105, 110, 103, 32, 109, 111, 100, 101, 108, 32, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 32, 102, 105, 108, 101, 32, 96, 37, 115, 96, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L220: .byte 46, 47, 101, 120, 97, 109, 112, 108, 101, 115, 47, 115, 111, 102, 116, 109, 97, 120, 95, 109, 99, 110, 110, 47, 116, 101, 115, 116, 95, 115, 101, 116, 47, 116, 49, 48, 107, 45, 105, 109, 97, 103, 101, 115, 45, 105, 100, 120, 51, 45, 117, 98, 121, 116, 101, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L221: .byte 46, 47, 101, 120, 97, 109, 112, 108, 101, 115, 47, 115, 111, 102, 116, 109, 97, 120, 95, 109, 99, 110, 110, 47, 116, 101, 115, 116, 95, 115, 101, 116, 47, 116, 49, 48, 107, 45, 108, 97, 98, 101, 108, 115, 45, 105, 100, 120, 49, 45, 117, 98, 121, 116, 101, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L222: .byte 37, 108, 108, 120, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L240: .byte 110, 101, 117, 114, 97, 108, 95, 110, 101, 116, 119, 111, 114, 107, 46, 108, 101, 110, 58, 32, 37, 100, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L241: .byte 101, 120, 97, 109, 112, 108, 101, 115, 47, 115, 111, 102, 116, 109, 97, 120, 95, 109, 99, 110, 110, 47, 115, 97, 118, 101, 100, 95, 109, 111, 100, 101, 108, 115, 47, 109, 111, 100, 101, 108, 95, 99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 46, 98, 105, 110, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L242: .byte 101, 120, 97, 109, 112, 108, 101, 32, 35, 37, 108, 108, 117, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L245: .byte 112, 114, 111, 98, 97, 98, 105, 108, 105, 116, 121, 91, 37, 117, 93, 58, 32, 37, 102, 59, 32, 108, 97, 98, 101, 108, 91, 37, 117, 93, 58, 32, 37, 102, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L252: .byte 108, 111, 115, 115, 58, 32, 37, 102, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L255: .byte 99, 111, 115, 116, 58, 32, 37, 102, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+err_oob_message: .string "runtime error: index %llu is out of boundaries, with length %llu.\n"
 stack_trace_message: .string "at function %s\n"
 
 

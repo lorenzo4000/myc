@@ -1,7 +1,8 @@
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 void main() {
-	printf("%lld", O_RDONLY);
+	printf("%llx", O_WRONLY | O_CREAT | O_TRUNC);
 }
