@@ -1,5 +1,15 @@
 @import "examples/softmax_mcnn/model.myc"
 
+function max(:arr []f32) uint64 {
+	:m uint64; 
+	for(:i uint64 = 0; i < arr.len; i++) {
+		if arr[i] > arr[m] {
+			m = i;	
+		}
+	}
+	m
+}
+
 function main() {
 	:images [][28][28]uint8 = read_dataset_image("./examples/softmax_mcnn/test_set/t10k-images-idx3-ubyte");
 	:labels []     uint8 = read_dataset_label("./examples/softmax_mcnn/test_set/t10k-labels-idx1-ubyte");
@@ -38,6 +48,7 @@ function main() {
 	};
 
 	:cost f32;
+	:error f32;
 	for(:example uint32 = 0; example < [uint32]image_set.len; example++) {
 		:i uint32 = example; 
 
@@ -50,9 +61,19 @@ function main() {
 		}
 		:l f32 = loss10n(probability_distribution, label_set[i]);
 		printf("loss: %f\n".data, [f64]l);
-	
 		cost += l;
+		
+		:prediction uint64 = max(probability_distribution);
+		printf("prediction: %llu\n".data, prediction);	
+		if [uint8]prediction != labels[i] {
+			error += 1.0;
+		}
 	}
 
+	cost /= [f32]image_set.len;
 	printf("cost: %f\n".data, [f64]cost);
+	
+	error /= [f32]image_set.len;
+	error *= 100.0;
+	printf("error rate: %f%\n".data, [f64]error);
 }

@@ -2336,16 +2336,22 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 		fmt.Println("codegen error: undefined function `", function_name, "`")
 		return res
 	}
+	
+	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
+	actually_reserved := CurrentReservedStack + uint64(__pushed_regs * 8)
+//	res.Code.TextAppendSln(fmt.Sprintf("// currently reserved: %x; actually_reserved: %x; currently pueshed: %d", CurrentReservedStack, actually_reserved, __pushed_regs))
+	bytes := uint64(0)
+	if actually_reserved % 16 != 0 {
+		bytes = 16 - (actually_reserved & 0xF)
+		CurrentReservedStack += bytes
+		res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(bytes), 10}, rsp))
+	}
+
 
 	function_params := declaration.(Codegen_Symbol).ArgTypes
 
 	call_args := GEN_callargs(args, function_params)
 	res.Code.Appendln(call_args.Code)
-
-	if pushed_rbx {
-		allocation, _ := REGISTER_RBX.GetRegister(datatype.TYPE_UINT64)
-		res.Code.TextAppendSln(GEN_pop(allocation).Code.Text)
-	}
 
 	// C uses rax to know if we are passing
 	// floating point arguments as varargs.
@@ -2361,16 +2367,6 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	}
 	res.Code.Appendln(GEN_move(rax_value, rax).Code)
 	
-	rsp, _ := REGISTER_RSP.GetRegister(datatype.TYPE_INT64)
-
-	actually_reserved := CurrentReservedStack + uint64(__pushed_regs * 8)
-//	res.Code.TextAppendSln(fmt.Sprintf("// currently reserved: %x; actually_reserved: %x; currently pueshed: %d", CurrentReservedStack, actually_reserved, __pushed_regs))
-	bytes := uint64(0)
-	if actually_reserved % 16 != 0 {
-		bytes = 16 - (actually_reserved & 0xF)
-		CurrentReservedStack += bytes
-		res.Code.TextAppendSln(ii("subq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(bytes), 10}, rsp))
-	}
 
 
 	name := LabelGet(function_name)
@@ -2383,6 +2379,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 	}
 	
 
+	/*
 	nargs := len(f.Children)
 	nargs_in_stack := nargs - len(IntegerArgumentRegisters)
 	if nargs_in_stack > 0 {
@@ -2396,6 +2393,7 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 			StackUnreserveBytes(16)
 		}
 	}
+	*/
 
 	// unreserve the stack space where we passed the arguments
 	var arguments_in_stack *Stack_Region =  StackDeallocateCurrentRegion()
@@ -2403,6 +2401,12 @@ func GEN_call(f *front.Ast_Node, args []Operand) Codegen_Out {
 		res.Code.TextAppendSln(ii("addq", Asm_Int_Literal{datatype.TYPE_UINT64, int64(arguments_in_stack.reserved), 10}, rsp))
 		arguments_in_stack  = StackDeallocateCurrentRegion()
 	}
+	
+	if pushed_rbx {
+		allocation, _ := REGISTER_RBX.GetRegister(datatype.TYPE_UINT64)
+		res.Code.TextAppendSln(GEN_pop(allocation).Code.Text)
+	}
+
 
 	if f.DataType != nil &&
 		f.DataType != datatype.TYPE_NONE &&

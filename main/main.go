@@ -18,6 +18,7 @@ const help_message string =
  options:
  	--help: this help message
  	--l <object>: link to object
+ 	--L <path>: set link search path
 
 	--tokens: print lexer tokens
 	--prepared_tokens: print PrePar tokens
@@ -30,6 +31,7 @@ const help_message string =
 var filename string
 
 var link_objects []string
+var link_path string
 
 var print_tokens bool
 var print_prepared_tokens bool
@@ -71,6 +73,15 @@ func main() {
 			} else 
 			if arg == "--prepared_tokens" {
 				print_prepared_tokens = true
+			} else 
+			if arg == "--L" {
+				i++
+				if i >= len(os.Args) {
+					fmt.Println("error: expected path after --L")
+					return
+				}
+
+				link_path = os.Args[i]
 			} else {
 				fmt.Println("Fatal: unrecognixed option `", arg, "`")
 				return
@@ -183,6 +194,10 @@ func main() {
 		"noexecstack", 
 		"-Wl,-e_mystart", 
 		out.Name(),
+	}
+
+	if len(link_path) > 0 {
+		gcc_options = append(gcc_options, "-L" + link_path)
 	}
 
 	for _, l := range(link_objects) {

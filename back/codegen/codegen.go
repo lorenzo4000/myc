@@ -545,7 +545,8 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			value := children_out[0].Result
 
-			if typecheck.ExpressionIsLeftValue(ast.Children[0]) {
+			left_value := typecheck.ExpressionIsLeftValue(ast.Children[0])
+			if left_value != nil {
 				switch value.(type) {
 					case Memory_Reference: {
 						// .. we don't wanna do nasty stuff on the long term memory, so : 
@@ -605,7 +606,9 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			left_value :=  children_out[0].Result
 			right_value := children_out[1].Result
-			if typecheck.ExpressionIsLeftValue(ast.Children[0]) {
+			l_value := typecheck.ExpressionIsLeftValue(ast.Children[0])
+
+			if l_value != nil {
 				switch left_value.(type) {
 					case Memory_Reference: {
 						// .. we don't wanna do nasty stuff on the long term memory, so : 
@@ -693,9 +696,9 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			//	out.Code.Appendln(child_out.Code)
 			//}
 
-			value := ast.Children[0]
+			value := typecheck.ExpressionIsLeftValue(ast.Children[0])
 
-			if !typecheck.ExpressionIsLeftValue(value) {
+			if value == nil {
 				goto reference_error
 			}
 
@@ -759,6 +762,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 		reference_error:
 			fmt.Println("codegen error: cannot reference invalid left-value")
+			ast.Print()
 			return out
 		}
 	case front.AST_OP_DEREFERENCE:
@@ -885,12 +889,18 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 						out.Code.Appendln(GEN_move(reg, save).Code)
 					} 
 
+					if ast.DataType.ByteSize() < 4 {
+						reg, _ = reg.Class.GetRegister(datatype.TYPE_UINT32)
+					}
+
 					// *** float to int
 					if expression.Type().ByteSize() == 8 {
 						out.Code.TextAppendSln(ii("cvtsd2si", expression, reg))
 					} else { // 4
 						out.Code.TextAppendSln(ii("cvtss2si", expression, reg))
 					}
+					
+					reg, _ = reg.Class.GetRegister(ast.DataType)
 				
 					// ** put result into new allocation
 					_full := false

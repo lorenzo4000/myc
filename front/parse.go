@@ -669,7 +669,7 @@ func first_name(exp *Ast_Node) string {
 
 func precedence(ast *Ast_Node) uint8 {
 	switch ast.Type {
-		case AST_EXPRESSION: return precedence(ast.Children[0])
+		case AST_EXPRESSION: return 0xFF
 		case AST_LITERAL:    return 0xFF
 		
 		case AST_OP_DOT:     return 8
@@ -730,7 +730,8 @@ func precedence(ast *Ast_Node) uint8 {
 
 func fix_precedence(ast *Ast_Node) *Ast_Node {
 	if ast.Type == AST_EXPRESSION {
-		return fix_precedence(ast.Children[0])
+		ast.Children[0] = fix_precedence(ast.Children[0])
+		return ast
 	} else
 	// skip stuff
 	if ast.Type == AST_FUNCTION_CALL {

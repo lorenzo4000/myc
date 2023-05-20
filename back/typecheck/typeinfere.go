@@ -12,6 +12,12 @@ import (
 func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 	for i, child := range ast.Children {
 		switch ast.Type {
+			case front.AST_EXPRESSION: {
+				if child.DataType == datatype.TYPE_INT_LITERAL ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+					child.DataType = ast.DataType
+				}
+			}
 			case front.AST_FUNCTION_DEFINITION: {
 				if child.Type == front.AST_BODY {
 					if child.DataType == datatype.TYPE_INT_LITERAL ||

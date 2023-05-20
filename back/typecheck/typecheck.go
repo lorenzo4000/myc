@@ -40,23 +40,26 @@ var current_function_body_ast *front.Ast_Node
 
 var current_dot_scope symbol.Symbol_Scope_Id = -1
 
-func ExpressionIsLeftValue(exp *front.Ast_Node) bool {
+func ExpressionIsLeftValue(exp *front.Ast_Node) *front.Ast_Node {
 	if exp.Type == front.AST_EXPRESSION {
 		if len(exp.Children) <= 0 {
-			return false
+			return nil
 		}
 		return ExpressionIsLeftValue(exp.Children[0])
 	}
 
-	return exp.Type == front.AST_VARIABLE_NAME  		  ||
+	if exp.Type == front.AST_VARIABLE_NAME  		  ||
 		   exp.Type == front.AST_OP_DEREFERENCE 		  ||
 		   (exp.Type == front.AST_OP_DOT                  &&
 			!datatype_array.IsStaticArrayType(exp.Children[0].DataType)) ||
-		   exp.Type == front.AST_OP_INDEX
+		   exp.Type == front.AST_OP_INDEX {
+		return exp
+	}
+	return nil
 }
 
 func Writable(exp *front.Ast_Node) bool {
-	if !ExpressionIsLeftValue(exp) {
+	if ExpressionIsLeftValue(exp) == nil {
 		return false
 	}
 	if datatype_string.IsStaticStringType(exp.DataType) {
@@ -980,7 +983,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = datatype.TYPE_BOOL
 		}
 		case front.AST_OP_ESUM, front.AST_OP_ESUB, front.AST_OP_EDIV, front.AST_OP_EMOD, front.AST_OP_EBAND, front.AST_OP_EBORI, front.AST_OP_EBORE, front.AST_OP_ESHL, front.AST_OP_ESHR: { 
-			if !ExpressionIsLeftValue(ast.Children[0]) {
+			if ExpressionIsLeftValue(ast.Children[0]) == nil {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
 			}
@@ -1010,7 +1013,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 
 		case front.AST_OP_EMUL: {
-			if !ExpressionIsLeftValue(ast.Children[0]) {
+			if ExpressionIsLeftValue(ast.Children[0]) == nil {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
 			}
@@ -1042,7 +1045,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 		}
 		case front.AST_OP_ASN: {
-			if !ExpressionIsLeftValue(ast.Children[0]) {
+			if ExpressionIsLeftValue(ast.Children[0]) == nil {
 				typeErrorAt(ast, "invalid expression in left side of assignment")
 				return nil
 			}
@@ -1079,7 +1082,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			}
 		}
 		case front.AST_OP_INC, front.AST_OP_DEC: {
-			if !ExpressionIsLeftValue(ast.Children[0]) {
+			if ExpressionIsLeftValue(ast.Children[0]) == nil { 
 				typeErrorAt(ast, "invalid expression in left side of increment/decrement operator")
 				return nil
 			}
@@ -1106,7 +1109,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		case front.AST_OP_REFERENCE: {
 			referenced_expression := ast.Children[0]
 			
-			if !ExpressionIsLeftValue(referenced_expression) {
+			if ExpressionIsLeftValue(referenced_expression) == nil {
 				typeErrorAt(ast, "cannot reference non-left value")
 				return nil
 			}
