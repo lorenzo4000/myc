@@ -1,0 +1,6 @@
+@import "lib/c/stdio.myc"
+@define MACRO "hello!\n"
+
+function main() {
+	printf(MACRO.data);
+}

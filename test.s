@@ -32,53 +32,21 @@ subq $240, %rsp
 
 
 
-movl $34, %ebx
-
-
-
-movl %ebx, -229(%rbp, 1)
-
-
-
-
-
-movq -229(%rbp, 1), %r12
-
-movabsq $4294967295, %rax
-
-
-andq %rax, %r12
-
-
-cvtsi2sd %r12, %xmm0
-
-movq %xmm0, %r13
-
-
-
-movq %r13, -237(%rbp, 1)
-
-
-
-
 
 
 movq $.L1, %rdi
-
-
-movsd -237(%rbp, 1), %xmm0
 
 
 movq %rsp, %rax
 
 
 
-movq $1, %rax
+movq $0, %rax
 
 
 call printf
 
-movl %eax, %r12d
+movl %eax, %ebx
 
 
 
@@ -260,21 +228,7 @@ _mystart:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-.L1: .byte 70, 58, 32, 37, 102, 10, 0
-
-
+.L1: .byte 104, 101, 108, 108, 111, 33, 10, 0
 
 
 

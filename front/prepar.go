@@ -16,114 +16,103 @@ import (
 */
 
 const (
-	directive_IMPORT = iota << 24
+	directive_IMPORT = (iota + 1) << 24
+	directive_DEFINE 
 )
 
-// TRIGGER WARNING: this function is ENTIRELY COPY-PASTED!
-func lex_directive(src string) ([]Token) {
-	res := []Token{}
-
+func directive_op(src string)  (uint32, string) {
 	index := 0
-	l1 := int32(1)
-	c1 := int32(1)
-	for index < len(src) {
-		next_token_str := ""
-		l0 := l1
-		c0 := c1
-		for index < len(src) && src[index] != ' ' && src[index] != '\t' && src[index] != '"' {
-			if src[index] == '\n' {
-				l1 += 1
-				c1  = 1
-				break
-			}
-			next_token_str += string(src[index])
 
-			c1++
-			index++
-		}
-
-		// string literal
-		if index < len(src) && src[index] == '"' {
-			next_token_str += "\"" // start literal
-			c1++
-			index++
-
-			for index < len(src) && (src[index] != '"' || src[index-1] == '\\') {
-				if src[index] == '\n' {
-					l1 += 1
-					c1  = 1
-					fmt.Printf("%d:%d: lexical error: newline in string literal\n", l1, c1)	
-				}
-
-				next_token_str += string(src[index])
-				c1++
-				index++
-			}
-
-			if index >= len(src) {
-				fmt.Printf("%d:%d: lexical error: Expected `\"` before end of input\n", l1, c1)	
-			} else {
-				next_token_str += "\""	// close literal	
-			}
-		}
-
-		if len(next_token_str) > 0 {
-			var next_token Token
-			if next_token_str[0] == '"' {
-				 next_token = Token{TOKEN_STRING_LITERAL, l0, c0, l1, c1, 0, next_token_str[1:len(next_token_str) - 1], 0}
-			} else {
-				switch next_token_str {
-					case "import": 
-						 next_token = Token{directive_IMPORT, l0, c0, l1, c1, 0, next_token_str, 0}
-				}
-			}
-
-			res = append(res, next_token)
-		}
-		c1++
+	// read until delimiter
+	next_token_str := ""
+	for index < len(src) && src[index] != ' ' && src[index] != '\t' && src[index] != '\n' {
+		next_token_str += string(src[index])
 		index++
 	}
 
+	if len(next_token_str) > 0 {
+		switch next_token_str {
+			case "import": 
+				 return directive_IMPORT, next_token_str
+			case "define":
+				 return directive_DEFINE, next_token_str
+		}
+	}
 
-	return res
+	return 0, next_token_str
 }
 
 func PrePar(src []Token) ([]Token) {
 	prepared := []Token{}
+
+	macros := make(map[string][]Token)
+
 	for	i := 0; i < len(src); i++ {
 		if src[i].Type == TOKEN_DIRECTIVE {
 			directive := src[i].String_value
-			directive_tokens := lex_directive(directive)
-			
-			switch directive_tokens[0].Type {
-				case directive_IMPORT:
-					if len(directive_tokens) <= 1 {
-						fmt.Println("pre-processor error: expected filename after `import`")
-						return nil 
-					}
+			op, op_str := directive_op(directive)
+			if op == 0 {
+				fmt.Printf("pre-processor error: undefined directive `%s`\n", op_str)
+				return nil
+			}
 
-					file_to_import := directive_tokens[1].String_value
-					src_to_import, read_err := ioutil.ReadFile(file_to_import)
-					if read_err != nil {
-						fmt.Println("pre-processor error: couldn't read file in `import` directive: `", file_to_import, "`")
-						return nil 
-					}
+			if op == directive_IMPORT {
+				directive_tokens := Lex(directive[len(op_str):])
 
-					tokens_to_import := Lex(string(src_to_import))
-					if tokens_to_import == nil {
-						fmt.Println("Lexical Errors: aborting...")
-						return nil
-					}
-					tokens_to_import = PrePar(tokens_to_import)
-					if tokens_to_import == nil {
-						return nil
-					}
+				if directive_tokens == nil || len(directive_tokens) <= 0 || directive_tokens[0].Type != TOKEN_STRING_LITERAL {
+					fmt.Println("pre-processor error: expected filename after `import`")
+					return nil 
+				}
 
-					prepared = append(prepared, tokens_to_import...)
+				
+				file_to_import := directive_tokens[0].String_value
+				src_to_import, read_err := ioutil.ReadFile(file_to_import)
+				if read_err != nil {
+					fmt.Println("pre-processor error: couldn't read file in `import` directive: `", file_to_import, "`")
+					return nil 
+				}
+				
+				tokens_to_import := Lex(string(src_to_import))
+				if tokens_to_import == nil {
+					fmt.Println("Lexical Errors: aborting...")
+					return nil
+				}
+				tokens_to_import = PrePar(tokens_to_import)
+				if tokens_to_import == nil {
+					return nil
+				}
+
+				prepared = append(prepared, tokens_to_import...)
+			} else
+			if op == directive_DEFINE {
+				directive_tokens := Lex(directive[len(op_str):])
+				
+				if directive_tokens == nil || len(directive_tokens) <= 0 || directive_tokens[0].Type != TOKEN_IDENTIFIER {
+					fmt.Println("pre-processor error: expected identifier after `define`")
+					return nil 
+				}
+				name := directive_tokens[0].String_value
+				
+				if len(directive_tokens) <= 1 {
+					fmt.Println("pre-processor error: expected value after identifier in macro definition")
+					return nil 
+				}
+				value := directive_tokens[1:]
+				
+				// append to macro map
+				macros[name] = value
 			}
 		} else {
-			prepared = append(prepared, src[i])
+			// check if macro
+			name := src[i].String_value
+			macro := macros[name]
+			if macro != nil {
+				prepared = append(prepared, macro...)
+			} else {
+				prepared = append(prepared, src[i])
+			}
 		}
 	}
+
 	return prepared
 }
