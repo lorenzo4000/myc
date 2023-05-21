@@ -260,7 +260,7 @@ func (parser *Parser) ParseSubExpression() (*Ast_Node) {
 					}
 				}
 				
-			case TOKEN_STRING_LITERAL, TOKEN_INT_LITERAL, TOKEN_FLOAT_LITERAL, TOKEN_BOOL_LITERAL: 
+			case TOKEN_STRING_LITERAL, TOKEN_INT_LITERAL, TOKEN_FLOAT_LITERAL, TOKEN_BOOL_LITERAL, TOKEN_NULL: 
 				literal := new(Ast_Node)
 				literal.Type = AST_LITERAL
 				lit, _ := parser.Pop()

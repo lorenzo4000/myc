@@ -209,6 +209,11 @@ func Compatible(source *datatype.DataType, destination *datatype.DataType) bool 
 							return true
 						}
 					}
+				case datatype.PointerType:
+					return s.Equals(datatype.TYPE_NULL)
+				case datatype_struct.StructType:
+					return s.Equals(datatype.TYPE_NULL) && 
+						   (datatype_struct.IsDynamicArrayType(d) || datatype_string.TYPE_STRING.Equals(d)) 
 			}
 		case datatype.PointerType:
 			sp := s.(datatype.PointerType)
@@ -586,6 +591,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 					string_length := len(ast.Data[0].String_value)
 					ast.DataType = datatype_string.NewStaticStringType(uint64(string_length))
 				}
+				case front.TOKEN_NULL:  ast.DataType = datatype.TYPE_NULL
 				default: ast.DataType = datatype.TYPE_UNDEFINED
 			}
 		}

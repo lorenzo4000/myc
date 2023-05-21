@@ -24,6 +24,9 @@ const (
 
 	// works only as pointer and array! It's basically C's void type~ ^^;
 	TYPE_GENERIC  = PrimitiveType(iota)
+	
+	// can become poitner or dynamic array type
+	TYPE_NULL     = PrimitiveType(iota)  
 
 	N_PRIMITIVE_TYPES = int(iota)
 )
@@ -49,6 +52,7 @@ func (typ PrimitiveType) Name() string {
 		case TYPE_FLOAT_LITERAL:  return "float_literal"
 		
 		case TYPE_GENERIC: return "?"
+		case TYPE_NULL: return "null"
 	}
 
 	return ""
@@ -75,6 +79,7 @@ func (typ PrimitiveType) BitSize() uint64 {
 		case TYPE_FLOAT_LITERAL:  return 64
 		
 		case TYPE_GENERIC: return 8
+		case TYPE_NULL: return 8
 	}
 	
 	return 0

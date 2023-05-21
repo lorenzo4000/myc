@@ -53,6 +53,7 @@ const (
 	TOKEN_KEYWORD_ELSE    	
 	TOKEN_KEYWORD_SWITCH
 	TOKEN_KEYWORD_CASE
+	TOKEN_NULL
 
 	TOKEN_KEYWORD_EXTERNAL  
 
@@ -96,6 +97,7 @@ var keywordTokenMap = map[string]uint32 {
 	"else": TOKEN_KEYWORD_ELSE,
 	"switch": TOKEN_KEYWORD_SWITCH,
 	"case": TOKEN_KEYWORD_CASE,
+	"null": TOKEN_NULL,
 
 	"external": TOKEN_KEYWORD_EXTERNAL,
 	

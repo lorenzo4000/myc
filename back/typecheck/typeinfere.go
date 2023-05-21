@@ -13,15 +13,17 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 	for i, child := range ast.Children {
 		switch ast.Type {
 			case front.AST_EXPRESSION: {
-				if child.DataType == datatype.TYPE_INT_LITERAL ||
-				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL  		 {
 					child.DataType = ast.DataType
 				}
 			}
 			case front.AST_FUNCTION_DEFINITION: {
 				if child.Type == front.AST_BODY {
-					if child.DataType == datatype.TYPE_INT_LITERAL ||
-					   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL  		 {
 						child.DataType = ast.DataType
 					}
 				}
@@ -29,35 +31,40 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 				current_function_ast = ast
 			}
 			case front.AST_RETURN: {
-				if child.DataType == datatype.TYPE_INT_LITERAL ||
-				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL  		 {
 					child.DataType = ast.DataType
 				}
 			}
 			case front.AST_BODY: {
 				if child.Type == front.AST_BODY_RESULT {
-					if child.DataType == datatype.TYPE_INT_LITERAL ||
-					   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+					if child.DataType == datatype.TYPE_INT_LITERAL   ||
+					   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+					   child.DataType == datatype.TYPE_NULL  		 {
 						child.DataType = ast.DataType
 					}
 				}
 
 				if child.Type == front.AST_RETURN {
-					if child.DataType == datatype.TYPE_INT_LITERAL ||
-					   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+					if child.DataType == datatype.TYPE_INT_LITERAL   ||
+					   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+					   child.DataType == datatype.TYPE_NULL  		 {
 						child.DataType = current_function_ast.DataType
 					}
 				}
 			}
 			case front.AST_BODY_RESULT: {
-				if child.DataType == datatype.TYPE_INT_LITERAL ||
-				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL  		 {
 					child.DataType = ast.DataType
 				}
 			}
 			case front.AST_FUNCTION_CALL:
-				if child.DataType == datatype.TYPE_INT_LITERAL ||
-				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL  		 {
 					function_name := ast.Data[0].String_value
 					declaration, found := symbol.SymbolTableGetFromDeepest(function_name)
 					if !found {
@@ -74,18 +81,18 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 					}
 				}
 			case front.AST_VARIABLE_DEFINITION: {
-				if child.DataType == datatype.TYPE_INT_LITERAL ||
-				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL  		 {
 					child.DataType = ast.DataType
 				}
 			}
 			case front.AST_IF: {
-				if child.DataType == datatype.TYPE_INT_LITERAL ||
-				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
-					if child.DataType == datatype.TYPE_INT_LITERAL {
-						// case type = switch type
-						child.DataType = ast.DataType
-					}
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL  		 {
+					// case type = switch type
+					child.DataType = ast.DataType
 				} 			
 			}
 			case front.AST_SWITCH: {
@@ -98,15 +105,18 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 						// this is the switch exp: default it 
 						child.DataType = datatype.TYPE_F64
 					}
+					// TODO: figure out the null default type
 				} else
 				if child.Type == front.AST_CASE {
 					if child.Children[0].DataType == datatype.TYPE_INT_LITERAL ||
-					   child.Children[0].DataType == datatype.TYPE_FLOAT_LITERAL {
+					   child.Children[0].DataType == datatype.TYPE_FLOAT_LITERAL ||
+					   child.Children[0].DataType == datatype.TYPE_NULL {
 						// case expression type = switch expresion type
 						child.Children[0].DataType = ast.Children[0].DataType
 					}
-					if child.DataType == datatype.TYPE_INT_LITERAL ||
-					   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+					if child.DataType == datatype.TYPE_INT_LITERAL   ||
+					   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+					   child.DataType == datatype.TYPE_NULL  		 {
 						// case type = switch type
 						child.DataType = ast.DataType
 					}
@@ -114,8 +124,9 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 			}
 			case front.AST_CASE: {
 				if child.Type == front.AST_BODY {
-					if child.DataType == datatype.TYPE_INT_LITERAL ||
-					   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+					if child.DataType == datatype.TYPE_INT_LITERAL   ||
+					   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+					   child.DataType == datatype.TYPE_NULL  		 {
 						child.DataType = ast.DataType
 					}
 				}
@@ -145,12 +156,15 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 						break
 					}
 					child.DataType = ast.DataType
-					
+				}
+				if child.DataType == datatype.TYPE_NULL {
+					child.DataType = ast.DataType
 				}
 			}
 			case front.AST_COMPOSITE_LITERAL: {
-				if child.DataType == datatype.TYPE_INT_LITERAL ||
-				   child.DataType == datatype.TYPE_FLOAT_LITERAL {
+				if child.DataType == datatype.TYPE_INT_LITERAL   ||
+				   child.DataType == datatype.TYPE_FLOAT_LITERAL ||
+				   child.DataType == datatype.TYPE_NULL 		 {
 					switch ast.Children[0].DataType.(type) {
 						case datatype_struct.StructType:
 							struct_type := ast.Children[0].DataType.(datatype_struct.StructType)
@@ -169,6 +183,7 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 				if child.DataType == datatype.TYPE_FLOAT_LITERAL {
 					child.DataType = datatype.TYPE_F64
 				}
+				// TODO: figure out the null default type
 		}
 
 		if child.DataType == datatype.TYPE_INT_LITERAL {
@@ -177,6 +192,7 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 		if child.DataType == datatype.TYPE_FLOAT_LITERAL {
 			child.DataType = datatype.TYPE_F64
 		}
+		// TODO: figure out the null default type
 		TypeInfere(child)
 	}
 			

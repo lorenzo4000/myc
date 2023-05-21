@@ -368,8 +368,14 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			}
 			load := GEN_move(Asm_Int_Literal{datatype.TYPE_BOOL, ast.Data[0].Int_value, 10}, allocation)
 			out.Code.Appendln(load.Code)
+		case front.TOKEN_NULL: 
+			
+			
+
 		}
 		out.Result = allocation
+				
+		
 
 	case front.AST_FUNCTION_CALL:
 		for _, child_out := range children_out {

@@ -1,0 +1,6 @@
+function main() {
+	null;
+	:ptr *uint64 = null;
+	:arr []uint8 = null;
+	:str string  = null;
+}
