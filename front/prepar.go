@@ -3,6 +3,7 @@ package front
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 )
 
 /*
@@ -20,8 +21,13 @@ const (
 	directive_DEFINE 
 )
 
-func directive_op(src string)  (uint32, string) {
+func directive_op(src string)  (uint32, int) {
 	index := 0
+
+	// skip white
+	for index < len(src) && (src[index] == ' ' || src[index] == '\t' || src[index] == '\n') {
+		index++
+	}
 
 	// read until delimiter
 	next_token_str := ""
@@ -33,38 +39,38 @@ func directive_op(src string)  (uint32, string) {
 	if len(next_token_str) > 0 {
 		switch next_token_str {
 			case "import": 
-				 return directive_IMPORT, next_token_str
+				 return directive_IMPORT, index
 			case "define":
-				 return directive_DEFINE, next_token_str
+				 return directive_DEFINE, index
 		}
 	}
 
-	return 0, next_token_str
+	return 0, index
 }
+
+var macros = map[string][]Token {}
 
 func PrePar(src []Token) ([]Token) {
 	prepared := []Token{}
 
-	macros := make(map[string][]Token)
 
 	for	i := 0; i < len(src); i++ {
 		if src[i].Type == TOKEN_DIRECTIVE {
 			directive := src[i].String_value
-			op, op_str := directive_op(directive)
+			op, opl := directive_op(directive)
 			if op == 0 {
-				fmt.Printf("pre-processor error: undefined directive `%s`\n", op_str)
+				ops := strings.TrimSpace(directive[:opl])
+				fmt.Printf("pre-processor error: undefined directive `%s`\n", ops)
 				return nil
 			}
 
 			if op == directive_IMPORT {
-				directive_tokens := Lex(directive[len(op_str):])
-
+				directive_tokens := Lex(directive[opl:])
 				if directive_tokens == nil || len(directive_tokens) <= 0 || directive_tokens[0].Type != TOKEN_STRING_LITERAL {
 					fmt.Println("pre-processor error: expected filename after `import`")
 					return nil 
 				}
 
-				
 				file_to_import := directive_tokens[0].String_value
 				src_to_import, read_err := ioutil.ReadFile(file_to_import)
 				if read_err != nil {
@@ -85,12 +91,12 @@ func PrePar(src []Token) ([]Token) {
 				prepared = append(prepared, tokens_to_import...)
 			} else
 			if op == directive_DEFINE {
-				directive_tokens := Lex(directive[len(op_str):])
-				
+				directive_tokens := Lex(directive[opl:])
 				if directive_tokens == nil || len(directive_tokens) <= 0 || directive_tokens[0].Type != TOKEN_IDENTIFIER {
 					fmt.Println("pre-processor error: expected identifier after `define`")
 					return nil 
 				}
+
 				name := directive_tokens[0].String_value
 				
 				if len(directive_tokens) <= 1 {
@@ -98,6 +104,11 @@ func PrePar(src []Token) ([]Token) {
 					return nil 
 				}
 				value := directive_tokens[1:]
+
+				value = PrePar(value)
+				if value == nil || len(value) <= 0 {
+					return nil 
+				}
 				
 				// append to macro map
 				macros[name] = value

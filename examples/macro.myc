@@ -1,6 +1,11 @@
-@import "lib/c/stdio.myc"
-@define MACRO "hello!\n"
+@ import "lib/c/stdio.myc"
+@ define PISELLO "hello!\n"
+@@ define MACRO 
+	printf(PISELLO.data);
+	printf("yeah!\n".data);
+@@
+
 
 function main() {
-	printf(MACRO.data);
+	MACRO
 }
