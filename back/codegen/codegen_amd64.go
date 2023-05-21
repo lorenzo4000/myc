@@ -727,7 +727,7 @@ func ii(op string, oprnds ...Operand) string {
 				if mem.Offset < 0 {
 					off = off ^ 0xFFFFFFFFFFFFFFFF
 				}
-				if (off >> 32) > 0 {
+				if (off >> 31) > 0 {
 					pre_memory_reference_code[i] += GEN_push(mem.Start).Code.Text + "\n"
 					start_pushed[i] = mem.Start.(Register).Class
 					
@@ -1344,7 +1344,7 @@ func GEN_load(v Operand, r Register) Codegen_Out {
 				if signed_value < 0 {
 					value = value ^ 0xFFFFFFFFFFFFFFFF
 				}
-				if (value >> 32) > 0 {
+				if (value >> 31) > 0 {
 					res.Code.TextAppendSln(ii("movabsq", v, r))
 				} else {
 					res.Code.TextAppendSln(ii("movq", v, r))
@@ -2833,7 +2833,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 	rax_pushed := false
 	switch r.(type) {
 		case Asm_Int_Literal: {
-			if (uint64(r.(Asm_Int_Literal).Value) >> 32) > 0 {
+			if (uint64(r.(Asm_Int_Literal).Value) >> 31) > 0 {
 				// this is buggy !
 				if rax.Allocated() {
 					res.Code.TextAppendSln(GEN_push(rax).Code.Text)

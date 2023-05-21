@@ -1003,7 +1003,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 						}
 						
 						out.Code.TextAppendSln(ii("movq", expression, _reg))
-						out.Code.TextAppendSln(ii("andq", Asm_Int_Literal{_reg.Type(), (1 << expression.Type().BitSize()) - 1, 10}, _reg))
+						out.Code.Appendln(GEN_binop(front.AST_OP_BAND, _reg, Asm_Int_Literal{_reg.Type(), (1 << expression.Type().BitSize()) - 1, 10}).Code)
 						expression = _reg
 					}
 
