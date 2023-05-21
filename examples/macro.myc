@@ -7,5 +7,5 @@
 
 
 function main() {
-	MACRO
+	MACRO;
 }

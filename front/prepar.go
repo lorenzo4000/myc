@@ -114,14 +114,17 @@ func PrePar(src []Token) ([]Token) {
 				macros[name] = value
 			}
 		} else {
-			// check if macro
-			name := src[i].String_value
-			macro := macros[name]
-			if macro != nil {
-				prepared = append(prepared, macro...)
-			} else {
-				prepared = append(prepared, src[i])
+			if src[i].Type == TOKEN_IDENTIFIER {
+				// check if macro
+				name := src[i].String_value
+				macro := macros[name]
+				if macro != nil {
+					prepared = append(prepared, macro...)
+					continue
+				} 
 			}
+
+			prepared = append(prepared, src[i])
 		}
 	}
 
