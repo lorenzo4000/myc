@@ -39,7 +39,7 @@ function read_dataset_image(:filename string) [][28][28]uint8 {
 	:fd int32 = open(filename.data, 0, 0);
 	if fd < 0 {
 		printf("error: could not opend file `%s`!".data, filename.data);
-		return;
+		return null;
 	}
 
 	// magic value
@@ -47,7 +47,7 @@ function read_dataset_image(:filename string) [][28][28]uint8 {
 	:n uint64 = read(fd, &magic_value, 4);
 	if n < 4 {
 		printf("error: could not read file in memory!\n".data);
-		return;
+		return null;
 	}
 	magic_value = flip32(magic_value);
 	printf("magic number: %x\n".data, magic_value);
@@ -57,7 +57,7 @@ function read_dataset_image(:filename string) [][28][28]uint8 {
 	n = read(fd, &number_of_images, 4);
 	if n < 4 {
 		printf("error: could not read file in memory!\n".data);
-		return;
+		return null;
 	}
 	number_of_images = flip32(number_of_images);
 	printf("number of images in set: %d\n".data, number_of_images);
@@ -67,7 +67,7 @@ function read_dataset_image(:filename string) [][28][28]uint8 {
 	n = read(fd, &number_of_rows, 4);
 	if n < 4 {
 		printf("error: could not read file in memory!\n".data);
-		return;
+		return null;
 	}
 	number_of_rows = flip32(number_of_rows);
 	printf("number of rows in set: %d\n".data, number_of_rows);
@@ -77,7 +77,7 @@ function read_dataset_image(:filename string) [][28][28]uint8 {
 	n = read(fd, &number_of_columns, 4);
 	if n < 4 {
 		printf("error: could not read file in memory!\n".data);
-		return;
+		return null;
 	}
 	number_of_columns = flip32(number_of_columns);
 	printf("number of columns in set: %d\n".data, number_of_columns);
@@ -90,7 +90,7 @@ function read_dataset_image(:filename string) [][28][28]uint8 {
 		n = read(fd, images[i].data, ([uint64]number_of_rows * [uint64]number_of_columns));
 		if n < ([uint64]number_of_rows * [uint64]number_of_columns) {
 			printf("error: could not read file in memory!\n".data);
-			return;
+			return null;
 		}
 	}
 	
@@ -106,7 +106,7 @@ function read_dataset_label(:filename string) []uint8 {
 	:fd int32 = open(filename.data, 0, 0);
 	if fd < 0 {
 		printf("error: could not opend file `%s`!".data, filename.data);
-		return;
+		return null;
 	}
 
 	// magic value
@@ -114,7 +114,7 @@ function read_dataset_label(:filename string) []uint8 {
 	:n uint64 = read(fd, &magic_value, 4);
 	if n < 4 {
 		printf("error: could not read file in memory!\n".data);
-		return;
+		return null;
 	}
 	magic_value = flip32(magic_value);
 	printf("magic number: %x\n".data, magic_value);
@@ -124,7 +124,7 @@ function read_dataset_label(:filename string) []uint8 {
 	n = read(fd, &number_of_labels, 4);
 	if n < 4 {
 		printf("error: could not read file in memory!\n".data);
-		return;
+		return null;
 	}
 	number_of_labels = flip32(number_of_labels);
 	printf("number of labels in set: %d\n".data, number_of_labels);
@@ -133,7 +133,7 @@ function read_dataset_label(:filename string) []uint8 {
 	n = read(fd, labels.data, [uint64]number_of_labels);
 	if n < [uint64]number_of_labels {
 		printf("error: could not read file in memory!\n".data);
-		return;
+		return null;
 	}
 	
 	:close_err int32 = close(fd);
@@ -147,24 +147,24 @@ function read_dataset_label(:filename string) []uint8 {
 function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
 	:ah uint64 = a.len;
 	if ah <= 0 {
-		return;
+		return null;
 	}
 	:aw uint64 = a[0].len;
 	if aw <= 0 {
-		return;
+		return null;
 	}
 	
 	:bh uint64 = b.len;
 	if bh <= 0 {
-		return;
+		return null;
 	}
 	:bw uint64 = b[0].len;
 	if bw <= 0 {
-		return;
+		return null;
 	}
 
 	if aw != bh {
-		return;
+		return null;
 	}
 
 	:c [28][28]uint32; 
@@ -183,7 +183,7 @@ function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
 
 function vecmul(:a []f32, :b []f32) f32 {
 	if a.len != b.len {
-		return;
+		return null;
 	}
 
 	:res f32;
