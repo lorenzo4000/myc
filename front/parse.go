@@ -1122,23 +1122,23 @@ func (parser *Parser) ParseFor() (*Ast_Node) {
 }
 func (parser *Parser) ParseCase() (*Ast_Node) {
 	_case := new(Ast_Node)
-	_case.Type = AST_CASE
 
-	{
-		next, expect := parser.PopIf(TOKEN_KEYWORD_CASE)
-		if expect {
-			parseExpectErrorAt(next, "`case`")
-			return nil
-		}
-	}
-
-	{
+	if parser.CurrentIs(TOKEN_KEYWORD_CASE) {
+		_case.Type = AST_CASE
+		parser.Pop()
 		case_exp := parser.ParseExpression()
 		if case_exp == nil {
 			return nil
 		}
-
 		_case.AddChild(case_exp)
+	} else
+	if parser.CurrentIs(TOKEN_KEYWORD_DEFAULT) {
+		parser.Pop()
+		_case.Type = AST_DEFAULT
+	} else {
+		next, _ := parser.Current()
+		parseExpectErrorAt(next, "`case`")
+		return nil
 	}
 
 	{

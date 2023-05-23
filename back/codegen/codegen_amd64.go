@@ -2566,7 +2566,7 @@ func GEN_while(c Codegen_Out, b Codegen_Out) Codegen_Out {
 	return res
 }
 
-func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, _type datatype.DataType) Codegen_Out {
+func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, d_body Codegen_Out, _type datatype.DataType) Codegen_Out {
 	res := Codegen_Out{}
 
 	var allocation Operand
@@ -2578,6 +2578,14 @@ func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, _typ
 			allocation = reg
 		}
 	}
+
+	var def Operand
+	reg, full := RegisterScratchAllocate(datatype.TYPE_BOOL)
+	if full {
+		def = StackAllocate(datatype.TYPE_BOOL).Reference()
+	} else {
+		def = reg
+	}
 	
 	res.Code.Appendln(exp.Code)
 	for i, _case := range(c_exp) {
@@ -2588,6 +2596,9 @@ func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, _typ
 
 		case_end := LabelGen()
 		res.Code.TextAppendSln(ii("jz", case_end))
+
+		 // update default condition
+		res.Code.TextAppendSln(ii("movb $0xFF, ", def))
 		
 		res.Code.Appendln(c_body[i].Code)
 	
@@ -2597,6 +2608,17 @@ func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, _typ
 		
 		res.Code.TextAppendSln(case_end.Text() + ":")
 	}
+
+	res.Code.TextAppendSln(ii("andb", def, def))
+
+	default_end := LabelGen()
+	res.Code.TextAppendSln(ii("jnz", default_end))
+
+	res.Code.Appendln(d_body.Code)
+	if _type != datatype.TYPE_NONE && d_body.Result != nil {
+		res.Code.Appendln(GEN_move(d_body.Result, allocation).Code)
+	}
+	res.Code.TextAppendSln(default_end.Text() + ":")
 
 	res.Result = allocation
 	return res

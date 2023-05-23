@@ -108,6 +108,7 @@ const (
 	AST_IF = Ast_Type(iota)
 	AST_SWITCH = Ast_Type(iota)
 	AST_CASE = Ast_Type(iota)
+	AST_DEFAULT = Ast_Type(iota)
 
 
 	AST_JUMP = Ast_Type(iota)
@@ -210,6 +211,7 @@ var ast_type_str = [N_AST]string {
 	"AST_IF",
 	"AST_SWITCH",
 	"AST_CASE",
+	"AST_DEFAULT",
 	
 	"AST_JUMP",
 	"AST_LABEL",
@@ -225,6 +227,7 @@ const (
 	ASTO_BODY_WHILE = Ast_Node_Flags(1 << iota) 
 	ASTO_BODY_FOR = Ast_Node_Flags(1 << iota) 
 	ASTO_BODY_CASE = Ast_Node_Flags(1 << iota) 
+	ASTO_BODY_DEFAULT = Ast_Node_Flags(1 << iota) 
 
 	ASTO_FUNCTION_EXTERNAL = Ast_Node_Flags(1 << iota) 
 
@@ -238,6 +241,7 @@ var ast_node_flags_str = [64]string {
 	"ASTO_BODY_WHILE",
 	"ASTO_BODY_FOR",
 	"ASTO_BODY_CASE",
+	"ASTO_BODY_DEFAULT",
 	"ASTO_FUNCTION_EXTERNAL",
 	"ASTO_ALWAYS_RETURNS",
 }

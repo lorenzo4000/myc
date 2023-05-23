@@ -750,6 +750,10 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			ast.DataType = ast.Children[1].DataType
 			ast.Flags |= ast.Children[1].Flags & front.ASTO_ALWAYS_RETURNS
 		}
+		case front.AST_DEFAULT: {
+			ast.DataType = ast.Children[0].DataType
+			ast.Flags |= ast.Children[0].Flags & front.ASTO_ALWAYS_RETURNS
+		}
 
 		// ** binary ops
 		case front.AST_OP_SUM, front.AST_OP_SUB, front.AST_OP_MUL, front.AST_OP_DIV, front.AST_OP_MOD, front.AST_OP_BAND, front.AST_OP_BORE, front.AST_OP_BORI, front.AST_OP_SHL, front.AST_OP_SHR: {

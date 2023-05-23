@@ -9,34 +9,33 @@ function foo() int64 {
 }
 
 function poo() int16 {
-	:c int32 = 69;
+	:c int32 = 54645;
 
 	:r uint8 = switch c {
 		case 10: { 
 			return 30;
 			10
 		}
-		case 69: {
+		case 5: {
 			'a'
+		}
+		default: {
+			'u'
 		}
 		case 34: {
 			23
 		}
 		case 12: {
-			23
+			'c'
 		}
 		case 2: {
-			23
+			'b'
 		}
 	};
 
 	printf("%hhc\n".data, r);
 
-	if true {
-		return 4;
-	} else {
-		return 3;
-	};
+	return 3;
 }
 
 function main() {

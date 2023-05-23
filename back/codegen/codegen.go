@@ -563,19 +563,24 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			switch_exp := children_out[0]
 
 			cases := ast.Children[1:]
-			cases_exp    := make([]Codegen_Out, len(cases))
-			cases_bodies := make([]Codegen_Out, len(cases))
-			for i, _case := range cases {
-				_case_body := Codegen(_case.Children[1])
-				cases_bodies[i] = _case_body
-				
-				_case_exp  := Codegen(_case.Children[0])
-				if _case_exp.Result == nil {
-					return Codegen_Out{}
+			cases_exp    := make([]Codegen_Out, 0, len(cases))
+			cases_bodies := make([]Codegen_Out, 0, len(cases))
+			var default_body Codegen_Out
+			for _, _case := range cases {
+				if _case.Type == front.AST_CASE {
+					_case_body := Codegen(_case.Children[1])
+					cases_bodies = append(cases_bodies,  _case_body)
+					
+					_case_exp  := Codegen(_case.Children[0])
+					if _case_exp.Result == nil {
+						return Codegen_Out{}
+					}
+					cases_exp = append(cases_exp, _case_exp)
+				} else {
+					default_body = Codegen(_case.Children[0])
 				}
-				cases_exp[i] = _case_exp
 			}
-			_switch := GEN_switch(switch_exp, cases_exp, cases_bodies, ast.DataType)
+			_switch := GEN_switch(switch_exp, cases_exp, cases_bodies, default_body, ast.DataType)
 			out.Result = _switch.Result
 			out.Code.Appendln(_switch.Code)
 		}
