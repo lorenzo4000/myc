@@ -209,12 +209,9 @@ func Compatible(source *datatype.DataType, destination *datatype.DataType) bool 
 							return true
 						}
 					}
-				case datatype.PointerType:
-					return s.Equals(datatype.TYPE_NULL)
-				case datatype_struct.StructType:
-					return s.Equals(datatype.TYPE_NULL) && 
-						   (datatype_struct.IsDynamicArrayType(d) || datatype_string.TYPE_STRING.Equals(d)) 
 			}
+
+			return s.Equals(datatype.TYPE_NULL) // null is compatible with every type
 		case datatype.PointerType:
 			sp := s.(datatype.PointerType)
 			switch d.(type) {
@@ -702,7 +699,6 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				switch_case := ast.Children[i]
 				switch_case_exp := switch_case.Children[0]
 
-				println("switch exp type : ", switch_exp.DataType.Name(), " case exp type : ", switch_case_exp.DataType.Name())
 				if !Compatible(&switch_case_exp.DataType, &switch_exp.DataType) {
 					typeExpectErrorAt(switch_case, switch_exp.DataType, switch_case_exp.DataType)
 					return nil
@@ -1199,14 +1195,11 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				// search elementary type
 				_static_type := field_type
 				for datatype_array.IsStaticArrayType(_static_type) {
-					println(_static_type.Name())
 					_static_type = _static_type.(datatype_array.StaticArrayType).ElementType
 					align = _static_type.ByteSize()
 				}
 
 				padding := (align - (field_offset & uint64(align - 1))) & uint64(align - 1)
-
-				println("struct ", _struct.Name(), " has padding of ", padding)
 
 				struct_field := datatype_struct.StructField{field_name, field_type, padding + field_offset}
 				_struct.AddField(struct_field)

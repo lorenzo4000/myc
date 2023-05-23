@@ -1919,7 +1919,7 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 						res := Codegen_Out{}
 						switch d.(type) {
 							case Register:
-								res.Code.Appendln(GEN_loadstruct(struct_allocation, RegisterPair{Datatype : d.Type(), r1 : d.(Register)}).Code)
+								res.Code.Appendln(GEN_move(struct_allocation, d).Code)
 							case Memory_Reference:
 								res.Code.Appendln(GEN_storestruct(struct_allocation, d.(Memory_Reference)).Code)
 							case RegisterPair:
@@ -4590,6 +4590,36 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 		// ** struct equality
 		switch l.Type().(type) {
 			case datatype_struct.StructType: { 
+				if l.Type().ByteSize() <= 8 {
+					switch data_size {
+					case 64:
+						res.Code.TextAppendSln(ii("cmpq", r, l))
+					case 32:
+						res.Code.TextAppendSln(ii("cmpl", r, l))
+					case 16:
+						res.Code.TextAppendSln(ii("cmpw", r, l))
+					case 8:
+						res.Code.TextAppendSln(ii("cmpb", r, l))
+					}
+					res.Code.TextAppendSln(ii("sete", allocation))
+					goto exit_eq
+				} 
+
+				if l.Type().ByteSize() <= 16 { 
+					switch l.(type) {
+						case RegisterPair:
+							mem := StackAllocate(l.Type()).Reference()
+							GEN_storestruct_from_regpair(l.(RegisterPair), mem)
+							l = mem
+					}
+					switch r.(type) {
+						case RegisterPair:
+							mem := StackAllocate(r.Type()).Reference()
+							GEN_storestruct_from_regpair(r.(RegisterPair), mem)
+							r = mem
+					}
+				} 
+
 				res.Code.TextAppendSln(ii("movb $1,", allocation))
 
 				struct_type := l.Type().(datatype_struct.StructType)
@@ -4621,7 +4651,7 @@ func GEN_binop(t front.Ast_Type, l Operand, r Operand) Codegen_Out {
 					// AND
 					res.Code.Appendln(GEN_binop(front.AST_OP_AND, allocation, fields_eq.Result).Code)
 				}
-
+				
 				goto exit_eq
 			}
 		}

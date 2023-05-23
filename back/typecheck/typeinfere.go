@@ -158,6 +158,10 @@ func TypeInfere(ast *front.Ast_Node) *front.Ast_Node {
 					child.DataType = ast.DataType
 				}
 				if child.DataType == datatype.TYPE_NULL {
+					if ast.DataType == datatype.TYPE_BOOL {
+						child.DataType = ast.Children[i ^ 1].DataType
+						break
+					}
 					child.DataType = ast.DataType
 				}
 			}

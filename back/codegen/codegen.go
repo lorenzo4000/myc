@@ -369,14 +369,52 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			load := GEN_move(Asm_Int_Literal{datatype.TYPE_BOOL, ast.Data[0].Int_value, 10}, allocation)
 			out.Code.Appendln(load.Code)
 		case front.TOKEN_NULL: 
-			
-			
+			variable_type := ast.DataType
+			switch variable_type.(type) {
+				case datatype.PrimitiveType:
+					allocation = StackAllocate(variable_type).Reference()
+
+					init_value := PrimitiveZeroValue(variable_type.(datatype.PrimitiveType))
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						init_value = children_out[2].Result
+					}
+
+					out.Code.Appendln(GEN_move(init_value, allocation).Code)
+				case datatype_array.StaticArrayType: 
+					allocation = StackAllocate(variable_type).Reference()
+
+					zero := GEN_arrayzero(allocation)
+					out.Code.Appendln(zero.Code)
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, allocation).Code)
+					}
+				case datatype.PointerType:
+					allocation = StackAllocate(variable_type).Reference()
+
+					var init_value Operand
+					init_value = Asm_Int_Literal{variable_type, 0, 10}
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						init_value = children_out[2].Result
+					}
+
+					out.Code.Appendln(GEN_move(init_value, allocation).Code)
+				case datatype_struct.StructType:
+					allocation = StackAllocate(variable_type).Reference()
+
+					zero := GEN_structzero(allocation)
+					out.Code.Appendln(zero.Code)
+					if len(ast.Children) > 2 {
+						out.Code.Appendln(children_out[2].Code)
+						out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, allocation).Code)
+					}
+			}
 
 		}
 		out.Result = allocation
 				
-		
-
 	case front.AST_FUNCTION_CALL:
 		for _, child_out := range children_out {
 			out.Code.Appendln(child_out.Code)

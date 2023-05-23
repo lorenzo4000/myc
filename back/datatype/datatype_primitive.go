@@ -102,7 +102,8 @@ func IsIntegerType(typ DataType) bool {
 				   typ == TYPE_UINT16 ||
 				   typ == TYPE_UINT8  ||
 
-				   typ == TYPE_INT_LITERAL
+				   typ == TYPE_INT_LITERAL ||
+				   typ == TYPE_NULL 
 	}
 	return false
 }

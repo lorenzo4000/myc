@@ -1,223 +1,5 @@
-AST_HEAD : 
-<<<<<<< HEAD
-=======
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = getchar, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(*uint8) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = gets, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION() | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = perror, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE() : 
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = printf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = putchar, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = c, float_value = 0E+00 ]
-				AST_DATATYPE(uint8) : [ int_value = 0, string_value = uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = puts, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = remove, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = filename, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = rename, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = oldname, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = newname, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = scanf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format_string, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = snprintf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = outbuf, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = n, float_value = 0E+00 ]
-				AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = sprintf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format_string, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = sscanf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format_string, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(*int8) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = tmpnam, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(*int8) : [ int_value = 0, string_value = *int8, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vprintf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vscanf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vsprintf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = target_string, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vsnprintf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = outbuf, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = n, float_value = 0E+00 ]
-				AST_DATATYPE(uint64) : [ int_value = 0, string_value = uint64, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vsscanf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format, float_value = 0E+00 ]
-				AST_DATATYPE(*uint8) : [ int_value = 0, string_value = *uint8, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vswscanf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = buffer, float_value = 0E+00 ]
-				AST_DATATYPE(*uint32) : [ int_value = 0, string_value = *uint32, float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format, float_value = 0E+00 ]
-				AST_DATATYPE(*uint32) : [ int_value = 0, string_value = *uint32, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
-	AST_FUNCTION_DEFINITION(int32) | ASTO_FUNCTION_EXTERNAL : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = vwscanf, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-			AST_VARIABLE_DEFINITION(*uint32) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = format, float_value = 0E+00 ]
-				AST_DATATYPE(*uint32) : [ int_value = 0, string_value = *uint32, float_value = 0E+00 ]
-		AST_DATATYPE(int32) : [ int_value = 0, string_value = int32, float_value = 0E+00 ]
->>>>>>> master
-	AST_FUNCTION_DEFINITION() : 
-		AST_FUNCTION_DEFINITION_NAME() : [ int_value = 0, string_value = main, float_value = 0E+00 ]
-		AST_FUNCTION_DEFINITION_ARGS() : 
-		AST_DATATYPE() : 
-		AST_BODY() | ASTO_BODY_FUNCTION : 
-<<<<<<< HEAD
-			AST_LITERAL(null) : [ int_value = 0, string_value = , float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(*uint64) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = ptr, float_value = 0E+00 ]
-				AST_DATATYPE(*uint64) : [ int_value = 0, string_value = *uint64, float_value = 0E+00 ]
-				AST_LITERAL(*uint64) : [ int_value = 0, string_value = , float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION([]uint8) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = arr, float_value = 0E+00 ]
-				AST_DATATYPE([]uint8) : [ int_value = 0, string_value = []uint8, float_value = 0E+00 ]
-				AST_LITERAL([]uint8) : [ int_value = 0, string_value = , float_value = 0E+00 ]
-			AST_VARIABLE_DEFINITION(string) : 
-				AST_VARIABLE_DEFINITION_NAME() : [ int_value = 0, string_value = str, float_value = 0E+00 ]
-				AST_DATATYPE(string) : [ int_value = 0, string_value = string, float_value = 0E+00 ]
-				AST_LITERAL(string) : [ int_value = 0, string_value = , float_value = 0E+00 ]
-panic: runtime error: invalid memory address or nil pointer dereference
-[signal SIGSEGV: segmentation violation code=0x1 addr=0x30 pc=0x4e91d7]
-
-goroutine 1 [running]:
-mycgo/back/codegen.GEN_store({0x0?, 0x0}, {{0x59eda0, 0xc0000263e0}, 0xfffffffffffffff8, {0x59ed30, 0xc000010030}, {0x0, 0x0}, 0x1})
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen_amd64.go:1392 +0x3d7
-mycgo/back/codegen.GEN_move({0x0?, 0x0?}, {0x59ecf8?, 0xc000116338?})
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen_amd64.go:1424 +0x1b0
-mycgo/back/codegen.Codegen(0xc0000663c0)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:429 +0xead
-mycgo/back/codegen.Codegen(0xc000066280)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:147 +0x1ba
-mycgo/back/codegen.Codegen(0xc0000660f0)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:147 +0x1ba
-mycgo/back/codegen.Codegen(0xc0000660a0)
-	/home/lorenzo/Projects/mycgo/back/codegen/codegen.go:147 +0x1ba
-main.main()
-	/home/lorenzo/Projects/mycgo/main/main.go:159 +0x9d8
-=======
-			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf, float_value = 0E+00 ]
-				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data, float_value = 0E+00 ]
-					AST_LITERAL(static_string) : [ int_value = 0, string_value = hello!
-, float_value = 0E+00 ]
-					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data, float_value = 0E+00 ]
-			AST_FUNCTION_CALL(int32) : [ int_value = 0, string_value = printf, float_value = 0E+00 ]
-				AST_OP_DOT(*uint8) : [ int_value = 0, string_value = data, float_value = 0E+00 ]
-					AST_LITERAL(static_string) : [ int_value = 0, string_value = yeah!
-, float_value = 0E+00 ]
-					AST_VARIABLE_NAME(*uint8) : [ int_value = 0, string_value = data, float_value = 0E+00 ]
 .text
+
 
 
 
@@ -245,11 +27,147 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $240, %rsp
+subq $288, %rsp
 
 
 
 
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -249(%rbp, 1), %rdi
+
+movq $8, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -241(%rbp, 1), %rdi
+
+movq $8, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -237(%rbp, 1), %ebx
+
+
+movl %ebx, -245(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -241(%rbp, 1), %ebx
+
+
+movl %ebx, -249(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -257(%rbp, 1), %rdi
+
+movq $8, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movq -249(%rbp, 1), %rbx
+
+
+
+xorb %r12b, %r12b
+
+cmpq -257(%rbp, 1), %rbx
+
+sete %r12b
+
+
+
+andb %r12b, %r12b
+
+jz .L2
 
 
 
@@ -271,8 +189,49 @@ movl %eax, %ebx
 
 
 
+.L2:
 
-movq $.L2, %rdi
+
+movl $0, -261(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -261(%rbp, 1), %ebx
+
+
+movl %ebx, -265(%rbp, 1)
+popq %rbx
+
+
+
+
+
+
+movl $0, -269(%rbp, 1)
+
+
+
+movl -265(%rbp, 1), %r13d
+
+
+xorb %r14b, %r14b
+
+cmpl -269(%rbp, 1), %r13d
+
+sete %r14b
+
+
+
+andb %r14b, %r14b
+
+jz .L4
+
+
+
+movq $.L3, %rdi
 
 
 movq %rsp, %rax
@@ -284,9 +243,83 @@ movq $0, %rax
 
 call printf
 
-movl %eax, %r12d
+movl %eax, %r13d
 
 
+
+
+
+.L4:
+
+
+
+movl $0, %r15d
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -265(%rbp, 1), %ebx
+
+
+movl %ebx, -273(%rbp, 1)
+popq %rbx
+
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -274(%rbp, 1), %bl
+
+
+xorb %bl, -274(%rbp, 1)
+popq %rbx
+
+
+
+cmpl %r15d, -273(%rbp, 1)
+
+sete -274(%rbp, 1)
+
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movb -274(%rbp, 1), %bl
+
+
+andb %bl, -274(%rbp, 1)
+popq %rbx
+
+
+
+jz .L6
+
+
+
+movq $.L5, %rdi
+
+
+movq %rsp, %rax
+
+
+
+movq $0, %rax
+
+
+call printf
+
+movl %eax, %r15d
+
+
+
+
+
+.L6:
 
 
 
@@ -466,7 +499,6 @@ _mystart:
 
 
 
-.L1: .byte 104, 101, 108, 108, 111, 33, 10, 0
 
 
 
@@ -476,7 +508,62 @@ _mystart:
 
 
 
-.L2: .byte 121, 101, 97, 104, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+.L1: .byte 72, 101, 108, 108, 111, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L3: .byte 72, 101, 108, 108, 111, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L5: .byte 72, 101, 108, 108, 111, 33, 10, 0
+
+
+
 
 
 
@@ -494,4 +581,3 @@ err_oob_message: .string "runtime error: index %llu is out of boundaries, with l
 stack_trace_message: .string "at function %s\n"
 
 
->>>>>>> master

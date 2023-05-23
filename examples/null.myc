@@ -1,6 +1,21 @@
+@import "lib/c/stdio.myc"
+
+struct A {
+	:a int32;
+	:b f32;
+}
+
 function main() {
-	null;
-	:ptr *uint64 = null;
-	:arr []uint8 = null;
-	:str string  = null;
+	:sct A = null;
+	if sct == null { // true
+		printf("Hello!\n".data);
+	}
+
+	:n int32 = null;
+	if n == null {   // true
+		printf("Hello!\n".data);
+	}
+	if n == 0 {   	 // true
+		printf("Hello!\n".data);
+	}
 }
