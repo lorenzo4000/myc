@@ -5,17 +5,23 @@ struct A {
 	:b f32;
 }
 
-function main() {
-	:sct A = null;
-	if sct == null { // true
-		printf("Hello!\n".data);
+function foo(:n int32) A {
+	if n == 0 {
+		return null;
 	}
 
-	:n int32 = null;
-	if n == null {   // true
+	return A{
+		10,
+		1.5,
+	};
+}
+
+function main() {
+	:sct A = foo(4);
+	if sct == null {
 		printf("Hello!\n".data);
+		return;
 	}
-	if n == 0 {   	 // true
-		printf("Hello!\n".data);
-	}
+
+	printf("%f\n".data, [f64]sct.b);
 }

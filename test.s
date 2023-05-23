@@ -20,6 +20,126 @@
 
 
 
+.string "\0foo"
+.global foo
+foo:
+pushq %rbp
+
+movq %rsp, %rbp
+
+subq $256, %rsp
+
+
+
+movl $0, -237(%rbp, 1)
+
+
+
+movl %edi, -237(%rbp, 1)
+
+
+
+
+
+movl $0, %ebx
+
+
+
+movl -237(%rbp, 1), %r12d
+
+
+xorb %r13b, %r13b
+
+cmpl %ebx, %r12d
+
+sete %r13b
+
+
+
+andb %r13b, %r13b
+
+jz .L1
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -245(%rbp, 1), %rdi
+
+movq $8, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
+
+
+
+
+movq -245(%rbp, 1), %rax
+
+
+
+jmp ._foo
+
+
+
+
+
+.L1:
+
+
+
+movl $10, %ebx
+
+
+
+movl $1069547520, %r12d
+
+
+
+movl %r12d, -249(%rbp, 1)
+
+
+movl %ebx, -253(%rbp, 1)
+
+
+
+
+movq -253(%rbp, 1), %rax
+
+
+
+jmp ._foo
+
+
+
+
+
+._foo:
+movq %rbp, %rsp
+
+popq %rbp
+
+ret
+
+
+
 .string "\0main"
 .global main
 main:
@@ -27,7 +147,7 @@ pushq %rbp
 
 movq %rsp, %rbp
 
-subq $288, %rsp
+subq $48, %rsp
 
 
 
@@ -44,7 +164,7 @@ pushq %rcx
 
 xorq %rax, %rax
 
-leaq -249(%rbp, 1), %rdi
+leaq -16(%rbp, 1), %rdi
 
 movq $8, %rcx
 
@@ -63,115 +183,11 @@ popq %rax
 
 
 
-pushq %rax
+movl $4, %ebx
 
 
-pushq %rdi
 
-
-pushq %rcx
-
-
-xorq %rax, %rax
-
-leaq -241(%rbp, 1), %rdi
-
-movq $8, %rcx
-
-
-cld
-
-rep stosb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rax
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -237(%rbp, 1), %ebx
-
-
-movl %ebx, -245(%rbp, 1)
-popq %rbx
-
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -241(%rbp, 1), %ebx
-
-
-movl %ebx, -249(%rbp, 1)
-popq %rbx
-
-
-
-
-
-
-
-
-pushq %rax
-
-
-pushq %rdi
-
-
-pushq %rcx
-
-
-xorq %rax, %rax
-
-leaq -257(%rbp, 1), %rdi
-
-movq $8, %rcx
-
-
-cld
-
-rep stosb
-
-popq %rcx
-
-
-popq %rdi
-
-
-popq %rax
-
-
-
-
-movq -249(%rbp, 1), %rbx
-
-
-
-xorb %r12b, %r12b
-
-cmpq -257(%rbp, 1), %rbx
-
-sete %r12b
-
-
-
-andb %r12b, %r12b
-
-jz .L2
-
-
-
-movq $.L1, %rdi
+movl %ebx, %edi
 
 
 movq %rsp, %rax
@@ -181,28 +197,39 @@ movq %rsp, %rax
 movq $0, %rax
 
 
-call printf
+call foo
 
-movl %eax, %ebx
-
-
+movq %rax, -8(%rbp, 1)
 
 
+movq -8(%rbp, 1), %r12
 
-.L2:
 
 
-movl $0, -261(%rbp, 1)
+
+
+movq %r12, -24(%rbp, 1)
+
+
+pushq %rbx
+
+xorq %rbx, %rbx
+movl -20(%rbp, 1), %ebx
+
+
+movl %ebx, -12(%rbp, 1)
+popq %rbx
+
 
 
 
 pushq %rbx
 
 xorq %rbx, %rbx
-movl -261(%rbp, 1), %ebx
+movl -24(%rbp, 1), %ebx
 
 
-movl %ebx, -265(%rbp, 1)
+movl %ebx, -16(%rbp, 1)
 popq %rbx
 
 
@@ -210,16 +237,46 @@ popq %rbx
 
 
 
-movl $0, -269(%rbp, 1)
+
+
+pushq %rax
+
+
+pushq %rdi
+
+
+pushq %rcx
+
+
+xorq %rax, %rax
+
+leaq -32(%rbp, 1), %rdi
+
+movq $8, %rcx
+
+
+cld
+
+rep stosb
+
+popq %rcx
+
+
+popq %rdi
+
+
+popq %rax
 
 
 
-movl -265(%rbp, 1), %r13d
+
+movq -16(%rbp, 1), %r13
+
 
 
 xorb %r14b, %r14b
 
-cmpl -269(%rbp, 1), %r13d
+cmpq -32(%rbp, 1), %r13
 
 sete %r14b
 
@@ -227,11 +284,11 @@ sete %r14b
 
 andb %r14b, %r14b
 
-jz .L4
+jz .L3
 
 
 
-movq $.L3, %rdi
+movq $.L2, %rdi
 
 
 movq %rsp, %rax
@@ -248,78 +305,48 @@ movl %eax, %r13d
 
 
 
-
-.L4:
-
-
-
-movl $0, %r15d
-
-
-
-pushq %rbx
-
-xorq %rbx, %rbx
-movl -265(%rbp, 1), %ebx
-
-
-movl %ebx, -273(%rbp, 1)
-popq %rbx
+jmp ._main
 
 
 
 
-pushq %rbx
 
-xorq %rbx, %rbx
-movb -274(%rbp, 1), %bl
-
-
-xorb %bl, -274(%rbp, 1)
-popq %rbx
+.L3:
 
 
 
-cmpl %r15d, -273(%rbp, 1)
-
-sete -274(%rbp, 1)
 
 
 
-pushq %rbx
-
-xorq %rbx, %rbx
-movb -274(%rbp, 1), %bl
 
 
-andb %bl, -274(%rbp, 1)
-popq %rbx
+cvtss2sd -12(%rbp, 1), %xmm0
+
+movq %xmm0, %r15
 
 
 
-jz .L6
+movq $.L4, %rdi
 
 
+movq %r15, -40(%rbp, 1)
 
-movq $.L5, %rdi
+
+movsd -40(%rbp, 1), %xmm0
 
 
 movq %rsp, %rax
 
 
 
-movq $0, %rax
+movq $1, %rax
 
 
 call printf
 
-movl %eax, %r15d
+movl %eax, -44(%rbp, 1)
 
 
-
-
-
-.L6:
 
 
 
@@ -518,7 +545,6 @@ _mystart:
 
 
 
-.L1: .byte 72, 101, 108, 108, 111, 33, 10, 0
 
 
 
@@ -541,7 +567,6 @@ _mystart:
 
 
 
-.L3: .byte 72, 101, 108, 108, 111, 33, 10, 0
 
 
 
@@ -560,7 +585,38 @@ _mystart:
 
 
 
-.L5: .byte 72, 101, 108, 108, 111, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+.L2: .byte 72, 101, 108, 108, 111, 33, 10, 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.L4: .byte 37, 102, 10, 0
+
+
+
+
+
 
 
 

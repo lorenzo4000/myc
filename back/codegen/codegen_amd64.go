@@ -1915,8 +1915,18 @@ func GEN_very_generic_move(s Operand, d Operand) Codegen_Out {
 			s_operand := s.(Operand)
 				switch s_operand.Type().(type) {
 					case datatype_struct.StructType:
-						struct_allocation := s_operand.(Memory_Reference)
 						res := Codegen_Out{}
+						switch s_operand.(type) {
+							case Register:
+								mem := StackAllocate(s_operand.Type()).Reference()
+								res.Code.Appendln(GEN_move(s_operand, mem).Code)
+								s_operand = mem
+							case RegisterPair:
+								mem := StackAllocate(s_operand.Type()).Reference()
+								res.Code.Appendln(GEN_storestruct_from_regpair(s_operand.(RegisterPair), mem).Code)
+								s_operand = mem
+						}
+						struct_allocation := s_operand.(Memory_Reference)
 						switch d.(type) {
 							case Register:
 								res.Code.Appendln(GEN_move(struct_allocation, d).Code)

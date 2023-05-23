@@ -195,6 +195,10 @@ func Compatible(source *datatype.DataType, destination *datatype.DataType) bool 
 		return true
 	}
 
+	if d.Equals(datatype.TYPE_NULL) {
+		return true
+	}
+
 	switch s.(type) {
 		case datatype.PrimitiveType:
 			switch d.(type) {
@@ -456,6 +460,15 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 		}
 		case front.AST_RETURN: {
 			if len(ast.Children) <= 0 {
+				function_return_type := current_function_ast.Children[2].DataType
+				if function_return_type != nil && function_return_type != datatype.TYPE_NONE {
+					typeErrorAt(
+						ast,
+						"function should return `%s`, but returning nothing",  
+						(function_return_type).Name(),
+					)
+					return nil
+				}
 				ast.Flags |= front.ASTO_ALWAYS_RETURNS
 				current_body_ast.Flags |= front.ASTO_ALWAYS_RETURNS
 				ast.DataType = datatype.TYPE_NONE
