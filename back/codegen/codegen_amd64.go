@@ -2586,6 +2586,8 @@ func GEN_switch(exp Codegen_Out, c_exp []Codegen_Out, c_body []Codegen_Out, d_bo
 	} else {
 		def = reg
 	}
+
+	res.Code.TextAppendSln(ii("movb $0, ", def))
 	
 	res.Code.Appendln(exp.Code)
 	for i, _case := range(c_exp) {

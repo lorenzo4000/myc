@@ -9,7 +9,7 @@ function foo() int64 {
 }
 
 function poo() int16 {
-	:c int32 = 54645;
+	:c int32 = 134;
 
 	:r uint8 = switch c {
 		case 10: { 
@@ -29,7 +29,7 @@ function poo() int16 {
 			'c'
 		}
 		case 2: {
-			'b'
+			'c'
 		}
 	};
 
