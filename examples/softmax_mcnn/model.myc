@@ -392,7 +392,7 @@ function back(:net [][10]Neuron, :x [784]f32, :a [][10]f32, :lbl [10]f32, :learn
 			for(:w uint64 = 0; w < net[1][n].weights.len; w++) {
 				net[1][n].weights[w] -= weight_gradient[n][w];
 			}
-			// net[1][n].bias -= bias_gradient[n];
+			net[1][n].bias -= bias_gradient[n];
 		}
 	};
 
@@ -449,7 +449,7 @@ function back(:net [][10]Neuron, :x [784]f32, :a [][10]f32, :lbl [10]f32, :learn
 				net[0][n].weights[w] -= weight_gradient[n][w];
 				//printf("%f\n".data, [f64]net[0][n].weights[w]);
 			}
-			// net[0][n].bias -= bias_gradient[n];
+			net[0][n].bias -= bias_gradient[n];
 		}
 	}
 }

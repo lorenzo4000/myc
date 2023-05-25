@@ -38,7 +38,7 @@ function main() {
 			for(:j int32 = 0; j < [int32]neural_network[l][i].weights.len; j++) {
 				neural_network[l][i].weights[j] = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (784.0 * 10.0));
 			}
-			neural_network[l][i].bias = 0.0;
+			neural_network[l][i].bias = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (784.0 * 10.0));
 		}
 	}
 	{
@@ -47,7 +47,7 @@ function main() {
 			for(:j int32 = 0; j < [int32]neural_network[l][i].weights.len; j++) {
 				neural_network[l][i].weights[j] = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (10.0 * 10.0));
 			}
-			neural_network[l][i].bias = 0.0;
+			neural_network[l][i].bias = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (10.0 * 10.0));
 		}
 	}
 		
