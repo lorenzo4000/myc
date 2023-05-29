@@ -6,14 +6,14 @@ function main() {
 	
 	printf("%llx\n".data, images.len);
 
-	// cast image set to f32
+	// cast image set to f32 range [-1.0, 1.0]
 	:image_set [][784]f32 = allocate(28*28*images.len*4);
 	for(:i uint32 = 0; i < [uint32]image_set.len; i++) {
 		for(:r uint32 = 0; r < 28; r++) {
 			for(:c uint32 = 0; c < 28; c++) {
 				:pixel uint8 = images[i][r][c];
 				if pixel > 0 {
-					image_set[i][r * 28 + c] = [f32]pixel / [f32]0xff;
+					image_set[i][r * 28 + c] = [f32]pixel / 127.5 - 1.0;
 				}
 			}
 		}
@@ -27,68 +27,32 @@ function main() {
 	}
 
 	
-	:neural_network [][10]Neuron = nn();
-	printf("neural_network.len: %d\n".data, neural_network.len);
+	:neural_network [][]Neuron = nn();
+	for(:i int32 = 0; i < [int32]neural_network.len; i++) {
+		printf("layers[%u]: %u\n".data, i, neural_network[i].len);
+	}
 
 	// ** initialize weights
+	:xavier f32 = 0.05;
 	srand(time(0));
 	{
 		:l int32 = 0;
 		for(:i int32 = 0; i < [int32]neural_network[l].len; i++) {
 			for(:j int32 = 0; j < [int32]neural_network[l][i].weights.len; j++) {
-				neural_network[l][i].weights[j] = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (784.0 * 10.0));
+				neural_network[l][i].weights[j] = -xavier + ([f32]rand() / 2147483647.0) * (xavier + xavier);
 			}
-			neural_network[l][i].bias = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (784.0 * 10.0));
+			neural_network[l][i].bias = -xavier + ([f32]rand() / 2147483647.0) * (xavier + xavier);
 		}
 	}
 	{
 		:l int32 = 1;
 		for(:i int32 = 0; i < [int32]neural_network[l].len; i++) {
 			for(:j int32 = 0; j < [int32]neural_network[l][i].weights.len; j++) {
-				neural_network[l][i].weights[j] = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (10.0 * 10.0));
+				neural_network[l][i].weights[j] = -xavier + ([f32]rand() / 2147483647.0) * (xavier + xavier);
 			}
-			neural_network[l][i].bias = ([f32]rand() / 2147483647.0) * sqrtf(1.0 / (10.0 * 10.0));
+			neural_network[l][i].bias = -xavier + ([f32]rand() / 2147483647.0) * (xavier + xavier);
 		}
 	}
-		
-	:f_out ForwardOut = ForwardOut{
-		allocate(2 * 10 * 4),
-		allocate(2 * 10 * 4),
-	};
-
-		// while true {
-		for(:example uint32 = 0; example < [uint32]image_set.len; example++) {
-		// 	:example uint32 = 5293;
-			:i uint32 = example; 
-
-			printf("example #%llu\n".data, i);
-			forward(neural_network, image_set[i], f_out);
-			back(neural_network, image_set[i], f_out.a, label_set[i], 0.01);
-			
-			/*
-			{
-				printf("INPUT LAYER A[0]:\n".data);
-				:probability_distribution [10]f32 = f_out.a[0];
-				for(:n int32 = 0; n < [int32]probability_distribution.len; n++) {
-					printf("probability[%u]: %f; label[%u]: %f\n".data, n, [f64]probability_distribution[n], n, [f64]label_set[i][n]);
-				}
-			}
-			*/
-
-			:probability_distribution [10]f32 = f_out.a[1];
-			for(:n int32 = 0; n < [int32]probability_distribution.len; n++) {
-				printf("probability[%u]: %f; label[%u]: %f\n".data, n, [f64]probability_distribution[n], n, [f64]label_set[i][n]);
-			}
-			printf("loss10n: %f\n".data, [f64]loss10n(probability_distribution, label_set[i]));
-			/*
-			{
-					printf("input:\n".data);
-					for(:r uint32 = 0; r < 28; r++) {
-						for(:c uint32 = 0; c < 28; c++) {
-							printf("%f ".data, [f64]image_set[i][r * 28 + c]);
-						}
-						printf("\n".data);
-					}
 
 				for(:n int32 = 0; n < [int32]neural_network[0].len; n++) {
 					printf("weights:\n".data);
@@ -105,53 +69,50 @@ function main() {
 
 				for(:n int32 = 0; n < [int32]neural_network[1].len; n++) {
 					printf("weights:\n".data);
-					for(:r uint32 = 0; r < 10; r++) {
+					for(:r uint32 = 0; r < 800; r++) {
 						printf("%f ".data, [f64]neural_network[1][n].weights[r]);
 					}
 					putchar('\n');
 
 					printf("bias: %f\n".data, [f64]neural_network[1][n].bias);
 				}
+
+
+	:f_out ForwardOut = ForwardOut{
+		allocate(2 * 16),
+		allocate(2 * 16),
+	};
+
+	f_out.a[0] = allocate(800 * 4);
+	f_out.a[1] = allocate(10 * 4);
+	f_out.z[0] = allocate(800 * 4);
+	f_out.z[1] = allocate(10 * 4);
+	
+	for(:example uint32 = 0; example < [uint32]image_set.len; example++) {
+		:i uint32 = example; 
+
+		/*
+		printf("input:\n".data);
+		for(:r uint32 = 0; r < 28; r++) {
+			for(:c uint32 = 0; c < 28; c++) {
+				printf("%f ".data, [f64]image_set[i][r * 28 + c]);
 			}
-			*/
+			printf("\n".data);
+		}
+		*/
+
+
+		printf("example #%llu\n".data, i);
+		forward(neural_network, image_set[i], f_out);
+		back(neural_network, image_set[i], f_out.a, label_set[i], 0.001);
+		
+		:probability_distribution []f32 = f_out.a[1];
+		for(:n int32 = 0; n < [int32]probability_distribution.len; n++) {
+			printf("probability[%u]: %f; label[%u]: %f\n".data, n, [f64]probability_distribution[n], n, [f64]label_set[i][n]);
+		}
+		printf("loss: %f\n".data, [f64]loss(probability_distribution, label_set[i]));
 	}
-		// }
 	
 	// save weights and biases to file
 	save_model("examples/softmax_mcnn/saved_models/model_checkpoint.bin", neural_network);
-
-	return;
-	
-	
-	/*
-	for(:i int32 = 0; i < [int32]neural_network.len; i++) {
-		for(:j int32 = 0; j < [int32]neural_network[i].len; j++) {
-			:w []f32 = neural_network[i][j].weights;
-			:b f32 = neural_network[i][j].bias;
-	
-			for(:k int32 = 0; k < [int32](w.len); k++) {
-				printf("neuron[%d][%d].weights[%d]: %u\n".data, i, j, k, w[k]);
-			}
-			printf("neuron[%d][%d].bias: %u\n".data, i, j, b);
-		}
-	}
-	
-
-	for(:i uint32 = 0; i < [uint32]images.len; i++) {
-		printf("label: %hhu\n".data, labels[i]);
-		for(:r uint32 = 0; r < 28; r++) {
-			for(:c uint32 = 0; c < 28; c++) {
-				:image uint32 = i;
-				:p uint8 = [uint8]image_set[image][r * 28 + c];
-	
-				if p > 5 {
-					putchar('@');
-				} else {
-					putchar(' ');
-				}
-			}
-			putchar('\n');
-		}
-	}
-*/
 }

@@ -526,7 +526,7 @@ func (parser *Parser) _ParseTailOperator() (*Ast_Node) {
 	// see if "next" is something we know;
 	// if it isn't, we are the root!
 	if next.Type != '[' 			  &&
-	   next.Type != ']' 			  && 
+	   // next.Type != ']' 			  && 
 	   next.Type != TOKEN_INT_LITERAL &&
 	   next.Type != TOKEN_INC		  &&
 	   next.Type != TOKEN_DEC		   {
@@ -672,8 +672,12 @@ func precedence(ast *Ast_Node) uint8 {
 		case AST_EXPRESSION: return 0xFF
 		case AST_LITERAL:    return 0xFF
 		
-		case AST_OP_DOT:     return 8
-		case AST_OP_INDEX:     return 7
+		case AST_OP_DOT:     return 9
+
+		case AST_OP_INDEX:     return 8
+
+		case AST_OP_INC:     return 7
+		case AST_OP_DEC:     return 7
 
 		case AST_OP_REFERENCE:   return 7
 		case AST_OP_DEREFERENCE: return 7

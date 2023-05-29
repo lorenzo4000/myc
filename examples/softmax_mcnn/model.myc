@@ -172,7 +172,7 @@ function matmul(:a [28][28]uint32, :b [28][28]uint32) [28][28]uint32 {
 	for(:i int32 = 0; i < [int32]ah; i++) {
 		for(:j int32 = 0; j < [int32]aw; j++) {
 			for(:k int32 = 0; k < [int32]aw; k++) {
-				c[i][j] += a[k][i] * b[k][j];
+				c[i][j] += a[i][k] * b[k][j];
 			}
 		}
 	}
@@ -199,20 +199,21 @@ struct Neuron {
 	:bias 	   f32;
 }
 
-function nn() [][10]Neuron {
-	:network [][10]Neuron = allocate(2 * 10 * 20);
-
+function nn() [][]Neuron {
+	:network [][]Neuron = allocate(2 * 16);
 	printf("net layers: %u\n".data, network.len);
 
-	// first layer 784*10
+	// first layer 784*800
+	network[0] = allocate(800 * 20);
 	for(:i uint64 = 0; i < network[0].len; i++) {
 		network[0][i].weights = allocate(784 * 4);
 	}
 	printf("net[0] weights: %u\n".data, network[0][0].weights.len);
 
 	// second layer 10*10
+	network[1] = allocate(10 * 20);
 	for(:i uint64 = 0; i < network[1].len; i++) {
-		network[1][i].weights = allocate(10 * 4);
+		network[1][i].weights = allocate(800 * 4);
 	}
 	printf("net[1] weights: %u\n".data, network[1][0].weights.len);
 
@@ -231,6 +232,9 @@ function time(:tloc uint32) uint32 external;
 //time_t sqrtf(float x);
 function sqrtf(:x f32) f32 external;
 
+//float tanhf(float x); 
+function tanhf(:x f32) f32 external;
+
 
 function logistic(:x f32) f32 {
 	//printf("x: %f\n".data, [f64]x);
@@ -244,12 +248,9 @@ function logistic(:x f32) f32 {
 	return sigmoid;
 }
 
-/*
-function logistic_prime(:x f32) f32 {
-	:l f32 = logistic(x);
-	(1.0 - l) * l
+function scaled_tanhf(:x f32) f32 {
+	1.7159 * tanhf((2.0/3.0) * x)
 }
-*/
 
 function softmax(:z []f32, :i int32) f32 {
 	:denominator f32 = 0.0;	
@@ -261,34 +262,14 @@ function softmax(:z []f32, :i int32) f32 {
 }
 
 struct ForwardOut {
-	:a [][10]f32; // layer output
-	:z [][10]f32; // layer output (linear-part)
+	:a [][]f32; // layer output
+	:z [][]f32; // layer output (linear-part)
 }
 
-function forward(:net [][10]Neuron, :x [784]f32, :out ForwardOut) {
+function forward(:net [][]Neuron, :x [784]f32, :out ForwardOut) {
 	// ** input layer **
 	// printf("input layer (sigmoid):\n".data);
 	for(:n int32 = 0; n < [int32]net[0].len; n++) {
-		/*
-		printf("weights:\n".data);
-		for(:r uint32 = 0; r < 28; r++) {
-			for(:c uint32 = 0; c < 28; c++) {
-				printf("%f ".data, [f64]net[0][n].weights[r * 28 + c]);
-			}
-			printf("\n".data);
-		}
-
-		printf("input:\n".data);
-		for(:r uint32 = 0; r < 28; r++) {
-			for(:c uint32 = 0; c < 28; c++) {
-				printf("%f ".data, [f64]x[r * 28 + c]);
-			}
-			printf("\n".data);
-		}
-
-		printf("bias: %f\n".data, [f64]net[0][n].bias);
-		*/
-
 		// ** linear part **
 		// z = wt * x + b
 		:z f32 = vecmul(net[0][n].weights, x);
@@ -297,31 +278,14 @@ function forward(:net [][10]Neuron, :x [784]f32, :out ForwardOut) {
 		out.z[0][n] = z;
 
 		// ** activation function **
-		:l f32 = logistic(z);
+		:l f32 = scaled_tanhf(z); // logistic(z);
 		out.a[0][n] = l;
-		// printf("logistic: %f\n".data, [f64]l);
 	}
 
 	
 	// ** output layer **
 	// printf("output layer (softmax):\n".data);
 	for(:n int32 = 0; n < [int32]net[1].len; n++) {
-		/*
-		printf("weights:\n".data);
-		for(:r uint32 = 0; r < 10; r++) {
-			printf("%f ".data, [f64]net[1][n].weights[r]);
-		}
-		putchar('\n');
-
-		printf("input:\n".data);
-		for(:r uint32 = 0; r < 10; r++) {
-			printf("%f ".data, [f64]out.a[0][r]);
-		}
-		putchar('\n');
-
-		printf("bias: %f\n".data, [f64]net[1][n].bias);
-		*/
-
 		// ** linear part **
 		// z = wt * x + b
 		:z f32 = vecmul(net[1][n].weights, out.a[0]);
@@ -338,19 +302,15 @@ function forward(:net [][10]Neuron, :x [784]f32, :out ForwardOut) {
 	}
 }
 
-function loss(:q f32, :p f32) f32 {
-	- (p * logf(q))
-}
-
-function loss10n(:q [10]f32, :p [10]f32) f32 {
+function loss(:q []f32, :p []f32) f32 {
 	:result f32;
 	for(:i uint64 = 0; i < q.len; i++) {
-		result += loss(q[i], p[i]);
+		result -= p[i] * logf(q[i]);
 	}
 	result / [f32]q.len
 }
 
-function der_loss10n_q(:q [10]f32, :p [10]f32) [10]f32 {
+function der_loss(:q []f32, :p []f32) []f32 {
 	for(:i uint64 = 0; i < q.len; i++) {
 		p[i] -= q[i];
 		p[i] *= -1.0;
@@ -358,18 +318,9 @@ function der_loss10n_q(:q [10]f32, :p [10]f32) [10]f32 {
 	p
 }
 
-function back(:net [][10]Neuron, :x [784]f32, :a [][10]f32, :lbl [10]f32, :learning_rate f32) {
-	/*
-	printf("back() :\n".data);
-	for(:l int32 = 0; l < [int32]a.len; l++) {
-		for(:n int32 = 0; n < [int32]a[l].len; n++) {
-			printf("a[%u][%u]: %f; p[%u]: %f\n".data, l, n, [f64]a[l][n], n, [f64]lbl[n]);
-		}
-	}
-	*/
-		
+function back(:net [][]Neuron, :x [784]f32, :a [][]f32, :lbl [10]f32, :learning_rate f32) {
 	// ** calculate cost gradients with respect to weights and biases **
-	:loss_derivative [10]f32 = der_loss10n_q(a[1], lbl);
+	:loss_derivative []f32 = der_loss(a[1], lbl);
 	for(:i int32 = 0; i < [int32]loss_derivative.len; i++) {
 		printf("loss_derivative[%u]: %f\n".data, i, [f64]loss_derivative[i]);
 		
@@ -378,7 +329,7 @@ function back(:net [][10]Neuron, :x [784]f32, :a [][10]f32, :lbl [10]f32, :learn
 	// *** output layer ***
 	{
 		// *** weight_gradient = matmul(loss_derivative, transpose(a[0]))
-		:weight_gradient [10][10]f32; 
+		:weight_gradient [10][800]f32; 
 		:bias_gradient   [10]f32; 
 		for(:i int32 = 0; i < [int32]loss_derivative.len; i++) {
 			for(:j int32 = 0; j < [int32]a[0].len; j++) {
@@ -398,39 +349,35 @@ function back(:net [][10]Neuron, :x [784]f32, :a [][10]f32, :lbl [10]f32, :learn
 
 	// *** input layer ***
 	{
-		// *** delta_thingy[0] = matmul(transpose(net[1][*].weights), delta_thingy[1]) * sigmoid_prime(z[0])
+		// *** delta_thingy[0] = matmul(transpose(net[1][*].weights), delta_thingy[1]) * tanh_prime(z[0])
 		// let's break it down: 
 		// 
 		// *   matmul(transpose(net[1][*].weights), delta_thingy[1])
 		// *   delta_thingy[1] = loss_derivative
-		// 	   10 x 10  .  10 x 1 = 10 x 1 vector
-		:weight_mul [10]f32; 
-		for(:n int32 = 0; n < [int32]net[1].len; n++) {
-			for(:w uint64 = 0; w < net[1][n].weights.len; w++) {
-				weight_mul[n] += net[1][n].weights[w] * loss_derivative[n];
-				// printf("weight_mul: %f\n".data, [f64]weight_mul[n]);
+		// 	   800 x 10  .  10 x 1 = 800 x 1 vector
+		:weight_mul [800]f32; 
+		for(:n int32 = 0; n < [int32]weight_mul.len; n++) {
+			for(:w uint64 = 0; w < loss_derivative.len; w++) {
+				weight_mul[n] += net[1][w].weights[n] * loss_derivative[w];
 			}
 		}
 
 
-		// *   weight_mul * sigmoid_prime(z[0])
-		// 	   sigmoid_prime[z[0]] = (1 - a[0]) * a[0] = (-a[0] + 1) * a[0]
-		:sigmoid_prime [10]f32;
-		for(:n int32 = 0; n < [int32]sigmoid_prime.len; n++) {
-			// printf("a[0][n]: %f\n".data, [f64]a[0][n]);
-			sigmoid_prime[n] = (1.0 - a[0][n]) * a[0][n];
-			// printf("sigmoid_prime: %f\n".data, [f64]sigmoid_prime[n]);
+		// *   weight_mul * tanh_prime(z[0])
+		// 	   tanh_prime[z[0]] = (1.7159 -  (a[0] / 1.7159) * a[0]) * 2/3  
+		:tanh_prime [800]f32;
+		for(:n int32 = 0; n < [int32]tanh_prime.len; n++) {
+			tanh_prime[n] = (1.7159 -  (a[0][n] / 1.7159) * a[0][n]) * (2.0 / 3.0);
 		}
 		
-		// element-wise-vecmul(weight_mul, sigmoid_prime);
-		:delta [10]f32; 
+		// element-wise-vecmul(weight_mul, tanh_prime);
+		:delta [800]f32; 
 		for(:n int32 = 0; n < [int32]delta.len; n++) {
-			delta[n] = sigmoid_prime[n] * weight_mul[n];
-			// printf("delta: %f\n".data, [f64]delta[n]);
+			delta[n] = tanh_prime[n] * weight_mul[n];
 		}
 		
-		:bias_gradient [10]f32 = delta;
-		:weight_gradient [10][784]f32; 
+		:bias_gradient [800]f32 = delta;
+		:weight_gradient [800][784]f32; 
 		for(:i int32 = 0; i < [int32]delta.len; i++) {
 			for(:j int32 = 0; j < [int32]x.len; j++) {
 				weight_gradient[i][j] = delta[i] * x[j] * learning_rate;
@@ -439,22 +386,17 @@ function back(:net [][10]Neuron, :x [784]f32, :a [][10]f32, :lbl [10]f32, :learn
 		}
 
 		// ** update weights ** 
-		// printf("net[0].len : %u\n".data, net[0].len);
-
 		for(:n int64 = [int64]net[0].len-1; n >= 0; n--) {
-			// printf("net[0][%llu].weights.len : %u\n".data, n, net[0][n].weights.len);
 			printf("".data);
 			for(:w uint64 = 0; w < net[0][n].weights.len; w++) {
-				// printf("weight_gradient: %f\n".data, [f64]weight_gradient[n][w]);
 				net[0][n].weights[w] -= weight_gradient[n][w];
-				//printf("%f\n".data, [f64]net[0][n].weights[w]);
 			}
 			net[0][n].bias -= bias_gradient[n];
 		}
 	}
 }
 
-function save_model(:filename string, :neural_network [][10]Neuron) {
+function save_model(:filename string, :neural_network [][]Neuron) {
 	:file int32 = open(filename.data, 0x241, 0644);
 	if file < 0 {
 		printf("error opening model checkpoint file `%s`!\n".data, filename.data);
@@ -488,7 +430,7 @@ function save_model(:filename string, :neural_network [][10]Neuron) {
 	}
 }
 
-function read_model(:filename string, :neural_network [][10]Neuron) {
+function read_model(:filename string, :neural_network [][]Neuron) {
 	:file int32 = open(filename.data, 0, 0);
 	if file < 0 {
 		printf("error opening model checkpoint file `%s`!\n".data, filename.data);

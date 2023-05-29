@@ -384,7 +384,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				case datatype_array.StaticArrayType: 
 					allocation = StackAllocate(variable_type).Reference()
 
-					zero := GEN_arrayzero(allocation)
+					zero := GEN_memzero(allocation.(Memory_Reference))
 					out.Code.Appendln(zero.Code)
 					if len(ast.Children) > 2 {
 						out.Code.Appendln(children_out[2].Code)
@@ -404,7 +404,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				case datatype_struct.StructType:
 					allocation = StackAllocate(variable_type).Reference()
 
-					zero := GEN_structzero(allocation)
+					zero := GEN_memzero(allocation.(Memory_Reference))
 					out.Code.Appendln(zero.Code)
 					if len(ast.Children) > 2 {
 						out.Code.Appendln(children_out[2].Code)
@@ -468,16 +468,17 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				case datatype_struct.StructType:
 					variable_allc = StackAllocate(variable_type)
 
-					zero := GEN_structzero(variable_allc.Reference())
+					zero := GEN_memzero(variable_allc.Reference())
 					out.Code.Appendln(zero.Code)
 					if len(ast.Children) > 2 {
 						out.Code.Appendln(children_out[2].Code)
+						out.Code.TextAppendSln("// initialization")
 						out.Code.Appendln(GEN_very_generic_move(children_out[2].Result, variable_allc.Reference()).Code)
 					}
 				case datatype_array.StaticArrayType: 
 					variable_allc = StackAllocate(variable_type)
 
-					zero := GEN_arrayzero(variable_allc.Reference())
+					zero := GEN_memzero(variable_allc.Reference())
 					out.Code.Appendln(zero.Code)
 					if len(ast.Children) > 2 {
 						out.Code.Appendln(children_out[2].Code)
@@ -767,9 +768,6 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				out.Code.Appendln(op.Code)
 				out.Result = op.Result
 			case front.AST_OP_DEREFERENCE:
-				// TODO: fix this crap. I should NEVER do this, I just
-				// don't know how to get the result of that stuff back,
-				// since it's two nodes below the current one...
 				reference_gen := Codegen(value.Children[0])
 				reference := reference_gen.Result
 				out.Code.Appendln(reference_gen.Code)
@@ -789,8 +787,6 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 			case front.AST_OP_INDEX:
 				out.Code.Appendln(children_out[0].Code)
 
-				out.Code.TextAppendSln("// referencing stuff from mem!")
-				println("// referencing stuff from mem!")
 				ref := GEN_reference_from_mem(children_out[0].Result.(Memory_Reference))
 				out.Code.Appendln(ref.Code)
 				
@@ -822,6 +818,7 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 
 			value := children_out[0].Result
 
+			/*
 			var allocation Operand
 			var full bool
 			reg, full := RegisterScratchAllocate(ast.DataType)
@@ -845,8 +842,10 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 					v = r
 				}
 
-				out.Code.Appendln(GEN_move(value, v).Code)
-				load := GEN_move(v.Dereference(), allocation)
+				out.Code.Appendln(GEN_very_generic_move(value, v).Code)
+				deref := v.Dereference().(Memory_Reference)
+				deref.DataType = ast.DataType
+				load := GEN_very_generic_move(deref, allocation)
 				out.Code.Appendln(load.Code)
 
 				if full {
@@ -856,11 +855,17 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 				}
 
 			default:
-				load := GEN_move(value.Dereference(), allocation)
+				deref := value.Dereference().(Memory_Reference)
+				deref.DataType = ast.DataType
+				load := GEN_very_generic_move(deref, allocation)
 				out.Code.Appendln(load.Code)
 			}
+			*/
+				
+			deref := value.Dereference().(Memory_Reference)
+			deref.DataType = ast.DataType
 
-			out.Result = allocation
+			out.Result = deref
 		}
 	case front.AST_CASTING:
 		{
@@ -1047,11 +1052,12 @@ func Codegen(ast *front.Ast_Node) Codegen_Out {
 									_save = StackAllocate(_reg.Type()).Reference()
 									out.Code.Appendln(GEN_move(_reg, _save).Code)
 								} 
+								__reg, _ := _reg.Class.GetRegister(expression.Type())
+								out.Code.Appendln(GEN_move(expression, __reg).Code)
 							case Register: 
 								_reg, _ = expression.(Register).Class.GetRegister(datatype.TYPE_UINT64)
 						}
 						
-						out.Code.TextAppendSln(ii("movq", expression, _reg))
 						out.Code.Appendln(GEN_binop(front.AST_OP_BAND, _reg, Asm_Int_Literal{_reg.Type(), (1 << expression.Type().BitSize()) - 1, 10}).Code)
 						expression = _reg
 					}
