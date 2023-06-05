@@ -54,7 +54,7 @@ function normal(:nd *NormalDistribution, :stddev f64, :mean f64) f64 {
 @define PLOT_MIN    -1.0
 @define PRINT_SCALE  1
 
-function main() {
+function test() {
 	:nd NormalDistribution = init_normal_by_array(
 		[4]uint32 {
 			0x123,		

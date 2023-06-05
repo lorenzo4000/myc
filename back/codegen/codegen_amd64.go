@@ -2150,6 +2150,7 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 			var arg Operand
 			arg = a
 
+			fmt.Println(arg.Type().Name())
 			arg_reg, full := RegisterArgumentAllocate(arg.Type())
 			if full {
 				fmt.Println("codegen error: could not find an argument register for type `" + arg.Type().Name() + "`")

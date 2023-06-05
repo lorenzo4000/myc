@@ -10,6 +10,7 @@
 
 @import "lib/c/stdio.myc"
 @import "lib/memory.myc"
+@import "examples/softmax_mcnn/normal.myc"
 
 //  ssize_t read(int fd, void *buf, size_t count);
 function read(:fd int32, :buf *?, :count uint64) uint64 external;
@@ -19,6 +20,9 @@ function write(:fd int32, :buf *?, :count uint64) uint64 external;
 
 // int open(const char *pathname, int flags, mode_t mode);
 function open(:pathname *uint8, :flags int32, :mode uint32) int32 external;
+
+function floor(:x f64) f64 external;
+function ceil (:x f64) f64 external;
 
 // int close(int fd);
 function close(:fd int32) int32 external;
@@ -33,6 +37,17 @@ function flip32(:x uint32) uint32{
 
 	return flipped;
 }
+
+function max(:arr []f32) uint64 {
+	:m uint64; 
+	for(:i uint64 = 0; i < arr.len; i++) {
+		if arr[i] > arr[m] {
+			m = i;	
+		}
+	}
+	m
+}
+
 
 function read_dataset_image(:filename string) [][28][28]uint8 {
 	// open file read-only
@@ -223,6 +238,9 @@ function nn() [][]Neuron {
 //float expf(float x);
 function expf(:x f32) f32 external;
 
+//double exp(double x);
+function exp(:x f64) f64 external;
+
 //float logf(float x);
 function logf(:x f32) f32 external;
 
@@ -321,10 +339,10 @@ function der_loss(:q []f32, :p []f32) []f32 {
 function back(:net [][]Neuron, :x [784]f32, :a [][]f32, :lbl [10]f32, :learning_rate f32) {
 	// ** calculate cost gradients with respect to weights and biases **
 	:loss_derivative []f32 = der_loss(a[1], lbl);
-	for(:i int32 = 0; i < [int32]loss_derivative.len; i++) {
-		printf("loss_derivative[%u]: %f\n".data, i, [f64]loss_derivative[i]);
-		
-	}
+	//for(:i int32 = 0; i < [int32]loss_derivative.len; i++) {
+	//	printf("loss_derivative[%u]: %f\n".data, i, [f64]loss_derivative[i]);
+	//	
+	//}
 
 	// *** output layer ***
 	{
@@ -465,3 +483,175 @@ function read_model(:filename string, :neural_network [][]Neuron) {
 	}
 }
 
+@define PI 3.1415926535897931
+
+function gaussian2d(:x f64, :y f64, :sigma f64) f64 {
+	(1.0 / (2.0 * PI * sigma * sigma)) * exp(-(x * x + y * y) / (2.0 * sigma * sigma))
+}
+
+function gaussian_filter(:x [28][28]f64, :sigma f64) [28][28]f64 {
+	// gaussian kernel
+	@define GAUSSIAN_KERNEL_XY 27
+	:y [GAUSSIAN_KERNEL_XY][GAUSSIAN_KERNEL_XY]f64;
+
+	//printf("gaussian kernel:\n".data);
+	for(:i int32 = 0; i < GAUSSIAN_KERNEL_XY; i++) {
+		for(:j int32 = 0; j < GAUSSIAN_KERNEL_XY; j++) {
+			y[i][j] = gaussian2d([f64]i - ([f64]GAUSSIAN_KERNEL_XY / 2.0), [f64]j - ([f64]GAUSSIAN_KERNEL_XY / 2.0), sigma);
+			// printf("%f ".data, y[i][j]);
+		}
+		// printf("\n".data);
+	}
+	
+	// apply convolution kernel y to matrix x
+	:result [28][28]f64;
+
+	// kernel origin (center)
+	:origin_y uint64 = y   .len / 2;
+	:origin_x uint64 = y[0].len / 2;
+
+	for(:i uint64 = 0; i < x.len; i++) {
+		for(:j uint64 = 0; j < x[i].len; j++) {
+			:s f64 = 0.0;
+			for(:k uint64 = 0; k < y.len; k++) {
+				for(:u uint64 = 0; u < y[k].len; u++) {
+					:_i uint64 = i + k - origin_y;
+					:_j uint64 = j + u - origin_x;
+					
+					if _i >=  0    	 &&
+					   _j >=  0 	 &&
+				       _i < x   .len &&
+				       _j < x[i].len {
+						s += x[_i][_j] * y[k][u];
+					}
+
+				}
+			}
+			result[i][j] = s / [f64](y.len * y[0].len);
+		}
+	}
+
+	result
+}
+
+function elastic_distortion(:image [28][28]f32, :nd *NormalDistribution, :stddev f64, :alpha f64) [28][28]f32 {
+	:new_image [28][28]f32;
+
+	// generate displacement matrix
+	:displacement [2][28][28]f64;
+	for(:i int32 = 0; i < 2; i++) {
+		for(:row uint32 = 0; row < 28; row++) {
+			for(:col uint32 = 0; col < 28; col++) {
+				displacement[i][row][col] = genrand_real1(&(*nd).mt) * 2.0 - 1.0; // normal(nd, 0.5, 0.0) * alpha;
+			}
+		}
+		displacement[i] = gaussian_filter(displacement[i], stddev);
+	}
+		
+
+	for(:i int32 = 0; i < 2; i++) {
+		// find norm (maximum absolute) of displacements
+		:norm f64 = 0.0;
+		for(:row uint32 = 0; row < 28; row++) {
+			for(:col uint32 = 0; col < 28; col++) {
+				:a f64 = fabs(displacement[i][row][col]);
+				if norm < a {
+					norm = a;
+				}
+			}
+		}
+
+		// divide by norm: get (-1, 1);
+		// multiply by alpha: get (-alpha, alpha);
+		for(:row uint32 = 0; row < 28; row++) {
+			for(:col uint32 = 0; col < 28; col++) {
+				displacement[i][row][col] /= norm;
+				displacement[i][row][col] *= alpha;
+				// printf("%f ".data, displacement[i][row][col]);
+			}
+			//printf("\n".data);
+		}
+		//printf("\n".data);
+	}
+
+	for(:row uint32 = 0; row < 28; row++) {
+		for(:col uint32 = 0; col < 28; col++) {
+			:x f64 = [f64]col;
+			:y f64 = [f64]row;
+			:_x f64 = x + displacement[0][row][col];
+			:_y f64 = y + displacement[1][row][col];
+
+			// printf("_x : %f; _y : %f\n".data, _x, _y);
+			// printf("x : %f; y : %f\n".data, x, y);
+			// printf("displ_x : %f; displ_y : %f\n".data, displacement[0][row][col], displacement[1][row][col]);
+
+			:a_x f64 = floor(_x); :a_y f64 = floor(_y);
+			:b_x f64 = ceil (_x); :b_y f64 = a_y;
+			:c_x f64 = a_x;       :c_y f64 = ceil (_y);
+			:d_x f64 = b_x; 	  :d_y f64 = c_y;
+
+			// every pixel outisde the image has background value (-1)
+			:a f32 = if a_x <   0.0 ||
+						a_y <   0.0 ||
+						a_x >= 28.0 ||
+						a_y >= 28.0 {
+				-1.0
+			} else {
+				image[[int32](a_y)]
+					 [[int32](a_x)]
+			};
+			:b f32 = if b_x <   0.0 ||
+						b_y <   0.0 ||
+						b_x >= 28.0 ||
+						b_y >= 28.0 {
+				-1.0
+			} else {
+				image[[int32](b_y)]
+					 [[int32](b_x)]
+			};
+			:c f32 = if c_x <   0.0 ||
+						c_y <   0.0 ||
+						c_x >= 28.0 ||
+						c_y >= 28.0 {
+				-1.0
+			} else {
+				image[[int32](c_y)]
+					 [[int32](c_x)]
+			};
+			:d f32 = if d_x <   0.0 ||
+						d_y <   0.0 ||
+						d_x >= 28.0 ||
+						d_y >= 28.0 {
+				-1.0
+			} else {
+				image[[int32](d_y)]
+					 [[int32](d_x)]
+			};
+
+			// coordinates inside square of origin a
+			:__x f64 = _x - a_x;
+			:__y f64 = _y - a_y;
+			
+			// x interpolation
+			:top    f32 = a + ([f32]__x * (b - a));
+			:bottom f32 = c + ([f32]__x * (d - c));
+
+			// printf("top: %f, bottom: %f\n".data, [f64]top, [f64]bottom);
+			
+			// y interpolation
+			:new_pixel f32 = top + [f32]__y * (bottom - top);
+			// printf("new pixel: %f\n".data, [f64]new_pixel);
+
+			new_image[row][col] = new_pixel;
+		}
+	}
+	new_image
+}
+
+function print_status(:epoch int32, :example int32, :loss f32, :cost f32, :error f32) {
+	printf("epoch #%3u; example #%5u: loss %10f cost %10f error %10f\n".data, epoch, example, [f64]loss, [f64]cost, [f64]error);
+}
+
+function clear_line() {
+	printf("\033[2J".data);
+}

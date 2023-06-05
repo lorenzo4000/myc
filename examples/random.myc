@@ -1,0 +1,9 @@
+@import "lib/c/stdio.myc"
+@import "lib/c/stdlib.myc"
+//       time_t time(time_t *_Nullable tloc);
+function time(:tloc *uint32) uint32 external;
+
+function main() {
+	srand(time(null));
+	printf("%u".data, rand() % 30);
+}

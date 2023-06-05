@@ -1,15 +1,5 @@
 @import "examples/softmax_mcnn/model.myc"
 
-function max(:arr []f32) uint64 {
-	:m uint64; 
-	for(:i uint64 = 0; i < arr.len; i++) {
-		if arr[i] > arr[m] {
-			m = i;	
-		}
-	}
-	m
-}
-
 function main() {
 	:images [][28][28]uint8 = read_dataset_image("./examples/softmax_mcnn/test_set/t10k-images-idx3-ubyte");
 	:labels []     uint8 = read_dataset_label("./examples/softmax_mcnn/test_set/t10k-labels-idx1-ubyte");

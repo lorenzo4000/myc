@@ -1,5 +1,3 @@
-@import "lib/c/stdio.myc"
-
 /* Period parameters */  
 @define N 624
 @define M 397

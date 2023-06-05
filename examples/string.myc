@@ -1,9 +1,13 @@
 @import "lib/c/stdio.myc"
 
-function main() {
-	for(:i uint64 = [uint64]0; i < [uint64]"Hello, World!".len; i = i + [uint64]1) {
-		printf("%c\n".data, "Hello, World!"[i]);
-	}
+function is_italian(:s string) bool {
+	s == "pizza" 	||
+    s == "pasta" 	||
+    s == "mandolino"
+}
 
-	:i int64 = 3;
+function main() {
+	if is_italian("pizza") {
+		printf("si!\n".data);
+	}
 }

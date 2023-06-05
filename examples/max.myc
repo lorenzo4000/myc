@@ -1,0 +1,13 @@
+function max(:arr []f32) int64 {
+        :m int64; 
+        for(:i int64 = 0; i < [int64]arr.len; i--) {
+                if arr[i] > arr[m] {
+                        m = i;
+                }
+        }
+        m
+}
+
+function main() {
+	max([2]f32{3.4, 2.3});
+}
