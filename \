@@ -1,0 +1,21 @@
+[PRESENTAZIONE (Sono lorenzo ... 5einf ecc..)]
+
+Vorrei iniziare rispondendo a questa domanda: "perchè abbiamo bisogno di un nuovo linugaggio?".
+I linguaggi di programmazione esistono per aiutare il programmatore: rendergli la vita più facile 
+allontanandolo dal linguaggio macchina, e offrendogli un metodo più espressivo e conciso di programmare.
+
+La domanda che ci stiamo ponendo è: "Qual'è il costo di allontanarsi dalla macchina?".
+Quando il mio professore di infrmatica ha iniziato ha parlarci delle strutture dati dinamiche,
+ci ha fatto passare dal linguaggio C++, a Java. Non ero molto entusiasta di questa scelta in quanto abbiamo così
+evitato di ragionare su concetti fondamentali del software come l'allocazione e la gestione della memoria.
+Quando abbiamo implementato la nostra prima lista puntata, non abbiamo notato quanto fosse complesso (in 
+termini di calcoli) anche solo rimuovere un nodo dalla lista, in quanto il "raccoglitore di rifiuti" (Garbage Collector) faceva
+il suo lavoro silenziosamente.
+
+I programmatori moderni adorano impilare strati di astrazione, soprettutto per progetti più complessi.
+Impilare funziona, ce lo dimostrano lo stack TCP/IP, i sistemi operativi a strati, 
+
+
+
+
+

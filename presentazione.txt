@@ -1,0 +1,75 @@
+Sono Lorenzo Contina della 5einf, sto lavorando a questo progetto da qualche mese e penso di essere arrivato ad un 
+punto dovo posso mostrarlo.
+
+Vorrei iniziare rispondendo a questa domanda: "perchè abbiamo bisogno di un nuovo linugaggio?".
+I linguaggi di programmazione esistono per aiutare il programmatore: rendergli la vita più facile 
+allontanandolo dal linguaggio macchina, e offrendogli un metodo più espressivo e conciso di programmare.
+
+Ma la domanda che ci stiamo ponendo adesso è: "Qual'è il costo di allontanarsi dalla macchina?".
+Quando, in informatica, abbiamo iniziato a studiare le strutture dati dinamiche, siamo passati 
+dal linguaggio C++, a Java. Facendo così, abbiamo evitato di ragionare su concetti fondamentali 
+del software come l'allocazione e la gestione della memoria.
+Quando abbiamo implementato la nostra prima lista puntata, in primo luogo non abbiamo notato alcuna differenza
+tra un puntatore e un oggetto, e inoltre non abbiamo notato quanto fosse complesso (in termini di calcoli) anche 
+solo rimuovere un nodo dalla lista, in quanto il "raccoglitore di rifiuti" (Garbage Collector) faceva
+il suo lavoro silenziosamente.
+
+I programmatori moderni adorano impilare strati di astrazione, soprettutto per progetti più complessi.
+Impilare dal basso verso l'alto funziona, ce lo dimostrano lo stack TCP/IP, i sistemi operativi a strati.
+Molto spesso però finiamo per fare l'operazione inversa, ovvero impilare dall'alto verso il basso, costruire un grattacielo 
+partendo dal 50esimo piano.
+
+"Allora dobbiamo programmare tutti in C?"
+Allontanarsi dai problemi che ci pone la macchina per concentrarsi sui problemi che sono davvero importanti è ottimo.
+La semplificazione del lavoro non deve essere però barattata con la qualità del prodotto in termini di prestazioni, 
+dimensioni, leggibilità e comprensibilità.
+
+Ecco perchè "ChatGPT è il futuro della programmazione"
+I linguaggi di programmazione non sono poi così diversi dai linguaggi naturali come l'Italiano o il Cinese.
+Entrambi sono creati dall'uomo, compresi dall'uomo, e utilizzati dall'uomo per comunicare.
+L'unica differenza sta nei simboli:
+	- I linguaggi naturali offrono simboli che rappresentano la realtà;
+	- I linguaggi di programmazione offrono simboli che rappresentano calcoli e valori numerici.
+
+L'obiettivo finale dell'informatica è eliminare questo divario per poter interagire con i computer come interagiamo con le persone.
+Ma non abbiamo ancora raggiunto il momento storico dove possiamo abbandonare linguaggi come C.
+
+"MyC"
+
+C presenta tantissimi problemi, sia sintattici che semantici. Il mio linguaggio prova a risolverne solo alcuni.
+
+"MyC > C"
+
+"Dettagli Implementativi"
+Le montagne sono protagoniste di molte analogie; esiste una simile analogia anche per i compilatori:
+quando ci troviamo ai piedi di una montagna, ci è impossibile vedere cosa sta dall’altro lato: 
+qui troviamo il codice in caratteri “crudi”; questo è quindi il punto dove abbiamo 
+meno informazioni contestuali, e ci è difficile comprendere il codice abbastanza bene da 
+poterlo tradurre;
+quando raggiungiamo la cima della montagna abbiamo la vista libera, e riusciamo ad 
+osservare bene tutto ciò che ci sta attorno:
+qui troviamo l’AST tipizzato, che è la rappresentazione con più informazioni contestuali di sintassi 
+e di semantica. Da qui è facile comprendere il codice e tradurlo in un linguaggio più semplice.
+
+L’analisi lessicale traduce una stringa “cruda” di caratteri in una lista di simboli.
+Si tratta di un’analisi lineare, ovvero carattere per carattere, di tutto il codice.
+Le regole lessicali definiscono I rapporti tra più caratteri, e quali simboli 
+rappresentano.
+
+L’analisi sintattica traduce una lista di simboli in un albero sintattico.
+Questa è un’analisi ricorsiva, che costruisce l’albero dall’alto verso il basso.
+Molti compilatori decidono di usare un albero binario (al massimo due figli per 
+ogni nodo); questa implementazione, invece, permette un grado indefinito per 
+ogni nodo.
+
+"Allocazione dei registri"
+Uno dei problemi più importanti che risolve il generatore di codice è l'allocazione dei registri:
+Nella CPU I registri non sono illimitati, a differenza delle variabili del linguaggio.
+L'obiettivo dell'allocatore dei registri è riempire i registri con le variabili che ci servono in un determinato
+pezzo di codice, in modo da accedervi velocemente minimzzando il numero di letture / scritture della memoria.
+Esistono diversi algoritmi di allocazione dei registri; uno dei più consolidati è il metodo che utilizza la colorazione dei grafi.
+Tuttavia, questa implementazione del mio linguaggio non utilizza alcun algoritmo di allocazione: i registri sono allocati e svuotati senza 
+alcuna regola di ottimizzazione.
+
+[Conclusioni]
+
