@@ -150,12 +150,17 @@ function main() {
 	:HEIGHT int32 = 28;
 
 	:image [28][28]f32;
+	for(:r int32 = 0; r < HEIGHT; r++) {
+		for(:c int32 = 0; c < WIDTH; c++) {
+			image[r][c] = -1.0;
+		}
+	}
 
 	:brush [5][5]f32 = [5][5]f32{
 		[5]f32{0.0, 0.0,   0.0,  0.0,   0.0},
-		[5]f32{0.0, 0.01,  0.001, 0.01,  0.0},
-		[5]f32{0.0, 0.001,  0.1,  0.001,  0.0},
-		[5]f32{0.0, 0.01,  0.001, 0.01,  0.0},
+		[5]f32{0.0, 0.1,  0.01, 0.1,  0.0},
+		[5]f32{0.0, 0.01,  0.1,  0.01,  0.0},
+		[5]f32{0.0, 0.1,  0.01, 0.1,  0.0},
 		[5]f32{0.0, 0.0,   0.0,  0.0,   0.0},
 	};
 
@@ -167,58 +172,58 @@ function main() {
 
 	InitWindow(WIDTH * PIXEL_SCALE, HEIGHT * PIXEL_SCALE, "MNIST!".data);
 	while !WindowShouldClose()  {
-		// :mouse_x int32 = GetMouseX();
-		// :mouse_y int32 = GetMouseY();
+		:mouse_x int32 = GetMouseX();
+		:mouse_y int32 = GetMouseY();
 
-		// if mouse_x < WIDTH  * PIXEL_SCALE  &&
-		//    mouse_y < HEIGHT * PIXEL_SCALE &&
-		//    mouse_x >= 0 &&
-		//    mouse_y >= 0 {
-		// 	if IsMouseButtonDown(0) {
-		// 		:r int32 = mouse_y / PIXEL_SCALE;
-		// 		:c int32 = mouse_x / PIXEL_SCALE;
+		if mouse_x < WIDTH  * PIXEL_SCALE  &&
+		   mouse_y < HEIGHT * PIXEL_SCALE &&
+		   mouse_x >= 0 &&
+		   mouse_y >= 0 {
+			if IsMouseButtonDown(0) {
+				:r int32 = mouse_y / PIXEL_SCALE;
+				:c int32 = mouse_x / PIXEL_SCALE;
 
-		// 		image = apply_brush(image, brush, c, r);
-		// 	}
-		// }
-
-		// if IsKeyPressed(257) {
-		// 	// ** run model
-		// 	:image_input [784]f32;
-		// 	for(:r int32 = 0; r < HEIGHT; r++) {
-		// 		for(:c int32 = 0; c < WIDTH; c++) {
-		// 			image_input[r * WIDTH + c] = image[r][c];
-		// 		}
-		// 	}
-		// 		
-		// 	forward(neural_network, image_input, f_out);
-		// 	:probability_distribution []f32 = f_out.a[1];
-		// 
-		// 	for(:n int32 = 0; n < [int32]probability_distribution.len; n++) {
-		// 		printf("probability[%u]: %f\n".data, n, [f64]probability_distribution[n]);
-		// 	}
-
-		// 	printf("prediction: %u\n".data, max(probability_distribution));	
-
-
-		// 	// clear image
-		// 	for(:r int32 = 0; r < HEIGHT; r++) {
-		// 		for(:c int32 = 0; c < WIDTH; c++) {
-		// 			image[r][c] = 0.0;
-		// 		}
-		// 	}
-		// }
-
-		if IsKeyPressed(257) { // enter
-			// run distortion
-			image = elastic_distortion(image_set[i], &nd, 8.0, 5.0);
+				image = apply_brush(image, brush, c, r);
+			}
 		}
+
+		if IsKeyPressed(257) {
+			// ** run model
+			:image_input [784]f32;
+			for(:r int32 = 0; r < HEIGHT; r++) {
+				for(:c int32 = 0; c < WIDTH; c++) {
+					image_input[r * WIDTH + c] = image[r][c];
+				}
+			}
+				
+			forward(neural_network, image_input, f_out);
+			:probability_distribution []f32 = f_out.a[1];
 		
-		if IsKeyPressed(32) { // space
-			// next image
-			i++;
-			image = image_set[i];
+			for(:n int32 = 0; n < [int32]probability_distribution.len; n++) {
+				printf("probability[%u]: %f\n".data, n, [f64]probability_distribution[n]);
+			}
+
+			printf("prediction: %u\n".data, max(probability_distribution));	
+
+
+			// clear image
+			for(:r int32 = 0; r < HEIGHT; r++) {
+				for(:c int32 = 0; c < WIDTH; c++) {
+					image[r][c] = -1.0;
+				}
+			}
 		}
+
+		//if IsKeyPressed(257) { // enter
+		//	// run distortion
+		//	image = elastic_distortion(image_set[i], &nd, 8.0, 5.0);
+		//}
+		//
+		//if IsKeyPressed(32) { // space
+		//	// next image
+		//	i++;
+		//	image = image_set[i];
+		//}
 
 		BeginDrawing();
 			ClearBackground(Color{

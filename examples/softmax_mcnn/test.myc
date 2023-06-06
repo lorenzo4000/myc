@@ -6,15 +6,13 @@ function main() {
 	
 	printf("%llx\n".data, images.len);
 
-	// cast image set to f32
+	// cast image set to f32 range [-1.0, 1.0]
 	:image_set [][784]f32 = allocate(28*28*images.len*4);
 	for(:i uint32 = 0; i < [uint32]image_set.len; i++) {
 		for(:r uint32 = 0; r < 28; r++) {
 			for(:c uint32 = 0; c < 28; c++) {
 				:pixel uint8 = images[i][r][c];
-				if pixel > 0 {
-					image_set[i][r * 28 + c] = [f32]pixel / [f32]0xff;
-				}
+				image_set[i][r * 28 + c] = [f32]pixel / 127.5 - 1.0;
 			}
 		}
 	}

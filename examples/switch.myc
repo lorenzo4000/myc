@@ -1,44 +1,19 @@
 @import "lib/c/stdio.myc"
 
-function foo() int64 {
-	if true {
-		32456
-	} else {
-		456
-	}
-}
-
-function poo() int16 {
-	:c int32 = 134;
-
-	:r uint8 = switch c {
-		case 10: { 
-			return 30;
-			10
-		}
-		case 5: {
-			'a'
-		}
-		default: {
-			'u'
-		}
-		case 34: {
-			23
-		}
-		case 12: {
-			'c'
-		}
-		case 2: {
-			'c'
-		}
-	};
-
-	printf("%hhc\n".data, r);
-
-	return 3;
-}
+@define BYTE   0
+@define WORD   1
+@define DOUBLE 2
+@define QUAD   3
 
 function main() {
-	printf("%hd\n".data, poo());
-	printf("%hd\n".data, foo());
+	:size int32 = 32;
+
+	:type int32 = switch size {
+		case 8:  {BYTE}
+		case 16: {WORD}
+		case 32: {DOUBLE}
+		case 64: {QUAD}
+	};
+
+	printf("%u\n".data, type);
 }
