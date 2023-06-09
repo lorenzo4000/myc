@@ -1,4 +1,4 @@
-@import "lib/c/stdlib.myc"
+@import "c/stdlib.myc"
 
 function allocate(:bytes uint64) []? {
 	:array []?;

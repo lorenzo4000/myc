@@ -18,7 +18,10 @@ const help_message string =
  options:
  	--help: this help message
  	--l <object>: link to object
- 	--L <path>: set link search path
+ 	--L <path>: add link search path
+	--I <path>: add import search path
+
+	--o <file>: output file for executable
 
 	--tokens: print lexer tokens
 	--prepared_tokens: print PrePar tokens
@@ -31,7 +34,10 @@ const help_message string =
 var filename string
 
 var link_objects []string
-var link_path string
+var link_paths   []string
+var import_paths []string
+
+var out_filename string
 
 var print_tokens bool
 var print_prepared_tokens bool
@@ -40,6 +46,9 @@ var print_typed_ast bool
 var print_asm bool
 
 func main() {
+	import_paths = append(import_paths, "./") 
+	import_paths = append(import_paths, "/usr/include/myc/") 
+
 	// start from 1 to skip self
 	for i := 1; i < len(os.Args); i++ {
 		arg := os.Args[i]
@@ -81,7 +90,25 @@ func main() {
 					return
 				}
 
-				link_path = os.Args[i]
+				link_paths = append(link_paths, os.Args[i])
+			} else
+			if arg == "--I" {
+				i++
+				if i >= len(os.Args) {
+					fmt.Println("error: expected path after --L")
+					return
+				}
+
+				import_paths = append(import_paths, os.Args[i])
+			} else
+			if arg == "--o" {
+				i++
+				if i >= len(os.Args) {
+					fmt.Println("error: expected filename after --o")
+					return
+				}
+
+				out_filename = os.Args[i]
 			} else {
 				fmt.Println("Fatal: unrecognixed option `", arg, "`")
 				return
@@ -117,7 +144,7 @@ func main() {
 		fmt.Println(tokens)
 	}
 
-	tokens = front.PrePar(tokens)
+	tokens = front.PrePar(tokens, import_paths)
 	if tokens == nil {
 		fmt.Println("Preprocessing Errors: aborting...")
 		return 
@@ -196,12 +223,18 @@ func main() {
 		out.Name(),
 	}
 
-	if len(link_path) > 0 {
-		gcc_options = append(gcc_options, "-L" + link_path)
+	for _, link_path := range link_paths {
+		if len(link_path) > 0 {
+			gcc_options = append(gcc_options, "-L" + link_path)
+		}
 	}
 
 	for _, l := range(link_objects) {
 		gcc_options = append(gcc_options, "-l" + l)
+	}
+
+	if len(out_filename) > 0 {
+		gcc_options = append(gcc_options, "-o" + out_filename)
 	}
 
 	gcc_cmd := exec.Command("gcc", gcc_options...)

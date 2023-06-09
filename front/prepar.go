@@ -2,7 +2,8 @@ package front
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -50,9 +51,8 @@ func directive_op(src string)  (uint32, int) {
 
 var macros = map[string][]Token {}
 
-func PrePar(src []Token) ([]Token) {
+func PrePar(src []Token, import_paths []string) ([]Token) {
 	prepared := []Token{}
-
 
 	for	i := 0; i < len(src); i++ {
 		if src[i].Type == TOKEN_DIRECTIVE {
@@ -71,19 +71,28 @@ func PrePar(src []Token) ([]Token) {
 					return nil 
 				}
 
+				// try every search path
 				file_to_import := directive_tokens[0].String_value
-				src_to_import, read_err := ioutil.ReadFile(file_to_import)
-				if read_err != nil {
-					fmt.Println("pre-processor error: couldn't read file in `import` directive: `", file_to_import, "`")
-					return nil 
+				var src_to_import []byte
+				var read_err 	  error
+				for _, path := range import_paths {
+					_file_to_import := filepath.Join(path, file_to_import)
+					src_to_import, read_err = os.ReadFile(_file_to_import)
+					if read_err == nil {
+						goto found_file
+					}
 				}
+				fmt.Println("pre-processor error: couldn't read file in `import` directive: `", file_to_import, "`")
+				return nil 
+
+				found_file:
 				
 				tokens_to_import := Lex(string(src_to_import))
 				if tokens_to_import == nil {
 					fmt.Println("Lexical Errors: aborting...")
 					return nil
 				}
-				tokens_to_import = PrePar(tokens_to_import)
+				tokens_to_import = PrePar(tokens_to_import, import_paths)
 				if tokens_to_import == nil {
 					return nil
 				}
@@ -105,7 +114,7 @@ func PrePar(src []Token) ([]Token) {
 				}
 				value := directive_tokens[1:]
 
-				value = PrePar(value)
+				value = PrePar(value, import_paths)
 				if value == nil || len(value) <= 0 {
 					return nil 
 				}
