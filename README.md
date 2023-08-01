@@ -26,7 +26,7 @@ sudo apt-get install -y gdb
 sudo snap install go --classic
 ```
 
-### Run
+## Run
 ```
 myc [options] file [...]
 ```
