@@ -270,6 +270,24 @@ func Compatible(source *datatype.DataType, destination *datatype.DataType) bool 
 	return false
 }
 
+func field_align(field_type datatype.DataType) uint64 {
+	switch field_type.(type) {
+		case datatype_array.StaticArrayType: 
+			return field_align(field_type.(datatype_array.StaticArrayType).ElementType)
+		case datatype_struct.StructType:
+			return field_align(field_type.(datatype_struct.StructType).Fields[0].Type)
+	}
+	
+	/*
+		A char (one byte) will be 1-byte aligned.
+		A short (two bytes) will be 2-byte aligned.
+		An int (four bytes) will be 4-byte aligned.
+		A long (eight bytes) will be 8-byte aligned.
+		Any pointer (eight bytes) will be 8-byte aligned.
+	*/
+	return field_type.ByteSize()
+}
+
 func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 	if (ast.Type == front.AST_BODY 						&&
 	   (ast.Flags & front.ASTO_BODY_FUNCTION == 0)      &&
@@ -1182,6 +1200,7 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 			struct_name := ast.Children[0].Data[0].String_value
 
 			anon_struct_type.Name_ = struct_name
+			println("struct: ", struct_name)
 			
 			struct_type_symbol := TypeCheck_Symbol{anon_struct_type, nil}
 			symbol.SymbolTableInsertInCurrentScope(struct_name, struct_type_symbol)
@@ -1200,30 +1219,20 @@ func TypeCheck(ast *front.Ast_Node) *front.Ast_Node {
 				field_size := uint64(field_type.ByteSize())
 				field_offset := uint64(_struct.Size_)
 
-				/*
-					A char (one byte) will be 1-byte aligned.
-					A short (two bytes) will be 2-byte aligned.
-					An int (four bytes) will be 4-byte aligned.
-					A long (eight bytes) will be 8-byte aligned.
-					Any pointer (eight bytes) will be 8-byte aligned.
-				*/
-				align := field_size
-				
-				// search elementary type
-				_static_type := field_type
-				for datatype_array.IsStaticArrayType(_static_type) {
-					_static_type = _static_type.(datatype_array.StaticArrayType).ElementType
-					align = _static_type.ByteSize()
-				}
+				align := field_align(field_type)
 
 				padding := (align - (field_offset & uint64(align - 1))) & uint64(align - 1)
 
 				struct_field := datatype_struct.StructField{field_name, field_type, padding + field_offset}
 				_struct.AddField(struct_field)
 				
+				
 				_struct.Size_ += padding
 				_struct.Size_ += field_size
+
+				println("padding: ", padding)
 			}
+			println("size: ", _struct.Size_)
 
 			ast.DataType = _struct
 			symbol.SymbolScopeStackPop()

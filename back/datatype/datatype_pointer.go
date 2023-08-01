@@ -26,3 +26,10 @@ func (typ PointerType) Equals(t DataType) bool {
 	}
 	return false
 }
+
+func IsPointerType(t DataType) bool {
+	switch t.(type) {
+		case PointerType: return true
+	}
+	return false
+}

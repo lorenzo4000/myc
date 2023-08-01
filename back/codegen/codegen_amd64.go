@@ -2055,7 +2055,8 @@ func GEN_function_params(f *front.Ast_Node, args []Operand) Codegen_Out {
 	allocated_float_regs := 0
 	allocated_stack := int64(16) // return address (8B) + pushed rbp (8B)
 	for _, a := range args {
-		if (a.Type().ByteSize() > 16 || ((datatype.IsIntegerType(a.Type()) && allocated_int_regs >= len(IntegerArgumentRegisters)) || (a.Type().ByteSize() > 8 && allocated_int_regs >= len(IntegerArgumentRegisters)-1))) ||
+		is_int_type := datatype.IsIntegerType(a.Type()) || datatype.IsPointerType(a.Type())
+		if (a.Type().ByteSize() > 16 || ((is_int_type && allocated_int_regs >= len(IntegerArgumentRegisters)) || (a.Type().ByteSize() > 8 && allocated_int_regs >= len(IntegerArgumentRegisters)-1))) ||
 		   (datatype.IsFloatType(a.Type()) && allocated_float_regs >= len(FloatArgumentRegisters)) {
 			rbp, _ := REGISTER_RBP.GetRegister(datatype.TYPE_UINT64)
 
@@ -2126,7 +2127,8 @@ func GEN_callargs(args []Operand, params []datatype.DataType) Codegen_Out {
 
 	var args_in_stack []int
 	for i, a := range args {
-		if (params[i].ByteSize() > 16 || ((datatype.IsIntegerType(params[i]) && allocated_int_regs >= len(IntegerArgumentRegisters)) || (params[i].ByteSize() > 8 && allocated_int_regs >= len(IntegerArgumentRegisters)-1))) ||
+		is_int_type := datatype.IsIntegerType(params[i]) || datatype.IsPointerType(params[i])
+		if (params[i].ByteSize() > 16 || ((is_int_type && allocated_int_regs >= len(IntegerArgumentRegisters)) || (params[i].ByteSize() > 8 && allocated_int_regs >= len(IntegerArgumentRegisters)-1))) ||
 		   (datatype.IsFloatType(params[i]) && allocated_float_regs >= len(FloatArgumentRegisters)) {
 
 			args_in_stack = append(args_in_stack, i)
